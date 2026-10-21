@@ -6,7 +6,7 @@ Goal: isolate the skill's effect. Everything except the skill stays fixed.
 
 1. Pick 3–5 briefs covering different surfaces: at least one landing page, one help/docs page, and one **product UI** task (scope-safety check).
 2. For each brief, prepare two clean checkouts at the same commit: `run-a/` and `run-b/`.
-3. In the skill run only, install the skill (`.cursor/skills/antiwebslop/`). In the baseline, make sure no copy of it (or any other design skill) is present.
+3. In the skill run only, install the skill (`skills/antiwebslop/`). In the baseline, make sure no copy of it (or any other design skill) is present.
 4. Same agent, same model, same settings, same brief text, fresh chat each time. Record all of them in VALIDATION.md.
 
 ## Run
