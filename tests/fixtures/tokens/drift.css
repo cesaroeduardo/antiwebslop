@@ -1,0 +1,6 @@
+:root { --bg: #FBFBFA; --fg: #17181A; --accent: #0F766E; }
+body { font-family: 'Söhne', system-ui, sans-serif; color: var(--fg); }
+.ok { border-radius: 6px; font-family: "JetBrains Mono", monospace; }
+.title { font-family: 'Playfair Display', serif; }
+.badge { background: #FF5A1F; border-radius: 14px; }
+.pill { border-radius: 9999px; color: #fff; }
