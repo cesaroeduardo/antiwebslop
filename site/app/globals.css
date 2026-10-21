@@ -33,6 +33,9 @@
   --text-3xl: 3.157rem;
   --text-3xl--line-height: 1.05;
 
+  /* Page container: 1120px (was 1280px, narrowed 12.5% on 2026-10-21). Full-bleed parts ignore it. */
+  --container-page: 1120px;
+
   --radius-control: 6px;
   --radius-card: 10px;
   /* Media rows in the newer tells, after america.gov (38.2px phones, 57.3px desktop). */

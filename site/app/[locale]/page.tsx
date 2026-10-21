@@ -73,7 +73,7 @@ const languages: LanguageOption[] = [
 
 function Section({ id, children, className = '' }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
-    <section id={id} className={`mx-auto w-full max-w-[1280px] scroll-mt-6 px-4 sm:px-6 ${className}`}>
+    <section id={id} className={`mx-auto w-full max-w-page scroll-mt-6 px-4 sm:px-6 ${className}`}>
       {children}
     </section>
   );
@@ -134,7 +134,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </div>
       <div aria-hidden className="site-noise pointer-events-none fixed inset-0 z-40 opacity-10 mix-blend-overlay motion-reduce:hidden" />
 
-      <header className="relative mx-auto flex w-full max-w-[1280px] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
+      <header className="relative mx-auto flex w-full max-w-page items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
         <a href="#top" aria-label={t('common.backToTop')} className="shrink-0 text-base sm:text-lg"><Wordmark /></a>
         <nav aria-label={t('common.sections')} className="flex min-w-0 items-center gap-0 font-mono text-sm sm:gap-1">
           <ul className="flex items-center">
@@ -171,7 +171,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </section>
 
         {/* What it does: unequal cards with real artifacts, no intro text; each card title is the section's h2. */}
-        <section id="what" aria-label={t('what.sectionLabel')} className="mx-auto w-full max-w-[1280px] scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
+        <section id="what" aria-label={t('what.sectionLabel')} className="mx-auto w-full max-w-page scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12" data-reveal>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-7 md:p-8">
               <div className="max-w-[52ch]">
@@ -247,7 +247,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         {/* Newer tells: america.gov's stacked media rows, no section title (aria-label only). 12 columns: image at columns 2-7
             (bigger than america.gov's 4, same proportions), one empty column, topic title, copy and rule chips at 9-12, vertically centered.
             Rows 120px apart (80 under md); image radius 57px (38px under md); 40px image-to-chips on phones. */}
-        <section id="gallery" aria-label={t('gallery.title')} className="mx-auto w-full max-w-[1280px] scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
+        <section id="gallery" aria-label={t('gallery.title')} className="mx-auto w-full max-w-page scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
           <ul className="flex flex-col gap-20 md:gap-[120px]">
             {tellRows.map((row) => (
               <li key={row.key} className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-x-6" data-reveal>
@@ -256,7 +256,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     src="/slots/newer-tells.webp"
                     alt={t(`gallery.${row.key}Alt`)}
                     fill
-                    sizes={row.zoom ? '(min-width: 768px) 1448px, 200vw' : '(min-width: 1280px) 620px, (min-width: 768px) 50vw, 100vw'}
+                    sizes={row.zoom ? '(min-width: 768px) 1448px, 200vw' : '(min-width: 1120px) 540px, (min-width: 768px) 50vw, 100vw'}
                     priority={false}
                     className="object-cover"
                     style={row.zoom ? { transform: `scale(${row.zoom})`, transformOrigin: row.origin } : undefined}
@@ -378,7 +378,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </main>
 
       <footer className="relative overflow-hidden border-t border-border">
-        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-2 gap-8 px-4 pb-10 pt-16 sm:px-6 md:grid-cols-12">
+        <div className="mx-auto grid w-full max-w-page grid-cols-2 gap-8 px-4 pb-10 pt-16 sm:px-6 md:grid-cols-12">
           <div className="col-span-2 md:col-span-5">
             <Wordmark className="text-lg" />
             <p className="mt-4 max-w-[36ch] text-sm text-muted">{t('footer.tagline')}</p>
@@ -398,7 +398,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </nav>
           ))}
         </div>
-        <div className="mx-auto flex w-full max-w-[1280px] flex-wrap justify-between gap-2 border-t border-border px-4 py-6 font-mono text-cap text-muted sm:px-6">
+        <div className="mx-auto flex w-full max-w-page flex-wrap justify-between gap-2 border-t border-border px-4 py-6 font-mono text-cap text-muted sm:px-6">
           <span>{t('footer.rights')}</span>
           <span>{t('footer.stats', { version, rules: ruleCount, entries: catalogCount })} · <a className="link text-fg" href={REPO}>{t('footer.readAll')}</a></span>
         </div>
