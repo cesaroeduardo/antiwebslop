@@ -90,14 +90,12 @@
     "D": "Respeto del alcance"
   },
   "catalog": {
-    "title": "{count} señales, cada una con su corrección",
-    "body": "El catálogo completo, leído directamente de la skill al compilar. Una entrada solo se permite cuando el DESIGN.md del proyecto la documenta como parte de la marca.",
-    "link": "anti-patterns.md en GitHub",
+    "title": "Cada señal trae su corrección.",
+    "body": "Leído directamente de la skill. Una señal solo se permite si tu DESIGN.md la convierte en la marca.",
     "detect": "Detectar",
     "instead": "En su lugar",
     "noRule": "sin regla, a ojo",
-    "errorOrWarn": "error o aviso",
-    "englishNote": "Las entradas del catálogo vienen de la skill y quedan en inglés."
+    "errorOrWarn": "error o aviso"
   },
   "gallery": {
     "title": "Las señales más nuevas",

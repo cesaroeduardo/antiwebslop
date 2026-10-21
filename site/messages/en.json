@@ -90,14 +90,12 @@
     "D": "Scope safety"
   },
   "catalog": {
-    "title": "{count} tells, each with a fix",
-    "body": "The full catalog, read straight from the skill at build time. An entry is allowed only when the project’s DESIGN.md documents it as the brand.",
-    "link": "anti-patterns.md on GitHub",
+    "title": "Every tell comes with a fix.",
+    "body": "Read straight from the skill. A tell is allowed only when your DESIGN.md makes it the brand.",
     "detect": "Detect",
     "instead": "Do instead",
     "noRule": "no rule, by eye",
-    "errorOrWarn": "error or warn",
-    "englishNote": "Catalog entries are read from the skill and stay in English."
+    "errorOrWarn": "error or warn"
   },
   "gallery": {
     "title": "The newer tells",

@@ -90,14 +90,12 @@
     "D": "Respect du périmètre"
   },
   "catalog": {
-    "title": "{count} signes, chacun avec sa correction",
-    "body": "Le catalogue complet, lu directement dans la skill au build. Une entrée n’est permise que si le DESIGN.md du projet la documente comme faisant partie de la marque.",
-    "link": "anti-patterns.md sur GitHub",
+    "title": "Chaque signe a sa correction.",
+    "body": "Lu directement dans la skill. Un signe n’est permis que si votre DESIGN.md en fait la marque.",
     "detect": "Repérer",
     "instead": "À la place",
     "noRule": "pas de règle, à l’œil",
-    "errorOrWarn": "erreur ou avertissement",
-    "englishNote": "Les entrées du catalogue viennent de la skill et restent en anglais."
+    "errorOrWarn": "erreur ou avertissement"
   },
   "gallery": {
     "title": "Les signes plus récents",

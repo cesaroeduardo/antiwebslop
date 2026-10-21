@@ -90,14 +90,12 @@
     "D": "Segurança de escopo"
   },
   "catalog": {
-    "title": "{count} sinais, cada um com uma correção",
-    "body": "O catálogo completo, lido direto da skill no build. Uma entrada só é permitida quando o DESIGN.md do projeto a documenta como parte da marca.",
-    "link": "anti-patterns.md no GitHub",
+    "title": "Todo tell vem com a sua correção.",
+    "body": "Lido direto da skill. Um tell só é liberado quando o seu DESIGN.md faz dele a marca.",
     "detect": "Como identificar",
     "instead": "Faça no lugar",
     "noRule": "sem regra, no olho",
-    "errorOrWarn": "erro ou aviso",
-    "englishNote": "As entradas do catálogo vêm da skill e ficam em inglês."
+    "errorOrWarn": "erro ou aviso"
   },
   "gallery": {
     "title": "Os sinais mais recentes",

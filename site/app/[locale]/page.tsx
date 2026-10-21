@@ -234,10 +234,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-6">
             <div className="md:col-span-4">
               <div className="md:sticky md:top-8">
-                <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('catalog.title', { count: catalogCount })}</h2>
-                <p className="mb-4 max-w-[40ch] text-base text-muted">{t('catalog.body')}</p>
-                {locale === 'en' ? null : <p lang={locale} className="mb-4 max-w-[40ch] font-mono text-cap text-muted">{t('catalog.englishNote')}</p>}
-                <a className="link font-mono text-sm" href={blob('skills/antiwebslop/references/anti-patterns.md')}>{t('catalog.link')}</a>
+                <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('catalog.title')}</h2>
+                <p className="max-w-[40ch] text-base text-muted">{t('catalog.body')}</p>
               </div>
             </div>
             <div className="md:col-span-8">
