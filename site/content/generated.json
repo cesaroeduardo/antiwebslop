@@ -1,0 +1,752 @@
+{
+  "version": "0.2.0",
+  "ruleCount": 31,
+  "catalogCount": 35,
+  "catalog": [
+    {
+      "title": "Color and surface",
+      "items": [
+        {
+          "n": 1,
+          "title": "Purple/indigo/violet gradient and \"AI glow\"",
+          "lints": [
+            {
+              "id": "purple-gradient",
+              "severity": "error"
+            }
+          ],
+          "review": null,
+          "detect": "`from-purple-*`, `via-violet-*`, `to-indigo-*`, `linear-gradient(...)` with #6366f1 / #8b5cf6 / #7c3aed / #a855f7, colored `box-shadow` halos around buttons or cards.",
+          "instead": "Start from the brand's own color. Use flat fills; if a gradient is earned, keep it to two close stops of the same hue, used once."
+        },
+        {
+          "n": 2,
+          "title": "Gradient-text headlines",
+          "lints": [
+            {
+              "id": "gradient-text",
+              "severity": "error"
+            }
+          ],
+          "review": null,
+          "detect": "`bg-clip-text text-transparent`, `-webkit-background-clip: text`.",
+          "instead": "Solid ink color. Get emphasis from weight, size, or one highlighted word in the accent."
+        },
+        {
+          "n": 3,
+          "title": "Glassmorphism as decoration",
+          "lints": [
+            {
+              "id": "glassmorphism",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`backdrop-blur*`, `backdrop-filter: blur()` on cards, navbars, and badges all at once; translucent white borders everywhere.",
+          "instead": "Opaque surfaces separated by value (lighter or darker step) or a 1px hairline. Use blur only where content really scrolls under something (a sticky nav over imagery)."
+        },
+        {
+          "n": 4,
+          "title": "Decorative blur blobs and orbs",
+          "lints": [
+            {
+              "id": "blur-blob",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "absolutely positioned `rounded-full blur-3xl` divs, `filter: blur(80px)` circles behind the hero.",
+          "instead": "Real imagery, product UI, a typographic composition, or plain space."
+        },
+        {
+          "n": 5,
+          "title": "Cream + terracotta \"AI editorial\"",
+          "lints": [
+            {
+              "id": "cream-terracotta",
+              "severity": "error"
+            }
+          ],
+          "review": null,
+          "detect": "background #F4F1EA / #F5F0E8 / #FAF7F2 with #C2410C / #D97757 / #CC785C accents and a generic serif display face.",
+          "instead": "Derive warmth from the brand if it has any. If you want an editorial feel, commit to a specific typeface and grid, not the stock palette."
+        },
+        {
+          "n": 6,
+          "title": "Neon-on-black dark mode",
+          "lints": [],
+          "review": null,
+          "detect": "#000 canvas with saturated cyan/magenta/lime glows and glowing borders.",
+          "instead": "An off-black canvas (#0E0F11 to #16171A), 2–3 surface steps, one accent at reduced chroma, `color-scheme: dark`."
+        }
+      ]
+    },
+    {
+      "title": "Layout and composition",
+      "items": [
+        {
+          "n": 7,
+          "title": "Centered hero + three equal feature cards",
+          "lints": [
+            {
+              "id": "three-col-grid",
+              "severity": "info"
+            }
+          ],
+          "review": null,
+          "detect": "centered H1/sub/two buttons, then `grid-cols-3` of icon + title + two lines, repeated down the page.",
+          "instead": "Pick a composition from the content: left-aligned headline with product visual, split layout, a single strong statement with proof underneath, a feature list with unequal emphasis (one lead feature, smaller secondary ones)."
+        },
+        {
+          "n": 8,
+          "title": "Centered everything",
+          "lints": [
+            {
+              "id": "centered-everything",
+              "severity": "info"
+            }
+          ],
+          "review": null,
+          "detect": "`text-center` on most sections; long paragraphs centered.",
+          "instead": "Left-align body copy and most sections. Center only short, isolated statements."
+        },
+        {
+          "n": 9,
+          "title": "Same rhythm for every section",
+          "lints": [],
+          "review": null,
+          "detect": "every section = small label + H2 + gray subtitle + grid. Same padding, same width.",
+          "instead": "Vary density and width by section job (proof = dense, story = narrow and airy, pricing = tabular). See [craft § rhythm](craft.md#spacing-and-rhythm)."
+        },
+        {
+          "n": 10,
+          "title": "Cards inside cards; card stacks for everything",
+          "lints": [],
+          "review": null,
+          "detect": "bordered/shadowed containers nested 2+ deep; every piece of content boxed.",
+          "instead": "Group with space and alignment first, then a divider, then a card only if the thing is a separate, clickable object."
+        },
+        {
+          "n": 11,
+          "title": "Default bento grid",
+          "lints": [],
+          "review": null,
+          "detect": "a 2×3 or 3×3 mosaic of rounded tiles with icons and one-line claims, used because it is fashionable.",
+          "instead": "Use a bento only when the tiles show real, different content (screenshots, data, quotes) of meaningfully different sizes."
+        },
+        {
+          "n": 12,
+          "title": "Hero overlays and stickers",
+          "lints": [],
+          "review": null,
+          "detect": "floating badges (\"✨ New\", \"🚀 v2.0\"), detached labels, rotated stickers, avatars stacked with \"Join 10k+\".",
+          "instead": "Put announcements in the nav or under the primary action as a plain text link. Nothing sits above the headline (see 24)."
+        }
+      ]
+    },
+    {
+      "title": "Typography",
+      "items": [
+        {
+          "n": 13,
+          "title": "Inter/Roboto/Arial as the only display face",
+          "lints": [
+            {
+              "id": "default-font",
+              "severity": "info"
+            }
+          ],
+          "review": null,
+          "detect": "one family for everything, all headings `font-bold` at roughly the same sizes.",
+          "instead": "Choose a display face with character that fits the Design Read and pair it with a readable text face (see [craft § typography](craft.md#typography)). Inter is fine for body and UI text."
+        },
+        {
+          "n": 14,
+          "title": "No type scale",
+          "lints": [],
+          "review": null,
+          "detect": "arbitrary sizes (`text-[37px]`, 15 different sizes), headings that barely differ from body.",
+          "instead": "A ratio-based scale with 6–8 steps; headline at least 2.5× body on desktop."
+        }
+      ]
+    },
+    {
+      "title": "Components and decoration",
+      "items": [
+        {
+          "n": 15,
+          "title": "Uniform radius + shadow on everything",
+          "lints": [
+            {
+              "id": "uniform-radius-shadow",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "the same `rounded-2xl shadow-lg` (or `rounded-xl shadow-md`) on cards, buttons, inputs, images.",
+          "instead": "A radius scale by role (controls small, containers medium, media square or large) and elevation only for things that float (menus, dialogs)."
+        },
+        {
+          "n": 16,
+          "title": "Icon soup",
+          "lints": [
+            {
+              "id": "icon-soup",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a lucide/heroicons icon in every card, bullet, button, and heading; many icons imported in one file.",
+          "instead": "Icons only where they speed up recognition (nav, controls, status). Feature lists can use numbers, typography, or real screenshots."
+        },
+        {
+          "n": 17,
+          "title": "Emoji as bullets, icons, or badges",
+          "lints": [
+            {
+              "id": "emoji-decoration",
+              "severity": "error"
+            }
+          ],
+          "review": null,
+          "detect": "emoji at the start of list items, headings, buttons, or badges (🚀 ✨ ⚡ 🔥 ✅).",
+          "instead": "Real list markers, an icon from the project set, or nothing."
+        },
+        {
+          "n": 18,
+          "title": "transition: all and unguarded motion",
+          "lints": [
+            {
+              "id": "transition-all",
+              "severity": "error"
+            },
+            {
+              "id": "motion-no-reduce",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`transition-all`, `transition: all`; keyframes or `animate-*` with no `prefers-reduced-motion` / `motion-safe:` / `motion-reduce:`.",
+          "instead": "Transition named properties (`opacity, transform`), 150–300ms, and guard non-essential motion."
+        },
+        {
+          "n": 19,
+          "title": "Removed focus outline",
+          "lints": [
+            {
+              "id": "outline-none",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`outline-none` / `outline: none` without a `focus-visible` replacement.",
+          "instead": "`focus-visible:` ring in the accent color, offset 2px."
+        }
+      ]
+    },
+    {
+      "title": "Copy and content",
+      "items": [
+        {
+          "n": 20,
+          "title": "Generic hero and marketing copy",
+          "lints": [
+            {
+              "id": "slop-copy",
+              "severity": "error"
+            }
+          ],
+          "review": null,
+          "detect": "\"Unlock the power of\", \"Supercharge\", \"Seamless\", \"Elevate your\", \"Revolutionize\", \"Next-level\", \"Cutting-edge\", \"Harness\", \"Empower\", \"Effortless\", \"In today's fast-paced world\", \"Built for the future\", \"lorem ipsum\".",
+          "instead": "Say what the product does, for whom, with a concrete noun and number: *\"Track every Pokémon Unite match you play, with per-hero win rates.\"*"
+        },
+        {
+          "n": 21,
+          "title": "Generic CTAs",
+          "lints": [
+            {
+              "id": "generic-cta",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "\"Get Started\", \"Learn More\", \"Sign Up Now\", \"Try it free\" as the only CTA text.",
+          "instead": "Name the action and object: \"Open the build wheel\", \"Import my matches\"."
+        },
+        {
+          "n": 22,
+          "title": "Fake social proof and metrics",
+          "lints": [
+            {
+              "id": "fake-proof",
+              "severity": "warn"
+            },
+            {
+              "id": "placeholder-name",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "\"Trusted by 10,000+ teams\", \"10x faster\", \"99.9% uptime\", testimonials from \"Jane Doe, CEO at Acme\", logo walls of companies that are not customers.",
+          "instead": "Use only real, sourced proof. If none exists, leave the section out, or mark it `TODO(content): real testimonial` so it cannot ship by accident."
+        },
+        {
+          "n": 23,
+          "title": "Stock filler content",
+          "lints": [],
+          "review": null,
+          "detect": "placeholder paragraphs that could describe any product; stock photos of people pointing at laptops; three-word feature titles (\"Fast. Secure. Reliable.\").",
+          "instead": "Use the project's real content: actual screenshots, data, names, prices, changelog items. Ask for content when it is missing rather than inventing it."
+        }
+      ]
+    },
+    {
+      "title": "Newer tells, added 2026-10",
+      "items": [
+        {
+          "n": 24,
+          "title": "Eyebrow / kicker above a heading",
+          "lints": [
+            {
+              "id": "eyebrow-kicker",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a tiny uppercase, letter-spaced or pill-shaped label (\"INTRODUCING\", \"Features\", \"New\") on the line right before an H1–H3.",
+          "instead": "Delete it, or put its useful words into the heading. If the page needs wayfinding, use breadcrumbs or the nav."
+        },
+        {
+          "n": 25,
+          "title": "Decorative section numbers",
+          "lints": [
+            {
+              "id": "section-number",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "\"01 — Discover\", \"02\", \"03\" labels on sections that are not steps.",
+          "instead": "Number only things the reader must do or read in order (setup steps, a process). Otherwise the heading is enough."
+        },
+        {
+          "n": 26,
+          "title": "Hero-metric row",
+          "lints": [
+            {
+              "id": "hero-metric",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "three or more huge numbers with tiny captions (\"99%\", \"2.4M\", \"150+\"), usually right under the hero.",
+          "instead": "Use a number only when it is real, sourced, and explains the product; give it a sentence of context. One meaningful number beats a row of vague ones."
+        },
+        {
+          "n": 27,
+          "title": "Colored side-tab borders",
+          "lints": [
+            {
+              "id": "side-tab-border",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`border-left: 4px solid <color>` or `border-l-4 border-<color>` on ordinary cards, list items, or quotes.",
+          "instead": "Keep side stripes for real status (an error or warning callout). Elsewhere separate with space or a full 1px hairline."
+        },
+        {
+          "n": 28,
+          "title": "Bounce, elastic, or overshoot easing",
+          "lints": [
+            {
+              "id": "bounce-easing",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`animate-bounce`, `easeOutBack`/`elastic`, `cubic-bezier()` with a y value below 0 or above 1.",
+          "instead": "A short ease-out that settles once. Playful springs only where the brand is explicitly playful, and never on routine UI like dialogs."
+        },
+        {
+          "n": 29,
+          "title": "Endless attention loops",
+          "lints": [
+            {
+              "id": "attention-loop",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a small `rounded-full` dot with `animate-ping`/`animate-pulse`, `<marquee>`, logo tickers that scroll forever.",
+          "instead": "Static status stays static; animate only a real change. Logo rows sit still and can be scanned at the reader's pace."
+        },
+        {
+          "n": 30,
+          "title": "Hard offset shadows",
+          "lints": [
+            {
+              "id": "hard-offset-shadow",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`box-shadow: 6px 6px 0 #000`, `shadow-[4px_4px_0_...]` on a site that is not neobrutalist anywhere else.",
+          "instead": "Elevation from soft, offset shadows on floating UI only, or no shadow at all. Use the hard block shadow only if the whole visual language is built on it."
+        },
+        {
+          "n": 31,
+          "title": "Gray text on colored surfaces",
+          "lints": [
+            {
+              "id": "gray-on-color",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`bg-indigo-600 text-gray-400`, or neutral gray copy on any saturated panel.",
+          "instead": "Use a light ink, or a tint of the surface's own hue for secondary text, and check contrast against the real background."
+        },
+        {
+          "n": 32,
+          "title": "Em-dash overuse",
+          "lints": [
+            {
+              "id": "em-dash-overuse",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "em dashes on four or more lines of one file's visible copy (\"Fast — reliable — secure\").",
+          "instead": "Most dashes want to be a full stop. Keep a dash only where an aside really interrupts the sentence."
+        },
+        {
+          "n": 33,
+          "title": "\"Not X. A Y.\" slogan contrast",
+          "lints": [
+            {
+              "id": "not-x-a-y",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "\"Not just another dashboard. A command center.\", \"It's not a tool. It's a platform.\"",
+          "instead": "Say what it does in one plain sentence. If the difference from alternatives matters, name the alternative and the concrete difference."
+        },
+        {
+          "n": 34,
+          "title": "Oversized hero headline",
+          "lints": [],
+          "review": "design review",
+          "detect": "the headline alone fills the first viewport; more than 3 lines at 1440px or more than 5 at 390px; the CTA falls below the fold.",
+          "instead": "Shorten the headline first, then cap the size (see [craft § typography](craft.md#typography))."
+        },
+        {
+          "n": 35,
+          "title": "Off-system values",
+          "lints": [
+            {
+              "id": "token-font",
+              "severity": "info"
+            }
+          ],
+          "review": null,
+          "detect": "fonts, hex colors, or radii in code that are not in the project's DESIGN.md `design-tokens` block.",
+          "instead": "Use a documented token. If the new value is intentional, add it to DESIGN.md first (and log why), then use it."
+        }
+      ]
+    }
+  ],
+  "lintSamples": {
+    "a": {
+      "file": "landing.html",
+      "errors": 9,
+      "warnings": 8,
+      "info": 3,
+      "lines": [
+        {
+          "loc": "landing.html:6",
+          "severity": "error",
+          "rule": "cream-terracotta",
+          "msg": "stock \"AI editorial\" cream/terracotta palette"
+        },
+        {
+          "loc": "landing.html:7",
+          "severity": "error",
+          "rule": "purple-gradient",
+          "msg": "purple/indigo/violet gradient or glow; derive color from the brand"
+        },
+        {
+          "loc": "landing.html:8",
+          "severity": "error",
+          "rule": "gradient-text",
+          "msg": "gradient-text headline; use solid ink and weight/size for emphasis"
+        },
+        {
+          "loc": "landing.html:9",
+          "severity": "warn",
+          "rule": "glassmorphism",
+          "msg": "backdrop blur; use opaque surfaces unless content really scrolls underneath"
+        },
+        {
+          "loc": "landing.html:10",
+          "severity": "warn",
+          "rule": "blur-blob",
+          "msg": "decorative blur blob/orb; use real imagery or space"
+        },
+        {
+          "loc": "landing.html:11",
+          "severity": "error",
+          "rule": "transition-all",
+          "msg": "transition all; list properties (opacity, transform)"
+        },
+        {
+          "loc": "landing.html:12",
+          "severity": "warn",
+          "rule": "outline-none",
+          "msg": "focus outline removed; add a focus-visible replacement"
+        },
+        {
+          "loc": "landing.html:13",
+          "severity": "warn",
+          "rule": "cream-terracotta",
+          "msg": "stock \"AI editorial\" cream/terracotta palette"
+        },
+        {
+          "loc": "landing.html:14",
+          "severity": "warn",
+          "rule": "motion-no-reduce",
+          "msg": "animation without prefers-reduced-motion / motion-safe guard"
+        },
+        {
+          "loc": "landing.html:20",
+          "severity": "error",
+          "rule": "emoji-decoration",
+          "msg": "emoji used as bullet/icon/badge; use real markers, an icon set, or nothing"
+        },
+        {
+          "loc": "landing.html:21",
+          "severity": "error",
+          "rule": "slop-copy",
+          "msg": "generic AI marketing copy; say what the product does, concretely"
+        },
+        {
+          "loc": "landing.html:22",
+          "severity": "error",
+          "rule": "slop-copy",
+          "msg": "generic AI marketing copy; say what the product does, concretely"
+        },
+        {
+          "loc": "landing.html:23",
+          "severity": "warn",
+          "rule": "generic-cta",
+          "msg": "generic CTA text; name the action and object"
+        },
+        {
+          "loc": "landing.html:24",
+          "severity": "warn",
+          "rule": "fake-proof",
+          "msg": "unverified social proof or metric; use real, sourced data or remove"
+        },
+        {
+          "loc": "landing.html:27",
+          "severity": "error",
+          "rule": "emoji-decoration",
+          "msg": "emoji used as bullet/icon/badge; use real markers, an icon set, or nothing"
+        },
+        {
+          "loc": "landing.html:29",
+          "severity": "warn",
+          "rule": "placeholder-name",
+          "msg": "placeholder person/company; fake testimonials must not ship"
+        },
+        {
+          "loc": "landing.html:30",
+          "severity": "error",
+          "rule": "slop-copy",
+          "msg": "generic AI marketing copy; say what the product does, concretely"
+        }
+      ]
+    },
+    "b": {
+      "file": "v2-landing.html",
+      "errors": 0,
+      "warnings": 14,
+      "info": 0,
+      "lines": [
+        {
+          "loc": "v2-landing.html:5",
+          "severity": "warn",
+          "rule": "side-tab-border",
+          "msg": "thick colored side stripe on a card; use it only for real status, else drop it"
+        },
+        {
+          "loc": "v2-landing.html:6",
+          "severity": "warn",
+          "rule": "hard-offset-shadow",
+          "msg": "zero-blur offset shadow; only if the project really is neobrutalist"
+        },
+        {
+          "loc": "v2-landing.html:7",
+          "severity": "warn",
+          "rule": "bounce-easing",
+          "msg": "bounce/elastic/overshoot easing; settle with a plain ease-out"
+        },
+        {
+          "loc": "v2-landing.html:8",
+          "severity": "warn",
+          "rule": "attention-loop",
+          "msg": "pulsing dot or marquee that moves forever; keep static things still"
+        },
+        {
+          "loc": "v2-landing.html:13",
+          "severity": "warn",
+          "rule": "eyebrow-kicker",
+          "msg": "small label above a heading; fold the useful words into the heading or drop it"
+        },
+        {
+          "loc": "v2-landing.html:14",
+          "severity": "warn",
+          "rule": "placeholder-name",
+          "msg": "placeholder person/company; fake testimonials must not ship"
+        },
+        {
+          "loc": "v2-landing.html:15",
+          "severity": "warn",
+          "rule": "not-x-a-y",
+          "msg": "\"Not X. A Y.\" slogan contrast; state the useful fact directly"
+        },
+        {
+          "loc": "v2-landing.html:17",
+          "severity": "warn",
+          "rule": "section-number",
+          "msg": "01/02/03 section label; number only real sequences"
+        },
+        {
+          "loc": "v2-landing.html:17",
+          "severity": "warn",
+          "rule": "em-dash-overuse",
+          "msg": "em dashes on 5 lines; split into sentences or use other punctuation"
+        },
+        {
+          "loc": "v2-landing.html:18",
+          "severity": "warn",
+          "rule": "section-number",
+          "msg": "01/02/03 section label; number only real sequences"
+        },
+        {
+          "loc": "v2-landing.html:21",
+          "severity": "warn",
+          "rule": "hero-metric",
+          "msg": "3 big-number stats; the stat-row template says little unless each number has context and a source"
+        },
+        {
+          "loc": "v2-landing.html:25",
+          "severity": "warn",
+          "rule": "gray-on-color",
+          "msg": "gray text on a colored surface; tint the text from the surface hue or use a light ink"
+        },
+        {
+          "loc": "v2-landing.html:26",
+          "severity": "warn",
+          "rule": "attention-loop",
+          "msg": "pulsing dot or marquee that moves forever; keep static things still"
+        },
+        {
+          "loc": "v2-landing.html:27",
+          "severity": "warn",
+          "rule": "attention-loop",
+          "msg": "pulsing dot or marquee that moves forever; keep static things still"
+        }
+      ]
+    },
+    "clean": {
+      "file": "clean/landing.html",
+      "errors": 0,
+      "warnings": 0,
+      "info": 0
+    }
+  },
+  "hookReply": "slop-lint (design check) on the file you just wrote: 9 error, 8 warn.\nsrc/landing.html:6 error cream-terracotta: stock \"AI editorial\" cream/terracotta palette\nsrc/landing.html:7 error purple-gradient: purple/indigo/violet gradient or glow; derive color from the brand\nsrc/landing.html:8 error gradient-text: gradient-text headline; use solid ink and weight/size for emphasis\nsrc/landing.html:9 warn glassmorphism: backdrop blur; use opaque surfaces unless content really scrolls underneath\nsrc/landing.html:10 warn blur-blob: decorative blur blob/orb; use real imagery or space\nsrc/landing.html:11 error transition-all: transition all; list properties (opacity, transform)\nsrc/landing.html:12 warn outline-none: focus outline removed; add a focus-visible replacement\nsrc/landing.html:13 warn cream-terracotta: stock \"AI editorial\" cream/terracotta palette\nsrc/landing.html:14 warn motion-no-reduce: animation without prefers-reduced-motion / motion-safe guard\nsrc/landing.html:20 error emoji-decoration: emoji used as bullet/icon/badge; use real markers, an icon set, or nothing\nsrc/landing.html:21 error slop-copy: generic AI marketing copy; say what the product does, concretely\nsrc/landing.html:22 error slop-copy: generic AI marketing copy; say what the product does, concretely\nsrc/landing.html:23 warn generic-cta: generic CTA text; name the action and object\nsrc/landing.html:24 warn fake-proof: unverified social proof or metric; use real, sourced data or remove\nsrc/landing.html:27 error emoji-decoration: emoji used as bullet/icon/badge; use real markers, an icon set, or nothing\nsrc/landing.html:29 warn placeholder-name: placeholder person/company; fake testimonials must not ship\nsrc/landing.html:30 error slop-copy: generic AI marketing copy; say what the product does, concretely\nFix every error. For each warn, fix it or keep it with a one-line reason in a `slop-lint-disable-line` comment.",
+  "comparison": [
+    [
+      "Size",
+      "One skill folder, ~5 KB entry file, plain Markdown + ~375 lines of JS",
+      "Monorepo with a compiled engine and per-tool builds"
+    ],
+    [
+      "Runtime",
+      "Node script, no downloads, no network",
+      "Self-contained engine binary, bundled or downloaded once on first run"
+    ],
+    [
+      "Telemetry",
+      "None",
+      "Anonymous data about design-direction picks, on by default, opt-out"
+    ],
+    [
+      "Detection",
+      "31 source rules + DESIGN.md token drift",
+      "61 rules on source and rendered pages, plus design-system checks"
+    ],
+    [
+      "Agents",
+      "Plugin manifests for Claude Code, Codex, and Cursor; `npx skills` for the rest",
+      "About 17 tools with native installers"
+    ],
+    [
+      "Proof",
+      "Built-in blind A/B protocol and scorecard",
+      "Demos, case study, community testimonials"
+    ],
+    [
+      "Content honesty",
+      "Named rules against invented proof and placeholder people",
+      "Asks before adding claims"
+    ]
+  ],
+  "priorArt": [
+    {
+      "name": "Impeccable",
+      "url": "https://impeccable.style",
+      "by": "Paul Bakaus",
+      "license": "Apache-2.0",
+      "note": "the ideas of grouping surfaces by what the visitor is there to do, checking code against the project's own design tokens, feeding detector results back to the agent through hooks, and dating slop by era. No text or code was copied."
+    },
+    {
+      "name": "Taste Skill",
+      "url": "https://www.tasteskill.dev/",
+      "by": null,
+      "license": null,
+      "note": "the Design Read, dials, and bans."
+    },
+    {
+      "name": "Vercel web-interface-guidelines",
+      "url": "https://github.com/vercel-labs/web-interface-guidelines",
+      "by": null,
+      "license": null,
+      "note": "accessibility and UX audit rules."
+    },
+    {
+      "name": "getdesign.md",
+      "url": "https://getdesign.md/",
+      "by": null,
+      "license": null,
+      "note": "`DESIGN.md` as a reusable brief."
+    },
+    {
+      "name": "image-to-code-skill",
+      "url": "https://github.com/Leonxlnx/taste-skill/tree/main/skills/image-to-code-skill",
+      "by": null,
+      "license": null,
+      "note": "reference → extract → implement."
+    },
+    {
+      "name": "Playwright CLI",
+      "url": "https://playwright.dev/agent-cli/introduction",
+      "by": null,
+      "license": null,
+      "note": "multi-viewport screenshots."
+    }
+  ]
+}
