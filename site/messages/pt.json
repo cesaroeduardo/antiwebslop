@@ -21,7 +21,7 @@
     "newTab": "(abre em nova aba)"
   },
   "hero": {
-    "title": "Chega de AI slop na nossa web. Pare de publicar a página que todo mundo já viu.",
+    "title": "Pare de publicar a página que todo mundo já viu.",
     "line": "Uma skill e um lint que impedem seu agente de entregar UI genérica.",
     "installLabel": "Comando de instalação"
   },
