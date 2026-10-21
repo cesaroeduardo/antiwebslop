@@ -134,6 +134,14 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Surfaces:** marketing
 - **Refs:** https://useplanes.com/ (second section), `/workspace/site-shots/v5-canvas-*.png`, `/workspace/site-shots/v5-lightbox-*.png`
 
+### 2026-10-21 — Hero photo, full bleed
+- **Context:** Eduardo supplied `public/hero/portrait.webp` (a worried face behind reeded glass with lilac light) for a noone.is-style hero.
+- **Decision:** the photo fills the first screen edge to edge, behind the header (`next/image` fill, priority, `sizes=100vw`; 64svh on phones so both eyes stay in frame above the text). It replaces the top light there. Three scrims in the bg color (bottom to top, left to right, a short one under the header) keep the headline, line and install command AA readable. Decorative: `alt=""`, `aria-hidden`.
+- **Why:** one strong, specific image says "generated sameness is a problem" better than more copy; the lilac in the glass is the brand accent, not an added glow.
+- **Exception:** the scrims are the only gradients on the site, bg-color to transparent only, never a color gradient.
+- **Surfaces:** marketing
+- **Refs:** `/workspace/site-shots/v6-hero-photo-1440.png`, `/workspace/site-shots/v6-hero-photo-390.png`
+
 ## 12. References
 - Layout patterns (borrowed, not copied): useplanes.com (edgeless draggable card canvas, unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).
 - Stack reference: falcaobatidos.com.br (Next.js 16 App Router on Vercel, Tailwind 4, next/font, Radix, lucide, GSAP + ScrollTrigger, Lenis).

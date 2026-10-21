@@ -153,8 +153,22 @@ export default function Home() {
         Skip to content
       </a>
       <Motion />
-      {/* Top light and flickering grain, ported from figma-dominate: a soft light image behind the hero and a looping noise tile fixed over the whole page (overlay, no pointer events). */}
-      <div aria-hidden className="top-light pointer-events-none absolute inset-x-0 top-0 h-[800px]" />
+      {/* Hero photo, full bleed behind the header and the hero (first screen), after noone.is. Decorative.
+          Scrims in the bg color keep the headline, line and install command AA readable on the bottom edge.
+          The flickering grain (from figma-dominate) stays fixed over the whole page. */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[64svh] min-h-[420px] overflow-hidden md:h-[100svh] md:min-h-[560px]">
+        <Image
+          src="/hero/portrait.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[47%_22%] md:object-[50%_28%]"
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-bg from-12% via-bg/85 via-40% to-transparent to-80%" />
+        <div className="absolute inset-0 bg-linear-to-r from-bg/70 to-transparent to-55%" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-bg/70 to-transparent" />
+      </div>
       <div aria-hidden className="site-noise pointer-events-none fixed inset-0 z-40 opacity-10 mix-blend-overlay motion-reduce:hidden" />
 
       <header className="relative mx-auto flex w-full max-w-[1280px] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
