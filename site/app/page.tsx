@@ -32,6 +32,67 @@ const rubric: [string, string, string][] = [
   ['D', 'Scope safety', 'gate'],
 ];
 
+const protocol: { phase: string; source: string; title: string; rules: string[] }[] = [
+  {
+    phase: 'Setup',
+    source: 'ab-protocol.md',
+    title: 'Fix everything but the skill',
+    rules: [
+      '3 to 5 briefs: at least one landing page, one help/docs page, and one product UI task.',
+      'Two clean checkouts per brief at the same commit, `run-a/` and `run-b/`.',
+      'The skill is installed in one run only. The baseline has no copy of it, or of any other design skill.',
+      'Same agent, model, settings and brief text, in a fresh chat each time.',
+    ],
+  },
+  {
+    phase: 'Run',
+    source: 'ab-protocol.md',
+    title: 'Let each run finish on its own',
+    rules: [
+      'The brief is pasted verbatim; clarifying questions get the same scripted answers in both runs.',
+      'No steering. One follow-up allowed: “Finish and make it production-ready.”',
+      'Both runs are captured at 3 viewports, and `slop-lint --json` is saved for each.',
+    ],
+  },
+  {
+    phase: 'Blind review',
+    source: 'ab-protocol.md',
+    title: 'Pick first, score after',
+    rules: [
+      'Left and right are assigned at random; someone other than the reviewer keeps the key.',
+      'The reviewer answers one question: which looks designed by a person for this product? Left, right or tie, and one sentence why.',
+      'Then both outputs are scored on the 42-point card.',
+    ],
+  },
+  {
+    phase: 'Decide',
+    source: 'rubric.md',
+    title: 'Ship only past the bar',
+    rules: [
+      'With-skill total at least 1.3× the baseline, across the brief set.',
+      'Zero lint errors in the with-skill outputs, and the scope-safety gate passes on every run.',
+      'Wins or ties the blind pick in at least 2 of 3 briefs. A regression on any brief is logged before anything else changes.',
+    ],
+  },
+];
+
+const scorecard: { key: string; name: string; note: string; pts?: number }[] = [
+  { key: 'A', name: 'Slop absence', note: '10 items, 8 with lint evidence', pts: 20 },
+  { key: 'B', name: 'Craft', note: '6 items: type, spacing, color, hierarchy, real content', pts: 12 },
+  { key: 'C', name: 'Process', note: '5 items: Design Read, dials, DESIGN.md, visual QA, a11y', pts: 10 },
+  { key: 'D', name: 'Scope safety', note: 'Product UI untouched unless asked. A fail fails the run.' },
+];
+
+const validationLines = [
+  '### YYYY-MM-DD — <brief> — skill @ <sha>',
+  '- Baseline:   A · B · C · total /42 · D · lint',
+  '- With skill: A · B · C · total /42 · D · lint',
+  '- Blind pick: with-skill | baseline | tie',
+  ' ',
+  '## Runs',
+  '_None yet._',
+];
+
 const nav: [string, string][] = [
   ['#catalog', 'Catalog'],
   ['#gallery', 'Gallery'],
@@ -244,51 +305,75 @@ export default function Home() {
           </ul>
         </Section>
 
-        {/* Eval: protocol and an honest, empty results table. */}
+        {/* Eval: asymmetric ledger. Left, the A/B protocol as a vertical timeline of its four phases;
+            right (sticky on desktop), the 42-point scorecard drawn to scale and the validation log as it stands: empty. */}
         <Section id="eval" className="pt-32 md:pt-40">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-6">
-            <div className="md:col-span-5">
-              <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">How we measure it</h2>
-              <p className="mb-6 max-w-[46ch] text-base text-muted">
-                Opinions about taste are cheap, so the skill comes with its own test. Same agent, same model, same brief, with and without
-                the skill.
-              </p>
-              <ol className="flex flex-col gap-4">
-                {[
-                  'Write 3 to 5 briefs: at least one landing page, one docs page, and one product UI task.',
-                  'Run each brief twice from the same commit, once with the skill installed and once without.',
-                  'Someone who does not know which is which picks the one that looks designed by a person, then scores both on the 42-point card.',
-                  'A skill change ships only if it scores at least 1.3× the baseline, has zero lint errors, and wins or ties the blind pick in 2 of 3 briefs.',
-                ].map((s, i) => (
-                  <li key={i} className="grid grid-cols-[2rem_1fr] text-base">
-                    <span className="font-mono text-sm text-muted tabular-nums">{i + 1}.</span>
-                    <span className="text-fg">{s}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <div className="md:col-span-7">
-              <div className="overflow-x-auto rounded-card border border-border">
-                <table className="w-full min-w-[520px] border-collapse text-left text-sm">
-                  <caption className="border-b border-border px-4 py-3 text-left font-mono text-cap text-muted">Results, from eval/VALIDATION.md</caption>
-                  <thead className="font-mono text-cap text-muted">
-                    <tr>
-                      {['Brief', 'Surface', 'Baseline', 'With skill', 'Blind pick'].map((h) => <th key={h} scope="col" className="px-4 py-2 font-normal">{h}</th>)}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-t border-border">
-                      <td colSpan={5} className="px-4 py-8 text-fg">
-                        No runs yet. The first scored runs will appear here exactly as logged, with links to the screenshots and lint JSON.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div className="grid grid-cols-1 gap-6 border-b border-border pb-10 md:grid-cols-12 md:items-end">
+            <h2 className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">How we measure it</h2>
+            <p className="max-w-[46ch] text-base text-muted md:col-span-5 md:col-start-8">
+              Opinions about taste are cheap, so the skill comes with its own test: same agent, same model, same brief, run with and
+              without the skill, picked blind, then scored.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-16 pt-12 md:grid-cols-12 md:gap-6 md:pt-16">
+            <ol className="relative md:col-span-7 md:pr-12" data-reveal aria-label="A/B protocol">
+              {protocol.map((step) => (
+                <li key={step.phase} className="relative grid grid-cols-1 gap-3 border-l border-border-strong pb-14 pl-6 last:border-l-transparent last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-6 sm:pl-8">
+                  <span aria-hidden className="absolute -left-[5px] top-[0.4rem] size-[9px] bg-fg" />
+                  <p className="font-mono text-cap text-muted">
+                    <span className="block text-sm text-fg">{step.phase}</span>
+                    <span className="block">{step.source}</span>
+                  </p>
+                  <div>
+                    <h3 className="mb-4 text-lg font-medium">{step.title}</h3>
+                    <ul className="border-t border-border">
+                      {step.rules.map((r) => (
+                        <li key={r} className="prose-inline border-b border-border py-3 text-base text-muted"><Inline text={r} /></li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <aside className="md:col-span-5" aria-label="Scorecard and results">
+              <div className="flex flex-col gap-6 md:sticky md:top-8">
+                <figure className="rounded-card border border-border bg-surface p-5 sm:p-6">
+                  <figcaption className="mb-5 flex items-baseline justify-between gap-4 font-mono text-cap text-muted">
+                    <span>Scorecard, drawn to scale</span>
+                    <span className="tabular-nums text-fg">42 pts + gate</span>
+                  </figcaption>
+                  <div className="flex h-16 gap-1 font-mono text-cap" aria-hidden>
+                    {scorecard.filter((s) => s.pts).map((s) => (
+                      <span key={s.key} className="flex items-end justify-between gap-1 bg-surface-2 p-2 text-fg" style={{ flexGrow: s.pts ?? 0, flexBasis: 0 }}><span>{s.key}</span><span className="hidden tabular-nums text-muted sm:inline">{s.pts}</span></span>
+                    ))}
+                    <span className="flex w-12 shrink-0 items-end border border-dashed border-border-strong p-2 text-muted">D</span>
+                  </div>
+                  <table className="mt-5 w-full border-collapse text-left text-sm">
+                    <caption className="sr-only">Scorecard sections, from eval/rubric.md</caption>
+                    <tbody>
+                      {scorecard.map((s) => (
+                        <tr key={s.key} className="border-t border-border align-top">
+                          <th scope="row" className="w-8 py-3 font-mono text-cap font-normal text-muted">{s.key}</th>
+                          <td className="py-3">
+                            <span className="block text-fg">{s.name}</span>
+                            <span className="block text-cap text-muted">{s.note}</span>
+                          </td>
+                          <td className="whitespace-nowrap py-3 pl-3 text-right font-mono text-cap tabular-nums text-fg">{s.pts ? `${s.pts} pts` : 'pass / fail'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p className="mt-4 border-t border-border pt-4 font-mono text-cap text-muted">Each item 0 fails · 1 partly · 2 clearly passes</p>
+                </figure>
+
+                <Terminal title="eval/VALIDATION.md · runs logged: 0" wrap lines={validationLines} />
+                <p className="font-mono text-cap text-muted">
+                  No scores are shown until a run is logged. <a className="link" href={blob('eval/rubric.md')}>rubric.md</a> · <a className="link" href={blob('eval/ab-protocol.md')}>ab-protocol.md</a> · <a className="link" href={blob('eval/VALIDATION.md')}>VALIDATION.md</a>
+                </p>
               </div>
-              <p className="mt-4 font-mono text-cap text-muted">
-                <a className="link" href={blob('eval/rubric.md')}>rubric.md</a> · <a className="link" href={blob('eval/ab-protocol.md')}>ab-protocol.md</a> · <a className="link" href={blob('eval/VALIDATION.md')}>VALIDATION.md</a>
-              </p>
-            </div>
+            </aside>
           </div>
         </Section>
 

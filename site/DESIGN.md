@@ -117,6 +117,14 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Surfaces:** marketing
 - **Refs:** `app/page.tsx`
 
+### 2026-10-21 — "How we measure it" as a protocol ledger
+- **Context:** the eval section was a numbered list next to an empty five-column table; it read as filler.
+- **Decision:** asymmetric 7/5 split. Left: the A/B protocol as a vertical timeline of its four phases (Setup, Run, Blind review, Decide), each with its source file and the rules it fixes. Right, sticky on desktop: the scorecard drawn to scale (A 20, B 12, C 10 as proportional blocks, D as a dashed gate) and the VALIDATION.md entry format with "runs logged: 0".
+- **Why:** the protocol is the evidence until runs exist; drawing the card to scale shows where the points are without inventing any score.
+- **Do not:** show a score, a run, or a sample result before `../eval/VALIDATION.md` logs one.
+- **Surfaces:** marketing
+- **Refs:** `../eval/ab-protocol.md`, `../eval/rubric.md`, `/workspace/site-shots/v5-measured-*.png`
+
 ## 12. References
 - Layout patterns (borrowed, not copied): useplanes.com (unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).
 - Stack reference: falcaobatidos.com.br (Next.js 16 App Router on Vercel, Tailwind 4, next/font, Radix, lucide, GSAP + ScrollTrigger, Lenis).
