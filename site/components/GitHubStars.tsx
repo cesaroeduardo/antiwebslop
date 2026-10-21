@@ -25,13 +25,15 @@ function compact(n: number) {
   return `${k < 10 ? k.toFixed(1).replace(/\.0$/, '') : Math.round(k)}k`;
 }
 
-/** Header link to the repo: GitHub mark, label (hidden on small screens), star and count. */
+/** Header link to the repo, in a new tab: GitHub mark, label (hidden on small screens), star and count. */
 export async function GitHubStars() {
   const [stars, t] = await Promise.all([getStars(), getTranslations('github')]);
-  const label = stars === null ? t('aria') : t('ariaStars', { count: stars });
+  const label = `${stars === null ? t('aria') : t('ariaStars', { count: stars })} ${t('newTab')}`;
   return (
     <a
       href={REPO}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={label}
       className="inline-flex shrink-0 items-center gap-2 rounded-control border border-border px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface sm:px-3"
     >

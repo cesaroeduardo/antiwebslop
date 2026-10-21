@@ -144,7 +144,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 
 ### 2026-10-21 — Four languages with next-intl
 - **Context:** Eduardo asked for pt, fr and es next to English.
-- **Decision:** next-intl 4 (Next 16 compatible) with `app/[locale]`, `localePrefix: 'as-needed'` (English at `/`, others at `/pt`, `/fr`, `/es`), no locale detection or cookie (the URL decides). All UI strings, aria labels, alt texts and metadata live in `messages/{en,pt,fr,es}.json`; pages are statically generated per locale. `hreflang` alternates plus `x-default`, per-locale canonical and a sitemap with alternates. Switcher `EN PT FR ES` in the header from 640px, in the footer below.
+- **Decision:** next-intl 4 (Next 16 compatible) with `app/[locale]`, `localePrefix: 'as-needed'` (English at `/`, others at `/pt`, `/fr`, `/es`), no locale detection or cookie (the URL decides). All UI strings, aria labels, alt texts and metadata live in `messages/{en,pt,fr,es}.json`; pages are statically generated per locale. `hreflang` alternates plus `x-default`, per-locale canonical and a sitemap with alternates. Language select in the header at every width (PT, EN, ES, FR; a listbox styled like the GitHub button); a pick writes `NEXT_LOCALE` for a year. Header nav: References (from 640px), Install (from 440px), language, GitHub (new tab).
 - **Why:** one source per language; commands, file names and rule ids stay literal in every language.
 - **Do not:** translate commands, rule ids, file paths or the A/B follow-up prompt; machine-translate the catalog at build time.
 - **Surfaces:** marketing

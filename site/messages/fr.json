@@ -8,20 +8,17 @@
     "skip": "Aller au contenu",
     "backToTop": "antiwebslop, retour en haut",
     "sections": "Sections",
-    "language": "Langue",
-    "languageLabel": "{name}, changer de langue"
+    "language": "Langue"
   },
   "nav": {
     "references": "Références",
-    "catalog": "Catalogue",
-    "gallery": "Galerie",
-    "install": "Installer",
-    "eval": "Évaluation"
+    "install": "Installer"
   },
   "github": {
     "label": "GitHub",
     "aria": "antiwebslop sur GitHub",
-    "ariaStars": "antiwebslop sur GitHub, {count, plural, one {# étoile} other {# étoiles}}"
+    "ariaStars": "antiwebslop sur GitHub, {count, plural, one {# étoile} other {# étoiles}}",
+    "newTab": "(s’ouvre dans un nouvel onglet)"
   },
   "hero": {
     "title": "Plus d’AI slop sur notre web. Arrêtez de publier la page que tout le monde a déjà vue.",

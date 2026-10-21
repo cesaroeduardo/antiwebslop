@@ -8,7 +8,8 @@ import { SiteCanvas } from '@/components/SiteCanvas';
 import { Inline } from '@/components/Inline';
 import { Motion } from '@/components/Motion';
 import { Wordmark } from '@/components/Wordmark';
-import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { LanguageSelect, type LanguageOption } from '@/components/LanguageSelect';
+import { localePath } from '@/i18n/routing';
 import { REPO, blob, tree } from '@/lib/site';
 import { canvasSites } from '@/lib/canvas-sites';
 
@@ -53,12 +54,17 @@ const tellRows: { key: 'words' | 'metrics' | 'numbering' | 'loops'; rules: strin
   { key: 'loops', rules: ['attention-loop', 'bounce-easing'], zoom: 2.4, origin: '100% 0%' },
 ];
 
-const nav: [string, 'references' | 'catalog' | 'gallery' | 'install' | 'eval'][] = [
+const nav: [string, 'references' | 'install'][] = [
   ['#references', 'references'],
-  ['#catalog', 'catalog'],
-  ['#gallery', 'gallery'],
   ['#install', 'install'],
-  ['#eval', 'eval'],
+];
+
+/** Language select order, as Eduardo asked: PT, EN, ES, FR. Names in their own language. */
+const languages: LanguageOption[] = [
+  { locale: 'pt', code: 'PT', name: 'Português', hrefLang: 'pt-BR', href: localePath('pt') },
+  { locale: 'en', code: 'EN', name: 'English', hrefLang: 'en', href: localePath('en') },
+  { locale: 'es', code: 'ES', name: 'Español', hrefLang: 'es', href: localePath('es') },
+  { locale: 'fr', code: 'FR', name: 'Français', hrefLang: 'fr', href: localePath('fr') },
 ];
 
 function Section({ id, children, className = '' }: { id?: string; children: React.ReactNode; className?: string }) {
@@ -125,16 +131,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <div aria-hidden className="site-noise pointer-events-none fixed inset-0 z-40 opacity-10 mix-blend-overlay motion-reduce:hidden" />
 
       <header className="relative mx-auto flex w-full max-w-[1280px] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
-        <a href="#top" aria-label={t('common.backToTop')} className="shrink-0 text-lg"><Wordmark /></a>
+        <a href="#top" aria-label={t('common.backToTop')} className="shrink-0 text-base sm:text-lg"><Wordmark /></a>
         <nav aria-label={t('common.sections')} className="flex min-w-0 items-center gap-0 font-mono text-sm sm:gap-1">
-          <ul className="hidden items-center gap-1 lg:flex">
+          <ul className="flex items-center">
             {nav.map(([href, key]) => (
-              <li key={href}><a href={href} className="rounded-control px-3 py-2 text-muted transition-colors duration-150 hover:text-fg">{t(`nav.${key}`)}</a></li>
+              <li key={href} className={key === 'references' ? 'hidden sm:block' : 'hidden min-[440px]:block'}><a href={href} className="inline-block rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg sm:px-3">{t(`nav.${key}`)}</a></li>
             ))}
           </ul>
-          <a href="#install" className="hidden rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg min-[360px]:inline-block sm:px-3 lg:hidden">{t('nav.install')}</a>
-          <LanguageSwitcher locale={locale} className="hidden sm:flex" />
-          <GitHubStars />
+          <div className="flex items-center gap-1.5 sm:ml-2 sm:gap-2">
+            <LanguageSelect current={locale} options={languages} label={t('common.language')} />
+            <GitHubStars />
+          </div>
         </nav>
       </header>
 
@@ -382,7 +389,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
         <div className="mx-auto flex w-full max-w-[1280px] flex-wrap justify-between gap-2 border-t border-border px-4 py-6 font-mono text-cap text-muted sm:px-6">
           <span>{t('footer.rights')}</span>
-          <LanguageSwitcher locale={locale} className="sm:hidden" />
           <span>{t('footer.stats', { version, rules: ruleCount, entries: catalogCount })} · <a className="link text-fg" href={REPO}>{t('footer.readAll')}</a></span>
         </div>
         <p aria-hidden className="pointer-events-none -mb-[0.32em] select-none whitespace-nowrap px-2 text-center font-mono text-[clamp(3rem,15vw,16rem)] font-medium leading-none tracking-[-0.04em] text-surface-2">
