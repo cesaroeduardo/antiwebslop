@@ -289,7 +289,7 @@ export default function Home() {
         {/* Install: dense rows, one per agent. */}
         <Section id="install" className="pt-32 md:pt-40">
           <h2 className="mb-3 text-2xl font-medium tracking-[-0.02em] md:text-3xl">Install it in one line</h2>
-          <p className="mb-8 max-w-[60ch] text-base text-muted">Every route installs the same folder, <code className="font-mono text-fg">skills/antiwebslop/</code>. Pick your agent.</p>
+          <p className="mb-8 max-w-[60ch] text-base text-muted">Pick your agent.</p>
           <ul className="border-t border-border" data-reveal>
             {install.map((row) => (
               <li key={row.agent} className="grid grid-cols-1 gap-2 border-b border-border py-4 md:grid-cols-12 md:items-center md:gap-6">
