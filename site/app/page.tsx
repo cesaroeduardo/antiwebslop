@@ -15,7 +15,6 @@ const install: { agent: string; command: string; note: React.ReactNode }[] = [
   { agent: 'Cursor', command: 'npx skills add cesaroeduardo/antiwebslop -a cursor', note: <>Or import the repo as a plugin: Customize, then From GitHub Repository.</> },
   { agent: 'Codex', command: 'codex plugin marketplace add cesaroeduardo/antiwebslop && codex plugin add antiwebslop@antiwebslop', note: <>CLI, IDE extension and the ChatGPT desktop app.</> },
   { agent: 'Claude Code', command: 'claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop', note: <>Inside a session: <code>/plugin marketplace add cesaroeduardo/antiwebslop</code>. The skill runs as <code>/antiwebslop:antiwebslop</code>.</> },
-  { agent: 'claude.ai', command: 'npm run pack', note: <>Run in a clone, then Customize, Skills, Upload a skill, and pick <code>dist/antiwebslop.zip</code>.</> },
   { agent: 'Grok Bot', command: 'Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)', note: <>Send this to your bot as a message. Grok Build users: <code>grok plugin install cesaroeduardo/antiwebslop --trust</code>.</> },
 ];
 
@@ -418,7 +417,7 @@ export default function Home() {
           {[
             ['Project', [['GitHub', REPO], ['Issues', `${REPO}/issues`], ['MIT License', blob('LICENSE')]]],
             ['Read', [['SKILL.md', blob('skills/antiwebslop/SKILL.md')], ['Anti-patterns', blob('skills/antiwebslop/references/anti-patterns.md')], ['Eval kit', tree('eval')], ['This site’s DESIGN.md', blob('site/DESIGN.md')]]],
-            ['Install', [['npx skills', '#install'], ['Claude Code', '#install'], ['Codex', '#install'], ['claude.ai zip', '#install']]],
+            ['Install', [['npx skills', '#install'], ['Cursor', '#install'], ['Claude Code', '#install'], ['Codex', '#install']]],
           ].map(([title, links]) => (
             <nav key={title as string} aria-label={title as string} className="md:col-span-2 md:last:col-span-3">
               <h2 className="mb-3 font-mono text-cap text-muted">{title as string}</h2>
