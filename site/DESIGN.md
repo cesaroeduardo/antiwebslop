@@ -72,6 +72,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 
 ## 9. Imagery and content
 - Imagery: renders of `../gallery/pages/*.html` (the test fixtures with lint findings outlined) at 2x, webp, cropped. Labels overlaid bottom-left on a solid bg chip.
+- Image slots (`public/slots/`: `catalog-findings` 16:9, `hook-feedback` 4:3, `newer-tells` 4:3) hold illustrative generated mockups supplied by Eduardo, not screenshots of real lint runs. They show what the findings look like; the real output is the gallery fixture render and the lint itself. Exception to the "no AI imagery" ban, limited to these three slots; replace them with real captures when available.
 - Voice: plain, specific, second person, numbers only when counted from the repo (35 entries, 31 rules).
 - Content sources: generated at build by `scripts/build-content.mjs` from the repo files, committed as `content/generated.json` so the site also builds without the rest of the repo.
 

@@ -191,7 +191,7 @@ export default function Home() {
                   hears about them as <code className="font-mono text-fg">file:line</code> findings, not as taste.
                 </p>
               </div>
-              <ImageSlot name="catalog-findings" ratio="16:9" alt="" className="mt-auto" />
+              <ImageSlot name="catalog-findings" ratio="16:9" src="/slots/catalog-findings.webp" alt="A code editor with landing.html open, three lines underlined, beside a Problems panel listing slop-lint findings: purple-gradient error, emoji-bullet and three-equal-cards warnings." className="mt-auto" />
             </article>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-5 md:p-8">
               <div>
@@ -211,7 +211,7 @@ export default function Home() {
                   blocks a write.
                 </p>
               </div>
-              <ImageSlot name="hook-feedback" ratio="4:3" alt="" className="mt-auto" />
+              <ImageSlot name="hook-feedback" ratio="4:3" src="/slots/hook-feedback.webp" alt="An agent chat panel after writing src/landing.tsx: the slop-lint advisory reply lists label-above-headline, decorative-numbering and invented-metric, and the agent answers that it is fixing the three findings." className="mt-auto" />
             </article>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-7 md:p-8">
               <div className="max-w-[52ch]">
@@ -265,7 +265,7 @@ export default function Home() {
                 A label above the headline, 01/02 section numbers, a row of big numbers, side stripes, bouncy easing, a pulsing dot,
                 and em dashes on every line. The lint finds {ls.b.warnings} of them as warnings; the clean fixture has {ls.clean.errors + ls.clean.warnings}.
               </p>
-              <ImageSlot name="newer-tells" ratio="4:3" alt="" />
+              <ImageSlot name="newer-tells" ratio="4:3" src="/slots/newer-tells.webp" alt="A generic SaaS landing page with each newer tell outlined and tagged: label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering and side-stripe." />
               <p className="mt-4 font-mono text-cap text-muted">
                 More in <a className="link" href={tree('gallery')}>gallery/</a>, rebuilt from the fixtures with <code>npm run gallery</code>.
               </p>
