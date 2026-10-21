@@ -175,12 +175,14 @@ export default function Home() {
         <Section id="top" className="flex min-h-[calc(100svh-76px)] flex-col justify-end pb-16 pt-12 md:pt-28">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-6">
             <h1 className="text-[clamp(2.5rem,4.6vw,4rem)] font-medium leading-[1.05] tracking-[-0.03em] md:col-span-7 lg:col-span-8">
-              Agent-built web pages that don&rsquo;t look agent-built.
+              No more AI slop in my browser.
             </h1>
             <div className="flex flex-col gap-6 md:col-span-5 lg:col-span-4">
               <p className="text-body text-muted">
-                antiwebslop is a skill for Cursor, Codex, Claude Code and Grok. It names {catalogCount} tells of generated UI, gives the
-                fix for each, and ships a {ruleCount}-rule lint that checks your code against the project&rsquo;s own design tokens.
+                Purple gradients. Emoji badges. Three identical cards. Agents ship the same page every time, and the web gets uglier
+                for it. antiwebslop fights back: a skill for Cursor, Codex, Claude Code and Grok that names {catalogCount} tells of
+                generated UI, gives the fix for each, and runs a {ruleCount}-rule lint against your project&rsquo;s own design tokens.
+                Install it. Make your agent do better.
               </p>
               <CopyCommand variant="primary" command={INSTALL_ANY} label="Install command" />
             </div>
