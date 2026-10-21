@@ -98,7 +98,11 @@ export default function Home() {
         Skip to content
       </a>
       <Motion />
-      <div aria-hidden className="top-light pointer-events-none absolute inset-x-0 top-0 h-[640px]" />
+      {/* Top light and flickering grain, ported from figma-dominate: a soft light image plus a looping noise tile in overlay. */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[800px] overflow-hidden">
+        <div className="top-light absolute inset-0" />
+        <div className="top-noise absolute inset-0 opacity-10 mix-blend-overlay motion-reduce:hidden" />
+      </div>
 
       <header className="relative mx-auto flex w-full max-w-[1280px] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
         <a href="#top" aria-label="antiwebslop, back to top" className="shrink-0 text-lg"><Wordmark /></a>

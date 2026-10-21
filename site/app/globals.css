@@ -59,7 +59,11 @@
 @layer components {
   /* The one light in the page: a faint cream falloff at the top center, as in assets/og.png. */
   .top-light {
-    background: radial-gradient(36% 560px at 50% 0, color-mix(in oklab, var(--color-fg) 4%, transparent), transparent 100%);
+    background: url(/light-blur.webp) center top / 1440px 800px no-repeat;
+  }
+  .top-noise {
+    background: url(/noise.webp) 0 0 / 128px 128px repeat;
+    mask-image: linear-gradient(to bottom, var(--color-fg) 45%, transparent);
   }
   .prose-inline code {
     font-size: 0.9em;
