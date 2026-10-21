@@ -36,9 +36,7 @@
     "ariaCopied": "{label} copied"
   },
   "references": {
-    "title": "Look at real sites before picking a token",
-    "body": "When a project has nothing authored, the skill sends the agent to references first. These {count} came from the galleries it names. Drag to look around; open one to see it large.",
-    "captured": "Captured live at 1440×900, first screen only, Oct 2026.",
+    "sectionLabel": "Real sites from the galleries the skill names",
     "region": "Canvas of real sites. Drag or use the arrow keys to look around; open a card to see it large.",
     "card": "{name}, found on {gallery}. Open larger.",
     "foundOn": "found on",

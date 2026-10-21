@@ -36,9 +36,7 @@
     "ariaCopied": "{label} copiado"
   },
   "references": {
-    "title": "Mira sitios reales antes de elegir un token",
-    "body": "Cuando un proyecto no tiene nada propio, la skill manda primero al agente a buscar referencias. Estos {count} salieron de las galerías que ella nombra. Arrastra para explorar; abre uno para verlo en grande.",
-    "captured": "Capturados en vivo a 1440×900, solo la primera pantalla, oct. 2026.",
+    "sectionLabel": "Sitios reales de las galerías que nombra la skill",
     "region": "Lienzo de sitios reales. Arrastra o usa las flechas para explorar; abre una tarjeta para verla en grande.",
     "card": "{name}, encontrado en {gallery}. Abrir en grande.",
     "foundOn": "encontrado en",

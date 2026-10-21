@@ -153,17 +153,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </Section>
 
-        {/* Canvas: real sites from the galleries the skill points to, on a surface with no edge. */}
-        <section id="references" aria-labelledby="references-title" className="scroll-mt-6 pt-24 md:pt-32">
-          <div className="mx-auto mb-10 grid w-full max-w-[1280px] grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-12 md:items-end">
-            <h2 id="references-title" className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">{t('references.title')}</h2>
-            <div className="md:col-span-5 md:col-start-8">
-              <p className="mb-3 max-w-[48ch] text-base text-muted">
-                {t('references.body', { count: canvasSites.length })}
-              </p>
-              <p className="font-mono text-cap text-muted">{t('references.captured')}</p>
-            </div>
-          </div>
+        {/* Canvas: real sites from the galleries the skill points to, on a surface with no edge. No intro text:
+            the hero leads straight into it, 192px below the hero copy on phones, 256px from md (64 hero + 128/192 here). */}
+        <section id="references" aria-label={t('references.sectionLabel')} className="scroll-mt-6 pt-32 md:pt-48">
           <SiteCanvas sites={canvasSites} />
         </section>
 

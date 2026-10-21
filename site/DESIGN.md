@@ -54,10 +54,10 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - Body: 17px / 1.6 / 65ch. Tracking −0.02em on ≥ 37px only.
 
 ## 6. Spacing and layout
-- Scale: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 (Tailwind steps 1, 2, 3, 4, 6, 8, 12, 16, 24, 32).
+- Scale: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 192 (Tailwind steps 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48).
 - Grid: 12 columns, max-width 1280px, gutter 24px, page margin 24px (16px under 640px).
 - Section order: hero → references canvas → what it does (bento) → catalog → gallery → install → how we measure it → prior art → footer.
-- Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; references canvas 96 (128 md) then full-bleed; bento 128 (160 md); catalog, newer tells, install and eval 128 (160 md), eval also at the bottom; newer-tells rows 80 apart (120 md); prior art 128/160 bottom; footer 64.
+- Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; references canvas 128 (192 md) with no intro text, then full-bleed; bento 128 (160 md); catalog, newer tells, install and eval 128 (160 md), eval also at the bottom; newer-tells rows 80 apart (120 md); prior art 128/160 bottom; footer 64.
 
 ## 7. Components
 - Radius by role: controls and chips 6px · cards and code blocks 10px · images 0 (crop, no frame), except the newer-tells media rows: 38px, 57px from 768px (after america.gov) · copy-button pill none (no 9999 except the severity dot).

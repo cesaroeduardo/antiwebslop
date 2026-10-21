@@ -36,9 +36,7 @@
     "ariaCopied": "{label} copiée"
   },
   "references": {
-    "title": "Regardez de vrais sites avant de choisir un token",
-    "body": "Quand un projet n’a rien d’original, la skill envoie d’abord l’agent chercher des références. Ces {count} sites viennent des galeries qu’elle cite. Faites glisser pour explorer ; ouvrez-en un pour le voir en grand.",
-    "captured": "Capturés en direct en 1440×900, premier écran seulement, oct. 2026.",
+    "sectionLabel": "Sites réels tirés des galeries citées par la skill",
     "region": "Canevas de vrais sites. Faites glisser ou utilisez les flèches pour explorer ; ouvrez une carte pour la voir en grand.",
     "card": "{name}, trouvé sur {gallery}. Agrandir.",
     "foundOn": "trouvé sur",
