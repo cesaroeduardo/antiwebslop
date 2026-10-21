@@ -3,8 +3,8 @@
 import { useEffect } from 'react';
 
 /**
- * M5 motion (DESIGN.md §8): Lenis smooth scroll on fine pointers, and one entrance per section
- * for elements marked [data-reveal] (their direct children, staggered, at most 3 at a time).
+ * M5 motion (DESIGN.md §8): Lenis smooth scroll on fine pointers, and a blur reveal for the
+ * direct children of elements marked [data-reveal], batched as they scroll in.
  * Nothing runs under prefers-reduced-motion: content is visible from the first paint either way,
  * because elements are only hidden by GSAP once they are below the fold.
  */
@@ -34,20 +34,30 @@ export function Motion() {
         gsap.ticker.lagSmoothing(0);
       }
 
+      // Blur reveal ported from falcaobatidos' RevealGroup: 14px blur, opacity 0, 28px lower,
+      // eased out to sharp with expo.out, 0.06s between items. Items already on screen at load stay put.
+      const from = { opacity: 0, y: 28, filter: 'blur(14px)' };
+      const to = { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'expo.out', stagger: 0.06, overwrite: 'auto' as const };
+      const onScreen = (el: HTMLElement) => {
+        const r = el.getBoundingClientRect();
+        return r.bottom > 0 && r.top < window.innerHeight * 0.88;
+      };
+
       const ctx = gsap.context(() => {
-        const fold = window.innerHeight;
-        document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((group) => {
-          if (group.getBoundingClientRect().top < fold * 0.9) return; // already on screen: leave it
-          const items = Array.from(group.children) as HTMLElement[];
-          gsap.from(items, {
-            opacity: 0,
-            y: 12,
-            duration: 0.3,
-            ease: 'power2.out',
-            stagger: { each: 0.06, amount: Math.min(0.12, 0.06 * (items.length - 1)) },
-            scrollTrigger: { trigger: group, start: 'top 85%', once: true },
-          });
-        });
+        const items = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'))
+          .flatMap((group) => Array.from(group.children) as HTMLElement[])
+          .filter((el) => !onScreen(el));
+        if (!items.length) return;
+        const done = new WeakSet<Element>();
+        gsap.set(items, from);
+        const play = (batch: Element[]) => {
+          const fresh = batch.filter((el) => !done.has(el));
+          if (!fresh.length) return;
+          fresh.forEach((el) => done.add(el));
+          gsap.to(fresh, { ...to, clearProps: 'filter' });
+        };
+        ScrollTrigger.batch(items, { start: 'top 88%', onEnter: play, onEnterBack: play });
+        ScrollTrigger.refresh();
       });
 
       const onChange = () => { if (reduce.matches) cleanup(); };

@@ -66,8 +66,17 @@ function Terminal({ title, lines, className = '', wrap = false }: { title: strin
   );
 }
 
-function sev(s: string) {
-  return <span className={s === 'error' ? 'text-accent' : 'text-muted'}>{s.padEnd(5)}</span>;
+/** Image slot: a fixed-ratio frame that holds a generated image later. Pass `src` once the image exists. */
+function ImageSlot({ name, ratio, alt, src, className = '' }: { name: string; ratio: string; alt: string; src?: string; className?: string }) {
+  return (
+    <figure data-slot={name} className={`relative w-full overflow-hidden rounded-card border border-border bg-bg ${className}`} style={{ aspectRatio: ratio.replace(':', ' / ') }}>
+      {src ? (
+        <Image src={src} alt={alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+      ) : (
+        <figcaption className="absolute left-3 top-3 font-mono text-cap text-muted">{name} · {ratio}</figcaption>
+      )}
+    </figure>
+  );
 }
 
 function GalleryImage({ src, alt, label, w, h, className = '', priority = false, sizes }: { src: string; alt: string; label: string; w: number; h: number; className?: string; priority?: boolean; sizes: string }) {
@@ -80,7 +89,7 @@ function GalleryImage({ src, alt, label, w, h, className = '', priority = false,
 }
 
 export default function Home() {
-  const { lintSamples: ls, catalog, comparison, priorArt, hookReply, ruleCount, catalogCount, version } = content;
+  const { lintSamples: ls, catalog, comparison, priorArt, ruleCount, catalogCount, version } = content;
   const total = (x: { errors: number; warnings: number }) => `${x.errors} errors, ${x.warnings} warnings`;
 
   return (
@@ -91,16 +100,16 @@ export default function Home() {
       <Motion />
       <div aria-hidden className="top-light pointer-events-none absolute inset-x-0 top-0 h-[640px]" />
 
-      <header className="relative mx-auto flex w-full max-w-[1280px] items-center justify-between gap-6 px-4 py-5 sm:px-6">
-        <a href="#top" aria-label="antiwebslop, back to top" className="text-lg"><Wordmark /></a>
-        <nav aria-label="Sections" className="flex items-center gap-1 font-mono text-sm">
+      <header className="relative mx-auto flex w-full max-w-[1280px] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
+        <a href="#top" aria-label="antiwebslop, back to top" className="shrink-0 text-lg"><Wordmark /></a>
+        <nav aria-label="Sections" className="flex min-w-0 items-center gap-0 font-mono text-sm sm:gap-1">
           <ul className="hidden items-center gap-1 md:flex">
             {nav.map(([href, label]) => (
               <li key={href}><a href={href} className="rounded-control px-3 py-2 text-muted transition-colors duration-150 hover:text-fg">{label}</a></li>
             ))}
           </ul>
-          <a href="#install" className="rounded-control px-3 py-2 text-muted transition-colors duration-150 hover:text-fg md:hidden">Install</a>
-          <a href={REPO} className="inline-flex items-center gap-1 rounded-control px-3 py-2 text-fg transition-colors duration-150 hover:text-accent">
+          <a href="#install" className="hidden rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg min-[360px]:inline-block sm:px-3 md:hidden">Install</a>
+          <a href={REPO} className="inline-flex items-center gap-1 rounded-control px-2 py-2 text-fg sm:px-3 transition-colors duration-150 hover:text-accent">
             GitHub <ArrowUpRight aria-hidden size={14} />
           </a>
         </nav>
@@ -157,13 +166,7 @@ export default function Home() {
                   hears about them as <code className="font-mono text-fg">file:line</code> findings, not as taste.
                 </p>
               </div>
-              <Terminal
-                title={`slop-lint ${ls.a.file} --quiet`}
-                lines={[
-                  ...ls.a.lines.slice(0, 7).map((l) => <>{l.loc.padEnd(16)}{sev(l.severity)}  {l.rule}</>),
-                  <span className="text-muted">… {ls.a.lines.length - 7} more · {total(ls.a)}</span>,
-                ]}
-              />
+              <ImageSlot name="catalog-findings" ratio="16:9" alt="" className="mt-auto" />
             </article>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-5 md:p-8">
               <div>
@@ -183,12 +186,7 @@ export default function Home() {
                   blocks a write.
                 </p>
               </div>
-              <Terminal
-                wrap
-                title="postToolUse → additional_context"
-                lines={hookReply.split('\n').slice(0, 4).map((l) => l.replace(/^src\//, ''))}
-                className="mt-auto"
-              />
+              <ImageSlot name="hook-feedback" ratio="4:3" alt="" className="mt-auto" />
             </article>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-7 md:p-8">
               <div className="max-w-[52ch]">
@@ -242,10 +240,7 @@ export default function Home() {
                 A label above the headline, 01/02 section numbers, a row of big numbers, side stripes, bouncy easing, a pulsing dot,
                 and em dashes on every line. The lint finds {ls.b.warnings} of them as warnings; the clean fixture has {ls.clean.errors + ls.clean.warnings}.
               </p>
-              <Terminal
-                title={`slop-lint ${ls.b.file}`}
-                lines={ls.b.lines.map((l) => <>{l.loc.padEnd(19)}{l.rule}</>)}
-              />
+              <ImageSlot name="newer-tells" ratio="4:3" alt="" />
               <p className="mt-4 font-mono text-cap text-muted">
                 More in <a className="link" href={tree('gallery')}>gallery/</a>, rebuilt from the fixtures with <code>npm run gallery</code>.
               </p>
@@ -315,7 +310,7 @@ export default function Home() {
               </dl>
             </div>
             <div className="md:col-span-6 md:pt-14">
-              <Terminal wrap title="What the agent receives after writing landing.html" lines={hookReply.split('\n').map((l) => l.replace(/^src\//, ''))} />
+              <ImageSlot name="lint-run" ratio="4:5" alt="" />
             </div>
           </div>
         </Section>

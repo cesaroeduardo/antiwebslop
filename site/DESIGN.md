@@ -65,7 +65,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - Kit: Radix Accordion (unstyled) for the catalog; no component library styles.
 
 ## 8. Motion
-- M5: one entrance per section (opacity 0→1, y 12px→0, 300ms, ease-out, stagger ≤ 3 items) via GSAP ScrollTrigger; Lenis smooth scroll on desktop pointers.
+- M5: blur reveal per item (opacity 0→1, y 28px→0, blur 14px→0, 700ms, expo.out, stagger 0.06s, ported from falcaobatidos) via GSAP ScrollTrigger.batch; Lenis smooth scroll on desktop pointers.
 - Accordion content height 200ms ease-out; copy button label swap, no movement.
 - `prefers-reduced-motion: reduce`: no GSAP entrances (content visible from the start), no Lenis, no accordion height animation.
 
