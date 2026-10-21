@@ -87,12 +87,7 @@
   "install": {
     "title": "Escolha seu agente e instale em uma linha",
     "anyAgent": "Qualquer agente",
-    "rowLabel": "Comando de instalação para {agent}",
-    "noteAny": "Cursor, Codex, Claude Code, Grok Build, Gemini CLI, Copilot, OpenCode e outros, via <link>vercel-labs/skills</link> (Node 22.20+). Adicione <code>-g</code> para todos os projetos.",
-    "noteCursor": "Ou importe o repositório como plugin: Customize, depois From GitHub Repository.",
-    "noteCodex": "CLI, extensão de IDE e o app desktop do ChatGPT.",
-    "noteClaude": "Dentro de uma sessão: <code>/plugin marketplace add cesaroeduardo/antiwebslop</code>. A skill roda como <code>/antiwebslop:antiwebslop</code>.",
-    "noteGrok": "Mande isto como mensagem para o seu bot. Quem usa Grok Build: <code>grok plugin install cesaroeduardo/antiwebslop --trust</code>."
+    "rowLabel": "Comando de instalação para {agent}"
   },
   "eval": {
     "title": "Como medimos",

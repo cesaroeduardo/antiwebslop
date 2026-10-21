@@ -20,12 +20,13 @@ const rich = {
   code: (c: React.ReactNode) => <code>{c}</code>,
 };
 
-const installRows = (t: T): { agent: string; command: string; note: React.ReactNode }[] => [
-  { agent: t('install.anyAgent'), command: INSTALL_ANY, note: t.rich('install.noteAny', { ...rich, link: (c) => <a className="link" href="https://github.com/vercel-labs/skills">{c}</a> }) },
-  { agent: 'Cursor', command: 'npx skills add cesaroeduardo/antiwebslop -a cursor', note: t('install.noteCursor') },
-  { agent: 'Codex', command: 'codex plugin marketplace add cesaroeduardo/antiwebslop && codex plugin add antiwebslop@antiwebslop', note: t('install.noteCodex') },
-  { agent: 'Claude Code', command: 'claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop', note: t.rich('install.noteClaude', rich) },
-  { agent: 'Grok Bot', command: 'Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)', note: t.rich('install.noteGrok', rich) },
+/** One row per agent: logo (public/logos/, see SOURCES.md), name, command. No side notes. */
+const installRows = (t: T): { agent: string; logo: string; command: string }[] => [
+  { agent: t('install.anyAgent'), logo: 'vercel', command: INSTALL_ANY },
+  { agent: 'Cursor', logo: 'cursor', command: 'npx skills add cesaroeduardo/antiwebslop -a cursor' },
+  { agent: 'Codex', logo: 'openai', command: 'codex plugin marketplace add cesaroeduardo/antiwebslop && codex plugin add antiwebslop@antiwebslop' },
+  { agent: 'Claude Code', logo: 'claude', command: 'claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop' },
+  { agent: 'Grok Bot', logo: 'grok', command: 'Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)' },
 ];
 
 const tokensBlock = `\`\`\`design-tokens
@@ -270,18 +271,25 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </ul>
         </section>
 
-        {/* Install: dense rows, one per agent. */}
+        {/* Install: dense rows, one per agent: logo and name, then the command with its copy button top-aligned. */}
         <Section id="install" className="pt-32 md:pt-40">
           <h2 className="mb-8 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('install.title')}</h2>
           <ul className="border-t border-border" data-reveal>
             {install.map((row) => (
-              <li key={row.agent} className="grid grid-cols-1 gap-2 border-b border-border py-4 md:grid-cols-12 md:items-center md:gap-6">
-                <span className="font-mono text-sm text-fg md:col-span-2">{row.agent}</span>
-                <div className="flex min-w-0 items-center gap-2 md:col-span-6">
+              <li key={row.agent} className="group grid grid-cols-1 gap-3 border-b border-border py-4 md:grid-cols-12 md:items-start md:gap-6">
+                <span className="flex items-center gap-3 font-mono text-sm text-fg md:col-span-3 md:pt-2">
+                  {/* Monochrome mark as a CSS mask, so it takes the page ink and the accent on row hover. Decorative: the name is the label. */}
+                  <span
+                    aria-hidden
+                    className="size-[18px] shrink-0 bg-fg transition-colors duration-150 group-hover:bg-accent group-focus-within:bg-accent"
+                    style={{ mask: `url(/logos/${row.logo}.svg) center / contain no-repeat`, WebkitMask: `url(/logos/${row.logo}.svg) center / contain no-repeat` }}
+                  />
+                  {row.agent}
+                </span>
+                <div className="flex min-w-0 items-start gap-2 md:col-span-9">
                   <code className="min-w-0 flex-1 whitespace-pre-wrap rounded-control bg-surface px-3 py-2 font-mono text-cap leading-relaxed text-fg [overflow-wrap:anywhere] sm:text-sm">{row.command}</code>
                   <CopyCommand command={row.command} label={t('install.rowLabel', { agent: row.agent })} />
                 </div>
-                <p className="prose-inline text-sm text-muted md:col-span-4">{row.note}</p>
               </li>
             ))}
           </ul>
