@@ -30,7 +30,7 @@ Reading this as: the antiwebslop landing and docs page for developers who ship U
 ```design-tokens
 fonts: DM Mono, DM Sans
 colors: #121212, #F7EDDB, #D1A8FF
-radii: 0, 6px, 10px, 9999px
+radii: 0, 6px, 10px, 38px, 57px, 9999px
 ```
 
 Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extra hex values exist.
@@ -56,11 +56,11 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 ## 6. Spacing and layout
 - Scale: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 (Tailwind steps 1, 2, 3, 4, 6, 8, 12, 16, 24, 32).
 - Grid: 12 columns, max-width 1280px, gutter 24px, page margin 24px (16px under 640px).
-- Section order: hero → references canvas → what it does (bento) → catalog → gallery → install → how we measure it → trade-offs → footer.
-- Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; references canvas 96 (128 md) then full-bleed; bento 128 (160 md); catalog, gallery, install and eval 128 (160 md); trade-offs 128/160 top and bottom; footer 64.
+- Section order: hero → references canvas → what it does (bento) → catalog → gallery → install → how we measure it → prior art → footer.
+- Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; references canvas 96 (128 md) then full-bleed; bento 128 (160 md); catalog, newer tells, install and eval 128 (160 md), eval also at the bottom; newer-tells rows 80 apart (120 md); prior art 128/160 bottom; footer 64.
 
 ## 7. Components
-- Radius by role: controls and chips 6px · cards and code blocks 10px · images 0 (crop, no frame) · copy-button pill none (no 9999 except the severity dot).
+- Radius by role: controls and chips 6px · cards and code blocks 10px · images 0 (crop, no frame), except the newer-tells media rows: 38px, 57px from 768px (after america.gov) · copy-button pill none (no 9999 except the severity dot).
 - Elevation: none. Separation by surface step and 1px hairline.
 - Buttons: primary = accent fill, `#121212` text, 6px. Secondary = text link with underline. One primary per view.
 - Kit: Radix Accordion (unstyled) for the catalog; no component library styles.
@@ -150,7 +150,15 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Surfaces:** marketing
 - **Refs:** `i18n/`, `messages/`, `proxy.ts`
 
+### 2026-10-21 — Newer tells as america.gov media rows; a shorter "How we measure it"
+- **Context:** Eduardo asked to drop the "14 findings" capture from the newer tells, show the newer-tells image bigger in america.gov's image-beside-topic layout with more topics, and to cut "How we measure it" to the essentials (no trade-offs table, no intro, no VALIDATION.md block, no "no scores" line).
+- **Decision:** newer tells = header (title + one line) then four stacked rows, all image left, topic right: image at columns 2–7 (4:3), one empty column, topic at 9–12, vertically centered; 120px between rows (80 under md), 40px image-to-text and 32px text-to-chips on phones. Row 1 is the full `slots/newer-tells.webp`; rows 2–4 zoom into its tagged regions (big-number row, numbered cards with side stripes, pulsing dot), so no new image. Topics come from catalog §24–29 and §32–33, each with its lint rule ids. Eval keeps the four-phase timeline (one line per phase, source file linked) and the scorecard drawn to scale. Prior art stays as a credits list.
+- **Measured on america.gov (1430px):** 12 columns, 16px gaps; media 434×434 at columns 3–6, text 434 wide at 8–11 (copy 308 wide), centered vertically; 120px between rows (80px at 390); radius 57.3px desktop, 38.2px at 390 (13% of the media). Kept our 24px gutter and fonts; widened the media to 6 columns because the capture needs the size.
+- **Do not:** add placeholder images or invented stats to these rows; show a score before `../eval/VALIDATION.md` logs one.
+- **Surfaces:** marketing
+- **Refs:** https://www.america.gov (how-it-works rows), `/workspace/am/measure.json`, `/workspace/site-shots/v8-*.png`
+
 ## 12. References
-- Layout patterns (borrowed, not copied): useplanes.com (edgeless draggable card canvas, unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).
+- Layout patterns (borrowed, not copied): useplanes.com (edgeless draggable card canvas, unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), america.gov (stacked rounded media rows with the topic beside them), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).
 - Stack reference: falcaobatidos.com.br (Next.js 16 App Router on Vercel, Tailwind 4, next/font, Radix, lucide, GSAP + ScrollTrigger, Lenis).
 - Brand assets: `../assets/`.

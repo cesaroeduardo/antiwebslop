@@ -82,15 +82,24 @@
   },
   "gallery": {
     "title": "Las señales más nuevas",
-    "body": "Una etiqueta sobre el titular, números de sección 01/02, una fila de números grandes, franjas laterales, easing con rebote, un punto que late y rayas en cada línea. El lint encuentra {warnings} de ellas como avisos; el fixture limpio tiene {clean}.",
-    "slotAlt": "Una landing page SaaS genérica con cada señal nueva contorneada y etiquetada: label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering y side-stripe.",
+    "body": "Las páginas generadas más nuevas cambiaron el degradado violeta por hábitos más discretos. Cada uno de abajo tiene una regla de lint que lo nombra.",
     "more": "Más en <link>gallery/</link>, regenerado a partir de los fixtures con <code>npm run gallery</code>.",
-    "imageAlt": "Una página generada con una etiqueta INTRODUCING, números de sección 01 y 02, tres números grandes sin fuente y texto gris sobre un panel azul; cada elemento marcado está contorneado con el nombre de su regla.",
-    "before": "antes · {errors} errores, {warnings} avisos"
+    "wordsTitle": "Palabras disfrazadas de diseño",
+    "wordsBody": "Una etiqueta diminuta sobre el titular, una raya en cada línea, un eslogan «No es X. Es Y.». Lleva la etiqueta al titular, usa punto y seguido y di qué hace el producto en una frase simple.",
+    "wordsAlt": "Una landing page SaaS genérica con cada señal nueva contorneada y etiquetada: label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering y side-stripe.",
+    "metricsTitle": "Números sin fuente",
+    "metricsBody": "Tres números enormes con leyendas diminutas bajo el hero. Mantén un número solo si es real y tiene fuente, y dale una frase de contexto.",
+    "metricsAlt": "Detalle de una fila de tres números grandes, 10x, 99% y 24/7, con leyendas cortas, contorneada y etiquetada big-number-row.",
+    "numberingTitle": "Pasos que no son pasos",
+    "numberingBody": "01, 02, 03 en secciones sin orden, y franjas de color en el lateral de tarjetas comunes. Numera solo secuencias reales; deja las franjas para estados reales.",
+    "numberingAlt": "Detalle de tarjetas marcadas 01, 02 y 03, cada una con una franja de color en el borde izquierdo, etiquetadas section-numbering y side-stripe.",
+    "loopsTitle": "Movimiento que nunca para",
+    "loopsBody": "Un punto de estado que late sin fin, logos que se desplazan en bucle, botones que rebotan. Lo estático se queda quieto; anima un cambio real con un ease-out corto.",
+    "loopsAlt": "Detalle de la cabecera de un panel con una insignia All systems online y un punto verde, etiquetada pulsing-dot.",
+    "rulesAria": "Reglas del lint"
   },
   "install": {
-    "title": "Instálala en una línea",
-    "intro": "Elige tu agente.",
+    "title": "Elige tu agente e instálala en una línea",
     "anyAgent": "Cualquier agente",
     "rowLabel": "Comando de instalación para {agent}",
     "noteAny": "Cursor, Codex, Claude Code, Grok Build, Gemini CLI, Copilot, OpenCode y más, vía <link>vercel-labs/skills</link> (Node 22.20+). Añade <code>-g</code> para todos los proyectos.",
@@ -101,54 +110,27 @@
   },
   "eval": {
     "title": "Cómo lo medimos",
-    "intro": "Las opiniones sobre el gusto son baratas, así que la skill trae su propia prueba: mismo agente, mismo modelo, mismo brief, ejecutado con y sin la skill, elegido a ciegas y luego puntuado.",
     "protocolAria": "Protocolo A/B",
     "setupPhase": "Preparación",
     "setupTitle": "Fijar todo menos la skill",
-    "setupRules": [
-      "De 3 a 5 briefs: al menos una landing page, una página de ayuda/docs y una tarea de UI de producto.",
-      "Dos checkouts limpios por brief en el mismo commit, `run-a/` y `run-b/`.",
-      "La skill se instala en una sola ejecución. La línea base no tiene copia de ella ni de ninguna otra skill de diseño.",
-      "Mismo agente, modelo, ajustes y texto del brief, en un chat nuevo cada vez."
-    ],
     "runPhase": "Ejecución",
     "runTitle": "Dejar que cada ejecución termine sola",
-    "runRules": [
-      "El brief se pega literal; las preguntas aclaratorias reciben las mismas respuestas guionizadas en ambas ejecuciones.",
-      "Sin guiar. Se permite un seguimiento: “Finish and make it production-ready.”",
-      "Ambas ejecuciones se capturan en 3 viewports y se guarda el `slop-lint --json` de cada una."
-    ],
     "blindPhase": "Revisión a ciegas",
     "blindTitle": "Elegir primero, puntuar después",
-    "blindRules": [
-      "Izquierda y derecha se sortean; alguien que no es quien revisa guarda la clave.",
-      "Quien revisa responde una pregunta: ¿cuál parece diseñada por una persona para este producto? Izquierda, derecha o empate, y una frase con el porqué.",
-      "Luego ambas salidas se puntúan en la ficha de 42 puntos."
-    ],
     "decidePhase": "Decisión",
     "decideTitle": "Publicar solo por encima del listón",
-    "decideRules": [
-      "Total con la skill de al menos 1,3× la línea base, en el conjunto de briefs.",
-      "Cero errores de lint en las salidas con la skill, y el filtro de alcance pasa en cada ejecución.",
-      "Gana o empata la elección a ciegas en al menos 2 de 3 briefs. Una regresión en cualquier brief se registra antes de cambiar nada más."
-    ],
     "asideAria": "Ficha y resultados",
     "scaleCaption": "La ficha, a escala",
     "scaleTotal": "42 pts + filtro",
     "tableCaption": "Secciones de la ficha, de eval/rubric.md",
-    "noteA": "10 ítems, 8 con evidencia del lint",
-    "noteB": "6 ítems: tipografía, espaciado, color, jerarquía, contenido real",
-    "noteC": "5 ítems: Design Read, diales, DESIGN.md, QA visual, a11y",
-    "noteD": "UI de producto intacta salvo que se pida. Un fallo suspende la ejecución.",
     "pts": "{count} pts",
     "passFail": "pasa / falla",
-    "scale": "Cada ítem 0 falla · 1 en parte · 2 pasa con claridad",
-    "logTitle": "eval/VALIDATION.md · ejecuciones registradas: 0",
-    "noScores": "No se muestra ninguna puntuación hasta que se registre una ejecución."
+    "setupShort": "Mismo agente, modelo y brief en dos checkouts limpios. La skill se instala solo en uno.",
+    "runShort": "Cada ejecución termina sola: sin guiar, un seguimiento con guion, lint y capturas guardados.",
+    "blindShort": "Otra persona oculta cuál es cuál. Quien revisa elige uno y luego puntúa ambos en la tarjeta de 42 puntos.",
+    "decideShort": "Se publica solo con 1,3× la línea base, cero errores de lint y victoria o empate a ciegas en 2 de 3 briefs."
   },
   "compare": {
-    "title": "Pros y contras",
-    "body": "antiwebslop es lo bastante pequeña para leerse de una sentada. Las herramientas de diseño más grandes suman más comandos, comprobaciones sobre páginas renderizadas, extensiones de navegador e instaladores para muchos agentes. Si quieres la máxima cobertura y automatización, úsala junto a una de ellas.",
     "priorArt": "Trabajos previos",
     "by": "de {name}"
   },

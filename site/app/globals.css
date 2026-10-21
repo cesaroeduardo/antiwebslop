@@ -35,8 +35,14 @@
 
   --radius-control: 6px;
   --radius-card: 10px;
+  /* Media rows in the newer tells, after america.gov (38.2px phones, 57.3px desktop). */
+  --radius-media: 38px;
 
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (min-width: 48rem) {
+  :root { --radius-media: 57px; }
 }
 
 @layer base {

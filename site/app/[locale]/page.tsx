@@ -44,14 +44,13 @@ const protocolSteps: { key: 'setup' | 'run' | 'blind' | 'decide'; source: string
 
 const scorecard: { key: 'A' | 'B' | 'C' | 'D'; pts?: number }[] = [{ key: 'A', pts: 20 }, { key: 'B', pts: 12 }, { key: 'C', pts: 10 }, { key: 'D' }];
 
-const validationLines = [
-  '### YYYY-MM-DD — <brief> — skill @ <sha>',
-  '- Baseline:   A · B · C · total /42 · D · lint',
-  '- With skill: A · B · C · total /42 · D · lint',
-  '- Blind pick: with-skill | baseline | tie',
-  ' ',
-  '## Runs',
-  '_None yet._',
+/** The newer tells, stacked image-beside-topic rows after america.gov. Each row zooms into one
+    region of the annotated newer-tells capture; `zoom` and `origin` frame the tagged elements. */
+const tellRows: { key: 'words' | 'metrics' | 'numbering' | 'loops'; rules: string[]; zoom?: number; origin?: string }[] = [
+  { key: 'words', rules: ['eyebrow-kicker', 'em-dash-overuse', 'not-x-a-y'] },
+  { key: 'metrics', rules: ['hero-metric'], zoom: 1.35, origin: '50% 72%' },
+  { key: 'numbering', rules: ['section-number', 'side-tab-border'], zoom: 2.1, origin: '0% 100%' },
+  { key: 'loops', rules: ['attention-loop', 'bounce-easing'], zoom: 2.4, origin: '100% 0%' },
 ];
 
 const nav: [string, 'references' | 'catalog' | 'gallery' | 'install' | 'eval'][] = [
@@ -94,20 +93,11 @@ function ImageSlot({ name, ratio, alt, src, className = '' }: { name: string; ra
   );
 }
 
-function GalleryImage({ src, alt, label, w, h, className = '', priority = false, sizes }: { src: string; alt: string; label: string; w: number; h: number; className?: string; priority?: boolean; sizes: string }) {
-  return (
-    <figure className={`relative overflow-hidden bg-surface ${className}`}>
-      <Image src={src} alt={alt} width={w} height={h} sizes={sizes} priority={priority} className="h-full w-full object-cover object-left-top" />
-      <figcaption className="absolute bottom-3 left-3 rounded-control bg-bg px-2 py-1 font-mono text-cap text-fg">{label}</figcaption>
-    </figure>
-  );
-}
-
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
-  const { lintSamples: ls, catalog, comparison, priorArt, ruleCount, catalogCount, version } = content;
+  const { catalog, priorArt, ruleCount, catalogCount, version } = content;
   const install = installRows(t);
 
   return (
@@ -244,32 +234,52 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </Section>
 
-        {/* Gallery: exhibit B, image large, findings listed beside it. */}
+        {/* Newer tells: america.gov's stacked media rows. 12 columns: image at columns 2-7 (bigger than
+            america.gov's 4, same proportions), one empty column, topic at 9-12, vertically centered.
+            Rows 120px apart (80 under md); image radius 57px (38px under md); 40px image-to-text on phones. */}
         <Section id="gallery" className="pt-32 md:pt-40">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
-            <div className="md:col-span-5" data-reveal>
-              <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('gallery.title')}</h2>
-              <p className="mb-6 max-w-[48ch] text-base text-muted">
-                {t('gallery.body', { warnings: ls.b.warnings, clean: ls.clean.errors + ls.clean.warnings })}
-              </p>
-              <ImageSlot name="newer-tells" ratio="4:3" src="/slots/newer-tells.webp" alt={t('gallery.slotAlt')} />
-              <p className="mt-4 font-mono text-cap text-muted">
-                {t.rich('gallery.more', { ...rich, link: (c) => <a className="link" href={tree('gallery')}>{c}</a> })}
-              </p>
-            </div>
-            <GalleryImage
-              src="/gallery/b-before.webp" w={2200} h={1664} sizes="(min-width: 768px) 58vw, 100vw"
-              alt={t('gallery.imageAlt')}
-              label={t('gallery.before', { errors: ls.b.errors, warnings: ls.b.warnings })}
-              className="-mx-4 h-[420px] sm:-mx-6 md:col-span-7 md:mx-0 md:-mr-6 md:h-auto md:self-start lg:-mr-[max(24px,calc((100vw-1280px)/2+24px))]"
-            />
+          <div className="mb-16 grid grid-cols-1 gap-6 md:mb-[120px] md:grid-cols-12 md:items-end">
+            <h2 className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">{t('gallery.title')}</h2>
+            <p className="max-w-[46ch] text-base text-muted md:col-span-4 md:col-start-9">{t('gallery.body')}</p>
           </div>
+          <ul className="flex flex-col gap-20 md:gap-[120px]">
+            {tellRows.map((row, i) => (
+              <li key={row.key} className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-x-6" data-reveal>
+                <figure className="relative aspect-[4/3] w-full overflow-hidden rounded-media bg-surface md:col-span-6 md:col-start-2">
+                  <Image
+                    src="/slots/newer-tells.webp"
+                    alt={t(`gallery.${row.key}Alt`)}
+                    fill
+                    sizes={row.zoom ? '(min-width: 768px) 1448px, 200vw' : '(min-width: 1280px) 620px, (min-width: 768px) 50vw, 100vw'}
+                    priority={false}
+                    className="object-cover"
+                    style={row.zoom ? { transform: `scale(${row.zoom})`, transformOrigin: row.origin } : undefined}
+                  />
+                </figure>
+                <div className="flex flex-col gap-8 md:col-span-4 md:col-start-9">
+                  <div className="flex flex-col gap-4">
+                    <h3 className="text-xl font-medium tracking-[-0.02em] md:text-2xl">{t(`gallery.${row.key}Title`)}</h3>
+                    <p className="max-w-[34ch] text-body text-muted">{t(`gallery.${row.key}Body`)}</p>
+                  </div>
+                  <ul className="flex flex-wrap gap-2" aria-label={t('gallery.rulesAria')}>
+                    {row.rules.map((r) => (
+                      <li key={r}><code className="rounded-control bg-surface-2 px-2 py-1 font-mono text-cap text-fg">{r}</code></li>
+                    ))}
+                  </ul>
+                  {i === tellRows.length - 1 ? (
+                    <p className="font-mono text-cap text-muted">
+                      {t.rich('gallery.more', { ...rich, link: (c) => <a className="link" href={tree('gallery')}>{c}</a> })}
+                    </p>
+                  ) : null}
+                </div>
+              </li>
+            ))}
+          </ul>
         </Section>
 
         {/* Install: dense rows, one per agent. */}
         <Section id="install" className="pt-32 md:pt-40">
-          <h2 className="mb-3 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('install.title')}</h2>
-          <p className="mb-8 max-w-[60ch] text-base text-muted">{t('install.intro')}</p>
+          <h2 className="mb-8 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('install.title')}</h2>
           <ul className="border-t border-border" data-reveal>
             {install.map((row) => (
               <li key={row.agent} className="grid grid-cols-1 gap-2 border-b border-border py-4 md:grid-cols-12 md:items-center md:gap-6">
@@ -284,93 +294,59 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </ul>
         </Section>
 
-        {/* Eval: asymmetric ledger. Left, the A/B protocol as a vertical timeline of its four phases;
-            right (sticky on desktop), the 42-point scorecard drawn to scale and the validation log as it stands: empty. */}
-        <Section id="eval" className="pt-32 md:pt-40">
-          <div className="grid grid-cols-1 gap-6 border-b border-border pb-10 md:grid-cols-12 md:items-end">
-            <h2 className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">{t('eval.title')}</h2>
-            <p className="max-w-[46ch] text-base text-muted md:col-span-5 md:col-start-8">{t('eval.intro')}</p>
-          </div>
+        {/* Eval: the A/B protocol as a short four-phase timeline on the left; the 42-point scorecard drawn to scale on the right. */}
+        <Section id="eval" className="pb-32 pt-32 md:pb-40 md:pt-40">
+          <h2 className="border-b border-border pb-10 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('eval.title')}</h2>
 
           <div className="grid grid-cols-1 gap-16 pt-12 md:grid-cols-12 md:gap-6 md:pt-16">
             <ol className="relative md:col-span-7 md:pr-12" data-reveal aria-label={t('eval.protocolAria')}>
               {protocolSteps.map((step) => (
-                <li key={step.key} className="relative grid grid-cols-1 gap-3 border-l border-border-strong pb-14 pl-6 last:border-l-transparent last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-6 sm:pl-8">
+                <li key={step.key} className="relative grid grid-cols-1 gap-3 border-l border-border-strong pb-12 pl-6 last:border-l-transparent last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-6 sm:pl-8">
                   <span aria-hidden className="absolute -left-[5px] top-[0.4rem] size-[9px] bg-fg" />
                   <p className="font-mono text-cap text-muted">
                     <span className="block text-sm text-fg">{t(`eval.${step.key}Phase`)}</span>
-                    <span className="block">{step.source}</span>
+                    <a className="link block" href={blob(`eval/${step.source}`)}>{step.source}</a>
                   </p>
                   <div>
-                    <h3 className="mb-4 text-lg font-medium">{t(`eval.${step.key}Title`)}</h3>
-                    <ul className="border-t border-border">
-                      {(t.raw(`eval.${step.key}Rules`) as string[]).map((r) => (
-                        <li key={r} className="prose-inline border-b border-border py-3 text-base text-muted"><Inline text={r} /></li>
-                      ))}
-                    </ul>
+                    <h3 className="mb-2 text-lg font-medium">{t(`eval.${step.key}Title`)}</h3>
+                    <p className="max-w-[48ch] text-base text-muted">{t(`eval.${step.key}Short`)}</p>
                   </div>
                 </li>
               ))}
             </ol>
 
             <aside className="md:col-span-5" aria-label={t('eval.asideAria')}>
-              <div className="flex flex-col gap-6 md:sticky md:top-8">
-                <figure className="rounded-card border border-border bg-surface p-5 sm:p-6">
-                  <figcaption className="mb-5 flex items-baseline justify-between gap-4 font-mono text-cap text-muted">
-                    <span>{t('eval.scaleCaption')}</span>
-                    <span className="tabular-nums text-fg">{t('eval.scaleTotal')}</span>
-                  </figcaption>
-                  <div className="flex h-16 gap-1 font-mono text-cap" aria-hidden>
-                    {scorecard.filter((s) => s.pts).map((s) => (
-                      <span key={s.key} className="flex items-end justify-between gap-1 bg-surface-2 p-2 text-fg" style={{ flexGrow: s.pts ?? 0, flexBasis: 0 }}><span>{s.key}</span><span className="hidden tabular-nums text-muted sm:inline">{s.pts}</span></span>
+              <figure className="rounded-card border border-border bg-surface p-5 sm:p-6 md:sticky md:top-8">
+                <figcaption className="mb-5 flex items-baseline justify-between gap-4 font-mono text-cap text-muted">
+                  <span>{t('eval.scaleCaption')}</span>
+                  <span className="tabular-nums text-fg">{t('eval.scaleTotal')}</span>
+                </figcaption>
+                <div className="flex h-16 gap-1 font-mono text-cap" aria-hidden>
+                  {scorecard.filter((s) => s.pts).map((s) => (
+                    <span key={s.key} className="flex items-end justify-between gap-1 bg-surface-2 p-2 text-fg" style={{ flexGrow: s.pts ?? 0, flexBasis: 0 }}><span>{s.key}</span><span className="hidden tabular-nums text-muted sm:inline">{s.pts}</span></span>
+                  ))}
+                  <span className="flex w-12 shrink-0 items-end border border-dashed border-border-strong p-2 text-muted">D</span>
+                </div>
+                <table className="mt-5 w-full border-collapse text-left text-sm">
+                  <caption className="sr-only">{t('eval.tableCaption')}</caption>
+                  <tbody>
+                    {scorecard.map((s) => (
+                      <tr key={s.key} className="border-t border-border align-top">
+                        <th scope="row" className="w-8 py-3 font-mono text-cap font-normal text-muted">{s.key}</th>
+                        <td className="py-3 text-fg">{t(`rubric.${s.key}`)}</td>
+                        <td className="whitespace-nowrap py-3 pl-3 text-right font-mono text-cap tabular-nums text-fg">{s.pts ? t('eval.pts', { count: s.pts }) : t('eval.passFail')}</td>
+                      </tr>
                     ))}
-                    <span className="flex w-12 shrink-0 items-end border border-dashed border-border-strong p-2 text-muted">D</span>
-                  </div>
-                  <table className="mt-5 w-full border-collapse text-left text-sm">
-                    <caption className="sr-only">{t('eval.tableCaption')}</caption>
-                    <tbody>
-                      {scorecard.map((s) => (
-                        <tr key={s.key} className="border-t border-border align-top">
-                          <th scope="row" className="w-8 py-3 font-mono text-cap font-normal text-muted">{s.key}</th>
-                          <td className="py-3">
-                            <span className="block text-fg">{t(`rubric.${s.key}`)}</span>
-                            <span className="block text-cap text-muted">{t(`eval.note${s.key}`)}</span>
-                          </td>
-                          <td className="whitespace-nowrap py-3 pl-3 text-right font-mono text-cap tabular-nums text-fg">{s.pts ? t('eval.pts', { count: s.pts }) : t('eval.passFail')}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <p className="mt-4 border-t border-border pt-4 font-mono text-cap text-muted">{t('eval.scale')}</p>
-                </figure>
-
-                <Terminal title={t('eval.logTitle')} wrap lines={validationLines} />
-                <p className="font-mono text-cap text-muted">
-                  {t('eval.noScores')} <a className="link" href={blob('eval/rubric.md')}>rubric.md</a> · <a className="link" href={blob('eval/ab-protocol.md')}>ab-protocol.md</a> · <a className="link" href={blob('eval/VALIDATION.md')}>VALIDATION.md</a>
-                </p>
-              </div>
+                  </tbody>
+                </table>
+              </figure>
             </aside>
           </div>
         </Section>
 
-        {/* Trade-offs and prior art. */}
-        <Section id="compare" className="pb-32 pt-32 md:pb-40 md:pt-40">
-          <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('compare.title')}</h2>
-          <p className="mb-8 max-w-[64ch] text-base text-muted">{t('compare.body')}</p>
-          <div className="overflow-x-auto" lang="en">
-            <table className="w-full min-w-[480px] border-collapse text-left text-sm">
-              <tbody>
-                {comparison.map(([k, ours]) => (
-                  <tr key={k} className="border-b border-border align-top">
-                    <th scope="row" className="w-40 py-3 pr-6 font-mono text-cap font-normal text-muted">{k}</th>
-                    <td className="prose-inline py-3 text-fg"><Inline text={ours} /></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <h3 className="mb-4 mt-16 text-lg font-medium">{t('compare.priorArt')}</h3>
+        {/* Prior art: credits for the work this builds on. */}
+        <Section id="prior-art" className="pb-32 md:pb-40">
+          <h2 className="mb-6 text-lg font-medium">{t('compare.priorArt')}</h2>
           <ul lang="en" className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
             {priorArt.map((p) => (
               <li key={p.name} className="prose-inline text-sm text-muted">
