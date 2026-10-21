@@ -5,7 +5,9 @@ export const routing = defineRouting({
   defaultLocale: 'en',
   // English at /, the others at /pt, /fr, /es
   localePrefix: 'as-needed',
-  // the language is picked from the URL only; no cookie, no Accept-Language redirect
+  // next-intl's own detection stays off: proxy.ts guesses once from the country (x-vercel-ip-country) on an
+  // unprefixed path, and the NEXT_LOCALE cookie (set by that guess or by the language select) wins after that.
+  // Prefixed paths and crawlers are never redirected. No Accept-Language.
   localeDetection: false,
   localeCookie: false,
 });
