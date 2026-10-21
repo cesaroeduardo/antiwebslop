@@ -21,8 +21,8 @@ const rich = {
 };
 
 /** One row per agent: logo (public/logos/, see SOURCES.md), name, command. No side notes. */
-const installRows = (t: T): { agent: string; logo: string; command: string }[] => [
-  { agent: t('install.anyAgent'), logo: 'vercel', command: INSTALL_ANY },
+const installRows = (t: T): { agent: string; logo?: string; command: string }[] => [
+  { agent: t('install.anyAgent'), command: INSTALL_ANY },
   { agent: 'Cursor', logo: 'cursor', command: 'npx skills add cesaroeduardo/antiwebslop -a cursor' },
   { agent: 'Codex', logo: 'openai', command: 'codex plugin marketplace add cesaroeduardo/antiwebslop && codex plugin add antiwebslop@antiwebslop' },
   { agent: 'Claude Code', logo: 'claude', command: 'claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop' },
@@ -279,11 +279,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <li key={row.agent} className="group grid grid-cols-1 gap-3 border-b border-border py-4 md:grid-cols-12 md:items-start md:gap-6">
                 <span className="flex items-center gap-3 font-mono text-sm text-fg md:col-span-3 md:pt-2">
                   {/* Monochrome mark as a CSS mask, so it takes the page ink and the accent on row hover. Decorative: the name is the label. */}
-                  <span
-                    aria-hidden
-                    className="size-[18px] shrink-0 bg-fg transition-colors duration-150 group-hover:bg-accent group-focus-within:bg-accent"
-                    style={{ mask: `url(/logos/${row.logo}.svg) center / contain no-repeat`, WebkitMask: `url(/logos/${row.logo}.svg) center / contain no-repeat` }}
-                  />
+                  {row.logo ? (
+                    <span
+                      aria-hidden
+                      className="size-[18px] shrink-0 bg-fg transition-colors duration-150 group-hover:bg-accent group-focus-within:bg-accent"
+                      style={{ mask: `url(/logos/${row.logo}.svg) center / contain no-repeat`, WebkitMask: `url(/logos/${row.logo}.svg) center / contain no-repeat` }}
+                    />
+                  ) : (
+                    <span aria-hidden className="size-[18px] shrink-0" />
+                  )}
                   {row.agent}
                 </span>
                 <div className="flex min-w-0 items-start gap-2 md:col-span-9">
