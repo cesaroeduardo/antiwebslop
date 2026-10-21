@@ -1,46 +1,51 @@
-# Visual QA with Playwright Agent CLI
+# Visual QA with Playwright CLI
 
-> Distilled from Design Lab spec `design-lab/visual-qa-playwright.md` (REVIEWED).
+Credit: [Playwright CLI](https://playwright.dev/agent-cli/introduction). Any browser
+screenshot tool works (Cursor browser tools, Playwright MCP); the viewports and report format are what matter.
 
-## Install Playwright Agent CLI once
-**Principle.** Viewport proof needs a real browser pipeline.
-**Apply when.** First visual QA setup on a machine.
-**The move.**
+## Setup (once per machine)
+
 ```bash
 npm install -g @playwright/cli
 playwright-cli install-browser chromium
 ```
-**Source.** design-lab/visual-qa-playwright.md — Setup
 
-## Capture the three canonical viewports
-**Principle.** Desktop-only screenshots hide mobile/tablet failure modes.
-**Apply when.** Auditing a live local or preview URL.
-**The move.**
+## Capture
+
 ```bash
-playwright-cli open http://localhost:3000 --headed
-playwright-cli resize 1440 900 && playwright-cli screenshot
-playwright-cli resize 768 1024 && playwright-cli screenshot
-playwright-cli resize 390 844 && playwright-cli screenshot
-playwright-cli snapshot
+playwright-cli open http://localhost:3000
+playwright-cli resize 1440 900  && playwright-cli screenshot
+playwright-cli resize 768 1024  && playwright-cli screenshot
+playwright-cli resize 390 844   && playwright-cli screenshot
+playwright-cli snapshot          # accessibility tree, for focus/labels review
 ```
-Fallback: Cursor browser tools (`browser_take_screenshot`, `browser_snapshot`).
+
+`screenshot` captures the viewport. For long pages, also capture below the fold: scroll with
+`playwright-cli mousewheel 0 900` and screenshot again, or take one full-page shot through
+`playwright-cli run-code` with `page.screenshot({ fullPage: true })` (check `playwright-cli --help run-code` for the exact form).
 
 | Name | Size |
-|------|------|
+|---|---|
 | Desktop | 1440×900 |
 | Tablet | 768×1024 |
 | Mobile | 390×844 |
 
-**Source.** design-lab/visual-qa-playwright.md — Loop / Viewports
+## What to flag
 
-## Flag the high-cost visual failures
-**Principle.** Not every pixel issue is equal; catch what kills hierarchy and use.
-**Apply when.** Reviewing screenshots / snapshots.
-**The move.** Flag: clipping, weak hierarchy, low contrast, horizontal overflow, sticky covering focus, hero clutter, motion without reduced-motion support.
-**Source.** design-lab/visual-qa-playwright.md — Flag
+- **Layout:** clipping, horizontal overflow, sticky elements covering content or focus, broken grid at tablet.
+- **Hierarchy:** no clear first read (blur test), competing primary buttons, headline and CTA below the fold on mobile.
+- **Slop:** anything from the [anti-pattern catalog](anti-patterns.md) that the lint cannot see: centered-everything, identical section rhythm, icon soup, stock imagery, uniform card look.
+- **A11y:** low contrast, invisible focus, motion without reduced-motion support.
+- **Dials:** does the screenshot match the stated V/M/D? (see [dials](dials.md))
 
-## Report by viewport with severity, then fix and re-capture
-**Principle.** Visual QA without a severity report and re-proof is incomplete.
-**Apply when.** Writing findings after capture.
-**The move.** Sections per viewport; severity `critical|high|medium|nit`; fix with anti-slop/dials; re-capture. Human dashboard: `playwright-cli show --annotate`.
-**Source.** design-lab/visual-qa-playwright.md — Report
+## Report
+
+```text
+## Desktop 1440×900
+- [high] Hero CTA and secondary link have equal weight → make the link text-only
+## Mobile 390×844
+- [critical] Headline wraps to 7 lines; primary CTA below the fold → step headline down one scale size
+```
+
+Severity: `critical` (broken or unusable) · `high` (slop or hierarchy failure) · `medium` · `nit`.
+Fix critical and high, re-capture, and include the after-screenshots.

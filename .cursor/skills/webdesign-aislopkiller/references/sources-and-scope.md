@@ -1,57 +1,31 @@
-# Vision and work loop
+# Sources and scope
 
-> Distilled from Design Lab spec `design-lab/vision.md` (REVIEWED).
+## Where the rules come from
 
-## Design Lab is a cross-project decision library
-**Principle.** Strong web design decisions should live as shared knowledge for agents and humans — not reinvented per chat or per app.
-**Apply when.** Starting any marketing/help UI, redesign, or design-system question in this workspace.
-**The move.** Treat Design Lab (this skill + `ref/design-lab/*` + `design-knowledge/DESIGN.md`) as the library. Cross-project home: product **Webdesign Knowledge** inside workspace **General Knowledges**.
-**Source.** design-lab/vision.md — Why it exists
+The skill absorbs specific strengths from public tools rather than inventing a parallel stack:
 
-## Absorb proven external tools; do not fork blindly
-**Principle.** The Lab absorbs specific strengths from known tools instead of inventing a parallel stack.
-**Apply when.** Choosing which workflow to run (taste, audit, brief, image-first, visual QA).
-**The move.** Map the job to the absorbed source:
-
-| Tool | What we absorbed |
-|------|------------------|
-| [Taste Skill](https://www.tasteskill.dev/) | Anti-slop, design read, dials, bans |
-| [Vercel web-design-guidelines](https://www.skills.sh/vercel-labs/agent-skills/web-design-guidelines) | Fresh a11y/UX audit rules |
+| Source | What it contributes |
+|---|---|
+| [Taste Skill](https://www.tasteskill.dev/) | Design Read, dials, bans |
+| [Vercel web-interface-guidelines](https://github.com/vercel-labs/web-interface-guidelines) | A11y and UX audit rules |
 | [getdesign.md](https://getdesign.md/) | DESIGN.md as a reusable brief |
-| [image-to-code-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/image-to-code-skill) | Image → analysis → code |
-| [Playwright Agent CLI](https://playwright.dev/agent-cli/introduction) | Multi-viewport visual QA |
+| [image-to-code-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/image-to-code-skill) | Reference → extract → implement |
+| [Playwright CLI](https://playwright.dev/agent-cli/introduction) | Multi-viewport visual QA |
 
-**Source.** design-lab/vision.md — External inspiration
+The anti-pattern catalog, craft defaults, examples, lint, and eval are this repo's own work.
+New rules should come from validation runs (see the repo's `eval/`), not from taste debates.
 
-## Repo artifacts stay in known paths
-**Principle.** Agents find the brief and skills in fixed locations.
-**Apply when.** Looking for DESIGN.md or related project skills.
-**The move.** Prefer:
+## Why product UI is treated differently
 
-| Path | Role |
-|------|------|
-| `design-knowledge/DESIGN.md` | Living brief |
-| `design-knowledge/README.md` | Index |
-| This skill (`webdesign-knowledge`) | Unified Design Lab playbook |
-| `ref/design-lab/*` | Exported Kstonebase specs (mirror) |
+Authenticated apps already have a design system that users have learned. Restyling it to be
+"less generic" breaks consistency and costs more than it gains. So in product UI the skill:
+- keeps the kit, tokens, and layout patterns,
+- still runs the lint and the a11y checks,
+- applies the full anti-slop playbook only to **new** surfaces or when a redesign is explicitly requested.
 
-Legacy split skills (if present): `.cursor/skills/web-design-taste`, `web-interface-guidelines`, `design-md`, `image-to-code`, `visual-qa-playwright`.
-**Source.** design-lab/vision.md — Repo artifacts
+## Marketing composition, conditionally
 
-## Work loop is read → theme → act → log
-**Principle.** Design work is a loop, not a one-shot prompt.
-**Apply when.** Any Design Lab task.
-**The move.**
-1. Read Design Lab references + `DESIGN.md`
-2. Open only the matching reference theme(s)
-3. Implement / audit / capture viewports
-4. Record durable decisions in the decision-log format
-**Source.** design-lab/vision.md — Work loop
-
-## Scope: marketing yes; product shells careful
-**Principle.** Full playbook applies to promotional surfaces; authenticated shells keep their kit.
-**Apply when.** Choosing how aggressively to restyle.
-**The move.**
-- **Yes:** landing, help/marketing, visual redesigns, UI QA
-- **Careful:** authenticated product shells — preserve existing design systems (e.g. HeroUI) unless explicitly redesigning
-**Source.** design-lab/vision.md — Scope
+A full-viewport hero (`min-height: 100dvh`) is a strong default for **landing and campaign pages**
+with one clear job. Do not force it on help/docs pages, long-form content, pricing pages, or pages
+whose first job is navigation or search; there, put the content in the first viewport instead.
+Whatever the page, the first viewport has **one job**, and there are no floating badges or stickers on the hero.

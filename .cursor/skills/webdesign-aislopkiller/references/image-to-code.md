@@ -1,42 +1,21 @@
 # Image → code workflow
 
-> Distilled from Design Lab spec `design-lab/image-to-code.md` (REVIEWED).
+Credit: [Leonxlnx image-to-code-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/image-to-code-skill).
 
-## Generate → analyze → implement (mandatory when images are available)
-**Principle.** Freeform coding without a visual system produces slop.
-**Apply when.** Visual tasks where image generation (or a provided reference) is available.
-**The move.** Strict order:
-1. Generate reference image(s) (section-scale, readable)
-2. Analyze deeply (extract the system)
-3. Implement matching code
+## When to use it (conditional, not mandatory)
 
-Do **not** start with freeform coding when image generation is available.
-**Source.** design-lab/image-to-code.md — Mandatory order
+Use image-first when **any** of these hold:
+- the user provided a reference image, screenshot, or mockup, or
+- you are designing a **new page or a full redesign** (not a component tweak) **and** an image-generation tool is available.
 
-## Default image-to-code dials
-**Principle.** Image-first work uses a sharper dial set than general marketing defaults.
-**Apply when.** Setting intensity for image→code runs.
-**The move.** Use: `VARIANCE 8 / DENSITY 3 / ART_DIRECTION 8 / IMPLEMENTATION_CLARITY 9 / SPACING 9 / SIMPLICITY 9`
-**Source.** design-lab/image-to-code.md — Default dials
+Skip it for small edits, single components, product-UI work inside an existing kit, or when no image tool exists. Say in one line which path you took.
 
-## Large per-section images; regenerate if unreadable
-**Principle.** A compressed board destroys hierarchy and spacing cues.
-**Apply when.** Choosing how many / how large reference images to generate.
-**The move.**
-- Large per-section images over one compressed board
-- Generate enough (hero + key sections)
-- Hero must be readable on a small laptop
-- If unreadable → regenerate **before** coding
-**Source.** design-lab/image-to-code.md — Image rules
+## Order
 
-## Extract the system before writing CSS
-**Principle.** Code should match an extracted system, not approximate a vibe.
-**Apply when.** After images exist, before implementation.
-**The move.** Extract: palette, typography, spacing, buttons, geometry, and what to **avoid** (nested cards, stickers).
-**Source.** design-lab/image-to-code.md — Extract before coding
+1. **Get the reference.** Use the user's image, or generate section-scale images (hero + key sections as separate images, not one compressed board). The hero must be readable at small-laptop size; regenerate if text or spacing is unreadable.
+2. **Extract the system** and write it down before coding: palette (hex), type families and scale, spacing steps, grid and column splits, radius and border rules, button styles, what to **avoid** (check against [anti-patterns](anti-patterns.md); a generated image can contain slop too).
+3. **Implement to match.** Match the reference exactly; do not "improve" it into a template. Map extracted values to the project's tokens (project tokens win over the image when they conflict).
+4. **Compare** screenshot vs. reference at the same viewport; fix drift.
+5. **Record** the extracted system in the project's `DESIGN.md` if it becomes the look.
 
-## Close the loop in DESIGN.md and the decision log
-**Principle.** A successful image→code run creates durable library knowledge.
-**Apply when.** Implementation lands and the look should be reused.
-**The move.** Update `design-knowledge/DESIGN.md` and append the decision log.
-**Source.** design-lab/image-to-code.md — Afterward
+Dials: use the surface's preset from [dials](dials.md). There are no separate image dials.

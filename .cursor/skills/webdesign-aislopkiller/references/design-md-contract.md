@@ -1,44 +1,30 @@
 # DESIGN.md contract
 
-> Distilled from Design Lab spec `design-lab/design-md-contract.md` (REVIEWED).
+Credit: [getdesign.md](https://getdesign.md/).
 
-## One living brief, ten required sections
-**Principle.** DESIGN.md is the reusable library brief — not a dump of adjectives.
-**Apply when.** Creating or updating `design-knowledge/DESIGN.md`.
-**The move.** Keep these sections, in order:
-1. Intent
-2. Visual direction (+ bans)
-3. Color (concrete tokens)
-4. Typography
-5. Spacing & layout
-6. Components
-7. Motion
-8. Imagery
-9. Do / Don't
-10. References
-**Source.** design-lab/design-md-contract.md — Required sections
+## One DESIGN.md per project
 
-## Tokens over adjectives; one accent; document why
-**Principle.** Vague color talk drifts; locked tokens and rationale do not.
-**Apply when.** Writing color, type, or component rules.
-**The move.**
-- Prefer hex / CSS vars over adjectives
-- One accent per surface, locked
-- Document the *why*
-**Source.** design-lab/design-md-contract.md — Rules
+- Location: repo root `DESIGN.md` (or `docs/DESIGN.md` if the project keeps docs there). In a monorepo, one per app that has its own brand; shared packages link to it.
+- Create it from [the template](../templates/DESIGN.template.md) when it is missing and the task is a new page, a redesign, or a token change. Do not create one for a one-line fix.
+- It describes **this project**. Cross-project defaults live in this skill, not in a project file.
 
-## Strong decisions update DESIGN.md and the decision log
-**Principle.** A decision that should survive the next chat must be written twice.
-**Apply when.** You lock a look, token, ban, or composition rule.
-**The move.** Update `design-knowledge/DESIGN.md` **and** append an entry in decision-log format. Do **not** proliferate a DESIGN.md per app — one library brief.
-**Source.** design-lab/design-md-contract.md — Rules
+## Required sections (in order)
 
-## Read order is fixed
-**Principle.** Agents must not invent a competing source of truth order.
-**Apply when.** Resolving conflict between docs, specs, and code.
-**The move.** Read in this order:
-1. Design Lab (`ref/design-lab/*` / this skill) — and `design/system` when relevant
-2. `design-knowledge/DESIGN.md`
-3. Legacy `docs/DESIGN.md` if present
-4. Tokens in code
-**Source.** design-lab/design-md-contract.md — Read order
+1. Intent · 2. Design Read and dials · 3. Visual direction and project bans · 4. Color tokens · 5. Typography · 6. Spacing and layout · 7. Components · 8. Motion · 9. Imagery and content · 10. Do / Don't · 11. Decision log · 12. References
+
+## Rules
+
+- Hex values or CSS variables, never adjectives alone ("warm gray" → `--color-muted: #8A857D`).
+- One accent per surface, with its job written down.
+- Every rule has a *why* in one line.
+- When code tokens and DESIGN.md disagree, code is the truth for what ships today: fix DESIGN.md or open a TODO; do not silently restyle.
+
+## Read order (earlier wins on conflict)
+
+1. Existing tokens and design system in code (theme, CSS vars, Tailwind config, component kit)
+2. The project's `DESIGN.md`
+3. This skill's defaults
+
+## When to update
+
+After a durable decision (a token, a ban, a composition rule, a dial change for a surface): update the relevant section **and** append an entry to the decision log (section 11). See [decision-log](decision-log.md).
