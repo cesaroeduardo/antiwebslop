@@ -1,0 +1,11 @@
+{
+  "name": "webdesign-aislopkiller",
+  "private": true,
+  "type": "module",
+  "description": "Agent skill and scripts that keep AI-built web design from looking like AI slop.",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node --test tests/",
+    "slop-lint": "node .cursor/skills/webdesign-aislopkiller/scripts/slop-lint.mjs"
+  }
+}
