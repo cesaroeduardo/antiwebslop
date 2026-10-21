@@ -139,14 +139,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </header>
 
       <main id="main" className="relative overflow-x-clip">
-        {/* Hero: fills the first screen; on its bottom edge the headline takes the left 7 columns and the line plus
-            the install command sit to its right, top-aligned with the headline's first line (after noone.is). */}
+        {/* Hero: fills the first screen; on its bottom edge the headline runs across the grid (up to 4 lines at 1440),
+            the line and the install command sit under it on the right half (after noone.is). */}
         <Section id="top" className="flex min-h-[calc(100svh-76px)] flex-col justify-end pb-16 pt-12 md:pt-28">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-start md:gap-6">
-            <h1 className="text-[clamp(1.75rem,0.9rem+2vw,2.375rem)] font-medium leading-[1.08] tracking-[-0.03em] [text-wrap:wrap] md:col-span-7">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-6 md:gap-y-12">
+            <h1 className="text-[clamp(2rem,0.75rem+4.9vw,5rem)] font-medium leading-[1.02] tracking-[-0.04em] [text-wrap:balance] md:col-span-12 lg:col-span-11">
               {t('hero.title')}
             </h1>
-            <div className="flex flex-col gap-6 md:col-span-5 md:pt-[0.35rem]">
+            <div className="flex flex-col gap-6 md:col-span-6 md:col-start-7 lg:col-span-5 lg:col-start-8">
               <p className="max-w-[44ch] font-mono text-sm text-muted md:text-base">{t('hero.line')}</p>
               <CopyCommand variant="primary" command={INSTALL_ANY} label={t('hero.installLabel')} />
             </div>

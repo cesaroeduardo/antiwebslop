@@ -24,7 +24,7 @@
     "ariaStars": "antiwebslop en GitHub, {count, plural, one {# estrella} other {# estrellas}}"
   },
   "hero": {
-    "title": "Basta de AI slop en mi navegador. Deja de publicar la página que todos ya vimos.",
+    "title": "Basta de AI slop en nuestra web. Deja de publicar la página que todos ya vimos.",
     "line": "Una skill y un lint que evitan que tu agente entregue UI genérica.",
     "installLabel": "Comando de instalación"
   },
