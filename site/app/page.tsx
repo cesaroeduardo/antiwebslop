@@ -168,21 +168,14 @@ export default function Home() {
       </header>
 
       <main id="main" className="relative overflow-x-clip">
-        {/* Hero: fills the first screen; headline, copy and install action sit on its bottom edge. */}
+        {/* Hero: fills the first screen; a wide headline on its bottom edge, then one ruled row with the line and the install command. */}
         <Section id="top" className="flex min-h-[calc(100svh-76px)] flex-col justify-end pb-16 pt-12 md:pt-28">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-6">
-            <h1 className="text-[clamp(2.5rem,4.6vw,4rem)] font-medium leading-[1.05] tracking-[-0.03em] md:col-span-7 lg:col-span-8">
-              No more AI slop in my browser.
-            </h1>
-            <div className="flex flex-col gap-6 md:col-span-5 lg:col-span-4">
-              <p className="text-body text-muted">
-                Purple gradients. Emoji badges. Three identical cards. Agents ship the same page every time, and the web gets uglier
-                for it. antiwebslop fights back: a skill for Cursor, Codex, Claude Code and Grok that names {catalogCount} tells of
-                generated UI, gives the fix for each, and runs a {ruleCount}-rule lint against your project&rsquo;s own design tokens.
-                Install it. Make your agent do better.
-              </p>
-              <CopyCommand variant="primary" command={INSTALL_ANY} label="Install command" />
-            </div>
+          <h1 className="max-w-[31ch] text-[clamp(1.75rem,1rem+3.2vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.03em]">
+            No more AI slop in my browser. Stop shipping the page everyone has already seen.
+          </h1>
+          <div className="mt-10 flex flex-col gap-6 border-t border-border pt-6 md:mt-12 lg:flex-row lg:items-center lg:justify-between">
+            <p className="font-mono text-sm text-muted lg:whitespace-nowrap">A skill and a lint that keep your agent from shipping generic UI.</p>
+            <CopyCommand variant="primary" layout="inline" command={INSTALL_ANY} label="Install command" />
           </div>
         </Section>
 

@@ -9,6 +9,8 @@ type Props = {
   label: string;
   /** "primary" = the page's one accent button; "row" = compact icon button in a table row. */
   variant?: 'primary' | 'row';
+  /** primary only: "inline" puts the command and the button on one line from sm up. */
+  layout?: 'stack' | 'inline';
 };
 
 async function writeClipboard(text: string) {
@@ -29,7 +31,7 @@ async function writeClipboard(text: string) {
   }
 }
 
-export function CopyCommand({ command, label, variant = 'row' }: Props) {
+export function CopyCommand({ command, label, variant = 'row', layout = 'stack' }: Props) {
   const [copied, setCopied] = useState(false);
   const timer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(timer.current), []);
@@ -46,7 +48,7 @@ export function CopyCommand({ command, label, variant = 'row' }: Props) {
 
   if (variant === 'primary') {
     return (
-      <div className="flex flex-col gap-3">
+      <div className={layout === 'inline' ? 'flex flex-col gap-3 sm:flex-row sm:items-center' : 'flex flex-col gap-3'}>
         <code className="block whitespace-pre-wrap rounded-card border border-border bg-surface px-4 py-3 text-cap text-fg [overflow-wrap:anywhere] sm:text-sm">
           <span aria-hidden className="select-none text-muted">$ </span>
           {command}
@@ -54,7 +56,7 @@ export function CopyCommand({ command, label, variant = 'row' }: Props) {
         <button
           type="button"
           onClick={onCopy}
-          className="inline-flex h-11 items-center justify-center gap-2 self-start rounded-control bg-accent px-4 font-mono text-sm font-medium text-accent-fg transition-[background-color,opacity] duration-150 hover:opacity-90 active:opacity-80"
+          className={`inline-flex h-11 shrink-0 items-center justify-center gap-2 self-start rounded-control bg-accent px-4 font-mono text-sm font-medium text-accent-fg transition-[background-color,opacity] duration-150 hover:opacity-90 active:opacity-80 ${layout === 'inline' ? 'sm:self-center' : ''}`}
         >
           <Icon aria-hidden size={16} strokeWidth={2} />
           {copied ? 'Copied to clipboard' : 'Copy the install command'}
