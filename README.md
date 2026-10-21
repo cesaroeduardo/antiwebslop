@@ -189,5 +189,4 @@ Earlier names: `webdesign-knowledge`, then `webdesign-aislopkiller`. The GitHub 
 
 ## License
 
-No license file yet, so default copyright applies: people can read the code but have no
-permission to reuse it. Add a `LICENSE` to let others copy the skill.
+[MIT](LICENSE) © 2026 Eduardo de Cesaro

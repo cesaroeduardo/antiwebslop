@@ -1,6 +1,7 @@
 {
   "name": "antiwebslop",
   "version": "0.2.0",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "description": "Small, readable agent skill, lint, and eval kit that keep AI-built web design from looking like AI slop.",
