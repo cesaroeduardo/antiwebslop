@@ -1,3 +1,5 @@
+![antiwebslop](assets/cover.png)
+
 # antiwebslop
 
 **A small, readable agent skill that keeps AI-built web pages from looking AI-built, and a way to prove it.**
@@ -38,24 +40,59 @@ Until runs exist, the [slop gallery](gallery/index.html) shows what the lint cat
 
 ## Install
 
-```bash
-git clone https://github.com/cesaroeduardo/antiwebslop.git
-cp -r antiwebslop/.cursor/skills/antiwebslop <your-project>/.cursor/skills/
-# or for every project on this machine:
-cp -r antiwebslop/.cursor/skills/antiwebslop ~/.cursor/skills/
-```
+There is one skill folder, [`skills/antiwebslop/`](skills/antiwebslop/), and every route below
+installs that same folder. Pick the line for your agent.
 
-Cursor discovers skills in `.cursor/skills/`. Other agents that read `SKILL.md` folders
-(`~/.claude/skills/`, `~/.agents/skills/`) can use the same folder unchanged. The agent picks it
-up on requests like "build a landing page", "this looks generic", or "make it look less AI".
+| Agent | Install | Verified |
+|---|---|---|
+| Any agent (Cursor, Codex, Claude Code, Grok Build, Gemini CLI, Copilot, OpenCode, and more) | `npx skills add cesaroeduardo/antiwebslop` | yes |
+| Cursor | `npx skills add cesaroeduardo/antiwebslop -a cursor`, or Customize → From GitHub Repository → `cesaroeduardo/antiwebslop` (plugin) | CLI yes, plugin import no |
+| OpenAI Codex (CLI, IDE, app) | `codex plugin marketplace add cesaroeduardo/antiwebslop && codex plugin add antiwebslop@antiwebslop` | yes |
+| Claude Code | `claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop` | yes |
+| claude.ai / Claude Desktop | `npm run pack`, then Customize → Skills → + → Upload a skill → `dist/antiwebslop.zip` | zip yes, upload no |
+| Grok Bot | Send your bot: "Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)" | no |
+| Grok Build (CLI) | `grok plugin install cesaroeduardo/antiwebslop --trust`, or `npx skills add cesaroeduardo/antiwebslop -a grok` | npx yes, plugin no |
 
-Requirements: Node 18+ for the lint and hook. The skill text itself needs nothing.
+Notes:
+
+- **`npx skills`** ([vercel-labs/skills](https://github.com/vercel-labs/skills), Node 22.20+) puts the
+  skill in `.agents/skills/antiwebslop/` (read by Cursor, Codex, and other agents) and symlinks it into
+  agent-specific folders such as `.claude/skills/`. Add `-g` for every project on the machine, `-a <agent>`
+  to choose agents, `--copy` if you cannot use symlinks. That CLI sends anonymous usage data unless you
+  set `DISABLE_TELEMETRY=1`. antiwebslop itself sends nothing.
+- **Inside a Claude Code session** the same install is `/plugin marketplace add cesaroeduardo/antiwebslop`
+  then `/plugin install antiwebslop@antiwebslop`. Plugin skills are namespaced: `/antiwebslop:antiwebslop`.
+- **Codex** also takes the bare skill: ask `$skill-installer` for
+  `https://github.com/cesaroeduardo/antiwebslop/tree/main/skills/antiwebslop`.
+- **Manual copy** works everywhere: `git clone https://github.com/cesaroeduardo/antiwebslop.git` and copy
+  `antiwebslop/skills/antiwebslop` into `.agents/skills/`, `.cursor/skills/`, `.claude/skills/`,
+  `~/.codex/skills/`, or `~/.grok/skills/`.
+
+The agent picks the skill up on requests like "build a landing page", "this looks generic", or
+"make it look less AI". Requirements: Node 18+ for the lint and hook. The skill text needs nothing.
+
+### Where the scripts end up
+
+The lint and hook live in the skill's `scripts/` folder, wherever it was installed. The skill tells
+the agent to call them relative to its own folder, so you only need the paths to run them yourself:
+
+| Installed with | Scripts folder |
+|---|---|
+| `npx skills add` (project) | `.agents/skills/antiwebslop/scripts/` |
+| Manual copy | `<skills dir>/antiwebslop/scripts/` |
+| Claude Code plugin | `~/.claude/plugins/cache/antiwebslop/antiwebslop/<version>/skills/antiwebslop/scripts/` |
+| Codex plugin | `~/.codex/plugins/cache/antiwebslop/antiwebslop/<version>/skills/antiwebslop/scripts/` |
+| This repo | `skills/antiwebslop/scripts/` |
+
+For the Cursor hook, install the skill into the project (`npx skills add` or a copy). Plugin caches
+change path with every version, which would leave a stale path in `.cursor/hooks.json`.
 
 ## Run the lint
 
 ```bash
-node .cursor/skills/antiwebslop/scripts/slop-lint.mjs src/ --quiet
-node .cursor/skills/antiwebslop/scripts/slop-lint.mjs --list-rules
+# paths for an `npx skills add` install; see the table above for others
+node .agents/skills/antiwebslop/scripts/slop-lint.mjs src/ --quiet
+node .agents/skills/antiwebslop/scripts/slop-lint.mjs --list-rules
 ```
 
 - Options: `--json`, `--quiet` (hide info), `--max-warnings N`, `--ext html,css,tsx`,
@@ -72,10 +109,10 @@ Runs the lint on every UI file the agent writes and gives the findings back to t
 it never blocks a write, and if anything goes wrong it stays silent.
 
 ```bash
-# from your project root, after copying the skill in
-node .cursor/skills/antiwebslop/scripts/install-cursor-hook.mjs            # add to .cursor/hooks.json
-node .cursor/skills/antiwebslop/scripts/install-cursor-hook.mjs --dry-run  # preview
-node .cursor/skills/antiwebslop/scripts/install-cursor-hook.mjs --uninstall
+# from your project root, after installing the skill into the project
+node .agents/skills/antiwebslop/scripts/install-cursor-hook.mjs            # add to .cursor/hooks.json
+node .agents/skills/antiwebslop/scripts/install-cursor-hook.mjs --dry-run  # preview
+node .agents/skills/antiwebslop/scripts/install-cursor-hook.mjs --uninstall
 ```
 
 The installer merges with existing hooks and is safe to run twice. Project hooks only run in a
@@ -97,7 +134,7 @@ antiwebslop makes different trade-offs:
 | Runtime | Node script, no downloads, no network | Self-contained engine binary, bundled or downloaded once on first run |
 | Telemetry | None | Anonymous data about design-direction picks, on by default, opt-out |
 | Detection | 31 source rules + DESIGN.md token drift | 61 rules on source and rendered pages, plus design-system checks |
-| Agents | Cursor first; any tool that reads `SKILL.md` | About 17 tools with native installers |
+| Agents | Plugin manifests for Claude Code, Codex, and Cursor; `npx skills` for the rest | About 17 tools with native installers |
 | Proof | Built-in blind A/B protocol and scorecard | Demos, case study, community testimonials |
 | Content honesty | Named rules against invented proof and placeholder people | Asks before adding claims |
 
@@ -107,10 +144,15 @@ The two can coexist in one project. If you run both, expect overlapping findings
 
 | Path | What it is |
 |---|---|
-| `.cursor/skills/antiwebslop/SKILL.md` | Entry point: surface types, source-of-truth order, work loop, pre-done checklist |
-| `.cursor/skills/antiwebslop/references/` | Loaded on demand: anti-patterns, craft, examples, dials, DESIGN.md contract, image-to-code, visual QA, a11y audit, decision log, sources |
-| `.cursor/skills/antiwebslop/templates/DESIGN.template.md` | A project's `DESIGN.md` starting point, with product truth and `design-tokens` |
-| `.cursor/skills/antiwebslop/scripts/` | `slop-lint.mjs`, `cursor-hook.mjs`, `install-cursor-hook.mjs` |
+| `skills/antiwebslop/SKILL.md` | The skill (the only copy): surface types, source-of-truth order, work loop, pre-done checklist |
+| `skills/antiwebslop/references/` | Loaded on demand: anti-patterns, craft, examples, dials, DESIGN.md contract, image-to-code, visual QA, a11y audit, decision log, sources |
+| `skills/antiwebslop/templates/DESIGN.template.md` | A project's `DESIGN.md` starting point, with product truth and `design-tokens` |
+| `skills/antiwebslop/scripts/` | `slop-lint.mjs`, `cursor-hook.mjs`, `install-cursor-hook.mjs` |
+| `.claude-plugin/` | Claude Code plugin and marketplace manifests (the repo root is the plugin) |
+| `.cursor-plugin/` | Cursor plugin and marketplace manifests |
+| `plugin.json`, `.agents/plugins/marketplace.json` | Portable Agent Plugins manifest (Codex, Cursor) and the Codex marketplace entry |
+| `tools/pack-skill.mjs` | Builds `dist/antiwebslop.zip` for claude.ai upload (no dependencies) |
+| `assets/` | Cover and icon |
 | [`eval/`](eval/README.md) | Scorecard, brief template, blind A/B protocol, validation log |
 | [`gallery/`](gallery/README.md) | Static before/after pages with findings marked (era 2026-10) |
 | `tests/` | Fixtures and `node:test` suites for the lint and the hook |
@@ -119,15 +161,17 @@ The two can coexist in one project. If you run both, expect overlapping findings
 ## Develop
 
 ```bash
-npm test          # lint + hook tests (Node >= 18, no dependencies)
+npm test          # lint, hook, manifest, and zip tests (Node >= 18, no dependencies)
 npm run gallery   # rebuild gallery/ from the fixtures
+npm run pack      # dist/antiwebslop.zip for claude.ai
 ```
 
+Bump `version` in `package.json` and the three `plugin.json` files together (a test checks they match).
 Change the skill, run the eval, log the result in `eval/VALIDATION.md`, keep what wins.
 
 ## Name
 
-The repo and the skill are both `antiwebslop` (skill folder `.cursor/skills/antiwebslop/`).
+The repo, the skill, and the plugin are all `antiwebslop` (skill folder `skills/antiwebslop/`).
 Earlier names: `webdesign-knowledge`, then `webdesign-aislopkiller`. The GitHub repo moved from
 `cesaroeduardo/webdesign-aislopkiller` to `cesaroeduardo/antiwebslop`.
 
