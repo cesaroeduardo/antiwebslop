@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   command: string;
@@ -32,6 +33,7 @@ async function writeClipboard(text: string) {
 }
 
 export function CopyCommand({ command, label, variant = 'row', layout = 'stack' }: Props) {
+  const t = useTranslations('copy');
   const [copied, setCopied] = useState(false);
   const timer = useRef<number | undefined>(undefined);
   useEffect(() => () => window.clearTimeout(timer.current), []);
@@ -59,9 +61,9 @@ export function CopyCommand({ command, label, variant = 'row', layout = 'stack' 
           className={`inline-flex h-11 shrink-0 items-center justify-center gap-2 self-start rounded-control bg-accent px-4 font-mono text-sm font-medium text-accent-fg transition-[background-color,opacity] duration-150 hover:opacity-90 active:opacity-80 ${layout === 'inline' ? 'sm:self-center' : ''}`}
         >
           <Icon aria-hidden size={16} strokeWidth={2} />
-          {copied ? 'Copied to clipboard' : 'Copy the install command'}
+          {copied ? t('copied') : t('button')}
         </button>
-        <span className="sr-only" role="status" aria-live="polite">{copied ? `${label} copied` : ''}</span>
+        <span className="sr-only" role="status" aria-live="polite">{copied ? t('status', { label }) : ''}</span>
       </div>
     );
   }
@@ -70,7 +72,7 @@ export function CopyCommand({ command, label, variant = 'row', layout = 'stack' 
     <button
       type="button"
       onClick={onCopy}
-      aria-label={copied ? `${label} copied` : `Copy: ${label}`}
+      aria-label={copied ? t('ariaCopied', { label }) : t('aria', { label })}
       className="inline-flex size-9 shrink-0 items-center justify-center rounded-control border border-border text-muted transition-[color,border-color,background-color] duration-150 hover:border-border-strong hover:bg-surface-2 hover:text-fg data-[copied=true]:text-accent"
       data-copied={copied}
     >

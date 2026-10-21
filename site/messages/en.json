@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "title": "antiwebslop: a design skill that keeps agent-built pages from looking AI-made",
+    "description": "An agent skill for Cursor, Codex, Claude Code and Grok: {entries} named anti-patterns with fixes, a {rules}-rule zero-dependency lint, a per-project DESIGN.md, and a blind A/B eval. MIT, no telemetry.",
+    "ogAlt": "antiwebslop"
+  },
+  "common": {
+    "skip": "Skip to content",
+    "backToTop": "antiwebslop, back to top",
+    "sections": "Sections",
+    "language": "Language",
+    "languageLabel": "{name}, switch language"
+  },
+  "nav": {
+    "references": "References",
+    "catalog": "Catalog",
+    "gallery": "Gallery",
+    "install": "Install",
+    "eval": "Eval"
+  },
+  "github": {
+    "label": "GitHub",
+    "aria": "antiwebslop on GitHub",
+    "ariaStars": "antiwebslop on GitHub, {count, plural, one {# star} other {# stars}}"
+  },
+  "hero": {
+    "title": "No more AI slop in my browser. Stop shipping the page everyone has already seen.",
+    "line": "A skill and a lint that keep your agent from shipping generic UI.",
+    "installLabel": "Install command"
+  },
+  "copy": {
+    "button": "Copy the install command",
+    "copied": "Copied to clipboard",
+    "status": "{label} copied",
+    "aria": "Copy: {label}",
+    "ariaCopied": "{label} copied"
+  },
+  "references": {
+    "title": "Look at real sites before picking a token",
+    "body": "When a project has nothing authored, the skill sends the agent to references first. These {count} came from the galleries it names. Drag to look around; open one to see it large.",
+    "captured": "Captured live at 1440×900, first screen only, Oct 2026.",
+    "region": "Canvas of real sites. Drag or use the arrow keys to look around; open a card to see it large.",
+    "card": "{name}, found on {gallery}. Open larger.",
+    "foundOn": "found on",
+    "openSite": "Open site",
+    "open": "Open",
+    "close": "Close",
+    "dialog": "{name}, screenshot",
+    "dialogEmpty": "Screenshot",
+    "alt": "The first screen of {name} ({host}), captured at 1440 by 900."
+  },
+  "what": {
+    "title": "Four parts, all plain files you can read",
+    "catalogTitle": "A catalog of what not to ship",
+    "catalogBody": "{count} anti-patterns, each with how to spot it and what to do instead. Most have a lint rule, so the agent hears about them as <code>file:line</code> findings, not as taste.",
+    "catalogAlt": "A code editor with landing.html open, three lines underlined, beside a Problems panel listing slop-lint findings: purple-gradient error, emoji-bullet and three-equal-cards warnings.",
+    "briefTitle": "A brief per project",
+    "briefBody": "Each project gets a <code>DESIGN.md</code>: who it is for, the surface type, dials, and a token block. Fonts, colors and radii outside it come back as warnings. This is this site’s own block.",
+    "hookTitle": "Feedback after every write",
+    "hookBody": "An optional Cursor hook lints each UI file the agent writes and hands the findings back before it moves on. It never blocks a write.",
+    "hookAlt": "An agent chat panel after writing src/landing.tsx: the slop-lint advisory reply lists label-above-headline, decorative-numbering and invented-metric, and the agent answers that it is fixing the three findings.",
+    "proveTitle": "A way to prove it helped",
+    "proveBody": "A 0–2 scorecard over 42 points and a blind A/B protocol. A change to the skill ships only when it beats the baseline.",
+    "scorecardCaption": "Scorecard sections",
+    "gate": "gate"
+  },
+  "rubric": {
+    "A": "Slop absence",
+    "B": "Craft",
+    "C": "Process",
+    "D": "Scope safety"
+  },
+  "catalog": {
+    "title": "{count} tells, each with a fix",
+    "body": "The full catalog, read straight from the skill at build time. An entry is allowed only when the project’s DESIGN.md documents it as the brand.",
+    "link": "anti-patterns.md on GitHub",
+    "detect": "Detect",
+    "instead": "Do instead",
+    "noRule": "no rule, by eye",
+    "errorOrWarn": "error or warn",
+    "englishNote": "Catalog entries are read from the skill and stay in English."
+  },
+  "gallery": {
+    "title": "The newer tells",
+    "body": "A label above the headline, 01/02 section numbers, a row of big numbers, side stripes, bouncy easing, a pulsing dot, and em dashes on every line. The lint finds {warnings} of them as warnings; the clean fixture has {clean}.",
+    "slotAlt": "A generic SaaS landing page with each newer tell outlined and tagged: label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering and side-stripe.",
+    "more": "More in <link>gallery/</link>, rebuilt from the fixtures with <code>npm run gallery</code>.",
+    "imageAlt": "A generated page with an INTRODUCING label, 01 and 02 section numbers, three big unsourced numbers and gray text on a blue panel; each flagged element is outlined with its rule name.",
+    "before": "before · {errors} errors, {warnings} warnings"
+  },
+  "install": {
+    "title": "Install it in one line",
+    "intro": "Pick your agent.",
+    "anyAgent": "Any agent",
+    "rowLabel": "{agent} install command",
+    "noteAny": "Cursor, Codex, Claude Code, Grok Build, Gemini CLI, Copilot, OpenCode and more, via <link>vercel-labs/skills</link> (Node 22.20+). Add <code>-g</code> for every project.",
+    "noteCursor": "Or import the repo as a plugin: Customize, then From GitHub Repository.",
+    "noteCodex": "CLI, IDE extension and the ChatGPT desktop app.",
+    "noteClaude": "Inside a session: <code>/plugin marketplace add cesaroeduardo/antiwebslop</code>. The skill runs as <code>/antiwebslop:antiwebslop</code>.",
+    "noteGrok": "Send this to your bot as a message. Grok Build users: <code>grok plugin install cesaroeduardo/antiwebslop --trust</code>."
+  },
+  "eval": {
+    "title": "How we measure it",
+    "intro": "Opinions about taste are cheap, so the skill comes with its own test: same agent, same model, same brief, run with and without the skill, picked blind, then scored.",
+    "protocolAria": "A/B protocol",
+    "setupPhase": "Setup",
+    "setupTitle": "Fix everything but the skill",
+    "setupRules": [
+      "3 to 5 briefs: at least one landing page, one help/docs page, and one product UI task.",
+      "Two clean checkouts per brief at the same commit, `run-a/` and `run-b/`.",
+      "The skill is installed in one run only. The baseline has no copy of it, or of any other design skill.",
+      "Same agent, model, settings and brief text, in a fresh chat each time."
+    ],
+    "runPhase": "Run",
+    "runTitle": "Let each run finish on its own",
+    "runRules": [
+      "The brief is pasted verbatim; clarifying questions get the same scripted answers in both runs.",
+      "No steering. One follow-up allowed: “Finish and make it production-ready.”",
+      "Both runs are captured at 3 viewports, and `slop-lint --json` is saved for each."
+    ],
+    "blindPhase": "Blind review",
+    "blindTitle": "Pick first, score after",
+    "blindRules": [
+      "Left and right are assigned at random; someone other than the reviewer keeps the key.",
+      "The reviewer answers one question: which looks designed by a person for this product? Left, right or tie, and one sentence why.",
+      "Then both outputs are scored on the 42-point card."
+    ],
+    "decidePhase": "Decide",
+    "decideTitle": "Ship only past the bar",
+    "decideRules": [
+      "With-skill total at least 1.3× the baseline, across the brief set.",
+      "Zero lint errors in the with-skill outputs, and the scope-safety gate passes on every run.",
+      "Wins or ties the blind pick in at least 2 of 3 briefs. A regression on any brief is logged before anything else changes."
+    ],
+    "asideAria": "Scorecard and results",
+    "scaleCaption": "Scorecard, drawn to scale",
+    "scaleTotal": "42 pts + gate",
+    "tableCaption": "Scorecard sections, from eval/rubric.md",
+    "noteA": "10 items, 8 with lint evidence",
+    "noteB": "6 items: type, spacing, color, hierarchy, real content",
+    "noteC": "5 items: Design Read, dials, DESIGN.md, visual QA, a11y",
+    "noteD": "Product UI untouched unless asked. A fail fails the run.",
+    "pts": "{count} pts",
+    "passFail": "pass / fail",
+    "scale": "Each item 0 fails · 1 partly · 2 clearly passes",
+    "logTitle": "eval/VALIDATION.md · runs logged: 0",
+    "noScores": "No scores are shown until a run is logged."
+  },
+  "compare": {
+    "title": "Trade-offs",
+    "body": "antiwebslop stays small enough to read in one sitting. Larger design tools add more commands, checks on rendered pages, browser extensions and installers for many agents. If you want the most coverage and automation, pair it with one of those.",
+    "priorArt": "Prior art",
+    "by": "by {name}"
+  },
+  "footer": {
+    "tagline": "A design skill, a lint, and an eval kit for web pages built by AI coding agents.",
+    "project": "Project",
+    "read": "Read",
+    "install": "Install",
+    "github": "GitHub",
+    "issues": "Issues",
+    "license": "MIT License",
+    "antiPatterns": "Anti-patterns",
+    "evalKit": "Eval kit",
+    "designMd": "This site’s DESIGN.md",
+    "rights": "© 2026 Eduardo de Cesaro · MIT License · no telemetry",
+    "stats": "v{version} · {rules} lint rules · {entries} catalog entries",
+    "readAll": "read every file on GitHub"
+  }
+}

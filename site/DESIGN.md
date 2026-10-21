@@ -6,7 +6,7 @@
 ## 1. Product truth
 - **Users:** developers and designers who build web UI with an AI coding agent (Cursor, Codex, Claude Code, Grok) and are tired of output that looks like every other generated landing page. Mostly on a laptop, often arriving from a GitHub link or a social post; a third on a phone.
 - **Purpose:** explain what the antiwebslop skill does, show the evidence (lint output, before/after fixtures), and get it installed in one command.
-- **Constraints:** brand assets in `../assets/` (cover, icon, og) stay as they are; brand font DM Mono; colors exactly `#121212`, `#F7EDDB`, `#D1A8FF`. English copy. WCAG AA, keyboard reachable, `prefers-reduced-motion` honored. No analytics, no tracking (the project sells "no telemetry"). Static output.
+- **Constraints:** brand assets in `../assets/` (cover, icon, og) stay as they are; brand font DM Mono; colors exactly `#121212`, `#F7EDDB`, `#D1A8FF`. Copy in English (default, at `/`), Brazilian Portuguese (`/pt`), French (`/fr`) and Spanish (`/es`); catalog entries, comparison rows and prior-art notes stay English (read from the skill). WCAG AA, keyboard reachable, `prefers-reduced-motion` honored. No analytics, no tracking (the project sells "no telemetry"). Static output.
 - **Success means:** a visitor copies an install command for their agent, or opens the repo. Secondary: they open the anti-pattern catalog and understand the rule set in under a minute.
 - **Real content available:** `../skills/antiwebslop/references/anti-patterns.md` (35 entries), `slop-lint` output on `../tests/fixtures/`, the gallery fixtures rendered in `public/gallery/`, `../eval/` (rubric, A/B protocol; no runs yet), `../README.md` (install lines, comparison, prior art). **No users, quotes, or scores exist yet; none are shown.**
 
@@ -141,6 +141,14 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Exception:** the scrims are the only gradients on the site, bg-color to transparent only, never a color gradient.
 - **Surfaces:** marketing
 - **Refs:** `/workspace/site-shots/v6-hero-photo-1440.png`, `/workspace/site-shots/v6-hero-photo-390.png`
+
+### 2026-10-21 — Four languages with next-intl
+- **Context:** Eduardo asked for pt, fr and es next to English.
+- **Decision:** next-intl 4 (Next 16 compatible) with `app/[locale]`, `localePrefix: 'as-needed'` (English at `/`, others at `/pt`, `/fr`, `/es`), no locale detection or cookie (the URL decides). All UI strings, aria labels, alt texts and metadata live in `messages/{en,pt,fr,es}.json`; pages are statically generated per locale. `hreflang` alternates plus `x-default`, per-locale canonical and a sitemap with alternates. Switcher `EN PT FR ES` in the header from 640px, in the footer below.
+- **Why:** one source per language; commands, file names and rule ids stay literal in every language.
+- **Do not:** translate commands, rule ids, file paths or the A/B follow-up prompt; machine-translate the catalog at build time.
+- **Surfaces:** marketing
+- **Refs:** `i18n/`, `messages/`, `proxy.ts`
 
 ## 12. References
 - Layout patterns (borrowed, not copied): useplanes.com (edgeless draggable card canvas, unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).

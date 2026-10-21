@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import content from '@/content/generated.json';
 import { Catalog, type CatalogGroup } from '@/components/Catalog';
 import { CopyCommand } from '@/components/CopyCommand';
@@ -7,17 +8,23 @@ import { SiteCanvas } from '@/components/SiteCanvas';
 import { Inline } from '@/components/Inline';
 import { Motion } from '@/components/Motion';
 import { Wordmark } from '@/components/Wordmark';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { REPO, blob, tree } from '@/lib/site';
 import { canvasSites } from '@/lib/canvas-sites';
 
 const INSTALL_ANY = 'npx skills add cesaroeduardo/antiwebslop';
 
-const install: { agent: string; command: string; note: React.ReactNode }[] = [
-  { agent: 'Any agent', command: INSTALL_ANY, note: <>Cursor, Codex, Claude Code, Grok Build, Gemini CLI, Copilot, OpenCode and more, via <a className="link" href="https://github.com/vercel-labs/skills">vercel-labs/skills</a> (Node 22.20+). Add <code>-g</code> for every project.</> },
-  { agent: 'Cursor', command: 'npx skills add cesaroeduardo/antiwebslop -a cursor', note: <>Or import the repo as a plugin: Customize, then From GitHub Repository.</> },
-  { agent: 'Codex', command: 'codex plugin marketplace add cesaroeduardo/antiwebslop && codex plugin add antiwebslop@antiwebslop', note: <>CLI, IDE extension and the ChatGPT desktop app.</> },
-  { agent: 'Claude Code', command: 'claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop', note: <>Inside a session: <code>/plugin marketplace add cesaroeduardo/antiwebslop</code>. The skill runs as <code>/antiwebslop:antiwebslop</code>.</> },
-  { agent: 'Grok Bot', command: 'Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)', note: <>Send this to your bot as a message. Grok Build users: <code>grok plugin install cesaroeduardo/antiwebslop --trust</code>.</> },
+type T = Awaited<ReturnType<typeof getTranslations>>;
+const rich = {
+  code: (c: React.ReactNode) => <code>{c}</code>,
+};
+
+const installRows = (t: T): { agent: string; command: string; note: React.ReactNode }[] => [
+  { agent: t('install.anyAgent'), command: INSTALL_ANY, note: t.rich('install.noteAny', { ...rich, link: (c) => <a className="link" href="https://github.com/vercel-labs/skills">{c}</a> }) },
+  { agent: 'Cursor', command: 'npx skills add cesaroeduardo/antiwebslop -a cursor', note: t('install.noteCursor') },
+  { agent: 'Codex', command: 'codex plugin marketplace add cesaroeduardo/antiwebslop && codex plugin add antiwebslop@antiwebslop', note: t('install.noteCodex') },
+  { agent: 'Claude Code', command: 'claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop', note: t.rich('install.noteClaude', rich) },
+  { agent: 'Grok Bot', command: 'Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)', note: t.rich('install.noteGrok', rich) },
 ];
 
 const tokensBlock = `\`\`\`design-tokens
@@ -26,63 +33,16 @@ colors: #121212, #F7EDDB, #D1A8FF
 radii: 0, 6px, 10px, 9999px
 \`\`\``;
 
-const rubric: [string, string, string][] = [
-  ['A', 'Slop absence', '20'],
-  ['B', 'Craft', '12'],
-  ['C', 'Process', '10'],
-  ['D', 'Scope safety', 'gate'],
+const rubricKeys: [string, string][] = [['A', '20'], ['B', '12'], ['C', '10'], ['D', '']];
+
+const protocolSteps: { key: 'setup' | 'run' | 'blind' | 'decide'; source: string }[] = [
+  { key: 'setup', source: 'ab-protocol.md' },
+  { key: 'run', source: 'ab-protocol.md' },
+  { key: 'blind', source: 'ab-protocol.md' },
+  { key: 'decide', source: 'rubric.md' },
 ];
 
-const protocol: { phase: string; source: string; title: string; rules: string[] }[] = [
-  {
-    phase: 'Setup',
-    source: 'ab-protocol.md',
-    title: 'Fix everything but the skill',
-    rules: [
-      '3 to 5 briefs: at least one landing page, one help/docs page, and one product UI task.',
-      'Two clean checkouts per brief at the same commit, `run-a/` and `run-b/`.',
-      'The skill is installed in one run only. The baseline has no copy of it, or of any other design skill.',
-      'Same agent, model, settings and brief text, in a fresh chat each time.',
-    ],
-  },
-  {
-    phase: 'Run',
-    source: 'ab-protocol.md',
-    title: 'Let each run finish on its own',
-    rules: [
-      'The brief is pasted verbatim; clarifying questions get the same scripted answers in both runs.',
-      'No steering. One follow-up allowed: “Finish and make it production-ready.”',
-      'Both runs are captured at 3 viewports, and `slop-lint --json` is saved for each.',
-    ],
-  },
-  {
-    phase: 'Blind review',
-    source: 'ab-protocol.md',
-    title: 'Pick first, score after',
-    rules: [
-      'Left and right are assigned at random; someone other than the reviewer keeps the key.',
-      'The reviewer answers one question: which looks designed by a person for this product? Left, right or tie, and one sentence why.',
-      'Then both outputs are scored on the 42-point card.',
-    ],
-  },
-  {
-    phase: 'Decide',
-    source: 'rubric.md',
-    title: 'Ship only past the bar',
-    rules: [
-      'With-skill total at least 1.3× the baseline, across the brief set.',
-      'Zero lint errors in the with-skill outputs, and the scope-safety gate passes on every run.',
-      'Wins or ties the blind pick in at least 2 of 3 briefs. A regression on any brief is logged before anything else changes.',
-    ],
-  },
-];
-
-const scorecard: { key: string; name: string; note: string; pts?: number }[] = [
-  { key: 'A', name: 'Slop absence', note: '10 items, 8 with lint evidence', pts: 20 },
-  { key: 'B', name: 'Craft', note: '6 items: type, spacing, color, hierarchy, real content', pts: 12 },
-  { key: 'C', name: 'Process', note: '5 items: Design Read, dials, DESIGN.md, visual QA, a11y', pts: 10 },
-  { key: 'D', name: 'Scope safety', note: 'Product UI untouched unless asked. A fail fails the run.' },
-];
+const scorecard: { key: 'A' | 'B' | 'C' | 'D'; pts?: number }[] = [{ key: 'A', pts: 20 }, { key: 'B', pts: 12 }, { key: 'C', pts: 10 }, { key: 'D' }];
 
 const validationLines = [
   '### YYYY-MM-DD — <brief> — skill @ <sha>',
@@ -94,12 +54,12 @@ const validationLines = [
   '_None yet._',
 ];
 
-const nav: [string, string][] = [
-  ['#references', 'References'],
-  ['#catalog', 'Catalog'],
-  ['#gallery', 'Gallery'],
-  ['#install', 'Install'],
-  ['#eval', 'Eval'],
+const nav: [string, 'references' | 'catalog' | 'gallery' | 'install' | 'eval'][] = [
+  ['#references', 'references'],
+  ['#catalog', 'catalog'],
+  ['#gallery', 'gallery'],
+  ['#install', 'install'],
+  ['#eval', 'eval'],
 ];
 
 function Section({ id, children, className = '' }: { id?: string; children: React.ReactNode; className?: string }) {
@@ -143,14 +103,17 @@ function GalleryImage({ src, alt, label, w, h, className = '', priority = false,
   );
 }
 
-export default function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations();
   const { lintSamples: ls, catalog, comparison, priorArt, ruleCount, catalogCount, version } = content;
-  const total = (x: { errors: number; warnings: number }) => `${x.errors} errors, ${x.warnings} warnings`;
+  const install = installRows(t);
 
   return (
     <>
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-control focus:bg-accent focus:px-3 focus:py-2 focus:font-mono focus:text-sm focus:text-accent-fg">
-        Skip to content
+        {t('common.skip')}
       </a>
       <Motion />
       {/* Hero photo, full bleed behind the header and the hero (first screen), after noone.is. Decorative.
@@ -172,14 +135,15 @@ export default function Home() {
       <div aria-hidden className="site-noise pointer-events-none fixed inset-0 z-40 opacity-10 mix-blend-overlay motion-reduce:hidden" />
 
       <header className="relative mx-auto flex w-full max-w-[1280px] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
-        <a href="#top" aria-label="antiwebslop, back to top" className="shrink-0 text-lg"><Wordmark /></a>
-        <nav aria-label="Sections" className="flex min-w-0 items-center gap-0 font-mono text-sm sm:gap-1">
+        <a href="#top" aria-label={t('common.backToTop')} className="shrink-0 text-lg"><Wordmark /></a>
+        <nav aria-label={t('common.sections')} className="flex min-w-0 items-center gap-0 font-mono text-sm sm:gap-1">
           <ul className="hidden items-center gap-1 lg:flex">
-            {nav.map(([href, label]) => (
-              <li key={href}><a href={href} className="rounded-control px-3 py-2 text-muted transition-colors duration-150 hover:text-fg">{label}</a></li>
+            {nav.map(([href, key]) => (
+              <li key={href}><a href={href} className="rounded-control px-3 py-2 text-muted transition-colors duration-150 hover:text-fg">{t(`nav.${key}`)}</a></li>
             ))}
           </ul>
-          <a href="#install" className="hidden rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg min-[360px]:inline-block sm:px-3 lg:hidden">Install</a>
+          <a href="#install" className="hidden rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg min-[360px]:inline-block sm:px-3 lg:hidden">{t('nav.install')}</a>
+          <LanguageSwitcher locale={locale} className="hidden sm:flex" />
           <GitHubStars />
         </nav>
       </header>
@@ -190,11 +154,11 @@ export default function Home() {
         <Section id="top" className="flex min-h-[calc(100svh-76px)] flex-col justify-end pb-16 pt-12 md:pt-28">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-start md:gap-6">
             <h1 className="text-[clamp(1.75rem,0.9rem+2vw,2.375rem)] font-medium leading-[1.08] tracking-[-0.03em] [text-wrap:wrap] md:col-span-7">
-              No more AI slop in my browser. Stop shipping the page everyone has already seen.
+              {t('hero.title')}
             </h1>
             <div className="flex flex-col gap-6 md:col-span-5 md:pt-[0.35rem]">
-              <p className="max-w-[44ch] font-mono text-sm text-muted md:text-base">A skill and a lint that keep your agent from shipping generic UI.</p>
-              <CopyCommand variant="primary" command={INSTALL_ANY} label="Install command" />
+              <p className="max-w-[44ch] font-mono text-sm text-muted md:text-base">{t('hero.line')}</p>
+              <CopyCommand variant="primary" command={INSTALL_ANY} label={t('hero.installLabel')} />
             </div>
           </div>
         </Section>
@@ -202,13 +166,12 @@ export default function Home() {
         {/* Canvas: real sites from the galleries the skill points to, on a surface with no edge. */}
         <section id="references" aria-labelledby="references-title" className="scroll-mt-6 pt-24 md:pt-32">
           <div className="mx-auto mb-10 grid w-full max-w-[1280px] grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-12 md:items-end">
-            <h2 id="references-title" className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">Look at real sites before picking a token</h2>
+            <h2 id="references-title" className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">{t('references.title')}</h2>
             <div className="md:col-span-5 md:col-start-8">
               <p className="mb-3 max-w-[48ch] text-base text-muted">
-                When a project has nothing authored, the skill sends the agent to references first. These {canvasSites.length} came from
-                the galleries it names. Drag to look around; open one to see it large.
+                {t('references.body', { count: canvasSites.length })}
               </p>
-              <p className="font-mono text-cap text-muted">Captured live at 1440×900, first screen only, Oct 2026.</p>
+              <p className="font-mono text-cap text-muted">{t('references.captured')}</p>
             </div>
           </div>
           <SiteCanvas sites={canvasSites} />
@@ -216,54 +179,46 @@ export default function Home() {
 
         {/* What it does: unequal cards with real artifacts. */}
         <Section id="what" className="pt-32 md:pt-40">
-          <h2 className="mb-10 max-w-[22ch] text-2xl font-medium tracking-[-0.02em] md:text-3xl">Four parts, all plain files you can read</h2>
+          <h2 className="mb-10 max-w-[22ch] text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('what.title')}</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12" data-reveal>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-7 md:p-8">
               <div className="max-w-[52ch]">
-                <h3 className="mb-2 text-lg font-medium">A catalog of what not to ship</h3>
+                <h3 className="mb-2 text-lg font-medium">{t('what.catalogTitle')}</h3>
                 <p className="text-base text-muted">
-                  {catalogCount} anti-patterns, each with how to spot it and what to do instead. Most have a lint rule, so the agent
-                  hears about them as <code className="font-mono text-fg">file:line</code> findings, not as taste.
+                  {t.rich('what.catalogBody', { count: catalogCount, code: (c) => <code className="font-mono text-fg">{c}</code> })}
                 </p>
               </div>
-              <ImageSlot name="catalog-findings" ratio="16:9" src="/slots/catalog-findings.webp" alt="A code editor with landing.html open, three lines underlined, beside a Problems panel listing slop-lint findings: purple-gradient error, emoji-bullet and three-equal-cards warnings." className="mt-auto" />
+              <ImageSlot name="catalog-findings" ratio="16:9" src="/slots/catalog-findings.webp" alt={t('what.catalogAlt')} className="mt-auto" />
             </article>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-5 md:p-8">
               <div>
-                <h3 className="mb-2 text-lg font-medium">A brief per project</h3>
+                <h3 className="mb-2 text-lg font-medium">{t('what.briefTitle')}</h3>
                 <p className="text-base text-muted">
-                  Each project gets a <code className="font-mono text-fg">DESIGN.md</code>: who it is for, the surface type, dials, and a
-                  token block. Fonts, colors and radii outside it come back as warnings. This is this site&rsquo;s own block.
+                  {t.rich('what.briefBody', { code: (c) => <code className="font-mono text-fg">{c}</code> })}
                 </p>
               </div>
               <Terminal title="site/DESIGN.md" lines={tokensBlock.split('\n')} className="mt-auto" />
             </article>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-5 md:p-8">
               <div>
-                <h3 className="mb-2 text-lg font-medium">Feedback after every write</h3>
-                <p className="text-base text-muted">
-                  An optional Cursor hook lints each UI file the agent writes and hands the findings back before it moves on. It never
-                  blocks a write.
-                </p>
+                <h3 className="mb-2 text-lg font-medium">{t('what.hookTitle')}</h3>
+                <p className="text-base text-muted">{t('what.hookBody')}</p>
               </div>
-              <ImageSlot name="hook-feedback" ratio="4:3" src="/slots/hook-feedback.webp" alt="An agent chat panel after writing src/landing.tsx: the slop-lint advisory reply lists label-above-headline, decorative-numbering and invented-metric, and the agent answers that it is fixing the three findings." className="mt-auto" />
+              <ImageSlot name="hook-feedback" ratio="4:3" src="/slots/hook-feedback.webp" alt={t('what.hookAlt')} className="mt-auto" />
             </article>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-7 md:p-8">
               <div className="max-w-[52ch]">
-                <h3 className="mb-2 text-lg font-medium">A way to prove it helped</h3>
-                <p className="text-base text-muted">
-                  A 0&ndash;2 scorecard over 42 points and a blind A/B protocol. A change to the skill ships only when it beats the
-                  baseline.
-                </p>
+                <h3 className="mb-2 text-lg font-medium">{t('what.proveTitle')}</h3>
+                <p className="text-base text-muted">{t('what.proveBody')}</p>
               </div>
               <table className="mt-auto w-full border-collapse font-mono text-sm">
-                <caption className="sr-only">Scorecard sections</caption>
+                <caption className="sr-only">{t('what.scorecardCaption')}</caption>
                 <tbody>
-                  {rubric.map(([k, name, pts]) => (
+                  {rubricKeys.map(([k, pts]) => (
                     <tr key={k} className="border-t border-border">
                       <th scope="row" className="w-10 py-2 text-left font-normal text-muted">{k}</th>
-                      <td className="py-2 text-fg">{name}</td>
-                      <td className="py-2 text-right tabular-nums text-muted">{pts}</td>
+                      <td className="py-2 text-fg">{t(`rubric.${k as 'A'}`)}</td>
+                      <td className="py-2 text-right tabular-nums text-muted">{pts || t('what.gate')}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -277,12 +232,10 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-6">
             <div className="md:col-span-4">
               <div className="md:sticky md:top-8">
-                <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{catalogCount} tells, each with a fix</h2>
-                <p className="mb-4 max-w-[40ch] text-base text-muted">
-                  The full catalog, read straight from the skill at build time. An entry is allowed only when the project&rsquo;s
-                  DESIGN.md documents it as the brand.
-                </p>
-                <a className="link font-mono text-sm" href={blob('skills/antiwebslop/references/anti-patterns.md')}>anti-patterns.md on GitHub</a>
+                <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('catalog.title', { count: catalogCount })}</h2>
+                <p className="mb-4 max-w-[40ch] text-base text-muted">{t('catalog.body')}</p>
+                {locale === 'en' ? null : <p lang={locale} className="mb-4 max-w-[40ch] font-mono text-cap text-muted">{t('catalog.englishNote')}</p>}
+                <a className="link font-mono text-sm" href={blob('skills/antiwebslop/references/anti-patterns.md')}>{t('catalog.link')}</a>
               </div>
             </div>
             <div className="md:col-span-8">
@@ -295,20 +248,19 @@ export default function Home() {
         <Section id="gallery" className="pt-32 md:pt-40">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
             <div className="md:col-span-5" data-reveal>
-              <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">The newer tells</h2>
+              <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('gallery.title')}</h2>
               <p className="mb-6 max-w-[48ch] text-base text-muted">
-                A label above the headline, 01/02 section numbers, a row of big numbers, side stripes, bouncy easing, a pulsing dot,
-                and em dashes on every line. The lint finds {ls.b.warnings} of them as warnings; the clean fixture has {ls.clean.errors + ls.clean.warnings}.
+                {t('gallery.body', { warnings: ls.b.warnings, clean: ls.clean.errors + ls.clean.warnings })}
               </p>
-              <ImageSlot name="newer-tells" ratio="4:3" src="/slots/newer-tells.webp" alt="A generic SaaS landing page with each newer tell outlined and tagged: label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering and side-stripe." />
+              <ImageSlot name="newer-tells" ratio="4:3" src="/slots/newer-tells.webp" alt={t('gallery.slotAlt')} />
               <p className="mt-4 font-mono text-cap text-muted">
-                More in <a className="link" href={tree('gallery')}>gallery/</a>, rebuilt from the fixtures with <code>npm run gallery</code>.
+                {t.rich('gallery.more', { ...rich, link: (c) => <a className="link" href={tree('gallery')}>{c}</a> })}
               </p>
             </div>
             <GalleryImage
               src="/gallery/b-before.webp" w={2200} h={1664} sizes="(min-width: 768px) 58vw, 100vw"
-              alt="A generated page with an INTRODUCING label, 01 and 02 section numbers, three big unsourced numbers and gray text on a blue panel; each flagged element is outlined with its rule name."
-              label={`before · ${total(ls.b)}`}
+              alt={t('gallery.imageAlt')}
+              label={t('gallery.before', { errors: ls.b.errors, warnings: ls.b.warnings })}
               className="-mx-4 h-[420px] sm:-mx-6 md:col-span-7 md:mx-0 md:-mr-6 md:h-auto md:self-start lg:-mr-[max(24px,calc((100vw-1280px)/2+24px))]"
             />
           </div>
@@ -316,15 +268,15 @@ export default function Home() {
 
         {/* Install: dense rows, one per agent. */}
         <Section id="install" className="pt-32 md:pt-40">
-          <h2 className="mb-3 text-2xl font-medium tracking-[-0.02em] md:text-3xl">Install it in one line</h2>
-          <p className="mb-8 max-w-[60ch] text-base text-muted">Pick your agent.</p>
+          <h2 className="mb-3 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('install.title')}</h2>
+          <p className="mb-8 max-w-[60ch] text-base text-muted">{t('install.intro')}</p>
           <ul className="border-t border-border" data-reveal>
             {install.map((row) => (
               <li key={row.agent} className="grid grid-cols-1 gap-2 border-b border-border py-4 md:grid-cols-12 md:items-center md:gap-6">
                 <span className="font-mono text-sm text-fg md:col-span-2">{row.agent}</span>
                 <div className="flex min-w-0 items-center gap-2 md:col-span-6">
                   <code className="min-w-0 flex-1 whitespace-pre-wrap rounded-control bg-surface px-3 py-2 font-mono text-cap leading-relaxed text-fg [overflow-wrap:anywhere] sm:text-sm">{row.command}</code>
-                  <CopyCommand command={row.command} label={`${row.agent} install command`} />
+                  <CopyCommand command={row.command} label={t('install.rowLabel', { agent: row.agent })} />
                 </div>
                 <p className="prose-inline text-sm text-muted md:col-span-4">{row.note}</p>
               </li>
@@ -336,26 +288,23 @@ export default function Home() {
             right (sticky on desktop), the 42-point scorecard drawn to scale and the validation log as it stands: empty. */}
         <Section id="eval" className="pt-32 md:pt-40">
           <div className="grid grid-cols-1 gap-6 border-b border-border pb-10 md:grid-cols-12 md:items-end">
-            <h2 className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">How we measure it</h2>
-            <p className="max-w-[46ch] text-base text-muted md:col-span-5 md:col-start-8">
-              Opinions about taste are cheap, so the skill comes with its own test: same agent, same model, same brief, run with and
-              without the skill, picked blind, then scored.
-            </p>
+            <h2 className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">{t('eval.title')}</h2>
+            <p className="max-w-[46ch] text-base text-muted md:col-span-5 md:col-start-8">{t('eval.intro')}</p>
           </div>
 
           <div className="grid grid-cols-1 gap-16 pt-12 md:grid-cols-12 md:gap-6 md:pt-16">
-            <ol className="relative md:col-span-7 md:pr-12" data-reveal aria-label="A/B protocol">
-              {protocol.map((step) => (
-                <li key={step.phase} className="relative grid grid-cols-1 gap-3 border-l border-border-strong pb-14 pl-6 last:border-l-transparent last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-6 sm:pl-8">
+            <ol className="relative md:col-span-7 md:pr-12" data-reveal aria-label={t('eval.protocolAria')}>
+              {protocolSteps.map((step) => (
+                <li key={step.key} className="relative grid grid-cols-1 gap-3 border-l border-border-strong pb-14 pl-6 last:border-l-transparent last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-6 sm:pl-8">
                   <span aria-hidden className="absolute -left-[5px] top-[0.4rem] size-[9px] bg-fg" />
                   <p className="font-mono text-cap text-muted">
-                    <span className="block text-sm text-fg">{step.phase}</span>
+                    <span className="block text-sm text-fg">{t(`eval.${step.key}Phase`)}</span>
                     <span className="block">{step.source}</span>
                   </p>
                   <div>
-                    <h3 className="mb-4 text-lg font-medium">{step.title}</h3>
+                    <h3 className="mb-4 text-lg font-medium">{t(`eval.${step.key}Title`)}</h3>
                     <ul className="border-t border-border">
-                      {step.rules.map((r) => (
+                      {(t.raw(`eval.${step.key}Rules`) as string[]).map((r) => (
                         <li key={r} className="prose-inline border-b border-border py-3 text-base text-muted"><Inline text={r} /></li>
                       ))}
                     </ul>
@@ -364,12 +313,12 @@ export default function Home() {
               ))}
             </ol>
 
-            <aside className="md:col-span-5" aria-label="Scorecard and results">
+            <aside className="md:col-span-5" aria-label={t('eval.asideAria')}>
               <div className="flex flex-col gap-6 md:sticky md:top-8">
                 <figure className="rounded-card border border-border bg-surface p-5 sm:p-6">
                   <figcaption className="mb-5 flex items-baseline justify-between gap-4 font-mono text-cap text-muted">
-                    <span>Scorecard, drawn to scale</span>
-                    <span className="tabular-nums text-fg">42 pts + gate</span>
+                    <span>{t('eval.scaleCaption')}</span>
+                    <span className="tabular-nums text-fg">{t('eval.scaleTotal')}</span>
                   </figcaption>
                   <div className="flex h-16 gap-1 font-mono text-cap" aria-hidden>
                     {scorecard.filter((s) => s.pts).map((s) => (
@@ -378,26 +327,26 @@ export default function Home() {
                     <span className="flex w-12 shrink-0 items-end border border-dashed border-border-strong p-2 text-muted">D</span>
                   </div>
                   <table className="mt-5 w-full border-collapse text-left text-sm">
-                    <caption className="sr-only">Scorecard sections, from eval/rubric.md</caption>
+                    <caption className="sr-only">{t('eval.tableCaption')}</caption>
                     <tbody>
                       {scorecard.map((s) => (
                         <tr key={s.key} className="border-t border-border align-top">
                           <th scope="row" className="w-8 py-3 font-mono text-cap font-normal text-muted">{s.key}</th>
                           <td className="py-3">
-                            <span className="block text-fg">{s.name}</span>
-                            <span className="block text-cap text-muted">{s.note}</span>
+                            <span className="block text-fg">{t(`rubric.${s.key}`)}</span>
+                            <span className="block text-cap text-muted">{t(`eval.note${s.key}`)}</span>
                           </td>
-                          <td className="whitespace-nowrap py-3 pl-3 text-right font-mono text-cap tabular-nums text-fg">{s.pts ? `${s.pts} pts` : 'pass / fail'}</td>
+                          <td className="whitespace-nowrap py-3 pl-3 text-right font-mono text-cap tabular-nums text-fg">{s.pts ? t('eval.pts', { count: s.pts }) : t('eval.passFail')}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
-                  <p className="mt-4 border-t border-border pt-4 font-mono text-cap text-muted">Each item 0 fails · 1 partly · 2 clearly passes</p>
+                  <p className="mt-4 border-t border-border pt-4 font-mono text-cap text-muted">{t('eval.scale')}</p>
                 </figure>
 
-                <Terminal title="eval/VALIDATION.md · runs logged: 0" wrap lines={validationLines} />
+                <Terminal title={t('eval.logTitle')} wrap lines={validationLines} />
                 <p className="font-mono text-cap text-muted">
-                  No scores are shown until a run is logged. <a className="link" href={blob('eval/rubric.md')}>rubric.md</a> · <a className="link" href={blob('eval/ab-protocol.md')}>ab-protocol.md</a> · <a className="link" href={blob('eval/VALIDATION.md')}>VALIDATION.md</a>
+                  {t('eval.noScores')} <a className="link" href={blob('eval/rubric.md')}>rubric.md</a> · <a className="link" href={blob('eval/ab-protocol.md')}>ab-protocol.md</a> · <a className="link" href={blob('eval/VALIDATION.md')}>VALIDATION.md</a>
                 </p>
               </div>
             </aside>
@@ -406,12 +355,9 @@ export default function Home() {
 
         {/* Trade-offs and prior art. */}
         <Section id="compare" className="pb-32 pt-32 md:pb-40 md:pt-40">
-          <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">Trade-offs</h2>
-          <p className="mb-8 max-w-[64ch] text-base text-muted">
-            antiwebslop stays small enough to read in one sitting. Larger design tools add more commands, checks on rendered pages, browser
-            extensions and installers for many agents. If you want the most coverage and automation, pair it with one of those.
-          </p>
-          <div className="overflow-x-auto">
+          <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('compare.title')}</h2>
+          <p className="mb-8 max-w-[64ch] text-base text-muted">{t('compare.body')}</p>
+          <div className="overflow-x-auto" lang="en">
             <table className="w-full min-w-[480px] border-collapse text-left text-sm">
               <tbody>
                 {comparison.map(([k, ours]) => (
@@ -424,12 +370,12 @@ export default function Home() {
             </table>
           </div>
 
-          <h3 className="mb-4 mt-16 text-lg font-medium">Prior art</h3>
-          <ul className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
+          <h3 className="mb-4 mt-16 text-lg font-medium">{t('compare.priorArt')}</h3>
+          <ul lang="en" className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
             {priorArt.map((p) => (
               <li key={p.name} className="prose-inline text-sm text-muted">
                 <a className="link text-fg" href={p.url}>{p.name}</a>
-                {p.by ? ` by ${p.by}` : ''}{p.license ? ` (${p.license})` : ''}: <Inline text={p.note} />
+                {p.by ? ` ${t('compare.by', { name: p.by })}` : ''}{p.license ? ` (${p.license})` : ''}: <Inline text={p.note} />
               </li>
             ))}
           </ul>
@@ -440,12 +386,12 @@ export default function Home() {
         <div className="mx-auto grid w-full max-w-[1280px] grid-cols-2 gap-8 px-4 pb-10 pt-16 sm:px-6 md:grid-cols-12">
           <div className="col-span-2 md:col-span-5">
             <Wordmark className="text-lg" />
-            <p className="mt-4 max-w-[36ch] text-sm text-muted">A design skill, a lint, and an eval kit for web pages built by AI coding agents.</p>
+            <p className="mt-4 max-w-[36ch] text-sm text-muted">{t('footer.tagline')}</p>
           </div>
           {[
-            ['Project', [['GitHub', REPO], ['Issues', `${REPO}/issues`], ['MIT License', blob('LICENSE')]]],
-            ['Read', [['SKILL.md', blob('skills/antiwebslop/SKILL.md')], ['Anti-patterns', blob('skills/antiwebslop/references/anti-patterns.md')], ['Eval kit', tree('eval')], ['This site’s DESIGN.md', blob('site/DESIGN.md')]]],
-            ['Install', [['npx skills', '#install'], ['Cursor', '#install'], ['Claude Code', '#install'], ['Codex', '#install']]],
+            [t('footer.project'), [[t('footer.github'), REPO], [t('footer.issues'), `${REPO}/issues`], [t('footer.license'), blob('LICENSE')]]],
+            [t('footer.read'), [['SKILL.md', blob('skills/antiwebslop/SKILL.md')], [t('footer.antiPatterns'), blob('skills/antiwebslop/references/anti-patterns.md')], [t('footer.evalKit'), tree('eval')], [t('footer.designMd'), blob('site/DESIGN.md')]]],
+            [t('footer.install'), [['npx skills', '#install'], ['Cursor', '#install'], ['Claude Code', '#install'], ['Codex', '#install']]],
           ].map(([title, links]) => (
             <nav key={title as string} aria-label={title as string} className="md:col-span-2 md:last:col-span-3">
               <h2 className="mb-3 font-mono text-cap text-muted">{title as string}</h2>
@@ -458,8 +404,9 @@ export default function Home() {
           ))}
         </div>
         <div className="mx-auto flex w-full max-w-[1280px] flex-wrap justify-between gap-2 border-t border-border px-4 py-6 font-mono text-cap text-muted sm:px-6">
-          <span>© 2026 Eduardo de Cesaro · MIT License · no telemetry</span>
-          <span>v{version} · {ruleCount} lint rules · {catalogCount} catalog entries · <a className="link text-fg" href={REPO}>read every file on GitHub</a></span>
+          <span>{t('footer.rights')}</span>
+          <LanguageSwitcher locale={locale} className="sm:hidden" />
+          <span>{t('footer.stats', { version, rules: ruleCount, entries: catalogCount })} · <a className="link text-fg" href={REPO}>{t('footer.readAll')}</a></span>
         </div>
         <p aria-hidden className="pointer-events-none -mb-[0.32em] select-none whitespace-nowrap px-2 text-center font-mono text-[clamp(3rem,15vw,16rem)] font-medium leading-none tracking-[-0.04em] text-surface-2">
           antiwebslop

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { CanvasSite } from '@/lib/canvas-sites';
 
 /*
@@ -49,6 +50,7 @@ const place = (s: Slot, x: number, y: number) =>
   `translate3d(${mod(s.cx + x + CW, TW) - CW}px, ${mod(s.cy + y + CH, TH) - CH}px, 0)`;
 
 export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
+  const t = useTranslations('references');
   const slots = useRef(layout(sites)).current;
   const viewport = useRef<HTMLDivElement>(null);
   const cards = useRef<(HTMLButtonElement | null)[]>([]);
@@ -235,7 +237,7 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
         ref={viewport}
         onKeyDown={onKey}
         role="region"
-        aria-label="Canvas of real sites. Drag or use the arrow keys to look around; open a card to see it large."
+        aria-label={t('region')}
         className="canvas-viewport relative h-[64svh] max-h-[560px] min-h-[420px] w-full cursor-grab touch-pan-y select-none overflow-hidden overscroll-x-contain border-y border-border data-[dragging]:cursor-grabbing md:h-[88vh] md:max-h-[960px] md:min-h-[640px] [--s:0.62] md:[--s:1]"
       >
         <div className="absolute left-0 top-0 origin-top-left" style={{ transform: 'scale(var(--k, var(--s)))' }}>
@@ -246,7 +248,7 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
               type="button"
               tabIndex={s.copy ? -1 : 0}
               aria-hidden={s.copy || undefined}
-              aria-label={s.copy ? undefined : `${s.site.name}, found on ${s.site.gallery}. Open larger.`}
+              aria-label={s.copy ? undefined : t('card', { name: s.site.name, gallery: s.site.gallery })}
               onClick={(e) => show(s.site, e)}
               onFocus={(e) => onFocusCard(s, e.currentTarget)}
               className="group absolute left-0 top-0 block rounded-card border border-border bg-surface p-2 text-left transition-colors duration-150 will-change-transform hover:border-border-strong"
@@ -276,7 +278,7 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
         data-lenis-prevent
         onClose={onClosed}
         onClick={(e) => { if (e.target === e.currentTarget) close(); }}
-        aria-label={open ? `${open.name}, screenshot` : 'Screenshot'}
+        aria-label={open ? t('dialog', { name: open.name }) : t('dialogEmpty')}
         className="lightbox m-auto w-[min(92vw,1280px)] max-w-none overflow-visible bg-transparent p-0 text-fg backdrop:bg-bg/90"
       >
         {open ? (
@@ -284,13 +286,13 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
             <div className="flex items-center justify-between gap-4 px-1 pb-3 pt-1">
               <figcaption className="min-w-0 font-mono text-sm">
                 <span className="text-fg">{open.name}</span>
-                <span className="text-muted"> · found on <a className="link" href={open.galleryUrl}>{open.gallery}</a></span>
+                <span className="text-muted"> · {t('foundOn')} <a className="link" href={open.galleryUrl}>{open.gallery}</a></span>
               </figcaption>
               <div className="flex shrink-0 items-center gap-1">
                 <a href={open.url} className="inline-flex items-center gap-1 rounded-control px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:bg-surface-2">
-                  <span className="hidden sm:inline">Open site</span><span className="sm:hidden">Open</span> <ArrowUpRight aria-hidden size={14} />
+                  <span className="hidden sm:inline">{t('openSite')}</span><span className="sm:hidden">{t('open')}</span> <ArrowUpRight aria-hidden size={14} />
                 </a>
-                <button type="button" data-close onClick={close} aria-label="Close" className="inline-flex size-9 items-center justify-center rounded-control text-fg transition-colors duration-150 hover:bg-surface-2">
+                <button type="button" data-close onClick={close} aria-label={t('close')} className="inline-flex size-9 items-center justify-center rounded-control text-fg transition-colors duration-150 hover:bg-surface-2">
                   <X aria-hidden size={18} />
                 </button>
               </div>
@@ -298,7 +300,7 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
             <div className="relative overflow-hidden bg-bg" style={{ aspectRatio: '16 / 10' }}>
               <Image
                 src={`/canvas/${open.slug}.webp`}
-                alt={`The first screen of ${open.name} (${open.url.replace('https://', '')}), captured at 1440 by 900.`}
+                alt={t('alt', { name: open.name, host: open.url.replace('https://', '') })}
                 fill
                 sizes="(min-width: 1400px) 1280px, 92vw"
                 className="object-cover object-top"

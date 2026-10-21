@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "title": "antiwebslop: uma skill de design que impede páginas feitas por agentes de parecerem feitas por IA",
+    "description": "Uma skill para Cursor, Codex, Claude Code e Grok: {entries} anti-padrões nomeados com correção, um lint de {rules} regras sem dependências, um DESIGN.md por projeto e uma avaliação A/B às cegas. MIT, sem telemetria.",
+    "ogAlt": "antiwebslop"
+  },
+  "common": {
+    "skip": "Pular para o conteúdo",
+    "backToTop": "antiwebslop, voltar ao topo",
+    "sections": "Seções",
+    "language": "Idioma",
+    "languageLabel": "{name}, trocar idioma"
+  },
+  "nav": {
+    "references": "Referências",
+    "catalog": "Catálogo",
+    "gallery": "Galeria",
+    "install": "Instalar",
+    "eval": "Avaliação"
+  },
+  "github": {
+    "label": "GitHub",
+    "aria": "antiwebslop no GitHub",
+    "ariaStars": "antiwebslop no GitHub, {count, plural, one {# estrela} other {# estrelas}}"
+  },
+  "hero": {
+    "title": "Chega de AI slop no meu navegador. Pare de publicar a página que todo mundo já viu.",
+    "line": "Uma skill e um lint que impedem seu agente de entregar UI genérica.",
+    "installLabel": "Comando de instalação"
+  },
+  "copy": {
+    "button": "Copiar o comando de instalação",
+    "copied": "Copiado",
+    "status": "{label} copiado",
+    "aria": "Copiar: {label}",
+    "ariaCopied": "{label} copiado"
+  },
+  "references": {
+    "title": "Olhe sites de verdade antes de escolher um token",
+    "body": "Quando o projeto não tem nada autoral, a skill manda o agente buscar referências primeiro. Estes {count} vieram das galerias que ela indica. Arraste para explorar; abra um para ver grande.",
+    "captured": "Capturados ao vivo em 1440×900, só a primeira tela, out. 2026.",
+    "region": "Canvas de sites reais. Arraste ou use as setas para explorar; abra um card para ver grande.",
+    "card": "{name}, encontrado em {gallery}. Abrir maior.",
+    "foundOn": "encontrado em",
+    "openSite": "Abrir site",
+    "open": "Abrir",
+    "close": "Fechar",
+    "dialog": "{name}, captura de tela",
+    "dialogEmpty": "Captura de tela",
+    "alt": "A primeira tela de {name} ({host}), capturada em 1440 por 900."
+  },
+  "what": {
+    "title": "Quatro partes, todas em arquivos simples que você pode ler",
+    "catalogTitle": "Um catálogo do que não publicar",
+    "catalogBody": "{count} anti-padrões, cada um com como identificar e o que fazer no lugar. A maioria tem uma regra de lint, então o agente recebe isso como achados <code>file:line</code>, não como opinião de gosto.",
+    "catalogAlt": "Um editor de código com landing.html aberto, três linhas sublinhadas, ao lado de um painel Problems listando achados do slop-lint: erro purple-gradient, avisos emoji-bullet e three-equal-cards.",
+    "briefTitle": "Um brief por projeto",
+    "briefBody": "Cada projeto ganha um <code>DESIGN.md</code>: para quem é, o tipo de superfície, os dials e um bloco de tokens. Fontes, cores e raios fora dele voltam como avisos. Este é o bloco deste site.",
+    "hookTitle": "Feedback depois de cada escrita",
+    "hookBody": "Um hook opcional do Cursor passa o lint em cada arquivo de UI que o agente escreve e devolve os achados antes de ele seguir. Ele nunca bloqueia uma escrita.",
+    "hookAlt": "Um painel de chat do agente depois de escrever src/landing.tsx: a resposta consultiva do slop-lint lista label-above-headline, decorative-numbering e invented-metric, e o agente responde que está corrigindo os três achados.",
+    "proveTitle": "Um jeito de provar que ajudou",
+    "proveBody": "Uma ficha de 0 a 2 sobre 42 pontos e um protocolo A/B às cegas. Uma mudança na skill só entra quando supera a linha de base.",
+    "scorecardCaption": "Seções da ficha de pontuação",
+    "gate": "portão"
+  },
+  "rubric": {
+    "A": "Ausência de slop",
+    "B": "Acabamento",
+    "C": "Processo",
+    "D": "Segurança de escopo"
+  },
+  "catalog": {
+    "title": "{count} sinais, cada um com uma correção",
+    "body": "O catálogo completo, lido direto da skill no build. Uma entrada só é permitida quando o DESIGN.md do projeto a documenta como parte da marca.",
+    "link": "anti-patterns.md no GitHub",
+    "detect": "Como identificar",
+    "instead": "Faça no lugar",
+    "noRule": "sem regra, no olho",
+    "errorOrWarn": "erro ou aviso",
+    "englishNote": "As entradas do catálogo vêm da skill e ficam em inglês."
+  },
+  "gallery": {
+    "title": "Os sinais mais recentes",
+    "body": "Um rótulo acima do título, números de seção 01/02, uma fileira de números grandes, faixas laterais, easing com quique, um ponto pulsando e travessões em toda linha. O lint encontra {warnings} deles como avisos; o fixture limpo tem {clean}.",
+    "slotAlt": "Uma landing page SaaS genérica com cada sinal recente contornado e etiquetado: label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering e side-stripe.",
+    "more": "Mais em <link>gallery/</link>, refeito a partir dos fixtures com <code>npm run gallery</code>.",
+    "imageAlt": "Uma página gerada com um rótulo INTRODUCING, números de seção 01 e 02, três números grandes sem fonte e texto cinza num painel azul; cada elemento marcado tem contorno com o nome da regra.",
+    "before": "antes · {errors} erros, {warnings} avisos"
+  },
+  "install": {
+    "title": "Instale em uma linha",
+    "intro": "Escolha seu agente.",
+    "anyAgent": "Qualquer agente",
+    "rowLabel": "Comando de instalação para {agent}",
+    "noteAny": "Cursor, Codex, Claude Code, Grok Build, Gemini CLI, Copilot, OpenCode e outros, via <link>vercel-labs/skills</link> (Node 22.20+). Adicione <code>-g</code> para todos os projetos.",
+    "noteCursor": "Ou importe o repositório como plugin: Customize, depois From GitHub Repository.",
+    "noteCodex": "CLI, extensão de IDE e o app desktop do ChatGPT.",
+    "noteClaude": "Dentro de uma sessão: <code>/plugin marketplace add cesaroeduardo/antiwebslop</code>. A skill roda como <code>/antiwebslop:antiwebslop</code>.",
+    "noteGrok": "Mande isto como mensagem para o seu bot. Quem usa Grok Build: <code>grok plugin install cesaroeduardo/antiwebslop --trust</code>."
+  },
+  "eval": {
+    "title": "Como medimos",
+    "intro": "Opinião sobre gosto é barata, então a skill vem com o próprio teste: mesmo agente, mesmo modelo, mesmo brief, rodado com e sem a skill, escolhido às cegas e depois pontuado.",
+    "protocolAria": "Protocolo A/B",
+    "setupPhase": "Preparação",
+    "setupTitle": "Fixe tudo, menos a skill",
+    "setupRules": [
+      "3 a 5 briefs: pelo menos uma landing page, uma página de ajuda/docs e uma tarefa de UI de produto.",
+      "Dois checkouts limpos por brief no mesmo commit, `run-a/` e `run-b/`.",
+      "A skill é instalada em só uma das execuções. A linha de base não tem cópia dela nem de outra skill de design.",
+      "Mesmo agente, modelo, configurações e texto do brief, num chat novo a cada vez."
+    ],
+    "runPhase": "Execução",
+    "runTitle": "Deixe cada execução terminar sozinha",
+    "runRules": [
+      "O brief é colado literalmente; perguntas de esclarecimento recebem as mesmas respostas roteirizadas nas duas execuções.",
+      "Sem conduzir. Um follow-up permitido: “Finish and make it production-ready.”",
+      "As duas execuções são capturadas em 3 viewports, e o `slop-lint --json` de cada uma é salvo."
+    ],
+    "blindPhase": "Revisão às cegas",
+    "blindTitle": "Escolha primeiro, pontue depois",
+    "blindRules": [
+      "Esquerda e direita são sorteadas; outra pessoa, não quem revisa, guarda a chave.",
+      "Quem revisa responde uma pergunta: qual parece desenhada por uma pessoa para este produto? Esquerda, direita ou empate, e uma frase dizendo por quê.",
+      "Depois as duas saídas são pontuadas na ficha de 42 pontos."
+    ],
+    "decidePhase": "Decisão",
+    "decideTitle": "Só publique acima da barra",
+    "decideRules": [
+      "Total com a skill de pelo menos 1,3× a linha de base, no conjunto de briefs.",
+      "Zero erros de lint nas saídas com a skill, e o portão de segurança de escopo passa em todas as execuções.",
+      "Vence ou empata a escolha às cegas em pelo menos 2 de 3 briefs. Uma regressão em qualquer brief é registrada antes de mudar qualquer outra coisa."
+    ],
+    "asideAria": "Ficha de pontuação e resultados",
+    "scaleCaption": "Ficha de pontuação, em escala",
+    "scaleTotal": "42 pts + portão",
+    "tableCaption": "Seções da ficha de pontuação, de eval/rubric.md",
+    "noteA": "10 itens, 8 com evidência do lint",
+    "noteB": "6 itens: tipo, espaçamento, cor, hierarquia, conteúdo real",
+    "noteC": "5 itens: Design Read, dials, DESIGN.md, QA visual, a11y",
+    "noteD": "UI de produto intocada, salvo pedido. Uma falha reprova a execução.",
+    "pts": "{count} pts",
+    "passFail": "passa / falha",
+    "scale": "Cada item 0 falha · 1 em parte · 2 passa com clareza",
+    "logTitle": "eval/VALIDATION.md · execuções registradas: 0",
+    "noScores": "Nenhuma pontuação aparece até uma execução ser registrada."
+  },
+  "compare": {
+    "title": "Prós e contras",
+    "body": "A antiwebslop é pequena o bastante para ler de uma vez. Ferramentas de design maiores trazem mais comandos, checagens em páginas renderizadas, extensões de navegador e instaladores para muitos agentes. Se você quer o máximo de cobertura e automação, use junto com uma delas.",
+    "priorArt": "Trabalhos anteriores",
+    "by": "de {name}"
+  },
+  "footer": {
+    "tagline": "Uma skill de design, um lint e um kit de avaliação para páginas web feitas por agentes de código com IA.",
+    "project": "Projeto",
+    "read": "Leia",
+    "install": "Instalar",
+    "github": "GitHub",
+    "issues": "Issues",
+    "license": "Licença MIT",
+    "antiPatterns": "Anti-padrões",
+    "evalKit": "Kit de avaliação",
+    "designMd": "O DESIGN.md deste site",
+    "rights": "© 2026 Eduardo de Cesaro · Licença MIT · sem telemetria",
+    "stats": "v{version} · {rules} regras de lint · {entries} entradas no catálogo",
+    "readAll": "leia cada arquivo no GitHub"
+  }
+}

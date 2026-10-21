@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "title": "antiwebslop : une skill de design pour que les pages faites par des agents n’aient pas l’air générées par IA",
+    "description": "Une skill pour Cursor, Codex, Claude Code et Grok : {entries} anti-patterns nommés avec leur correction, un lint de {rules} règles sans dépendance, un DESIGN.md par projet et une évaluation A/B à l’aveugle. MIT, sans télémétrie.",
+    "ogAlt": "antiwebslop"
+  },
+  "common": {
+    "skip": "Aller au contenu",
+    "backToTop": "antiwebslop, retour en haut",
+    "sections": "Sections",
+    "language": "Langue",
+    "languageLabel": "{name}, changer de langue"
+  },
+  "nav": {
+    "references": "Références",
+    "catalog": "Catalogue",
+    "gallery": "Galerie",
+    "install": "Installer",
+    "eval": "Évaluation"
+  },
+  "github": {
+    "label": "GitHub",
+    "aria": "antiwebslop sur GitHub",
+    "ariaStars": "antiwebslop sur GitHub, {count, plural, one {# étoile} other {# étoiles}}"
+  },
+  "hero": {
+    "title": "Plus d’AI slop dans mon navigateur. Arrêtez de publier la page que tout le monde a déjà vue.",
+    "line": "Une skill et un lint qui empêchent votre agent de livrer une UI générique.",
+    "installLabel": "Commande d’installation"
+  },
+  "copy": {
+    "button": "Copier la commande d’installation",
+    "copied": "Copié",
+    "status": "{label} copiée",
+    "aria": "Copier : {label}",
+    "ariaCopied": "{label} copiée"
+  },
+  "references": {
+    "title": "Regardez de vrais sites avant de choisir un token",
+    "body": "Quand un projet n’a rien d’original, la skill envoie d’abord l’agent chercher des références. Ces {count} sites viennent des galeries qu’elle cite. Faites glisser pour explorer ; ouvrez-en un pour le voir en grand.",
+    "captured": "Capturés en direct en 1440×900, premier écran seulement, oct. 2026.",
+    "region": "Canevas de vrais sites. Faites glisser ou utilisez les flèches pour explorer ; ouvrez une carte pour la voir en grand.",
+    "card": "{name}, trouvé sur {gallery}. Agrandir.",
+    "foundOn": "trouvé sur",
+    "openSite": "Ouvrir le site",
+    "open": "Ouvrir",
+    "close": "Fermer",
+    "dialog": "{name}, capture d’écran",
+    "dialogEmpty": "Capture d’écran",
+    "alt": "Le premier écran de {name} ({host}), capturé en 1440 sur 900."
+  },
+  "what": {
+    "title": "Quatre parties, toutes en fichiers simples à lire",
+    "catalogTitle": "Un catalogue de ce qu’il ne faut pas publier",
+    "catalogBody": "{count} anti-patterns, chacun avec la façon de le repérer et quoi faire à la place. La plupart ont une règle de lint : l’agent les reçoit comme des constats <code>file:line</code>, pas comme une affaire de goût.",
+    "catalogAlt": "Un éditeur de code avec landing.html ouvert, trois lignes soulignées, à côté d’un panneau Problems listant les constats de slop-lint : une erreur purple-gradient, des avertissements emoji-bullet et three-equal-cards.",
+    "briefTitle": "Un brief par projet",
+    "briefBody": "Chaque projet reçoit un <code>DESIGN.md</code> : pour qui il est, le type de surface, les curseurs et un bloc de tokens. Les polices, couleurs et rayons hors de ce bloc reviennent en avertissements. Voici le bloc de ce site.",
+    "hookTitle": "Un retour après chaque écriture",
+    "hookBody": "Un hook Cursor optionnel passe le lint sur chaque fichier d’UI écrit par l’agent et lui renvoie les constats avant qu’il continue. Il ne bloque jamais une écriture.",
+    "hookAlt": "Un panneau de chat d’agent après l’écriture de src/landing.tsx : la réponse consultative de slop-lint liste label-above-headline, decorative-numbering et invented-metric, et l’agent répond qu’il corrige les trois constats.",
+    "proveTitle": "Un moyen de prouver que ça aide",
+    "proveBody": "Une grille notée de 0 à 2 sur 42 points et un protocole A/B à l’aveugle. Une modification de la skill n’est publiée que si elle bat la référence.",
+    "scorecardCaption": "Sections de la grille",
+    "gate": "barrière"
+  },
+  "rubric": {
+    "A": "Absence de slop",
+    "B": "Facture",
+    "C": "Processus",
+    "D": "Respect du périmètre"
+  },
+  "catalog": {
+    "title": "{count} signes, chacun avec sa correction",
+    "body": "Le catalogue complet, lu directement dans la skill au build. Une entrée n’est permise que si le DESIGN.md du projet la documente comme faisant partie de la marque.",
+    "link": "anti-patterns.md sur GitHub",
+    "detect": "Repérer",
+    "instead": "À la place",
+    "noRule": "pas de règle, à l’œil",
+    "errorOrWarn": "erreur ou avertissement",
+    "englishNote": "Les entrées du catalogue viennent de la skill et restent en anglais."
+  },
+  "gallery": {
+    "title": "Les signes plus récents",
+    "body": "Une étiquette au-dessus du titre, des numéros de section 01/02, une rangée de grands chiffres, des bandes latérales, un easing qui rebondit, un point qui pulse et des tirets cadratins à chaque ligne. Le lint en trouve {warnings} en avertissements ; la fixture propre en a {clean}.",
+    "slotAlt": "Une landing page SaaS générique où chaque signe récent est entouré et étiqueté : label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering et side-stripe.",
+    "more": "Plus dans <link>gallery/</link>, régénéré à partir des fixtures avec <code>npm run gallery</code>.",
+    "imageAlt": "Une page générée avec une étiquette INTRODUCING, des numéros de section 01 et 02, trois grands chiffres sans source et du texte gris sur un panneau bleu ; chaque élément signalé est entouré avec le nom de sa règle.",
+    "before": "avant · {errors} erreurs, {warnings} avertissements"
+  },
+  "install": {
+    "title": "Installez-la en une ligne",
+    "intro": "Choisissez votre agent.",
+    "anyAgent": "N’importe quel agent",
+    "rowLabel": "Commande d’installation pour {agent}",
+    "noteAny": "Cursor, Codex, Claude Code, Grok Build, Gemini CLI, Copilot, OpenCode et d’autres, via <link>vercel-labs/skills</link> (Node 22.20+). Ajoutez <code>-g</code> pour tous les projets.",
+    "noteCursor": "Ou importez le dépôt comme plugin : Customize, puis From GitHub Repository.",
+    "noteCodex": "CLI, extension d’IDE et l’app de bureau ChatGPT.",
+    "noteClaude": "Dans une session : <code>/plugin marketplace add cesaroeduardo/antiwebslop</code>. La skill s’exécute en tant que <code>/antiwebslop:antiwebslop</code>.",
+    "noteGrok": "Envoyez ceci comme message à votre bot. Avec Grok Build : <code>grok plugin install cesaroeduardo/antiwebslop --trust</code>."
+  },
+  "eval": {
+    "title": "Comment on la mesure",
+    "intro": "Les avis sur le goût ne coûtent rien, alors la skill vient avec son propre test : même agent, même modèle, même brief, lancé avec et sans la skill, choisi à l’aveugle, puis noté.",
+    "protocolAria": "Protocole A/B",
+    "setupPhase": "Préparation",
+    "setupTitle": "Tout fixer, sauf la skill",
+    "setupRules": [
+      "3 à 5 briefs : au moins une landing page, une page d’aide/docs et une tâche d’UI produit.",
+      "Deux checkouts propres par brief sur le même commit, `run-a/` et `run-b/`.",
+      "La skill n’est installée que dans un seul run. La référence n’en a aucune copie, ni d’aucune autre skill de design.",
+      "Même agent, modèle, réglages et texte de brief, dans un nouveau chat à chaque fois."
+    ],
+    "runPhase": "Run",
+    "runTitle": "Laisser chaque run finir seul",
+    "runRules": [
+      "Le brief est collé tel quel ; les questions de clarification reçoivent les mêmes réponses scriptées dans les deux runs.",
+      "Aucun guidage. Une relance autorisée : “Finish and make it production-ready.”",
+      "Les deux runs sont capturés sur 3 viewports, et le `slop-lint --json` de chacun est enregistré."
+    ],
+    "blindPhase": "Revue à l’aveugle",
+    "blindTitle": "Choisir d’abord, noter ensuite",
+    "blindRules": [
+      "Gauche et droite sont tirées au sort ; une autre personne que le relecteur garde la clé.",
+      "Le relecteur répond à une question : laquelle semble conçue par une personne pour ce produit ? Gauche, droite ou égalité, et une phrase pour dire pourquoi.",
+      "Ensuite les deux résultats sont notés sur la grille de 42 points."
+    ],
+    "decidePhase": "Décision",
+    "decideTitle": "Publier seulement au-dessus de la barre",
+    "decideRules": [
+      "Total avec la skill d’au moins 1,3× la référence, sur l’ensemble des briefs.",
+      "Zéro erreur de lint dans les résultats avec la skill, et la barrière de périmètre passe à chaque run.",
+      "Gagne ou fait égalité au choix à l’aveugle sur au moins 2 briefs sur 3. Une régression sur un brief est consignée avant de changer quoi que ce soit d’autre."
+    ],
+    "asideAria": "Grille et résultats",
+    "scaleCaption": "La grille, à l’échelle",
+    "scaleTotal": "42 pts + barrière",
+    "tableCaption": "Sections de la grille, d’après eval/rubric.md",
+    "noteA": "10 critères, 8 appuyés par le lint",
+    "noteB": "6 critères : typo, espacement, couleur, hiérarchie, contenu réel",
+    "noteC": "5 critères : Design Read, curseurs, DESIGN.md, QA visuelle, a11y",
+    "noteD": "UI produit intacte sauf demande. Un échec fait échouer le run.",
+    "pts": "{count} pts",
+    "passFail": "réussi / échoué",
+    "scale": "Chaque critère 0 échoue · 1 en partie · 2 réussit nettement",
+    "logTitle": "eval/VALIDATION.md · runs consignés : 0",
+    "noScores": "Aucune note n’est affichée tant qu’aucun run n’est consigné."
+  },
+  "compare": {
+    "title": "Compromis",
+    "body": "antiwebslop reste assez petite pour se lire d’une traite. Des outils de design plus gros ajoutent plus de commandes, des contrôles sur les pages rendues, des extensions de navigateur et des installeurs pour de nombreux agents. Si vous voulez le plus de couverture et d’automatisation, associez-la à l’un d’eux.",
+    "priorArt": "Travaux antérieurs",
+    "by": "par {name}"
+  },
+  "footer": {
+    "tagline": "Une skill de design, un lint et un kit d’évaluation pour les pages web créées par des agents de code IA.",
+    "project": "Projet",
+    "read": "Lire",
+    "install": "Installer",
+    "github": "GitHub",
+    "issues": "Issues",
+    "license": "Licence MIT",
+    "antiPatterns": "Anti-patterns",
+    "evalKit": "Kit d’évaluation",
+    "designMd": "Le DESIGN.md de ce site",
+    "rights": "© 2026 Eduardo de Cesaro · Licence MIT · sans télémétrie",
+    "stats": "v{version} · {rules} règles de lint · {entries} entrées au catalogue",
+    "readAll": "lisez chaque fichier sur GitHub"
+  }
+}
