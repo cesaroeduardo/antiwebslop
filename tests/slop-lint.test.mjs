@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { readdirSync } from 'node:fs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const LINT = join(root, '.cursor/skills/webdesign-aislopkiller/scripts/slop-lint.mjs');
@@ -71,7 +72,8 @@ test('text output has file:line hits and a summary line', () => {
 
 test('directory walk skips fixtures/ and node_modules/ unless passed explicitly', () => {
   const r = json('tests');
-  assert.equal(r.summary.files, 1, 'only the test file itself is scanned');
+  const own = readdirSync(join(root, 'tests')).filter((f) => f.endsWith('.mjs')).length;
+  assert.equal(r.summary.files, own, 'only the test files themselves are scanned');
 });
 
 test('--max-warnings and usage errors', () => {
