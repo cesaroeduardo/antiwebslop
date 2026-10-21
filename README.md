@@ -40,9 +40,9 @@ Until runs exist, the [slop gallery](gallery/index.html) shows what the lint cat
 
 ```bash
 git clone https://github.com/cesaroeduardo/antiwebslop.git
-cp -r antiwebslop/.cursor/skills/webdesign-aislopkiller <your-project>/.cursor/skills/
+cp -r antiwebslop/.cursor/skills/antiwebslop <your-project>/.cursor/skills/
 # or for every project on this machine:
-cp -r antiwebslop/.cursor/skills/webdesign-aislopkiller ~/.cursor/skills/
+cp -r antiwebslop/.cursor/skills/antiwebslop ~/.cursor/skills/
 ```
 
 Cursor discovers skills in `.cursor/skills/`. Other agents that read `SKILL.md` folders
@@ -54,8 +54,8 @@ Requirements: Node 18+ for the lint and hook. The skill text itself needs nothin
 ## Run the lint
 
 ```bash
-node .cursor/skills/webdesign-aislopkiller/scripts/slop-lint.mjs src/ --quiet
-node .cursor/skills/webdesign-aislopkiller/scripts/slop-lint.mjs --list-rules
+node .cursor/skills/antiwebslop/scripts/slop-lint.mjs src/ --quiet
+node .cursor/skills/antiwebslop/scripts/slop-lint.mjs --list-rules
 ```
 
 - Options: `--json`, `--quiet` (hide info), `--max-warnings N`, `--ext html,css,tsx`,
@@ -73,9 +73,9 @@ it never blocks a write, and if anything goes wrong it stays silent.
 
 ```bash
 # from your project root, after copying the skill in
-node .cursor/skills/webdesign-aislopkiller/scripts/install-cursor-hook.mjs            # add to .cursor/hooks.json
-node .cursor/skills/webdesign-aislopkiller/scripts/install-cursor-hook.mjs --dry-run  # preview
-node .cursor/skills/webdesign-aislopkiller/scripts/install-cursor-hook.mjs --uninstall
+node .cursor/skills/antiwebslop/scripts/install-cursor-hook.mjs            # add to .cursor/hooks.json
+node .cursor/skills/antiwebslop/scripts/install-cursor-hook.mjs --dry-run  # preview
+node .cursor/skills/antiwebslop/scripts/install-cursor-hook.mjs --uninstall
 ```
 
 The installer merges with existing hooks and is safe to run twice. Project hooks only run in a
@@ -107,10 +107,10 @@ The two can coexist in one project. If you run both, expect overlapping findings
 
 | Path | What it is |
 |---|---|
-| `.cursor/skills/webdesign-aislopkiller/SKILL.md` | Entry point: surface types, source-of-truth order, work loop, pre-done checklist |
-| `.cursor/skills/webdesign-aislopkiller/references/` | Loaded on demand: anti-patterns, craft, examples, dials, DESIGN.md contract, image-to-code, visual QA, a11y audit, decision log, sources |
-| `.cursor/skills/webdesign-aislopkiller/templates/DESIGN.template.md` | A project's `DESIGN.md` starting point, with product truth and `design-tokens` |
-| `.cursor/skills/webdesign-aislopkiller/scripts/` | `slop-lint.mjs`, `cursor-hook.mjs`, `install-cursor-hook.mjs` |
+| `.cursor/skills/antiwebslop/SKILL.md` | Entry point: surface types, source-of-truth order, work loop, pre-done checklist |
+| `.cursor/skills/antiwebslop/references/` | Loaded on demand: anti-patterns, craft, examples, dials, DESIGN.md contract, image-to-code, visual QA, a11y audit, decision log, sources |
+| `.cursor/skills/antiwebslop/templates/DESIGN.template.md` | A project's `DESIGN.md` starting point, with product truth and `design-tokens` |
+| `.cursor/skills/antiwebslop/scripts/` | `slop-lint.mjs`, `cursor-hook.mjs`, `install-cursor-hook.mjs` |
 | [`eval/`](eval/README.md) | Scorecard, brief template, blind A/B protocol, validation log |
 | [`gallery/`](gallery/README.md) | Static before/after pages with findings marked (era 2026-10) |
 | `tests/` | Fixtures and `node:test` suites for the lint and the hook |
@@ -127,7 +127,9 @@ Change the skill, run the eval, log the result in `eval/VALIDATION.md`, keep wha
 
 ## Name
 
-The skill is `webdesign-aislopkiller`. Earlier names: `webdesign-knowledge`, then `webdesign-aislopkiller`.
+The repo and the skill are both `antiwebslop` (skill folder `.cursor/skills/antiwebslop/`).
+Earlier names: `webdesign-knowledge`, then `webdesign-aislopkiller`. The GitHub repo moved from
+`cesaroeduardo/webdesign-aislopkiller` to `cesaroeduardo/antiwebslop`.
 
 ## Prior art
 

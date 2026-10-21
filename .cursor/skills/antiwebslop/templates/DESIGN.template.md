@@ -1,7 +1,7 @@
 # DESIGN.md — <Project name>
 
 > Living design brief for this project. Sections 1–2 are product truth and intent; 3–12 are the visual system.
-> Read order: tokens in code → this file → webdesign-aislopkiller defaults.
+> Read order: tokens in code → this file → antiwebslop skill defaults.
 > Replace every `<…>`; delete sections that truly do not apply.
 
 ## 1. Product truth

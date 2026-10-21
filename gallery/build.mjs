@@ -8,7 +8,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { lintText, parseDesignTokens } from '../.cursor/skills/webdesign-aislopkiller/scripts/slop-lint.mjs';
+import { lintText, parseDesignTokens } from '../.cursor/skills/antiwebslop/scripts/slop-lint.mjs';
 
 const ERA = '2026-10';
 const here = dirname(fileURLToPath(import.meta.url));

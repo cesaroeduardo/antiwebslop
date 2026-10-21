@@ -1,4 +1,4 @@
-> **ARCHIVE — NOT AUTHORITATIVE.** This folder is a frozen copy of the original Kstonebase "Design Lab" export (2026-10-21) that the skill was first distilled from. It mentions paths, skills, and workspace IDs that do not exist in this repo. Agents must **not** read it as instructions; the live skill is [`.cursor/skills/webdesign-aislopkiller/`](../../.cursor/skills/webdesign-aislopkiller/SKILL.md). Kept only for provenance; safe to delete.
+> **ARCHIVE — NOT AUTHORITATIVE.** This folder is a frozen copy of the original Kstonebase "Design Lab" export (2026-10-21) that the skill was first distilled from. It mentions paths, skills, and workspace IDs that do not exist in this repo. Agents must **not** read it as instructions; the live skill is [`.cursor/skills/antiwebslop/`](../../.cursor/skills/antiwebslop/SKILL.md). Kept only for provenance; safe to delete.
 
 # Webdesign Knowledge
 

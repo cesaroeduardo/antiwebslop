@@ -1,5 +1,5 @@
 ---
-name: webdesign-aislopkiller
+name: antiwebslop
 description: >-
   Stops web UI from looking AI-generated. Use when building, restyling, or
   reviewing a website, landing page, hero, marketing or help/docs page, or a
@@ -11,7 +11,7 @@ description: >-
   and a pre-done checklist.
 ---
 
-# Web design AI-slop killer
+# antiwebslop: web design without the AI slop
 
 Make interfaces look like a person with taste made them for *this* product, not
 like the average of every landing page an AI model has seen.

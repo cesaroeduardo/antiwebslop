@@ -8,7 +8,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SCRIPTS = join(root, '.cursor/skills/webdesign-aislopkiller/scripts');
+const SCRIPTS = join(root, '.cursor/skills/antiwebslop/scripts');
 const HOOK = join(SCRIPTS, 'cursor-hook.mjs');
 const INSTALL = join(SCRIPTS, 'install-cursor-hook.mjs');
 

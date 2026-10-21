@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "node --test tests/",
-    "slop-lint": "node .cursor/skills/webdesign-aislopkiller/scripts/slop-lint.mjs",
+    "slop-lint": "node .cursor/skills/antiwebslop/scripts/slop-lint.mjs",
     "gallery": "node gallery/build.mjs"
   },
   "repository": {

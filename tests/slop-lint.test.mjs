@@ -7,7 +7,7 @@ import { dirname, join } from 'node:path';
 import { readdirSync } from 'node:fs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const LINT = join(root, '.cursor/skills/webdesign-aislopkiller/scripts/slop-lint.mjs');
+const LINT = join(root, '.cursor/skills/antiwebslop/scripts/slop-lint.mjs');
 const run = (...args) => {
   const r = spawnSync(process.execPath, [LINT, ...args], { cwd: root, encoding: 'utf8' });
   return { code: r.status, out: r.stdout, err: r.stderr };
