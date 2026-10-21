@@ -1,17 +1,23 @@
 # DESIGN.md — <Project name>
 
-> Living design brief for this project. Read order: tokens in code → this file → webdesign-aislopkiller defaults.
+> Living design brief for this project. Sections 1–2 are product truth and intent; 3–12 are the visual system.
+> Read order: tokens in code → this file → webdesign-aislopkiller defaults.
 > Replace every `<…>`; delete sections that truly do not apply.
 
-## 1. Intent
-<What this surface must achieve, for whom, in 2–3 sentences. e.g. "Get ranked Pokémon Unite players to import their match history.">
+## 1. Product truth
+Facts about the product and its people. These change rarely; visual choices below must serve them.
+- **Users:** <who uses this, in what situation, on what device. e.g. "Ranked Pokémon Unite players checking stats on a phone between matches">
+- **Purpose:** <what the product does for them, in one sentence>
+- **Constraints:** <brand assets that must stay, accessibility needs, languages, performance budget, legal>
+- **Success means:** <the observable outcome per surface. e.g. "Landing: visitor imports matches. Dashboard: finds a weak hero in < 10 s">
+- **Real content available:** <screenshots, data, quotes, logos the agent may use; paths>
 
-## 2. Design Read and dials
+## 2. Design Read and surface types
 Reading this as: <page> for <audience>, with a <visual language> language, on <stack>.
-| Surface | V | M | D |
-|---|---|---|---|
-| Marketing | <8> | <6> | <4> |
-| Product UI | <3> | <2> | <7> |
+| Surface | Type (persuade / operate / read / showcase) | V | M | D |
+|---|---|---|---|---|
+| <Landing> | persuade | <8> | <6> | <4> |
+| <App> | operate | <3> | <2> | <7> |
 
 ## 3. Visual direction and project bans
 - Direction: <3–5 concrete statements, e.g. "data-forward, screenshots over illustration, editorial headline scale">
@@ -19,6 +25,16 @@ Reading this as: <page> for <audience>, with a <visual language> language, on <s
 - Allowed exceptions to the catalog, with reason: <e.g. "purple #6D28D9 is the actual logo color">
 
 ## 4. Color tokens
+
+Machine-readable tokens. `slop-lint` reads this block and warns about fonts, hex colors, and radii
+in code that are not listed. Keep it in sync with sections 4–7; one key per line, comma-separated.
+
+```design-tokens
+fonts: <Display family>, <Text family>, <Mono family>
+colors: <#FBFBFA>, <#17181A>, <#5B5F66>, <#E4E4E1>, <#0F766E>, <#FFFFFF>
+radii: 0, <6px>, <10px>, 9999px
+```
+
 | Token | Value | Job |
 |---|---|---|
 | `--color-bg` | <#…> | page background |

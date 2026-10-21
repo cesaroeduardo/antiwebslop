@@ -44,7 +44,7 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 - **Do instead:** Left-align body copy and most sections. Center only short, isolated statements.
 
 ### 9. Same rhythm for every section
-- **Detect:** every section = eyebrow pill + H2 + gray subtitle + grid. Same padding, same width.
+- **Detect:** every section = small label + H2 + gray subtitle + grid. Same padding, same width.
 - **Do instead:** Vary density and width by section job (proof = dense, story = narrow and airy, pricing = tabular). See [craft § rhythm](craft.md#spacing-and-rhythm).
 
 ### 10. Cards inside cards; card stacks for everything
@@ -57,7 +57,7 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 
 ### 12. Hero overlays and stickers
 - **Detect:** floating badges ("✨ New", "🚀 v2.0"), detached labels, rotated stickers, avatars stacked with "Join 10k+".
-- **Do instead:** One announcement link above the headline at most, set in plain text style.
+- **Do instead:** Put announcements in the nav or under the primary action as a plain text link. Nothing sits above the headline (see 24).
 
 ## Typography
 
@@ -108,3 +108,53 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 ### 23. Stock filler content
 - **Detect:** placeholder paragraphs that could describe any product; stock photos of people pointing at laptops; three-word feature titles ("Fast. Secure. Reliable.").
 - **Do instead:** Use the project's real content: actual screenshots, data, names, prices, changelog items. Ask for content when it is missing rather than inventing it.
+
+## Added in v2 (2026-10)
+
+### 24. Eyebrow / kicker above a heading (`lint: eyebrow-kicker`, warn)
+- **Detect:** a tiny uppercase, letter-spaced or pill-shaped label ("INTRODUCING", "Features", "New") on the line right before an H1–H3.
+- **Do instead:** Delete it, or put its useful words into the heading. If the page needs wayfinding, use breadcrumbs or the nav.
+
+### 25. Decorative section numbers (`lint: section-number`, warn)
+- **Detect:** "01 — Discover", "02", "03" labels on sections that are not steps.
+- **Do instead:** Number only things the reader must do or read in order (setup steps, a process). Otherwise the heading is enough.
+
+### 26. Hero-metric row (`lint: hero-metric`, warn)
+- **Detect:** three or more huge numbers with tiny captions ("99%", "2.4M", "150+"), usually right under the hero.
+- **Do instead:** Use a number only when it is real, sourced, and explains the product; give it a sentence of context. One meaningful number beats a row of vague ones.
+
+### 27. Colored side-tab borders (`lint: side-tab-border`, warn)
+- **Detect:** `border-left: 4px solid <color>` or `border-l-4 border-<color>` on ordinary cards, list items, or quotes.
+- **Do instead:** Keep side stripes for real status (an error or warning callout). Elsewhere separate with space or a full 1px hairline.
+
+### 28. Bounce, elastic, or overshoot easing (`lint: bounce-easing`, warn)
+- **Detect:** `animate-bounce`, `easeOutBack`/`elastic`, `cubic-bezier()` with a y value below 0 or above 1.
+- **Do instead:** A short ease-out that settles once. Playful springs only where the brand is explicitly playful, and never on routine UI like dialogs.
+
+### 29. Endless attention loops (`lint: attention-loop`, warn)
+- **Detect:** a small `rounded-full` dot with `animate-ping`/`animate-pulse`, `<marquee>`, logo tickers that scroll forever.
+- **Do instead:** Static status stays static; animate only a real change. Logo rows sit still and can be scanned at the reader's pace.
+
+### 30. Hard offset shadows (`lint: hard-offset-shadow`, warn)
+- **Detect:** `box-shadow: 6px 6px 0 #000`, `shadow-[4px_4px_0_...]` on a site that is not neobrutalist anywhere else.
+- **Do instead:** Elevation from soft, offset shadows on floating UI only, or no shadow at all. Use the hard block shadow only if the whole visual language is built on it.
+
+### 31. Gray text on colored surfaces (`lint: gray-on-color`, warn)
+- **Detect:** `bg-indigo-600 text-gray-400`, or neutral gray copy on any saturated panel.
+- **Do instead:** Use a light ink, or a tint of the surface's own hue for secondary text, and check contrast against the real background.
+
+### 32. Em-dash overuse (`lint: em-dash-overuse`, warn)
+- **Detect:** em dashes on four or more lines of one file's visible copy ("Fast — reliable — secure").
+- **Do instead:** Most dashes want to be a full stop. Keep a dash only where an aside really interrupts the sentence.
+
+### 33. "Not X. A Y." slogan contrast (`lint: not-x-a-y`, warn)
+- **Detect:** "Not just another dashboard. A command center.", "It's not a tool. It's a platform."
+- **Do instead:** Say what it does in one plain sentence. If the difference from alternatives matters, name the alternative and the concrete difference.
+
+### 34. Oversized hero headline (design review)
+- **Detect:** the headline alone fills the first viewport; more than 3 lines at 1440px or more than 5 at 390px; the CTA falls below the fold.
+- **Do instead:** Shorten the headline first, then cap the size (see [craft § typography](craft.md#typography)).
+
+### 35. Off-system values (`lint: token-font`, `token-color`, `token-radius`, warn)
+- **Detect:** fonts, hex colors, or radii in code that are not in the project's DESIGN.md `design-tokens` block.
+- **Do instead:** Use a documented token. If the new value is intentional, add it to DESIGN.md first (and log why), then use it.

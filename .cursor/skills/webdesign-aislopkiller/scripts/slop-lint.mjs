@@ -6,6 +6,9 @@
 // Vue, Svelte, Astro, MDX by matching text, not by parsing.
 //
 // Usage: node slop-lint.mjs [paths...] [--json] [--quiet] [--max-warnings N] [--ext a,b]
+//                           [--design path/to/DESIGN.md | --no-design]
+// Token drift: if a DESIGN.md with a ```design-tokens block is found (or passed with
+// --design), fonts, colors and radii outside the documented tokens are reported.
 // Exit:  0 = no errors and warnings <= max (default: unlimited)
 //        1 = errors found, or warnings > --max-warnings
 //        2 = usage error
@@ -60,12 +63,37 @@ const LINE_RULES = [
     severityOf: () => 'error',
     test: (l) => new RegExp(`>[^<]*?${EMOJI}`, 'u').test(l) || new RegExp(`^\\s*(?:[-*+]|\\d+\\.)\\s+${EMOJI}`, 'u').test(l)
       || new RegExp(`["'\`]\\s*${EMOJI}`, 'u').test(l) },
+  { id: 'side-tab-border', severity: 'warn', msg: 'thick colored side stripe on a card; use it only for real status, else drop it',
+    re: [/\bborder-[lrse]-(?:[2-8]|\[\d+px\])\b/, /border-(?:left|right|inline-start|inline-end)(?:-width)?:\s*(?:[2-9]|\d{2,})px\b/i] },
+  { id: 'hard-offset-shadow', severity: 'warn', msg: 'zero-blur offset shadow; only if the project really is neobrutalist',
+    test: (l) => /box-shadow:\s*-?[1-9]\d*px\s+-?\d+px\s+0(?:px)?(?:\s|;|$)/i.test(l) || /box-shadow:\s*-?\d+px\s+-?[1-9]\d*px\s+0(?:px)?(?:\s|;|$)/i.test(l)
+      || /\bshadow-\[-?\d+px_-?\d+px_0(?:px)?(?:_|\])/.test(l) },
+  { id: 'bounce-easing', severity: 'warn', msg: 'bounce/elastic/overshoot easing; settle with a plain ease-out',
+    test: (l) => /\banimate-bounce\b/.test(l) || /\b(?:ease(?:In|Out|InOut)(?:Back|Elastic|Bounce)|elastic\.(?:out|in)|back\.(?:out|in)|bounce\.(?:out|in))\b/.test(l)
+      || [...l.matchAll(/cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)/g)].some((m) => +m[2] < 0 || +m[2] > 1 || +m[4] < 0 || +m[4] > 1) },
+  { id: 'attention-loop', severity: 'warn', msg: 'pulsing dot or marquee that moves forever; keep static things still',
+    test: (l) => (/\banimate-(?:ping|pulse)\b/.test(l) && /\brounded-full\b/.test(l) && /\b(?:h|w|size)-(?:1|1\.5|2|2\.5|3)\b/.test(l))
+      || /<marquee\b/i.test(l) || /\b(?:class|className)=["'`][^"'`]*\bmarquee\b/.test(l) || /animation(?:-name)?:\s*[^;]*\b(?:marquee|ticker|scroll-x)\b/i.test(l) },
+  { id: 'section-number', severity: 'warn', msg: '01/02/03 section label; number only real sequences',
+    re: [/>\s*0[1-9]\s*(?:[\/·.—–-]\s*[A-Za-z][^<]*)?<\//, /["'`]0[1-9]\s*[\/·—–-]\s*[A-Z][a-z]+["'`]/] },
+  { id: 'gray-on-color', severity: 'warn', msg: 'gray text on a colored surface; tint the text from the surface hue or use a light ink',
+    test: (l) => /\bbg-(?:red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|primary|accent|brand)(?:-[4-9]00)?\b/.test(l)
+      && /\btext-(?:gray|slate|zinc|neutral|stone)-[3-6]00\b/.test(l) },
+  { id: 'not-x-a-y', severity: 'warn', msg: '"Not X. A Y." slogan contrast; state the useful fact directly',
+    re: [/\b(?:Not|It'?s not|isn'?t) (?:just |only |another |a |an |your )[^.!?<]{1,40}[.!]\s*(?:It'?s |It is )?(?:A|An|The|Your) [A-Za-z]/] },
   { id: 'default-font', severity: 'info', msg: 'Inter/Roboto/Arial: fine for body, but pick a deliberate display face',
     re: [/font-family:\s*["']?(?:Inter|Roboto|Arial)\b/i, /\bfontFamily\b[^\n]*["'](?:Inter|Roboto|Arial)\b/,
          /import\s*\{[^}]*\b(?:Inter|Roboto)\b[^}]*\}\s*from\s*["']next\/font\/google["']/, /fonts\.googleapis\.com\/css2?\?family=(?:Inter|Roboto)\b/] },
   { id: 'three-col-grid', severity: 'info', msg: '3-column grid: make sure it is not three equal feature cards',
     re: [/(?:^|[\s"'`])(?:sm:|md:|lg:|xl:)?grid-cols-3\b/, /grid-template-columns:\s*repeat\(\s*3\s*,\s*(?:1fr|minmax)/i] },
 ];
+
+const FILE_RULES = [
+  ['uniform-radius-shadow', 'warn'], ['icon-soup', 'warn'], ['motion-no-reduce', 'warn'], ['centered-everything', 'info'],
+  ['eyebrow-kicker', 'warn'], ['hero-metric', 'warn'], ['em-dash-overuse', 'warn'],
+  ['token-font', 'warn'], ['token-color', 'warn'], ['token-radius', 'warn'],
+];
+export const RULES = [...LINE_RULES.map((r) => [r.id, r.severity || 'error|warn']), ...FILE_RULES];
 
 const ICON_IMPORT = /import\s*\{([^}]*)\}\s*from\s*["'](?:lucide-react|lucide-vue-next|lucide-svelte|@heroicons\/react[^"']*|react-icons[^"']*|@tabler\/icons-react|@phosphor-icons\/react)["']/gs;
 
@@ -84,10 +112,84 @@ function fileRules(text, lines) {
   const centered = lines.filter((l) => /\btext-center\b|text-align:\s*center/.test(l)).length;
   if (centered >= 6) out.push({ rule: 'centered-everything', severity: 'info', line: firstLine(/\btext-center\b|text-align:\s*center/),
     msg: `${centered} centered blocks; left-align body copy and most sections` });
+  const eyebrowRe = /\b(?:eyebrow|kicker|overline)\b|(?=.*\buppercase\b)(?=.*\btracking-(?:wide|wider|widest|\[))|(?=.*\brounded-full\b)(?=.*\btext-xs\b)(?=.*\b(?:px-[2-3]|border)\b)/;
+  const headingRe = /<(?:h[1-3]|H1|Heading)\b/;
+  lines.forEach((l, i) => {
+    if (!eyebrowRe.test(l) || headingRe.test(l)) return;
+    const next = lines.slice(i + 1, i + 4).join('\n');
+    if (headingRe.test(next)) out.push({ rule: 'eyebrow-kicker', severity: 'warn', line: i + 1, msg: 'small label above a heading; fold the useful words into the heading or drop it' });
+  });
+  const metricRe = /\btext-(?:4xl|5xl|6xl|7xl|8xl|9xl)\b[^>]*>\s*[$€£R]*\$?[\d.,]+\s*(?:%|[kKmMbB]|x|\+|ms|s)?\+?\s*</;
+  const metrics = lines.filter((l) => metricRe.test(l)).length;
+  if (metrics >= 3) out.push({ rule: 'hero-metric', severity: 'warn', line: firstLine(metricRe),
+    msg: `${metrics} big-number stats; the stat-row template says little unless each number has context and a source` });
+  const dashLines = lines.filter((l) => /\S\s?—\s?\S/.test(l) && !/^\s*(?:\/\/|\/\*|\*|<!--)/.test(l)).length;
+  if (dashLines >= 4) out.push({ rule: 'em-dash-overuse', severity: 'warn', line: firstLine(/\S\s?—\s?\S/),
+    msg: `em dashes on ${dashLines} lines; split into sentences or use other punctuation` });
   return out;
 }
 
-export function lintText(text) {
+const GENERIC_FONTS = new Set(['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy', 'system-ui', 'ui-sans-serif', 'ui-serif',
+  'ui-monospace', 'ui-rounded', 'emoji', 'math', 'fangsong', 'inherit', 'initial', 'unset', 'revert', '-apple-system', 'blinkmacsystemfont']);
+const norm = (v) => v.trim().replace(/^["']|["']$/g, '').trim().toLowerCase();
+function normColor(c) {
+  c = c.toLowerCase();
+  if (/^#[0-9a-f]{3}$/.test(c)) return '#' + [...c.slice(1)].map((x) => x + x).join('');
+  if (/^#[0-9a-f]{4}$/.test(c)) return '#' + [...c.slice(1)].map((x) => x + x).join('');
+  return c;
+}
+
+// Parse the ```design-tokens block of a DESIGN.md. Format (one key per line):
+//   fonts: Söhne, GT Sectra, JetBrains Mono
+//   colors: #FBFBFA, #17181A, #5B5F66
+//   radii: 0, 6px, 10px, 9999px
+export function parseDesignTokens(md) {
+  const m = md.match(/```design-tokens\s*\n([\s\S]*?)```/);
+  if (!m) return null;
+  const t = { fonts: new Set(), colors: new Set(), radii: new Set() };
+  for (const line of m[1].split('\n')) {
+    const kv = line.match(/^\s*(fonts|colors|radii)\s*:\s*(.+)$/i);
+    if (!kv) continue;
+    const key = kv[1].toLowerCase();
+    for (const v of kv[2].split(',').map(norm).filter(Boolean)) t[key].add(key === 'colors' ? normColor(v) : v);
+  }
+  return t;
+}
+
+function tokenDrift(lines, tokens) {
+  const out = [];
+  if (!tokens) return out;
+  lines.forEach((l, i) => {
+    const line = i + 1;
+    if (tokens.fonts.size) {
+      const ff = l.match(/font-family:\s*([^;}"]+)/i);
+      const fams = ff ? ff[1].split(',').map((v) => v.trim().replace(/^["']|["']$/g, '')) : [];
+      const tw = l.match(/\bfont-\[['"]?([^\]'"]+)['"]?\]/);
+      if (tw) fams.push(tw[1].replace(/_/g, ' '));
+      for (const f of fams) { const k = norm(f);
+        if (k && !k.startsWith('var(') && !GENERIC_FONTS.has(k) && !tokens.fonts.has(k))
+          out.push({ rule: 'token-font', severity: 'warn', line, msg: `font "${f}" is not in DESIGN.md tokens; use a documented font or add it there` }); }
+    }
+    if (tokens.colors.size) {
+      for (const m of l.matchAll(/#[0-9a-fA-F]{3,8}\b/g)) {
+        const c = normColor(m[0]);
+        if (![4, 7, 9].includes(c.length) || tokens.colors.has(c) || tokens.colors.has(c.slice(0, 7))) continue;
+        out.push({ rule: 'token-color', severity: 'warn', line, msg: `color ${m[0]} is not in DESIGN.md tokens; use a palette token or add it there` });
+      }
+    }
+    if (tokens.radii.size) {
+      const vals = [];
+      const br = l.match(/border-radius:\s*([^;}"]+)/i);
+      if (br) vals.push(...br[1].trim().split(/\s+/).map(norm));
+      for (const m of l.matchAll(/\brounded(?:-[trblse]{1,2})?-\[([^\]]+)\]/g)) vals.push(norm(m[1]));
+      for (const v of vals) if (v && !/^var\(/.test(v) && v !== '0' && !tokens.radii.has(v))
+        out.push({ rule: 'token-radius', severity: 'warn', line, msg: `radius ${v} is not in DESIGN.md tokens; use a documented radius or add it there` });
+    }
+  });
+  return out;
+}
+
+export function lintText(text, { tokens = null } = {}) {
   if (/slop-lint-disable-file/.test(text)) return [];
   const lines = text.split(/\r?\n/);
   const hits = [];
@@ -98,12 +200,17 @@ export function lintText(text) {
       if (matched) hits.push({ rule: r.id, severity: r.severityOf ? r.severityOf(line) : r.severity, line: i + 1, msg: r.msg, snippet: line.trim().slice(0, 100) });
     }
   });
-  for (const h of fileRules(text, lines)) {
+  for (const h of [...fileRules(text, lines), ...tokenDrift(lines, tokens)]) {
     const prev = lines[h.line - 2] || '';
     if (/slop-lint-disable-line/.test(lines[h.line - 1] || '') || /slop-lint-disable-next-line/.test(prev)) continue;
     hits.push({ ...h, snippet: (lines[h.line - 1] || '').trim().slice(0, 100) });
   }
   return hits.sort((a, b) => a.line - b.line);
+}
+
+export function findDesignMd(dir) {
+  for (const c of ['DESIGN.md', 'docs/DESIGN.md']) { const p = join(dir, c); if (existsSync(p)) return p; }
+  return null;
 }
 
 function collect(p, exts, files, explicit) {
@@ -117,14 +224,17 @@ function collect(p, exts, files, explicit) {
 }
 
 function main(argv) {
-  const args = { paths: [], json: false, quiet: false, maxWarnings: Infinity, ext: DEFAULT_EXT };
+  const args = { paths: [], json: false, quiet: false, maxWarnings: Infinity, ext: DEFAULT_EXT, design: undefined };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--json') args.json = true;
     else if (a === '--quiet') args.quiet = true;
+    else if (a === '--design') args.design = argv[++i];
+    else if (a === '--no-design') args.design = null;
+    else if (a === '--list-rules') { for (const [id, sev] of RULES) console.log(`${id.padEnd(22)} ${sev}`); console.log(`${RULES.length} rules`); return 0; }
     else if (a === '--max-warnings') args.maxWarnings = Number(argv[++i]);
     else if (a === '--ext') args.ext = String(argv[++i]).split(',').map((s) => s.trim().replace(/^\./, ''));
-    else if (a === '-h' || a === '--help') { console.log('usage: slop-lint [paths...] [--json] [--quiet] [--max-warnings N] [--ext html,css,...]'); return 0; }
+    else if (a === '-h' || a === '--help') { console.log('usage: slop-lint [paths...] [--json] [--quiet] [--max-warnings N] [--ext html,css,...] [--design DESIGN.md | --no-design]'); return 0; }
     else if (a.startsWith('-')) { console.error(`slop-lint: unknown option ${a}`); return 2; }
     else args.paths.push(a);
   }
@@ -135,20 +245,23 @@ function main(argv) {
     if (!existsSync(p)) { console.error(`slop-lint: no such path ${p}`); return 2; }
     collect(p, args.ext, files, true);
   }
+  if (args.design && !existsSync(args.design)) { console.error(`slop-lint: no such DESIGN.md ${args.design}`); return 2; }
+  const designPath = args.design === null ? null : args.design || findDesignMd(process.cwd());
+  const tokens = designPath ? parseDesignTokens(readFileSync(designPath, 'utf8')) : null;
   const results = [];
   for (const f of files) {
     let text; try { text = readFileSync(f, 'utf8'); } catch { continue; }
-    for (const h of lintText(text)) results.push({ file: relative(process.cwd(), f) || f, ...h });
+    for (const h of lintText(text, { tokens })) results.push({ file: relative(process.cwd(), f) || f, ...h });
   }
   const shown = args.quiet ? results.filter((r) => r.severity !== 'info') : results;
   const count = (s) => results.filter((r) => r.severity === s).length;
-  const summary = { files: files.length, errors: count('error'), warnings: count('warn'), info: count('info'), byRule: {} };
+  const summary = { files: files.length, design: designPath && tokens ? relative(process.cwd(), designPath) || designPath : null, errors: count('error'), warnings: count('warn'), info: count('info'), byRule: {} };
   for (const r of results) summary.byRule[r.rule] = (summary.byRule[r.rule] || 0) + 1;
   if (args.json) console.log(JSON.stringify({ summary, results: shown }, null, 2));
   else {
     for (const r of shown) console.log(`${r.file}:${r.line}  ${r.severity.padEnd(5)}  ${r.rule.padEnd(22)}  ${r.msg}\n    » ${r.snippet}`);
     const rules = Object.entries(summary.byRule).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}=${v}`).join(', ');
-    console.log(`\nslop-lint: ${results.length} hits (${summary.errors} error, ${summary.warnings} warn, ${summary.info} info) in ${summary.files} files${rules ? `\n  by rule: ${rules}` : ''}`);
+    console.log(`\nslop-lint: ${results.length} hits (${summary.errors} error, ${summary.warnings} warn, ${summary.info} info) in ${summary.files} files${summary.design ? ` (tokens: ${summary.design})` : ''}${rules ? `\n  by rule: ${rules}` : ''}`);
   }
   return summary.errors > 0 || summary.warnings > args.maxWarnings ? 1 : 0;
 }

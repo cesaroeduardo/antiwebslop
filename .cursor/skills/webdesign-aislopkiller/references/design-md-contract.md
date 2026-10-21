@@ -10,13 +10,14 @@ Credit: [getdesign.md](https://getdesign.md/).
 
 ## Required sections (in order)
 
-1. Intent · 2. Design Read and dials · 3. Visual direction and project bans · 4. Color tokens · 5. Typography · 6. Spacing and layout · 7. Components · 8. Motion · 9. Imagery and content · 10. Do / Don't · 11. Decision log · 12. References
+1. Product truth (users, purpose, constraints, success) · 2. Design Read and surface types · 3. Visual direction and project bans · 4. Color tokens (with the `design-tokens` block) · 5. Typography · 6. Spacing and layout · 7. Components · 8. Motion · 9. Imagery and content · 10. Do / Don't · 11. Decision log · 12. References
 
 ## Rules
 
 - Hex values or CSS variables, never adjectives alone ("warm gray" → `--color-muted: #8A857D`).
 - One accent per surface, with its job written down.
 - Every rule has a *why* in one line.
+- Keep the `design-tokens` block current: `fonts:`, `colors:` (hex), `radii:`, comma-separated. `slop-lint` uses it to flag off-system values (`token-font`, `token-color`, `token-radius`); the lint skips the check when the block is missing.
 - When code tokens and DESIGN.md disagree, code is the truth for what ships today: fix DESIGN.md or open a TODO; do not silently restyle.
 
 ## Read order (earlier wins on conflict)

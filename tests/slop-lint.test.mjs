@@ -23,6 +23,34 @@ test('slop fixtures trigger every rule', () => {
   assert.ok(r.summary.errors >= 10);
 });
 
+test('v2 rules fire on the v2 slop fixture', () => {
+  const r = json('tests/fixtures/slop/v2-landing.html');
+  for (const id of ['side-tab-border', 'hard-offset-shadow', 'bounce-easing', 'attention-loop', 'eyebrow-kicker',
+    'not-x-a-y', 'section-number', 'em-dash-overuse', 'hero-metric', 'gray-on-color'])
+    assert.ok(r.summary.byRule[id] > 0, `rule ${id} should fire`);
+});
+
+test('token drift: fonts, colors, radii outside DESIGN.md tokens', () => {
+  const r = json('tests/fixtures/tokens', '--design', 'tests/fixtures/tokens/DESIGN.md');
+  assert.deepEqual(r.summary.byRule, { 'token-font': 2, 'token-color': 3, 'token-radius': 2 });
+  assert.equal(r.summary.design, 'tests/fixtures/tokens/DESIGN.md');
+  const lines = r.results.map((h) => `${h.file.split('/').pop()}:${h.line}:${h.rule}`);
+  assert.ok(!lines.some((l) => l.startsWith('drift.css:1:') || l.startsWith('drift.css:2:') || l.startsWith('drift.css:3:')), 'documented tokens pass');
+  const off = json('tests/fixtures/tokens', '--no-design');
+  assert.equal(off.summary.warnings, 0, '--no-design disables drift checks');
+});
+
+test('clean fixtures stay clean with their own DESIGN.md tokens', () => {
+  const r = json('tests/fixtures/clean', '--design', 'tests/fixtures/clean/DESIGN.md');
+  assert.equal(r.summary.errors + r.summary.warnings, 0, JSON.stringify(r.results, null, 2));
+});
+
+test('--list-rules prints every rule', () => {
+  const r = run('--list-rules');
+  assert.equal(r.code, 0);
+  assert.match(r.out, /^31 rules$/m);
+});
+
 test('clean fixtures produce no errors or warnings', () => {
   const r = json('tests/fixtures/clean');
   assert.equal(r.code, 0);
@@ -50,6 +78,7 @@ test('--max-warnings and usage errors', () => {
   assert.equal(run('tests/fixtures/clean', '--max-warnings', '0').code, 0);
   assert.equal(run('--nope').code, 2);
   assert.equal(run('does/not/exist').code, 2);
+  assert.equal(run('.', '--design', 'nope/DESIGN.md').code, 2);
 });
 
 test('the repo itself lints clean (fixtures are skipped on walk)', () => {

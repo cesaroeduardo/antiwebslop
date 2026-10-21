@@ -25,9 +25,8 @@ Short, real-shaped examples. "Before" is what agents produce by default; "after"
 ```html
 <section class="grid gap-12 px-6 py-24 lg:grid-cols-12 lg:items-end">
   <div class="lg:col-span-7">
-    <p class="font-mono text-sm text-muted">Pokémon Unite · match history</p>
-    <h1 class="mt-4 font-display text-5xl leading-[1.05] tracking-tight lg:text-7xl">
-      Every ranked match you play, with win rates per hero and per lane.
+    <h1 class="font-display text-5xl leading-[1.05] tracking-tight lg:text-6xl">
+      Every ranked Pokémon Unite match you play, with win rates per hero and per lane.
     </h1>
     <p class="mt-6 max-w-[60ch] text-lg text-muted">
       Paste your trainer ID. We pull your last 200 games from unite-api and show where you actually win.
@@ -41,7 +40,7 @@ Short, real-shaped examples. "Before" is what agents produce by default; "after"
 </section>
 ```
 
-What changed: a specific headline and CTA, a 7/5 asymmetric split instead of centered,
+What changed: a specific headline and CTA (no label above it; the product name lives in the headline), a 7/5 asymmetric split instead of centered,
 a real product screenshot instead of a gradient, a single accent, no unverifiable proof,
 and named transitions.
 
