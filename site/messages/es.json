@@ -48,19 +48,20 @@
     "alt": "La primera pantalla de {name} ({host}), capturada a 1440 por 900."
   },
   "what": {
-    "title": "Cuatro partes, todas en archivos simples que puedes leer",
-    "catalogTitle": "Un catálogo de lo que no hay que publicar",
+    "catalogTitle": "Lo que no hay que publicar",
     "catalogBody": "{count} antipatrones, cada uno con cómo detectarlo y qué hacer en su lugar. La mayoría tiene una regla de lint, así que el agente los recibe como hallazgos <code>file:line</code>, no como cuestión de gusto.",
     "catalogAlt": "Un editor de código con landing.html abierto, tres líneas subrayadas, junto a un panel Problems con hallazgos de slop-lint: un error purple-gradient y avisos emoji-bullet y three-equal-cards.",
     "briefTitle": "Un brief por proyecto",
     "briefBody": "Cada proyecto recibe un <code>DESIGN.md</code>: para quién es, el tipo de superficie, los diales y un bloque de tokens. Las fuentes, colores y radios fuera de él vuelven como avisos. Este es el bloque de este sitio.",
-    "hookTitle": "Feedback después de cada escritura",
+    "hookTitle": "Señalado en cada escritura",
     "hookBody": "Un hook opcional de Cursor pasa el lint por cada archivo de UI que escribe el agente y le devuelve los hallazgos antes de seguir. Nunca bloquea una escritura.",
     "hookAlt": "Un panel de chat del agente tras escribir src/landing.tsx: la respuesta consultiva de slop-lint lista label-above-headline, decorative-numbering e invented-metric, y el agente responde que está corrigiendo los tres hallazgos.",
-    "proveTitle": "Una forma de probar que ayudó",
+    "proveTitle": "Pruebas, no gustos",
     "proveBody": "Una ficha de 0 a 2 sobre 42 puntos y un protocolo A/B a ciegas. Un cambio en la skill solo se publica cuando supera la línea base.",
     "scorecardCaption": "Secciones de la ficha",
-    "gate": "filtro"
+    "gate": "filtro",
+    "sectionLabel": "Qué incluye la skill",
+    "pts": "pts"
   },
   "rubric": {
     "A": "Ausencia de slop",

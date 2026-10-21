@@ -48,19 +48,20 @@
     "alt": "The first screen of {name} ({host}), captured at 1440 by 900."
   },
   "what": {
-    "title": "Four parts, all plain files you can read",
-    "catalogTitle": "A catalog of what not to ship",
+    "catalogTitle": "What not to ship",
     "catalogBody": "{count} anti-patterns, each with how to spot it and what to do instead. Most have a lint rule, so the agent hears about them as <code>file:line</code> findings, not as taste.",
     "catalogAlt": "A code editor with landing.html open, three lines underlined, beside a Problems panel listing slop-lint findings: purple-gradient error, emoji-bullet and three-equal-cards warnings.",
-    "briefTitle": "A brief per project",
+    "briefTitle": "One brief per project",
     "briefBody": "Each project gets a <code>DESIGN.md</code>: who it is for, the surface type, dials, and a token block. Fonts, colors and radii outside it come back as warnings. This is this site’s own block.",
-    "hookTitle": "Feedback after every write",
+    "hookTitle": "Flagged on every write",
     "hookBody": "An optional Cursor hook lints each UI file the agent writes and hands the findings back before it moves on. It never blocks a write.",
     "hookAlt": "An agent chat panel after writing src/landing.tsx: the slop-lint advisory reply lists label-above-headline, decorative-numbering and invented-metric, and the agent answers that it is fixing the three findings.",
-    "proveTitle": "A way to prove it helped",
+    "proveTitle": "Proof, not taste",
     "proveBody": "A 0–2 scorecard over 42 points and a blind A/B protocol. A change to the skill ships only when it beats the baseline.",
     "scorecardCaption": "Scorecard sections",
-    "gate": "gate"
+    "gate": "gate",
+    "sectionLabel": "What the skill includes",
+    "pts": "pts"
   },
   "rubric": {
     "A": "Slop absence",
