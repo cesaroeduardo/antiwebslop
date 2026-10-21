@@ -42,7 +42,30 @@
     "close": "Cerrar",
     "dialog": "{name}, captura de pantalla",
     "dialogEmpty": "Captura de pantalla",
-    "alt": "La primera pantalla de {name} ({host}), capturada a 1440 por 900."
+    "alt": "La primera pantalla de {name} ({host}), capturada a 1440 por 900.",
+    "copyImage": "Copiar imagen",
+    "copyPrompt": "Copiar prompt",
+    "copiedImage": "Imagen copiada. Pégala en el chat de tu agente.",
+    "copiedPrompt": "Prompt copiado.",
+    "copyFailed": "No se pudo copiar.",
+    "openImage": "Abrir la imagen",
+    "prompt": "Usa la captura adjunta de {name} ({host}) como referencia de maquetación. Lo que muestra: {use}. Toma su escala de espaciado, su jerarquía tipográfica (tamaños, pesos, largo de línea) y su retícula. No copies sus textos, imágenes, logo, colores ni marca. Traslada lo que tomes a los tokens del DESIGN.md de este proyecto y di qué partes usaste.",
+    "use": {
+      "augen": "Una imagen, mucho aire",
+      "displace": "Titular sobre foto a sangre",
+      "grafik": "Tipo enorme sobre un retrato",
+      "how-studio": "Frase centrada, luego una imagen",
+      "interfere": "UI del producto como hero",
+      "mymind": "Titular serif con etiquetas",
+      "nogood": "Ilustración junto a columnas densas",
+      "obys-format": "Tipo display como todo el hero",
+      "podium": "Un objeto, casi sin texto",
+      "signal-a": "Bloque de mayúsculas justificado",
+      "tinloof": "Cuadrícula densa de proyectos",
+      "twks": "Imagen póster a pantalla completa",
+      "union-boulangerie": "Foto a sangre, tipo diminuto",
+      "vercel": "Hero dividido con fila de logos"
+    }
   },
   "what": {
     "catalogTitle": "Lo que no hay que publicar",

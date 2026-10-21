@@ -42,7 +42,30 @@
     "close": "Fermer",
     "dialog": "{name}, capture d’écran",
     "dialogEmpty": "Capture d’écran",
-    "alt": "Le premier écran de {name} ({host}), capturé en 1440 sur 900."
+    "alt": "Le premier écran de {name} ({host}), capturé en 1440 sur 900.",
+    "copyImage": "Copier l’image",
+    "copyPrompt": "Copier le prompt",
+    "copiedImage": "Image copiée. Collez-la dans le chat de votre agent.",
+    "copiedPrompt": "Prompt copié.",
+    "copyFailed": "La copie a échoué.",
+    "openImage": "Ouvrir l’image",
+    "prompt": "Utilise la capture jointe de {name} ({host}) comme référence de mise en page. Ce qu’elle montre : {use}. Reprends son échelle d’espacements, sa hiérarchie typographique (tailles, graisses, longueurs de ligne) et sa grille. Ne copie ni ses textes, ni ses images, ni son logo, ni ses couleurs, ni sa marque. Transpose ce que tu reprends dans les tokens du DESIGN.md de ce projet et dis quelles parties tu as utilisées.",
+    "use": {
+      "augen": "Une image, beaucoup de blanc",
+      "displace": "Titre sur photo pleine page",
+      "grafik": "Typo géante sur un portrait",
+      "how-studio": "Phrase centrée, puis une image",
+      "interfere": "L’UI produit comme hero",
+      "mymind": "Titre serif avec des tags",
+      "nogood": "Illustration à côté de colonnes denses",
+      "obys-format": "Typo display comme tout le hero",
+      "podium": "Un objet, presque pas de texte",
+      "signal-a": "Bloc de capitales justifié",
+      "tinloof": "Grille dense de projets",
+      "twks": "Image affiche plein écran",
+      "union-boulangerie": "Photo pleine page, typo minuscule",
+      "vercel": "Hero scindé avec rangée de logos"
+    }
   },
   "what": {
     "catalogTitle": "Ce qu’il ne faut pas publier",

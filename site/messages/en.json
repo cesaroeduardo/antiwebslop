@@ -42,7 +42,30 @@
     "close": "Close",
     "dialog": "{name}, screenshot",
     "dialogEmpty": "Screenshot",
-    "alt": "The first screen of {name} ({host}), captured at 1440 by 900."
+    "alt": "The first screen of {name} ({host}), captured at 1440 by 900.",
+    "copyImage": "Copy image",
+    "copyPrompt": "Copy prompt",
+    "copiedImage": "Image copied. Paste it into your agent chat.",
+    "copiedPrompt": "Prompt copied.",
+    "copyFailed": "Copy failed.",
+    "openImage": "Open the image",
+    "prompt": "Use the attached screenshot of {name} ({host}) as a layout reference. What it shows: {use}. Take its spacing scale, type hierarchy (sizes, weights, line lengths) and grid. Do not copy its text, images, logo, colors or brand. Map what you take onto this project's DESIGN.md tokens, and say which parts you used.",
+    "use": {
+      "augen": "One image, lots of white space",
+      "displace": "Headline over a full-bleed photo",
+      "grafik": "Oversized type over a portrait",
+      "how-studio": "Centered statement, then an image",
+      "interfere": "Product UI as the hero",
+      "mymind": "Serif headline with tag chips",
+      "nogood": "Illustration beside dense columns",
+      "obys-format": "Display type as the whole hero",
+      "podium": "One object, almost no text",
+      "signal-a": "Justified all-caps type block",
+      "tinloof": "Dense project index grid",
+      "twks": "Full-screen poster image",
+      "union-boulangerie": "Full-bleed photo, tiny type",
+      "vercel": "Split hero with a logo row"
+    }
   },
   "what": {
     "catalogTitle": "What not to ship",

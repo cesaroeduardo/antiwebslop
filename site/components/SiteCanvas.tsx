@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, X } from 'lucide-react';
+import { ArrowUpRight, Copy, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { CanvasSite } from '@/lib/canvas-sites';
 
@@ -12,11 +12,26 @@ import type { CanvasSite } from '@/lib/canvas-sites';
  * shift + wheel. Each card wraps around on its own (position modulo the tile), so the surface has
  * no edge. A slow drift runs while idle, never under prefers-reduced-motion.
  * A press that moves less than DRAG_PX opens the lightbox (native <dialog>: Esc, backdrop and the
- * close button close it; focus returns to the card).
+ * close button close it; focus returns to the card). The lightbox can copy the screenshot (as PNG) and a
+ * reference prompt for an image-to-code chat; results are announced in a polite live region.
  */
 
+type CopyState = { kind: 'image' | 'prompt'; ok: boolean } | null;
+
+/** Browsers only take image/png on the clipboard: decode the webp and re-encode it through a canvas. */
+async function pngBlob(src: string): Promise<Blob> {
+  const res = await fetch(src);
+  if (!res.ok) throw new Error(String(res.status));
+  const bitmap = await createImageBitmap(await res.blob());
+  const c = document.createElement('canvas');
+  c.width = bitmap.width;
+  c.height = bitmap.height;
+  c.getContext('2d')!.drawImage(bitmap, 0, 0);
+  return new Promise((ok, fail) => c.toBlob((b) => (b ? ok(b) : fail(new Error('toBlob'))), 'image/png'));
+}
+
 const CW = 360; // card width, canvas px
-const CH = 268; // card height incl. caption
+const CH = 286; // card height incl. caption and the use line
 const COL = 392; // column pitch
 const ROW = 320; // row pitch
 const COLS = 7;
@@ -60,6 +75,7 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
   const opener = useRef<HTMLButtonElement | null>(null);
   const moved = useRef(0);
   const [open, setOpen] = useState<CanvasSite | null>(null);
+  const [copied, setCopied] = useState<CopyState>(null);
 
   const paint = useCallback(() => {
     const { x, y } = pos.current;
@@ -225,9 +241,31 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
   }, [open]);
 
   const close = () => dialog.current?.close();
+
+  const use = (site: CanvasSite) => t(`use.${site.slug}` as 'use.augen');
+  const copyImage = async (site: CanvasSite) => {
+    try {
+      if (!navigator.clipboard?.write || typeof ClipboardItem === 'undefined') throw new Error('unsupported');
+      // The item takes a promise so Safari still counts the click as the user gesture.
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': pngBlob(`/canvas/${site.slug}.webp`) })]);
+      setCopied({ kind: 'image', ok: true });
+    } catch {
+      setCopied({ kind: 'image', ok: false });
+    }
+  };
+  const copyPrompt = async (site: CanvasSite) => {
+    const text = t('prompt', { name: site.name, host: site.url.replace('https://', ''), use: use(site) });
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied({ kind: 'prompt', ok: true });
+    } catch {
+      setCopied({ kind: 'prompt', ok: false });
+    }
+  };
   const onClosed = () => {
     document.documentElement.style.overflow = '';
     setOpen(null);
+    setCopied(null);
     opener.current?.focus({ preventScroll: true });
   };
 
@@ -264,10 +302,11 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
                   className="pointer-events-none object-cover object-top"
                 />
               </span>
-              <span className="flex items-baseline justify-between gap-3 px-1 pb-1 pt-3 font-mono text-cap">
+              <span className="flex items-baseline justify-between gap-3 px-1 pt-3 font-mono text-cap">
                 <span className="truncate text-fg">{s.site.name}</span>
                 <span className="shrink-0 text-muted">{s.site.gallery}</span>
               </span>
+              <span className="block truncate px-1 pb-1 pt-1 text-cap text-muted">{use(s.site)}</span>
             </button>
           ))}
         </div>
@@ -282,21 +321,37 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
         className="lightbox m-auto w-[min(92vw,1280px)] max-w-none overflow-visible bg-transparent p-0 text-fg backdrop:bg-bg/90"
       >
         {open ? (
-          <figure className="rounded-card border border-border bg-surface p-2 sm:p-3">
-            <div className="flex items-center justify-between gap-4 px-1 pb-3 pt-1">
-              <figcaption className="min-w-0 font-mono text-sm">
+          <figure className="relative rounded-card border border-border bg-surface p-2 sm:p-3">
+            <div className="flex flex-col gap-3 px-1 pb-3 pt-1 md:flex-row md:items-center md:justify-between md:gap-4">
+              <figcaption className="min-w-0 pr-10 font-mono text-sm md:pr-0">
                 <span className="text-fg">{open.name}</span>
                 <span className="text-muted"> · {t('foundOn')} <a className="link" href={open.galleryUrl}>{open.gallery}</a></span>
+                <span className="block text-cap text-muted">{use(open)}</span>
               </figcaption>
-              <div className="flex shrink-0 items-center gap-1">
+              <div className="flex shrink-0 flex-wrap items-center gap-1 md:justify-end">
+                <button type="button" onClick={() => copyImage(open)} className="inline-flex items-center gap-1.5 rounded-control border border-border px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface-2">
+                  <Copy aria-hidden size={14} /> {t('copyImage')}
+                </button>
+                <button type="button" onClick={() => copyPrompt(open)} className="inline-flex items-center gap-1.5 rounded-control border border-border px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface-2">
+                  <Copy aria-hidden size={14} /> {t('copyPrompt')}
+                </button>
                 <a href={open.url} className="inline-flex items-center gap-1 rounded-control px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:bg-surface-2">
                   <span className="hidden sm:inline">{t('openSite')}</span><span className="sm:hidden">{t('open')}</span> <ArrowUpRight aria-hidden size={14} />
                 </a>
-                <button type="button" data-close onClick={close} aria-label={t('close')} className="inline-flex size-9 items-center justify-center rounded-control text-fg transition-colors duration-150 hover:bg-surface-2">
+                <button type="button" data-close onClick={close} aria-label={t('close')} className="absolute right-2 top-2 inline-flex size-9 md:static items-center justify-center rounded-control text-fg transition-colors duration-150 hover:bg-surface-2">
                   <X aria-hidden size={18} />
                 </button>
               </div>
             </div>
+            <p role="status" aria-live="polite" className="min-h-[1.25rem] px-1 pb-2 font-mono text-cap text-muted">
+              {copied?.ok ? (copied.kind === 'image' ? t('copiedImage') : t('copiedPrompt')) : null}
+              {copied && !copied.ok ? (
+                <>
+                  {t('copyFailed')}{' '}
+                  {copied.kind === 'image' ? <a className="link text-fg" href={`/canvas/${open.slug}.webp`} target="_blank" rel="noopener noreferrer">{t('openImage')}</a> : null}
+                </>
+              ) : null}
+            </p>
             <div className="relative overflow-hidden bg-bg" style={{ aspectRatio: '16 / 10' }}>
               <Image
                 src={`/canvas/${open.slug}.webp`}
