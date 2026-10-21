@@ -44,6 +44,9 @@ const protocolSteps: { key: 'setup' | 'run' | 'blind' | 'decide'; source: string
   { key: 'decide', source: 'rubric.md' },
 ];
 
+/** Score ink: the accent mixed toward the cream ink by (pts/20)², so weight reads clearly: A 20 = 100%, B 12 = 36%, C 10 = 25%. */
+const scoreInk = (pts?: number) => `color-mix(in oklab, var(--color-accent) ${Math.round(((pts ?? 0) / 20) ** 2 * 100)}%, var(--color-fg))`;
+
 const scorecard: { key: 'A' | 'B' | 'C' | 'D'; pts?: number }[] = [{ key: 'A', pts: 20 }, { key: 'B', pts: 12 }, { key: 'C', pts: 10 }, { key: 'D' }];
 
 /** The newer tells, stacked image-beside-topic rows after america.gov. Each row zooms into one
@@ -326,24 +329,31 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   <span>{t('eval.scaleCaption')}</span>
                   <span className="tabular-nums text-fg">{t('eval.scaleTotal')}</span>
                 </figcaption>
+                {/* Max points from eval/rubric.md (no runs logged, so no achieved scores). Ink strength follows weight:
+                    A 20 is the full accent, B 12 and C 10 mix the accent with the cream ink by (pts/20)²; D is a neutral dashed gate. */}
                 <div className="flex h-16 gap-1 font-mono text-cap" aria-hidden>
                   {scorecard.filter((s) => s.pts).map((s) => (
-                    <span key={s.key} className="flex items-end justify-between gap-1 bg-surface-2 p-2 text-fg" style={{ flexGrow: s.pts ?? 0, flexBasis: 0 }}><span>{s.key}</span><span className="hidden tabular-nums text-muted sm:inline">{s.pts}</span></span>
+                    <span key={s.key} className="flex items-end p-2 text-accent-fg" style={{ flexGrow: s.pts ?? 0, flexBasis: 0, background: scoreInk(s.pts) }}>{s.key}</span>
                   ))}
                   <span className="flex w-12 shrink-0 items-end border border-dashed border-border-strong p-2 text-muted">D</span>
                 </div>
-                <table className="mt-5 w-full border-collapse text-left text-sm">
-                  <caption className="sr-only">{t('eval.tableCaption')}</caption>
-                  <tbody>
-                    {scorecard.map((s) => (
-                      <tr key={s.key} className="border-t border-border align-top">
-                        <th scope="row" className="w-8 py-3 font-mono text-cap font-normal text-muted">{s.key}</th>
-                        <td className="py-3 text-fg">{t(`rubric.${s.key}`)}</td>
-                        <td className="whitespace-nowrap py-3 pl-3 text-right font-mono text-cap tabular-nums text-fg">{s.pts ? t('eval.pts', { count: s.pts }) : t('eval.passFail')}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <dl className="mt-6 grid grid-cols-[max-content_1fr] gap-x-6">
+                  {scorecard.map((s) => (
+                    <div key={s.key} className={`col-span-2 grid grid-cols-subgrid items-baseline py-4 ${s.pts ? 'border-t border-border' : 'border-t border-dashed border-border-strong'}`}>
+                      <dt className="text-sm text-fg">
+                        <span className="mr-2 font-mono text-cap text-muted">{s.key}</span>{t(`rubric.${s.key}`)}
+                        {s.pts ? null : <span className="block font-mono text-cap text-muted">{t('eval.passFail')}</span>}
+                      </dt>
+                      <dd className="order-first font-mono font-medium leading-none tracking-[-0.04em] tabular-nums" style={{ color: s.pts ? scoreInk(s.pts) : undefined }}>
+                        {s.pts ? (
+                          <><span className="text-[2.75rem] sm:text-[3.25rem]">{s.pts}</span><span className="ml-1 text-cap font-normal tracking-normal text-muted">{t('what.pts')}</span></>
+                        ) : (
+                          <span className="text-xl text-muted sm:text-2xl">{t('what.gate')}</span>
+                        )}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
               </figure>
             </aside>
           </div>
