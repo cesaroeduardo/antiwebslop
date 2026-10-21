@@ -28,6 +28,13 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 2. The project's own **`DESIGN.md`** (repo root or `docs/`), one per project, with product truth and a `design-tokens` block; create it from [the template](templates/DESIGN.template.md) if missing and the task is more than a small fix
 3. **This skill's defaults** (references below)
 
+**Slop is not a source of truth.** Tokens and patterns that match the [anti-patterns](references/anti-patterns.md) (default purple/indigo gradients, Inter-everywhere, one radius and shadow on everything, generic SaaS sections) are not inherited, even when they sit in the theme file. Keep only what is genuinely the brand's own: logo, product UI, real photography, a documented palette.
+
+**Fallback when nothing authored exists** (every token and pattern is slop):
+1. Ask the user for the logo, the product (what it does, for whom) and any brand material. Do not invent a brand.
+2. Get references: use the user's, find 2-3 real sites that fit the surface type, or generate section images ([image-to-code](references/image-to-code.md)).
+3. Only then define new tokens in `DESIGN.md` from that material and state the Design Read. The old slop tokens are replaced, not mapped.
+
 ## Work loop (the only canonical copy)
 
 1. **Design Read.** Write one line before any code: *"Reading this as: \<page\> for \<audience\>, a \<surface type\> surface with a \<visual language\> language, on \<stack\>. Dials: V\<n\> M\<n\> D\<n\>."*
