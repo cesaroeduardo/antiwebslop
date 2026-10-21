@@ -3,10 +3,12 @@ import content from '@/content/generated.json';
 import { Catalog, type CatalogGroup } from '@/components/Catalog';
 import { CopyCommand } from '@/components/CopyCommand';
 import { GitHubStars } from '@/components/GitHubStars';
+import { SiteCanvas } from '@/components/SiteCanvas';
 import { Inline } from '@/components/Inline';
 import { Motion } from '@/components/Motion';
 import { Wordmark } from '@/components/Wordmark';
 import { REPO, blob, tree } from '@/lib/site';
+import { canvasSites } from '@/lib/canvas-sites';
 
 const INSTALL_ANY = 'npx skills add cesaroeduardo/antiwebslop';
 
@@ -93,6 +95,7 @@ const validationLines = [
 ];
 
 const nav: [string, string][] = [
+  ['#references', 'References'],
   ['#catalog', 'Catalog'],
   ['#gallery', 'Gallery'],
   ['#install', 'Install'],
@@ -157,12 +160,12 @@ export default function Home() {
       <header className="relative mx-auto flex w-full max-w-[1280px] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
         <a href="#top" aria-label="antiwebslop, back to top" className="shrink-0 text-lg"><Wordmark /></a>
         <nav aria-label="Sections" className="flex min-w-0 items-center gap-0 font-mono text-sm sm:gap-1">
-          <ul className="hidden items-center gap-1 md:flex">
+          <ul className="hidden items-center gap-1 lg:flex">
             {nav.map(([href, label]) => (
               <li key={href}><a href={href} className="rounded-control px-3 py-2 text-muted transition-colors duration-150 hover:text-fg">{label}</a></li>
             ))}
           </ul>
-          <a href="#install" className="hidden rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg min-[360px]:inline-block sm:px-3 md:hidden">Install</a>
+          <a href="#install" className="hidden rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg min-[360px]:inline-block sm:px-3 lg:hidden">Install</a>
           <GitHubStars />
         </nav>
       </header>
@@ -179,8 +182,23 @@ export default function Home() {
           </div>
         </Section>
 
+        {/* Canvas: real sites from the galleries the skill points to, on a surface with no edge. */}
+        <section id="references" aria-labelledby="references-title" className="scroll-mt-6 pt-24 md:pt-32">
+          <div className="mx-auto mb-10 grid w-full max-w-[1280px] grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-12 md:items-end">
+            <h2 id="references-title" className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">Look at real sites before picking a token</h2>
+            <div className="md:col-span-5 md:col-start-8">
+              <p className="mb-3 max-w-[48ch] text-base text-muted">
+                When a project has nothing authored, the skill sends the agent to references first. These {canvasSites.length} came from
+                the galleries it names. Drag to look around; open one to see it large.
+              </p>
+              <p className="font-mono text-cap text-muted">Captured live at 1440×900, first screen only, Oct 2026.</p>
+            </div>
+          </div>
+          <SiteCanvas sites={canvasSites} />
+        </section>
+
         {/* What it does: unequal cards with real artifacts. */}
-        <Section id="what" className="pt-24 md:pt-32">
+        <Section id="what" className="pt-32 md:pt-40">
           <h2 className="mb-10 max-w-[22ch] text-2xl font-medium tracking-[-0.02em] md:text-3xl">Four parts, all plain files you can read</h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12" data-reveal>
             <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-7 md:p-8">

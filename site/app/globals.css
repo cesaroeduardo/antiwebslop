@@ -89,6 +89,14 @@
 }
 .acc-content { overflow: hidden; }
 
+/* Canvas lightbox: fade and settle in, only when motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox[open] { animation: lb-in 220ms var(--ease-out-quart); }
+  .lightbox[open]::backdrop { animation: lb-fade 220ms ease-out; }
+  @keyframes lb-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+  @keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
+}
+
 /* Lenis */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }

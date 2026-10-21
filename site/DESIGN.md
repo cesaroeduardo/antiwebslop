@@ -56,8 +56,8 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 ## 6. Spacing and layout
 - Scale: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 (Tailwind steps 1, 2, 3, 4, 6, 8, 12, 16, 24, 32).
 - Grid: 12 columns, max-width 1280px, gutter 24px, page margin 24px (16px under 640px).
-- Section order: hero → what it does (bento) → catalog → gallery → install → how we measure it → trade-offs → footer.
-- Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; bento 96 (128 md); catalog, gallery, install and eval 128 (160 md); trade-offs 128/160 top and bottom; footer 64.
+- Section order: hero → references canvas → what it does (bento) → catalog → gallery → install → how we measure it → trade-offs → footer.
+- Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; references canvas 96 (128 md) then full-bleed; bento 128 (160 md); catalog, gallery, install and eval 128 (160 md); trade-offs 128/160 top and bottom; footer 64.
 
 ## 7. Components
 - Radius by role: controls and chips 6px · cards and code blocks 10px · images 0 (crop, no frame) · copy-button pill none (no 9999 except the severity dot).
@@ -126,7 +126,15 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Surfaces:** marketing
 - **Refs:** `../eval/ab-protocol.md`, `../eval/rubric.md`, `/workspace/site-shots/v5-measured-*.png`
 
+### 2026-10-21 — References canvas as the second section
+- **Context:** Eduardo asked for a second section like useplanes.com's: an edgeless, draggable surface of cards.
+- **Decision:** `components/SiteCanvas.tsx`, no new dependency. 14 real sites (`lib/canvas-sites.ts`) found on Awwwards, Minimal Gallery, Recent Design, Curated Design and Design Spells, captured with headless Chrome at 1440×900 (`public/canvas/`, 1440w + 720w webp). 7×4 slots, the second copy of the 14 decorative; each card wraps modulo the tile, so the surface never ends. Pointer drag with inertia, horizontal or shift wheel; vertical wheel and vertical touch stay page scroll. Slow drift when idle, off under reduced motion. A press under 6px opens a native `<dialog>` lightbox (Esc, backdrop, close button; focus returns to the card). Keyboard: Tab focuses and centers a card, arrows pan.
+- **Why:** shows the skill's step 2 (references before tokens) with real work instead of describing it; images are captures of live sites, not generated.
+- **Do not:** hijack vertical wheel inside the canvas; add a screenshot without its source gallery; cards stay 10px radius, images unframed.
+- **Surfaces:** marketing
+- **Refs:** https://useplanes.com/ (second section), `/workspace/site-shots/v5-canvas-*.png`, `/workspace/site-shots/v5-lightbox-*.png`
+
 ## 12. References
-- Layout patterns (borrowed, not copied): useplanes.com (unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).
+- Layout patterns (borrowed, not copied): useplanes.com (edgeless draggable card canvas, unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).
 - Stack reference: falcaobatidos.com.br (Next.js 16 App Router on Vercel, Tailwind 4, next/font, Radix, lucide, GSAP + ScrollTrigger, Lenis).
 - Brand assets: `../assets/`.
