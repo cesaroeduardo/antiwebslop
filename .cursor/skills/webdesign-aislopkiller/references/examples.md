@@ -20,7 +20,7 @@ Short, real-shaped examples. "Before" is what agents produce by default; "after"
 </section>
 ```
 
-**After:** Design Read: *"Reading this as: a landing page for ranked Pokémon Unite players, with a dense, data-forward language, on Next.js + Tailwind. Dials: V7 M4 D5."*
+**After:** Design Read: *"Reading this as: a landing page for ranked Pokémon Unite players, a persuade surface with a dense, data-forward language, on Next.js + Tailwind. Dials: V7 M4 D5."*
 
 ```html
 <section class="grid gap-12 px-6 py-24 lg:grid-cols-12 lg:items-end">

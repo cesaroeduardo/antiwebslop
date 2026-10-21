@@ -15,7 +15,7 @@ The skill absorbs specific strengths from public tools rather than inventing a p
 The anti-pattern catalog, craft defaults, examples, lint, and eval are this repo's own work.
 New rules should come from validation runs (see the repo's `eval/`), not from taste debates.
 
-## Why product UI is treated differently
+## Why operate surfaces (product UI) are treated differently
 
 Authenticated apps already have a design system that users have learned. Restyling it to be
 "less generic" breaks consistency and costs more than it gains. So in product UI the skill:
