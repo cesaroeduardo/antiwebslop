@@ -7,7 +7,7 @@
     "name": "Eduardo de Cesaro",
     "url": "https://github.com/cesaroeduardo"
   },
-  "homepage": "https://github.com/cesaroeduardo/antiwebslop",
+  "homepage": "https://antiwebslop.cesaroeduardo.com",
   "repository": "https://github.com/cesaroeduardo/antiwebslop",
   "keywords": [
     "design",
@@ -26,7 +26,7 @@
         "shortDescription": "Web design that doesn't look AI-generated",
         "developerName": "Eduardo de Cesaro",
         "category": "Design",
-        "websiteURL": "https://github.com/cesaroeduardo/antiwebslop",
+        "websiteURL": "https://antiwebslop.cesaroeduardo.com",
         "defaultPrompt": [
           "Use antiwebslop to review this landing page for AI-slop patterns.",
           "Use antiwebslop to restyle this hero so it looks designed by a person."

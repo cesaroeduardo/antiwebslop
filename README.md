@@ -7,7 +7,7 @@
 One skill folder, a zero-dependency lint, an optional Cursor hook, and a blind A/B eval kit.
 No binary, no network calls, no telemetry. You can read every file in about twenty minutes.
 
-Repo: <https://github.com/cesaroeduardo/antiwebslop>
+Site: <https://antiwebslop.cesaroeduardo.com> · Repo: <https://github.com/cesaroeduardo/antiwebslop>
 
 ## Results (before / after)
 
@@ -152,7 +152,8 @@ The two can coexist in one project. If you run both, expect overlapping findings
 | `.cursor-plugin/` | Cursor plugin and marketplace manifests |
 | `plugin.json`, `.agents/plugins/marketplace.json` | Portable Agent Plugins manifest (Codex, Cursor) and the Codex marketplace entry |
 | `tools/pack-skill.mjs` | Builds `dist/antiwebslop.zip` for claude.ai upload (no dependencies) |
-| `assets/` | Cover and icon |
+| `assets/` | Cover, icon, and Open Graph image |
+| [`site/`](site/DESIGN.md) | The project site (Next.js, its own package). Built with this skill; catalog, lint output and comparison are read from the repo at build time |
 | [`eval/`](eval/README.md) | Scorecard, brief template, blind A/B protocol, validation log |
 | [`gallery/`](gallery/README.md) | Static before/after pages with findings marked (era 2026-10) |
 | `tests/` | Fixtures and `node:test` suites for the lint and the hook |
@@ -165,6 +166,8 @@ npm test          # lint, hook, manifest, and zip tests (Node >= 18, no dependen
 npm run gallery   # rebuild gallery/ from the fixtures
 npm run pack      # dist/antiwebslop.zip for claude.ai
 ```
+
+The site lives in `site/` (Node >= 20.9): `cd site && npm install && npm run dev`. `npm run lint:slop` there checks it against `site/DESIGN.md`. Deploy on Vercel with Root Directory `site`.
 
 Bump `version` in `package.json` and the three `plugin.json` files together (a test checks they match).
 Change the skill, run the eval, log the result in `eval/VALIDATION.md`, keep what wins.

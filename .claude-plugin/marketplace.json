@@ -11,7 +11,7 @@
       "source": "./",
       "description": "Keeps AI-built web design from looking like AI slop: one skill with an anti-pattern catalog, craft rules, a per-project DESIGN.md, a zero-dependency lint, and an A/B eval kit.",
       "category": "design",
-      "homepage": "https://github.com/cesaroeduardo/antiwebslop"
+      "homepage": "https://antiwebslop.cesaroeduardo.com"
     }
   ]
 }
