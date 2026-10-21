@@ -3,7 +3,7 @@
 //
 // Builds content/generated.json from the repo itself, so the site never drifts from the skill:
 // the anti-pattern catalog, real slop-lint output on the fixtures, the hook's real reply, rule
-// and catalog counts, and the README comparison. Also copies brand assets into public/ and app/.
+// and catalog counts, and the README trade-offs table. Also copies brand assets into public/ and app/.
 // When the rest of the repo is not present (e.g. a deploy that only has site/), it keeps the
 // committed files and exits 0.
 // Usage: node scripts/build-content.mjs [--check]   (--check: exit 1 if the committed JSON is stale)
@@ -58,9 +58,9 @@ export async function buildContent() {
   const reply = hook.runHook({ hook_event_name: 'postToolUse', tool_name: 'Write', tool_input: { file_path: 'src/landing.html' }, workspace_roots: [tmp] }, {});
   rmSync(tmp, { recursive: true, force: true });
 
-  // README comparison table and prior-art list.
+  // README trade-offs table and prior-art list.
   const readme = read('README.md');
-  const cmpBlock = readme.split('## How it compares')[1].split('\n## ')[0];
+  const cmpBlock = readme.split('## Trade-offs')[1].split('\n## ')[0];
   const rows = cmpBlock.split('\n').filter((l) => /^\| [^-|]/.test(l) && !/^\| \|/.test(l))
     .map((l) => l.split('|').slice(1, -1).map((c) => c.trim()));
   const priorBlock = readme.split('## Prior art')[1].split('\n## ')[0];

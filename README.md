@@ -119,26 +119,22 @@ The installer merges with existing hooks and is safe to run twice. Project hooks
 trusted workspace; check Cursor's Hooks tab or Hooks output channel if nothing shows up.
 To pause it without uninstalling, start Cursor with `SLOP_LINT_HOOK=off` in the environment.
 
-## How it compares
+## Trade-offs
 
-[Impeccable](https://impeccable.style) is the best-known tool in this space, and it is much bigger:
-24 commands, a 61-rule detector that also checks rendered pages, hooks for many agents, a Chrome
-extension, live in-browser iteration, and support for about 17 coding tools. If you want the most
-coverage and automation, use it.
+antiwebslop stays small on purpose: one skill folder you can read in one sitting, and a lint with no
+dependencies. Larger design tools add more commands, checks on rendered pages, browser extensions and
+native installers for many agents. If you want the most coverage and automation, pair it with one of
+those; expect overlapping findings if you do.
 
-antiwebslop makes different trade-offs:
-
-| | antiwebslop | Impeccable |
-|---|---|---|
-| Size | One skill folder, ~5 KB entry file, plain Markdown + ~375 lines of JS | Monorepo with a compiled engine and per-tool builds |
-| Runtime | Node script, no downloads, no network | Self-contained engine binary, bundled or downloaded once on first run |
-| Telemetry | None | Anonymous data about design-direction picks, on by default, opt-out |
-| Detection | 31 source rules + DESIGN.md token drift | 61 rules on source and rendered pages, plus design-system checks |
-| Agents | Plugin manifests for Claude Code, Codex, and Cursor; `npx skills` for the rest | About 17 tools with native installers |
-| Proof | Built-in blind A/B protocol and scorecard | Demos, case study, community testimonials |
-| Content honesty | Named rules against invented proof and placeholder people | Asks before adding claims |
-
-The two can coexist in one project. If you run both, expect overlapping findings.
+| | antiwebslop |
+|---|---|
+| Size | One skill folder, ~5 KB entry file, plain Markdown + ~375 lines of JS |
+| Runtime | Node script, no downloads, no network |
+| Telemetry | None |
+| Detection | 31 source rules + DESIGN.md token drift |
+| Agents | Plugin manifests for Claude Code, Codex, and Cursor; `npx skills` for the rest |
+| Proof | Built-in blind A/B protocol and scorecard |
+| Content honesty | Named rules against invented proof and placeholder people |
 
 ## Repository layout
 
@@ -153,7 +149,7 @@ The two can coexist in one project. If you run both, expect overlapping findings
 | `plugin.json`, `.agents/plugins/marketplace.json` | Portable Agent Plugins manifest (Codex, Cursor) and the Codex marketplace entry |
 | `tools/pack-skill.mjs` | Builds `dist/antiwebslop.zip` for claude.ai upload (no dependencies) |
 | `assets/` | Cover, icon, and Open Graph image |
-| [`site/`](site/DESIGN.md) | The project site (Next.js, its own package). Built with this skill; catalog, lint output and comparison are read from the repo at build time |
+| [`site/`](site/DESIGN.md) | The project site (Next.js, its own package). Built with this skill; catalog, lint output and trade-offs are read from the repo at build time |
 | [`eval/`](eval/README.md) | Scorecard, brief template, blind A/B protocol, validation log |
 | [`gallery/`](gallery/README.md) | Static before/after pages with findings marked (era 2026-10) |
 | `tests/` | Fixtures and `node:test` suites for the lint and the hook |
@@ -180,10 +176,6 @@ Earlier names: `webdesign-knowledge`, then `webdesign-aislopkiller`. The GitHub 
 
 ## Prior art
 
-- [Impeccable](https://impeccable.style) by Paul Bakaus (Apache-2.0): the ideas of grouping
-  surfaces by what the visitor is there to do, checking code against the project's own design
-  tokens, feeding detector results back to the agent through hooks, and dating slop by era.
-  No text or code was copied.
 - [Taste Skill](https://www.tasteskill.dev/): the Design Read, dials, and bans.
 - [Vercel web-interface-guidelines](https://github.com/vercel-labs/web-interface-guidelines): accessibility and UX audit rules.
 - [getdesign.md](https://getdesign.md/): `DESIGN.md` as a reusable brief.

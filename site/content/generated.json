@@ -671,48 +671,34 @@
   "comparison": [
     [
       "Size",
-      "One skill folder, ~5 KB entry file, plain Markdown + ~375 lines of JS",
-      "Monorepo with a compiled engine and per-tool builds"
+      "One skill folder, ~5 KB entry file, plain Markdown + ~375 lines of JS"
     ],
     [
       "Runtime",
-      "Node script, no downloads, no network",
-      "Self-contained engine binary, bundled or downloaded once on first run"
+      "Node script, no downloads, no network"
     ],
     [
       "Telemetry",
-      "None",
-      "Anonymous data about design-direction picks, on by default, opt-out"
+      "None"
     ],
     [
       "Detection",
-      "31 source rules + DESIGN.md token drift",
-      "61 rules on source and rendered pages, plus design-system checks"
+      "31 source rules + DESIGN.md token drift"
     ],
     [
       "Agents",
-      "Plugin manifests for Claude Code, Codex, and Cursor; `npx skills` for the rest",
-      "About 17 tools with native installers"
+      "Plugin manifests for Claude Code, Codex, and Cursor; `npx skills` for the rest"
     ],
     [
       "Proof",
-      "Built-in blind A/B protocol and scorecard",
-      "Demos, case study, community testimonials"
+      "Built-in blind A/B protocol and scorecard"
     ],
     [
       "Content honesty",
-      "Named rules against invented proof and placeholder people",
-      "Asks before adding claims"
+      "Named rules against invented proof and placeholder people"
     ]
   ],
   "priorArt": [
-    {
-      "name": "Impeccable",
-      "url": "https://impeccable.style",
-      "by": "Paul Bakaus",
-      "license": "Apache-2.0",
-      "note": "the ideas of grouping surfaces by what the visitor is there to do, checking code against the project's own design tokens, feeding detector results back to the agent through hooks, and dating slop by era. No text or code was copied."
-    },
     {
       "name": "Taste Skill",
       "url": "https://www.tasteskill.dev/",

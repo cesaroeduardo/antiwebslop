@@ -80,7 +80,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 | Show the real command with a working copy button above the fold | Link to "Get started" |
 | Quote rule ids and file:line output as they print | Paraphrase findings into marketing claims |
 | Say "no runs yet" in the results table | Show any score before `eval/VALIDATION.md` has one |
-| Credit Impeccable as bigger and more automated | Claim to be better |
+| Say plainly what it does not do (no rendered-page checks, no extension) | Claim to be better than other tools |
 
 ## 11. Decision log
 

@@ -118,8 +118,8 @@ export default function Home() {
       </header>
 
       <main id="main" className="relative overflow-x-clip">
-        {/* Hero: headline bottom-left, copy and the working install action to its right. */}
-        <Section id="top" className="pb-16 pt-12 md:pt-28">
+        {/* Hero: fills the first screen; headline, copy and install action sit on its bottom edge. */}
+        <Section id="top" className="flex min-h-[calc(100svh-76px)] flex-col justify-end pb-16 pt-12 md:pt-28">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-6">
             <h1 className="text-[clamp(2.5rem,4.6vw,4rem)] font-medium leading-[1.05] tracking-[-0.03em] md:col-span-7 lg:col-span-8">
               Agent-built web pages that don&rsquo;t look agent-built.
@@ -130,32 +130,9 @@ export default function Home() {
                 fix for each, and ships a {ruleCount}-rule lint that checks your code against the project&rsquo;s own design tokens.
               </p>
               <CopyCommand variant="primary" command={INSTALL_ANY} label="Install command" />
-              <p className="font-mono text-cap text-muted">
-                MIT · no telemetry · v{version} · <a className="link text-fg" href={REPO}>read every file on GitHub</a>
-              </p>
             </div>
           </div>
         </Section>
-
-        {/* main clips on x: bleed margins use 100vw, which includes a classic scrollbar on desktop. */}
-        {/* Exhibit A, large: the first image bleeds off the left edge. */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-[7fr_5fr] md:gap-6 md:pr-6 lg:pr-[max(24px,calc((100vw-1280px)/2+24px))]">
-          <GalleryImage
-            src="/gallery/a-before.webp" w={2200} h={880} priority sizes="(min-width: 768px) 60vw, 100vw"
-            alt="A generated landing page with a purple gradient, an emoji badge and centered copy; every flagged element has a dashed red outline and its rule name."
-            label={`before · ${total(ls.a)}`}
-            className="h-[260px] md:h-[440px]"
-          />
-          <GalleryImage
-            src="/gallery/a-after.webp" w={2200} h={920} sizes="(min-width: 768px) 40vw, 100vw"
-            alt="The clean fixture: a left-aligned serif headline about Pokémon Unite match stats, one sentence, and two plain actions."
-            label="after · 0 findings"
-            className="mx-4 h-[220px] sm:mx-6 md:mx-0 md:h-[440px]"
-          />
-        </div>
-        <p className="mx-auto mt-3 w-full max-w-[1280px] px-4 font-mono text-cap text-muted sm:px-6">
-          Test fixtures from the repo, rendered with every <code>slop-lint</code> finding outlined. Nothing here is a mockup.
-        </p>
 
         {/* What it does: unequal cards with real artifacts. */}
         <Section id="what" className="pt-24 md:pt-32">
@@ -366,29 +343,20 @@ export default function Home() {
           </div>
         </Section>
 
-        {/* Comparison and prior art. */}
+        {/* Trade-offs and prior art. */}
         <Section id="compare" className="pb-32 pt-32 md:pb-40 md:pt-40">
-          <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">Next to Impeccable</h2>
+          <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">Trade-offs</h2>
           <p className="mb-8 max-w-[64ch] text-base text-muted">
-            <a className="link text-fg" href="https://impeccable.style">Impeccable</a> is the best-known tool for this and much bigger: dozens of
-            commands, a detector that also checks rendered pages, a browser extension, and installers for many agents. If you want the most
-            coverage and automation, use it. antiwebslop stays small enough to read in one sitting. The two can run in the same project.
+            antiwebslop stays small enough to read in one sitting. Larger design tools add more commands, checks on rendered pages, browser
+            extensions and installers for many agents. If you want the most coverage and automation, pair it with one of those.
           </p>
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[640px] border-collapse text-left text-sm">
-              <thead className="font-mono text-cap text-muted">
-                <tr className="border-b border-border">
-                  <th scope="col" className="w-40 py-2 pr-6 font-normal"><span className="sr-only">Aspect</span></th>
-                  <th scope="col" className="py-2 pr-6 font-normal text-accent">antiwebslop</th>
-                  <th scope="col" className="py-2 font-normal">Impeccable</th>
-                </tr>
-              </thead>
+            <table className="w-full min-w-[480px] border-collapse text-left text-sm">
               <tbody>
-                {comparison.map(([k, ours, theirs]) => (
+                {comparison.map(([k, ours]) => (
                   <tr key={k} className="border-b border-border align-top">
-                    <th scope="row" className="py-3 pr-6 font-mono text-cap font-normal text-muted">{k}</th>
-                    <td className="prose-inline py-3 pr-6 text-fg"><Inline text={ours} /></td>
-                    <td className="prose-inline py-3 text-muted"><Inline text={theirs} /></td>
+                    <th scope="row" className="w-40 py-3 pr-6 font-mono text-cap font-normal text-muted">{k}</th>
+                    <td className="prose-inline py-3 text-fg"><Inline text={ours} /></td>
                   </tr>
                 ))}
               </tbody>
@@ -429,8 +397,8 @@ export default function Home() {
           ))}
         </div>
         <div className="mx-auto flex w-full max-w-[1280px] flex-wrap justify-between gap-2 border-t border-border px-4 py-6 font-mono text-cap text-muted sm:px-6">
-          <span>© 2026 Eduardo de Cesaro · MIT License</span>
-          <span>v{version} · {ruleCount} lint rules · {catalogCount} catalog entries</span>
+          <span>© 2026 Eduardo de Cesaro · MIT License · no telemetry</span>
+          <span>v{version} · {ruleCount} lint rules · {catalogCount} catalog entries · <a className="link text-fg" href={REPO}>read every file on GitHub</a></span>
         </div>
         <p aria-hidden className="pointer-events-none -mb-[0.32em] select-none whitespace-nowrap px-2 text-center font-mono text-[clamp(3rem,15vw,16rem)] font-medium leading-none tracking-[-0.04em] text-surface-2">
           antiwebslop
