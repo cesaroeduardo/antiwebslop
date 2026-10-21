@@ -56,7 +56,8 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 ## 6. Spacing and layout
 - Scale: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 (Tailwind steps 1, 2, 3, 4, 6, 8, 12, 16, 24, 32).
 - Grid: 12 columns, max-width 1280px, gutter 24px, page margin 24px (16px under 640px).
-- Section padding varies by job: hero 96 top / 64 bottom; bento 96; catalog 128 (airy heading, dense list); install 96 dense; footer 64.
+- Section order: hero → what it does (bento) → catalog → gallery → install → how we measure it → trade-offs → footer.
+- Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; bento 96 (128 md); catalog, gallery, install and eval 128 (160 md); trade-offs 128/160 top and bottom; footer 64.
 
 ## 7. Components
 - Radius by role: controls and chips 6px · cards and code blocks 10px · images 0 (crop, no frame) · copy-button pill none (no 9999 except the severity dot).
@@ -107,6 +108,14 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Do not:** truncate a command or hide part of it behind horizontal scroll.
 - **Surfaces:** marketing
 - **Refs:** `/workspace/site-shots/iter1/` (before), `/workspace/site-shots/` (after)
+
+### 2026-10-21 — "Run the lint yourself" section removed
+- **Context:** Eduardo asked to drop the lint usage section; it repeated the install section and held an empty image slot.
+- **Decision:** remove `#lint` (heading "Run the lint yourself", its commands, script paths and image slot) and its nav link. Lint usage stays documented in the README and SKILL.md.
+- **Why:** shorter page, install leads straight into the evidence (how we measure it).
+- **Do not:** reintroduce a section that only repeats commands already in the install rows.
+- **Surfaces:** marketing
+- **Refs:** `app/page.tsx`
 
 ## 12. References
 - Layout patterns (borrowed, not copied): useplanes.com (unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).

@@ -19,13 +19,6 @@ const install: { agent: string; command: string; note: React.ReactNode }[] = [
   { agent: 'Grok Bot', command: 'Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)', note: <>Send this to your bot as a message. Grok Build users: <code>grok plugin install cesaroeduardo/antiwebslop --trust</code>.</> },
 ];
 
-const scriptPaths: [string, string][] = [
-  ['npx skills add (project)', '.agents/skills/antiwebslop/scripts/'],
-  ['Claude Code plugin', '~/.claude/plugins/cache/antiwebslop/antiwebslop/<version>/skills/antiwebslop/scripts/'],
-  ['Codex plugin', '~/.codex/plugins/cache/antiwebslop/antiwebslop/<version>/skills/antiwebslop/scripts/'],
-  ['A clone of the repo', 'skills/antiwebslop/scripts/'],
-];
-
 const tokensBlock = `\`\`\`design-tokens
 fonts: DM Mono, DM Sans
 colors: #121212, #F7EDDB, #D1A8FF
@@ -43,7 +36,6 @@ const nav: [string, string][] = [
   ['#catalog', 'Catalog'],
   ['#gallery', 'Gallery'],
   ['#install', 'Install'],
-  ['#lint', 'Lint'],
   ['#eval', 'Eval'],
 ];
 
@@ -250,49 +242,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-        </Section>
-
-        {/* Lint and hook usage. */}
-        <Section id="lint" className="pt-24 md:pt-32">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-6">
-            <div className="md:col-span-6">
-              <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">Run the lint yourself</h2>
-              <p className="mb-6 max-w-[52ch] text-base text-muted">
-                One Node 18+ script with no dependencies. It reads HTML, CSS, JSX/TSX, Vue, Svelte, Astro and MDX, and checks token drift
-                when it finds a DESIGN.md with a token block. Exit code 1 on errors, so it fits in CI.
-              </p>
-              <ul className="flex flex-col gap-2" data-reveal>
-                {[
-                  ['Lint changed files', 'node .agents/skills/antiwebslop/scripts/slop-lint.mjs src/ --quiet'],
-                  ['List all rules', 'node .agents/skills/antiwebslop/scripts/slop-lint.mjs --list-rules'],
-                  ['Add the Cursor hook', 'node .agents/skills/antiwebslop/scripts/install-cursor-hook.mjs'],
-                ].map(([label, cmd]) => (
-                  <li key={cmd}>
-                    <p className="mb-1 font-mono text-cap text-muted">{label}</p>
-                    <div className="flex items-center gap-2">
-                      <code className="min-w-0 flex-1 whitespace-pre-wrap rounded-control bg-surface px-3 py-2 font-mono text-cap leading-relaxed text-fg [overflow-wrap:anywhere] sm:text-sm">{cmd}</code>
-                      <CopyCommand command={cmd} label={label} />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <p className="prose-inline mt-6 max-w-[56ch] text-sm text-muted">
-                Keep a deliberate choice with a <code>slop-lint-disable-line</code> comment and a reason. The hook is advisory and can be
-                paused with <code>SLOP_LINT_HOOK=off</code>. Paths above are for an <code>npx skills</code> install; other installs:
-              </p>
-              <dl className="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 font-mono text-cap">
-                {scriptPaths.map(([k, v]) => (
-                  <div key={k} className="grid grid-cols-1 gap-1 border-t border-border py-2 sm:grid-cols-[180px_1fr]">
-                    <dt className="text-muted">{k}</dt>
-                    <dd className="break-all text-fg">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-            <div className="md:col-span-6 md:pt-14">
-              <ImageSlot name="lint-run" ratio="4:5" alt="" />
-            </div>
-          </div>
         </Section>
 
         {/* Eval: protocol and an honest, empty results table. */}
