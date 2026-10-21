@@ -171,14 +171,17 @@ export default function Home() {
       </header>
 
       <main id="main" className="relative overflow-x-clip">
-        {/* Hero: fills the first screen; a wide headline on its bottom edge, then one ruled row with the line and the install command. */}
+        {/* Hero: fills the first screen; on its bottom edge the headline takes the left 7 columns and the line plus
+            the install command sit to its right, top-aligned with the headline's first line (after noone.is). */}
         <Section id="top" className="flex min-h-[calc(100svh-76px)] flex-col justify-end pb-16 pt-12 md:pt-28">
-          <h1 className="max-w-[31ch] text-[clamp(1.75rem,1rem+3.2vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.03em]">
-            No more AI slop in my browser. Stop shipping the page everyone has already seen.
-          </h1>
-          <div className="mt-10 flex flex-col gap-6 border-t border-border pt-6 md:mt-12 lg:flex-row lg:items-center lg:justify-between">
-            <p className="font-mono text-sm text-muted lg:whitespace-nowrap">A skill and a lint that keep your agent from shipping generic UI.</p>
-            <CopyCommand variant="primary" layout="inline" command={INSTALL_ANY} label="Install command" />
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-start md:gap-6">
+            <h1 className="text-[clamp(1.75rem,0.9rem+2vw,2.375rem)] font-medium leading-[1.08] tracking-[-0.03em] [text-wrap:wrap] md:col-span-7">
+              No more AI slop in my browser. Stop shipping the page everyone has already seen.
+            </h1>
+            <div className="flex flex-col gap-6 md:col-span-5 md:pt-[0.35rem]">
+              <p className="max-w-[44ch] font-mono text-sm text-muted md:text-base">A skill and a lint that keep your agent from shipping generic UI.</p>
+              <CopyCommand variant="primary" command={INSTALL_ANY} label="Install command" />
+            </div>
           </div>
         </Section>
 
