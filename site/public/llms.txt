@@ -1,0 +1,90 @@
+# ANTIWEBSLOP
+
+> An agent skill that stops web UI from looking AI-generated. It turns default "AI slop" pages
+> into interfaces that look made by a person with taste, for this specific product.
+> Earlier names: webdesign-knowledge, webdesign-aislopkiller. MIT license, no telemetry.
+
+Site: https://antiwebslop.cesaroeduardo.com
+Repository: https://github.com/cesaroeduardo/antiwebslop
+Skill entry file: https://github.com/cesaroeduardo/antiwebslop/blob/main/skills/antiwebslop/SKILL.md
+
+## PURPOSE
+
+- Coding agents tend to ship the same page: purple gradients, emoji badges, a centered hero
+  with three equal cards, Inter everywhere, one radius and one shadow on everything.
+- antiwebslop gives the agent named anti-patterns, the fix for each, craft rules and a lint,
+  so the result has an authored look instead of the average of every landing page.
+
+## WHEN TO USE
+
+- Building, restyling or reviewing a website, landing page, hero, marketing page, docs/help page
+  or frontend component (HTML, CSS, Tailwind, React, Vue, Svelte, Astro).
+- When a user says a design looks generic, templated, bland, "like every other SaaS" or "AI slop".
+
+## HOW IT WORKS
+
+1. DESIGN READ (mandatory, before any code). One line: page, audience, surface type
+   (persuade, operate, read, showcase), visual language, stack, and dials (VARIANCE, MOTION, DENSITY).
+2. SOURCE OF TRUTH, in order: the project's existing tokens and design system, then the project's
+   own DESIGN.md (one per project, with product truth and a design-tokens block), then the skill's defaults.
+3. LOAD only the references the task needs: anti-patterns, craft, examples, dials, DESIGN.md
+   contract, image-to-code, visual QA, accessibility guidelines, decision log.
+4. BUILD OR AUDIT using named levers (tokens, dials, rules), not taste adjectives.
+5. LINT with the bundled script; fix every error, fix or justify every warn.
+6. QA at three viewports when the page runs, then answer the pre-done checklist and record
+   durable decisions in DESIGN.md.
+
+## BANS (ANTI-PATTERNS)
+
+- A catalog of 35 named tells of generated UI, each with its fix.
+- Examples: purple/indigo gradients, glow and gradient-text headlines; decorative glassmorphism
+  and blur blobs; emoji as bullets or badges; "unlock / supercharge / seamless / elevate" copy;
+  invented testimonials, logos, user counts or metrics; the centered hero plus three equal cards;
+  labels above the headline and decorative 01/02/03; one radius and shadow on everything.
+- Slop is not a source of truth: tokens and patterns that match the anti-patterns are not
+  inherited, even when they sit in the theme file.
+
+## FALLBACK WHEN THE SITE IS 100% SLOP
+
+1. Ask the user for the logo, the product (what it does, for whom) and any brand material.
+   Do not invent a brand.
+2. Get references: the user's own, 2-3 real sites that fit the surface type, or generated section
+   images. Galleries to explore: Awwwards, Inspora, 60fps, Design Spells, Minimal Gallery,
+   Recent Design; secondary: Curated Design, Superhero. Pick 2-3 sites and say why each.
+3. Only then define new tokens in DESIGN.md and state the Design Read. Old slop tokens are
+   replaced, not mapped.
+
+## IMAGE-TO-CODE FLOW
+
+- Used when there is a reference image, or for a new page or full redesign with an image tool.
+1. Get the reference (section-scale images, readable at small-laptop size).
+2. Extract the system before coding: palette, type, spacing, grid, radius, buttons, what to avoid.
+3. Implement to match; project tokens win over the image on conflict.
+4. Compare a screenshot against the reference at the same viewport and fix drift.
+5. Record the extracted system in DESIGN.md.
+
+## LINT (31 RULES)
+
+- slop-lint: a zero-dependency Node script with 31 source rules plus DESIGN.md token drift checks.
+- Run: node <skill-dir>/scripts/slop-lint.mjs <changed paths>
+- Output is file:line findings with rule ids and severities (error, warn, info).
+- Optional Cursor hook lints each UI file the agent writes and returns findings to the agent.
+
+## INSTALL
+
+- Cursor: npx skills add cesaroeduardo/antiwebslop -a cursor
+  (or import the repo as a plugin in Cursor: Customize, then From GitHub Repository)
+- Any agent (Cursor, Codex, Claude Code, Grok Build, Gemini CLI, Copilot, OpenCode):
+  npx skills add cesaroeduardo/antiwebslop
+- Codex: codex plugin marketplace add cesaroeduardo/antiwebslop && codex plugin add antiwebslop@antiwebslop
+- Claude Code: claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop
+- Optional Cursor hook: node .agents/skills/antiwebslop/scripts/install-cursor-hook.mjs
+
+## PROOF
+
+- Built-in blind A/B eval kit (rubric, protocol, scorecard) in eval/. No scores are claimed
+  until eval/VALIDATION.md records real runs.
+
+## AUTHOR
+
+- Eduardo de Cesaro. MIT License.
