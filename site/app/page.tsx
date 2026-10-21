@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { ArrowUpRight } from 'lucide-react';
 import content from '@/content/generated.json';
 import { Catalog, type CatalogGroup } from '@/components/Catalog';
 import { CopyCommand } from '@/components/CopyCommand';
+import { GitHubStars } from '@/components/GitHubStars';
 import { Inline } from '@/components/Inline';
 import { Motion } from '@/components/Motion';
 import { Wordmark } from '@/components/Wordmark';
@@ -164,9 +164,7 @@ export default function Home() {
             ))}
           </ul>
           <a href="#install" className="hidden rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg min-[360px]:inline-block sm:px-3 md:hidden">Install</a>
-          <a href={REPO} className="inline-flex items-center gap-1 rounded-control px-2 py-2 text-fg sm:px-3 transition-colors duration-150 hover:text-accent">
-            GitHub <ArrowUpRight aria-hidden size={14} />
-          </a>
+          <GitHubStars />
         </nav>
       </header>
 
