@@ -2,13 +2,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, copyFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, copyFileSync, cpSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SCRIPTS = join(root, '.cursor/skills/antiwebslop/scripts');
+const SCRIPTS = join(root, 'skills/antiwebslop/scripts');
 const HOOK = join(SCRIPTS, 'cursor-hook.mjs');
 const INSTALL = join(SCRIPTS, 'install-cursor-hook.mjs');
 
@@ -67,5 +67,20 @@ test('installer merges into hooks.json, is idempotent, and uninstalls cleanly', 
 
 test('installer uses a project-relative command when the skill lives inside the project', () => {
   const r = spawnSync(process.execPath, [INSTALL, '--project', root, '--dry-run'], { encoding: 'utf8' });
-  assert.match(r.stdout, /"command": "node \\".cursor\/skills\/[^/]+\/scripts\/cursor-hook\.mjs\\""/);
+  assert.match(r.stdout, /"command": "node \\"skills\/antiwebslop\/scripts\/cursor-hook\.mjs\\""/);
+});
+
+test('installer and hook work from an installed copy (.agents/skills/antiwebslop)', () => {
+  const d = project();
+  const dest = join(d, '.agents/skills/antiwebslop');
+  cpSync(join(root, 'skills/antiwebslop'), dest, { recursive: true });
+  const r = spawnSync(process.execPath, [join(dest, 'scripts/install-cursor-hook.mjs'), '--project', d], { encoding: 'utf8' });
+  assert.equal(r.status, 0, r.stderr);
+  const cfg = JSON.parse(readFileSync(join(d, '.cursor/hooks.json'), 'utf8'));
+  const cmd = cfg.hooks.postToolUse[0].command;
+  assert.equal(cmd, 'node ".agents/skills/antiwebslop/scripts/cursor-hook.mjs"');
+  writeFileSync(join(d, 'src/page.html'), '<h1 class="bg-gradient-to-r from-purple-500 to-indigo-600">Unlock the power of AI</h1>\n');
+  const h = spawnSync(process.execPath, [join(dest, 'scripts/cursor-hook.mjs')], { cwd: d, input: JSON.stringify(write(d, 'src/page.html')), encoding: 'utf8' });
+  assert.equal(h.status, 0);
+  assert.match(JSON.parse(h.stdout).additional_context || '', /src\/page\.html:1/);
 });
