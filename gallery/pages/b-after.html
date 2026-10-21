@@ -1,0 +1,36 @@
+<!-- slop-lint-disable-file  (generated gallery page; contains slop on purpose) -->
+<!doctype html>
+<html>
+<head>
+  <style>
+    :root { --bg: #FBFBFA; --fg: #17181A; --muted: #5B5F66; --accent: #0F766E; --border: #E4E4E1; }
+    body { font-family: 'Söhne', 'Helvetica Neue', sans-serif; background: var(--bg); color: var(--fg); }
+    h1 { font-family: 'GT Sectra', Georgia, serif; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; }
+    .cta { background: var(--accent); transition: background-color .2s ease-out, transform .2s ease-out; }
+    .cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+    @media (prefers-reduced-motion: no-preference) { .reveal { animation: rise .3s ease-out; } }
+  </style>
+<style>.text-center{text-align:center}.text-xs{font-size:12px}.uppercase{text-transform:uppercase}.tracking-widest{letter-spacing:.2em}
+.text-5xl{font-size:48px;line-height:1}.font-bold{font-weight:700}.bg-indigo-600{background:#4f46e5}.text-gray-400{color:#9ca3af}.p-6{padding:24px}
+.rounded-full{border-radius:9999px}.h-2{height:8px}.w-2{width:8px}.bg-emerald-500{background:#10b981}.animate-ping{display:inline-block}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.15)}body{font-family:Inter,Arial,sans-serif;margin:24px}
+[data-slop]{outline:2px dashed #C2362B!important;outline-offset:3px;position:relative}
+[data-slop]::after{content:attr(data-slop);position:absolute;left:0;top:100%;margin-top:4px;z-index:9;white-space:nowrap;
+font:600 11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:0;text-transform:none;color:#fff;background:#C2362B;padding:1px 6px;border-radius:3px}
+.slop-pagebar{font:12px/1.5 ui-monospace,Menlo,monospace;background:#1B1B1F;color:#F3F1EC;padding:8px 12px;margin:-24px -24px 24px}
+.slop-pagebar b{color:#FF8A7A}</style></head>
+<body><div class="slop-pagebar"><b>0 findings</b></div>
+  <section class="hero">
+    <h1>Every ranked Pokémon Unite match you play, with win rates per hero and per lane.</h1>
+    <p>Paste your trainer ID. We pull your last 200 games and show where you actually win.</p>
+    <a class="cta" href="/import">Import my matches</a>
+    <a href="/demo">See a sample profile</a>
+  </section>
+  <ul>
+    <li>Updates after every match</li>
+    <li>Exports to CSV</li>
+  </ul>
+  <footer>© 2026 Unite Lib</footer>
+</body>
+</html>
