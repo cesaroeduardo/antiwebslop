@@ -242,16 +242,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </Section>
 
-        {/* Newer tells: america.gov's stacked media rows. 12 columns: image at columns 2-7 (bigger than
-            america.gov's 4, same proportions), one empty column, topic at 9-12, vertically centered.
-            Rows 120px apart (80 under md); image radius 57px (38px under md); 40px image-to-text on phones. */}
-        <Section id="gallery" className="pt-32 md:pt-40">
-          <div className="mb-16 grid grid-cols-1 gap-6 md:mb-[120px] md:grid-cols-12 md:items-end">
-            <h2 className="text-2xl font-medium tracking-[-0.02em] md:col-span-6 md:text-3xl">{t('gallery.title')}</h2>
-            <p className="max-w-[46ch] text-base text-muted md:col-span-4 md:col-start-9">{t('gallery.body')}</p>
-          </div>
+        {/* Newer tells: america.gov's stacked media rows, no text but the rule chips. 12 columns: image at columns 2-7
+            (bigger than america.gov's 4, same proportions), one empty column, chips at 9-12, vertically centered.
+            Rows 120px apart (80 under md); image radius 57px (38px under md); 40px image-to-chips on phones. */}
+        <section id="gallery" aria-label={t('gallery.title')} className="mx-auto w-full max-w-[1280px] scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
           <ul className="flex flex-col gap-20 md:gap-[120px]">
-            {tellRows.map((row, i) => (
+            {tellRows.map((row) => (
               <li key={row.key} className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-x-6" data-reveal>
                 <figure className="relative aspect-[4/3] w-full overflow-hidden rounded-media bg-surface md:col-span-6 md:col-start-2">
                   <Image
@@ -264,26 +260,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     style={row.zoom ? { transform: `scale(${row.zoom})`, transformOrigin: row.origin } : undefined}
                   />
                 </figure>
-                <div className="flex flex-col gap-8 md:col-span-4 md:col-start-9">
-                  <div className="flex flex-col gap-4">
-                    <h3 className="text-xl font-medium tracking-[-0.02em] md:text-2xl">{t(`gallery.${row.key}Title`)}</h3>
-                    <p className="max-w-[34ch] text-body text-muted">{t(`gallery.${row.key}Body`)}</p>
-                  </div>
-                  <ul className="flex flex-wrap gap-2" aria-label={t('gallery.rulesAria')}>
-                    {row.rules.map((r) => (
-                      <li key={r}><code className="rounded-control bg-surface-2 px-2 py-1 font-mono text-cap text-fg">{r}</code></li>
-                    ))}
-                  </ul>
-                  {i === tellRows.length - 1 ? (
-                    <p className="font-mono text-cap text-muted">
-                      {t.rich('gallery.more', { ...rich, link: (c) => <a className="link" href={tree('gallery')}>{c}</a> })}
-                    </p>
-                  ) : null}
-                </div>
+                <ul className="flex flex-wrap gap-2 md:col-span-4 md:col-start-9" aria-label={t('gallery.rulesAria')}>
+                  {row.rules.map((r) => (
+                    <li key={r}><code className="inline-block rounded-control bg-surface-2 px-3 py-1.5 font-mono text-sm text-fg">{r}</code></li>
+                  ))}
+                </ul>
               </li>
             ))}
           </ul>
-        </Section>
+        </section>
 
         {/* Install: dense rows, one per agent. */}
         <Section id="install" className="pt-32 md:pt-40">
