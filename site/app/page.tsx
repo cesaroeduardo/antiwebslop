@@ -98,11 +98,9 @@ export default function Home() {
         Skip to content
       </a>
       <Motion />
-      {/* Top light and flickering grain, ported from figma-dominate: a soft light image plus a looping noise tile in overlay. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[800px] overflow-hidden">
-        <div className="top-light absolute inset-0" />
-        <div className="top-noise absolute inset-0 opacity-10 mix-blend-overlay motion-reduce:hidden" />
-      </div>
+      {/* Top light and flickering grain, ported from figma-dominate: a soft light image behind the hero and a looping noise tile fixed over the whole page (overlay, no pointer events). */}
+      <div aria-hidden className="top-light pointer-events-none absolute inset-x-0 top-0 h-[800px]" />
+      <div aria-hidden className="site-noise pointer-events-none fixed inset-0 z-40 opacity-10 mix-blend-overlay motion-reduce:hidden" />
 
       <header className="relative mx-auto flex w-full max-w-[1280px] items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
         <a href="#top" aria-label="antiwebslop, back to top" className="shrink-0 text-lg"><Wordmark /></a>
@@ -119,7 +117,7 @@ export default function Home() {
         </nav>
       </header>
 
-      <main id="main" className="relative">
+      <main id="main" className="relative overflow-x-clip">
         {/* Hero: headline bottom-left, copy and the working install action to its right. */}
         <Section id="top" className="pb-16 pt-12 md:pt-28">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end md:gap-6">
@@ -139,6 +137,7 @@ export default function Home() {
           </div>
         </Section>
 
+        {/* main clips on x: bleed margins use 100vw, which includes a classic scrollbar on desktop. */}
         {/* Exhibit A, large: the first image bleeds off the left edge. */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[7fr_5fr] md:gap-6 md:pr-6 lg:pr-[max(24px,calc((100vw-1280px)/2+24px))]">
           <GalleryImage

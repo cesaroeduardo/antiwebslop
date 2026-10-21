@@ -61,9 +61,8 @@
   .top-light {
     background: url(/light-blur.webp) center top / 1440px 800px no-repeat;
   }
-  .top-noise {
+  .site-noise {
     background: url(/noise.webp) 0 0 / 128px 128px repeat;
-    mask-image: linear-gradient(to bottom, var(--color-fg) 45%, transparent);
   }
   .prose-inline code {
     font-size: 0.9em;
