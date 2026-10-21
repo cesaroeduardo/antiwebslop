@@ -105,7 +105,15 @@
     "metricsAlt": "Gros plan sur une rangée de trois grands chiffres, 10x, 99 % et 24/7, avec de courtes légendes, entourée et étiquetée big-number-row.",
     "numberingAlt": "Gros plan sur des cartes numérotées 01, 02 et 03, chacune avec une bande de couleur sur le bord gauche, étiquetées section-numbering et side-stripe.",
     "loopsAlt": "Gros plan sur l’en-tête d’un tableau de bord avec un badge All systems online et un point vert, étiqueté pulsing-dot.",
-    "rulesAria": "Règles du lint"
+    "rulesAria": "Règles du lint",
+    "wordsTitle": "Des mots déguisés en design",
+    "wordsBody": "Une minuscule étiquette au-dessus du titre, un tiret à chaque ligne, un slogan « Pas X. Un Y. ». Intégrez l’étiquette au titre, mettez des points et dites ce que fait le produit en une phrase simple.",
+    "metricsTitle": "Des chiffres sans source",
+    "metricsBody": "Trois chiffres énormes avec de minuscules légendes sous le hero. Gardez un chiffre seulement s’il est réel et sourcé, et donnez-lui une phrase de contexte.",
+    "numberingTitle": "Des étapes qui n’en sont pas",
+    "numberingBody": "01, 02, 03 sur des sections sans ordre, et des bandes de couleur sur le côté de cartes ordinaires. Numérotez seulement les vraies séquences ; gardez les bandes pour un vrai statut.",
+    "loopsTitle": "Du mouvement qui ne s’arrête jamais",
+    "loopsBody": "Un point de statut qui pulse sans fin, des logos qui défilent en boucle, des boutons qui rebondissent. Ce qui est statique reste immobile ; animez un vrai changement avec un ease-out court."
   },
   "install": {
     "title": "Choisissez votre agent, installez-la en une ligne",

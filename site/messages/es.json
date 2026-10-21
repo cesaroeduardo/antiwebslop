@@ -105,7 +105,15 @@
     "metricsAlt": "Detalle de una fila de tres números grandes, 10x, 99% y 24/7, con leyendas cortas, contorneada y etiquetada big-number-row.",
     "numberingAlt": "Detalle de tarjetas marcadas 01, 02 y 03, cada una con una franja de color en el borde izquierdo, etiquetadas section-numbering y side-stripe.",
     "loopsAlt": "Detalle de la cabecera de un panel con una insignia All systems online y un punto verde, etiquetada pulsing-dot.",
-    "rulesAria": "Reglas del lint"
+    "rulesAria": "Reglas del lint",
+    "wordsTitle": "Palabras disfrazadas de diseño",
+    "wordsBody": "Una etiqueta diminuta sobre el titular, una raya en cada línea, un eslogan «No es X. Es Y.». Lleva la etiqueta al titular, usa punto y seguido y di qué hace el producto en una frase simple.",
+    "metricsTitle": "Números sin fuente",
+    "metricsBody": "Tres números enormes con leyendas diminutas bajo el hero. Mantén un número solo si es real y tiene fuente, y dale una frase de contexto.",
+    "numberingTitle": "Pasos que no son pasos",
+    "numberingBody": "01, 02, 03 en secciones sin orden, y franjas de color en el lateral de tarjetas comunes. Numera solo secuencias reales; deja las franjas para estados reales.",
+    "loopsTitle": "Movimiento que nunca para",
+    "loopsBody": "Un punto de estado que late sin fin, logos que se desplazan en bucle, botones que rebotan. Lo estático se queda quieto; anima un cambio real con un ease-out corto."
   },
   "install": {
     "title": "Elige tu agente e instálala en una línea",

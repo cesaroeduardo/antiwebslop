@@ -246,8 +246,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </Section>
 
-        {/* Newer tells: america.gov's stacked media rows, no text but the rule chips. 12 columns: image at columns 2-7
-            (bigger than america.gov's 4, same proportions), one empty column, chips at 9-12, vertically centered.
+        {/* Newer tells: america.gov's stacked media rows, no section title (aria-label only). 12 columns: image at columns 2-7
+            (bigger than america.gov's 4, same proportions), one empty column, topic title, copy and rule chips at 9-12, vertically centered.
             Rows 120px apart (80 under md); image radius 57px (38px under md); 40px image-to-chips on phones. */}
         <section id="gallery" aria-label={t('gallery.title')} className="mx-auto w-full max-w-[1280px] scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
           <ul className="flex flex-col gap-20 md:gap-[120px]">
@@ -264,11 +264,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     style={row.zoom ? { transform: `scale(${row.zoom})`, transformOrigin: row.origin } : undefined}
                   />
                 </figure>
-                <ul className="flex flex-wrap gap-2 md:col-span-4 md:col-start-9" aria-label={t('gallery.rulesAria')}>
-                  {row.rules.map((r) => (
-                    <li key={r}><code className="inline-block rounded-control bg-surface-2 px-3 py-1.5 font-mono text-sm text-fg">{r}</code></li>
-                  ))}
-                </ul>
+                <div className="flex flex-col gap-8 md:col-span-4 md:col-start-9">
+                  <div className="flex flex-col gap-4">
+                    <h2 className="text-xl font-medium tracking-[-0.02em] md:text-2xl">{t(`gallery.${row.key}Title`)}</h2>
+                    <p className="max-w-[34ch] text-body text-muted">{t(`gallery.${row.key}Body`)}</p>
+                  </div>
+                  <ul className="flex flex-wrap gap-2" aria-label={t('gallery.rulesAria')}>
+                    {row.rules.map((r) => (
+                      <li key={r}><code className="inline-block rounded-control bg-surface-2 px-3 py-1.5 font-mono text-sm text-fg">{r}</code></li>
+                    ))}
+                  </ul>
+                </div>
               </li>
             ))}
           </ul>
