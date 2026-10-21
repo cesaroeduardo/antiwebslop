@@ -32,7 +32,7 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 
 **Fallback when nothing authored exists** (every token and pattern is slop):
 1. Ask the user for the logo, the product (what it does, for whom) and any brand material. Do not invent a brand.
-2. Get references: use the user's, find 2-3 real sites that fit the surface type (search galleries such as [Inspora](https://www.inspora.design/) and [Awwwards](https://www.awwwards.com/)), or generate section images ([image-to-code](references/image-to-code.md)).
+2. Get references: use the user's, find 2-3 real sites that fit the surface type (search galleries such as [Inspora](https://www.inspora.design/), [Awwwards](https://www.awwwards.com/), [Minimal Gallery](https://minimal.gallery/), and [60fps](https://60fps.design/) for motion)), or generate section images ([image-to-code](references/image-to-code.md)).
 3. Only then define new tokens in `DESIGN.md` from that material and state the Design Read. The old slop tokens are replaced, not mapped.
 
 ## Work loop (the only canonical copy)
