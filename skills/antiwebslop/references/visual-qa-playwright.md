@@ -41,7 +41,7 @@ playwright-cli snapshot          # accessibility tree, for focus/labels review
 
 ## Report
 
-Write findings the way you’d say them out loud — blunt, specific, no “perhaps we could…”. Name the failure, then the fix.
+Write findings the way you’d say them out loud: blunt, specific, no “perhaps we could…”, no em dashes. Name the failure, then the fix. Keep design terms in English; prefix font names (“the typeface …”).
 
 ```text
 ## Desktop 1440×900
