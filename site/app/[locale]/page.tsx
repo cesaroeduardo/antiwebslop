@@ -7,6 +7,7 @@ import { GitHubStars } from '@/components/GitHubStars';
 import { SiteCanvas } from '@/components/SiteCanvas';
 import { Inline } from '@/components/Inline';
 import { Motion } from '@/components/Motion';
+import { BackToTop } from '@/components/BackToTop';
 import { Wordmark } from '@/components/Wordmark';
 import { LanguageSelect, type LanguageOption } from '@/components/LanguageSelect';
 import { localePath } from '@/i18n/routing';
@@ -376,6 +377,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </ul>
         </Section>
       </main>
+      <BackToTop label={t('common.toTop')} />
 
       <footer className="relative overflow-hidden border-t border-border">
         <div className="mx-auto grid w-full max-w-page grid-cols-2 gap-8 px-4 pb-10 pt-16 sm:px-6 md:grid-cols-12">

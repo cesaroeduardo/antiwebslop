@@ -1,5 +1,9 @@
 'use client';
 
+declare global {
+  interface Window { __lenis?: { scrollTo: (target: number, options?: { immediate?: boolean }) => void } }
+}
+
 import { useEffect } from 'react';
 
 /**
@@ -30,6 +34,7 @@ export function Motion() {
       if (window.matchMedia('(pointer: fine)').matches) {
         lenis = new Lenis({ anchors: true, lerp: 0.12 });
         lenis.on('scroll', ScrollTrigger.update);
+        window.__lenis = lenis; // read by BackToTop
         gsap.ticker.add(tick);
         gsap.ticker.lagSmoothing(0);
       }
@@ -68,6 +73,7 @@ export function Motion() {
         ctx.revert();
         gsap.ticker.remove(tick);
         lenis?.destroy();
+        delete window.__lenis;
         ScrollTrigger.getAll().forEach((t) => t.kill());
       };
     })();
