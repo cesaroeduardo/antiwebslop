@@ -56,8 +56,8 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 ## 6. Spacing and layout
 - Scale: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 192 (Tailwind steps 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48).
 - Grid: 12 columns, max-width 1120px (was 1280px until 2026-10-21; Eduardo found it too wide), gutter 24px, page margin 24px (16px under 640px).
-- Section order: hero → references canvas → what it does (bento) → catalog → gallery → install → how we measure it → prior art → footer.
-- Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; references canvas 128 (192 md) with no intro text, then full-bleed; bento 128 (160 md); catalog, newer tells, install and eval 128 (160 md), eval also at the bottom; newer-tells rows 80 apart (120 md); prior art 128/160 bottom; footer 64.
+- Section order: hero → references canvas → catalog → gallery → install → how we measure it → prior art → footer.
+- Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; references canvas 128 (192 md) with no intro text, then full-bleed; catalog, newer tells, install and eval 128 (160 md), eval also at the bottom; newer-tells rows 80 apart (120 md); prior art 128/160 bottom; footer 64.
 
 ## 7. Components
 - Radius by role: controls and chips 6px · cards and code blocks 10px · images 0 (crop, no frame), except the newer-tells media rows: 38px, 57px from 768px (after america.gov) · copy-button pill none (no 9999 except the severity dot).
@@ -72,7 +72,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 
 ## 9. Imagery and content
 - Imagery: renders of `../gallery/pages/*.html` (the test fixtures with lint findings outlined) at 2x, webp, cropped. Labels overlaid bottom-left on a solid bg chip.
-- Image slots (`public/slots/`: `catalog-findings` 16:9, `hook-feedback` 4:3, `newer-tells` 4:3) hold illustrative generated mockups supplied by Eduardo, not screenshots of real lint runs. They show what the findings look like; the real output is the gallery fixture render and the lint itself. Exception to the "no AI imagery" ban, limited to these three slots; replace them with real captures when available.
+- Image slots (`public/slots/`: `catalog-findings` 16:9, `hook-feedback` 4:3, `newer-tells` 4:3) hold illustrative generated mockups supplied by Eduardo, not screenshots of real lint runs. They show what the findings look like; the real output is the gallery fixture render and the lint itself. Exception to the "no AI imagery" ban, limited to these three slots; replace them with real captures when available. Since 2026-10-21 only `newer-tells` is on the page (the bento section that showed the other two was removed; the files stay in `public/slots/`).
 - Voice: plain, specific, second person, numbers only when counted from the repo (35 entries, 31 rules).
 - Content sources: generated at build by `scripts/build-content.mjs` from the repo files, committed as `content/generated.json` so the site also builds without the rest of the repo.
 
@@ -157,6 +157,10 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Do not:** add placeholder images or invented stats to these rows; show a score before `../eval/VALIDATION.md` logs one.
 - **Surfaces:** marketing
 - **Refs:** https://www.america.gov (how-it-works rows), `/workspace/am/measure.json`, `/workspace/site-shots/v8-*.png`
+
+### 2026-10-21 — Bento section removed
+- **Context:** Eduardo found the "what it does" bento (Proof, not taste / What not to ship / One brief per project / Flagged on every write) redundant with the sections below it.
+- **Decision:** removed. The page goes hero → references canvas → catalog → newer tells → install → eval → prior art. The back-to-top button keys on the catalog, now the third section.
 
 ## 12. References
 - Layout patterns (borrowed, not copied): useplanes.com (edgeless draggable card canvas, unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), america.gov (stacked rounded media rows with the topic beside them), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).

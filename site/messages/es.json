@@ -69,22 +69,6 @@
     "copyFailedShort": "No se pudo copiar",
     "newTab": "(se abre en una pestaña nueva)"
   },
-  "what": {
-    "catalogTitle": "Lo que no hay que publicar",
-    "catalogBody": "{count} antipatrones, cada uno con cómo detectarlo y qué hacer en su lugar. La mayoría tiene una regla de lint, así que el agente los recibe como hallazgos <code>file:line</code>, no como cuestión de gusto.",
-    "catalogAlt": "Un editor de código con landing.html abierto, tres líneas subrayadas, junto a un panel Problems con hallazgos de slop-lint: un error purple-gradient y avisos emoji-bullet y three-equal-cards.",
-    "briefTitle": "Un brief por proyecto",
-    "briefBody": "Cada proyecto recibe un <code>DESIGN.md</code>: para quién es, el tipo de superficie, los diales y un bloque de tokens. Las fuentes, colores y radios fuera de él vuelven como avisos. Este es el bloque de este sitio.",
-    "hookTitle": "Señalado en cada escritura",
-    "hookBody": "Un hook opcional de Cursor pasa el lint por cada archivo de UI que escribe el agente y le devuelve los hallazgos antes de seguir. Nunca bloquea una escritura.",
-    "hookAlt": "Un panel de chat del agente tras escribir src/landing.tsx: la respuesta consultiva de slop-lint lista label-above-headline, decorative-numbering e invented-metric, y el agente responde que está corrigiendo los tres hallazgos.",
-    "proveTitle": "Pruebas, no gustos",
-    "proveBody": "Una ficha de 0 a 2 sobre 42 puntos y un protocolo A/B a ciegas. Un cambio en la skill solo se publica cuando supera la línea base.",
-    "scorecardCaption": "Secciones de la ficha",
-    "gate": "filtro",
-    "sectionLabel": "Qué incluye la skill",
-    "pts": "pts"
-  },
   "rubric": {
     "A": "Ausencia de slop",
     "B": "Oficio",
@@ -135,12 +119,13 @@
     "scaleCaption": "La ficha, a escala",
     "scaleTotal": "42 pts + filtro",
     "tableCaption": "Secciones de la ficha, de eval/rubric.md",
-    "pts": "{count} pts",
+    "pts": "pts",
     "passFail": "pasa / falla",
     "setupShort": "Mismo agente, modelo y brief en dos checkouts limpios. La skill se instala solo en uno.",
     "runShort": "Cada ejecución termina sola: sin guiar, un seguimiento con guion, lint y capturas guardados.",
     "blindShort": "Otra persona oculta cuál es cuál. Quien revisa elige uno y luego puntúa ambos en la tarjeta de 42 puntos.",
-    "decideShort": "Se publica solo con 1,3× la línea base, cero errores de lint y victoria o empate a ciegas en 2 de 3 briefs."
+    "decideShort": "Se publica solo con 1,3× la línea base, cero errores de lint y victoria o empate a ciegas en 2 de 3 briefs.",
+    "gate": "filtro"
   },
   "compare": {
     "priorArt": "Trabajos previos",

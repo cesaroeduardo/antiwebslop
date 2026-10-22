@@ -30,14 +30,6 @@ const installRows = (t: T): { agent: string; logo?: string; command: string }[] 
   { agent: 'Grok Bot', logo: 'grok', command: 'Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)' },
 ];
 
-const tokensBlock = `\`\`\`design-tokens
-fonts: DM Mono, DM Sans
-colors: #121212, #F7EDDB, #D1A8FF
-radii: 0, 6px, 10px, 38px, 57px, 9999px
-\`\`\``;
-
-const rubricKeys: [string, string][] = [['A', '20'], ['B', '12'], ['C', '10'], ['D', '']];
-
 const protocolSteps: { key: 'setup' | 'run' | 'blind' | 'decide'; source: string }[] = [
   { key: 'setup', source: 'ab-protocol.md' },
   { key: 'run', source: 'ab-protocol.md' },
@@ -77,30 +69,6 @@ function Section({ id, children, className = '' }: { id?: string; children: Reac
     <section id={id} className={`mx-auto w-full max-w-page scroll-mt-6 px-4 sm:px-6 ${className}`}>
       {children}
     </section>
-  );
-}
-
-function Terminal({ title, lines, className = '', wrap = false }: { title: string; lines: React.ReactNode[]; className?: string; wrap?: boolean }) {
-  return (
-    <figure className={`overflow-hidden rounded-card border border-border bg-bg ${className}`}>
-      <figcaption className="border-b border-border px-4 py-2 font-mono text-cap text-muted">{title}</figcaption>
-      <pre className="overflow-x-auto px-4 py-3 font-mono text-cap leading-relaxed text-fg sm:text-sm sm:leading-relaxed">
-        {lines.map((l, i) => <span key={i} className={wrap ? 'block whitespace-pre-wrap [overflow-wrap:anywhere]' : 'block whitespace-pre'}>{l}</span>)}
-      </pre>
-    </figure>
-  );
-}
-
-/** Image slot: a fixed-ratio frame that holds a generated image later. Pass `src` once the image exists. */
-function ImageSlot({ name, ratio, alt, src, className = '' }: { name: string; ratio: string; alt: string; src?: string; className?: string }) {
-  return (
-    <figure data-slot={name} className={`relative w-full overflow-hidden rounded-card border border-border bg-bg ${className}`} style={{ aspectRatio: ratio.replace(':', ' / ') }}>
-      {src ? (
-        <Image src={src} alt={alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-      ) : (
-        <figcaption className="absolute left-3 top-3 font-mono text-cap text-muted">{name} · {ratio}</figcaption>
-      )}
-    </figure>
   );
 }
 
@@ -169,65 +137,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             the hero leads straight into it, 192px below the hero copy on phones, 256px from md (64 hero + 128/192 here). */}
         <section id="references" aria-label={t('references.sectionLabel')} className="scroll-mt-6 pt-32 md:pt-48">
           <SiteCanvas sites={canvasSites} />
-        </section>
-
-        {/* What it does: unequal cards with real artifacts, no intro text; each card title is the section's h2. */}
-        <section id="what" aria-label={t('what.sectionLabel')} className="mx-auto w-full max-w-page scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-12" data-reveal>
-            <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-7 md:p-8">
-              <div className="max-w-[52ch]">
-                <h2 className="mb-3 text-xl font-medium leading-[1.05] tracking-[-0.03em] md:text-2xl">{t('what.catalogTitle')}</h2>
-                <p className="text-base text-muted">
-                  {t.rich('what.catalogBody', { count: catalogCount, code: (c) => <code className="font-mono text-fg">{c}</code> })}
-                </p>
-              </div>
-              <ImageSlot name="catalog-findings" ratio="16:9" src="/slots/catalog-findings.webp" alt={t('what.catalogAlt')} className="mt-auto" />
-            </article>
-            <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-5 md:p-8">
-              <div>
-                <h2 className="mb-3 text-xl font-medium leading-[1.05] tracking-[-0.03em] md:text-2xl">{t('what.briefTitle')}</h2>
-                <p className="text-base text-muted">
-                  {t.rich('what.briefBody', { code: (c) => <code className="font-mono text-fg">{c}</code> })}
-                </p>
-              </div>
-              <Terminal title="site/DESIGN.md" lines={tokensBlock.split('\n')} className="mt-auto" />
-            </article>
-            <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-5 md:p-8">
-              <div>
-                <h2 className="mb-3 text-xl font-medium leading-[1.05] tracking-[-0.03em] md:text-2xl">{t('what.hookTitle')}</h2>
-                <p className="text-base text-muted">{t('what.hookBody')}</p>
-              </div>
-              <ImageSlot name="hook-feedback" ratio="4:3" src="/slots/hook-feedback.webp" alt={t('what.hookAlt')} className="mt-auto" />
-            </article>
-            <article className="flex flex-col gap-6 rounded-card border border-border bg-surface p-6 md:col-span-7 md:p-8">
-              <div className="max-w-[52ch]">
-                <h2 className="mb-3 text-xl font-medium leading-[1.05] tracking-[-0.03em] md:text-2xl">{t('what.proveTitle')}</h2>
-                <p className="text-base text-muted">{t('what.proveBody')}</p>
-              </div>
-              {/* The scorecard by weight: A dominates (20 of 42), B and C stack beside it, D is a dashed gate under all three.
-                  Hairlines, not boxes, so there are no cards inside the card. */}
-              <dl className="mt-auto grid grid-cols-[1.6fr_1fr] border-y border-border font-mono" aria-label={t('what.scorecardCaption')}>
-                <div className="row-span-2 flex flex-col justify-between gap-6 border-r border-border py-5 pr-5 sm:pr-8">
-                  <dt className="text-sm text-fg"><span className="mr-2 text-muted">A</span>{t('rubric.A')}</dt>
-                  <dd className="text-[clamp(4rem,2.4rem+5vw,7rem)] font-medium leading-[0.85] tracking-[-0.05em] tabular-nums text-fg">
-                    20<span className="ml-2 text-sm font-normal tracking-normal text-muted">{t('what.pts')}</span>
-                  </dd>
-                </div>
-                {rubricKeys.filter(([k]) => k === 'B' || k === 'C').map(([k, pts]) => (
-                  <div key={k} className="flex flex-col justify-between gap-3 py-5 pl-5 sm:pl-8 [&:nth-child(2)]:border-b [&:nth-child(2)]:border-border">
-                    <dt className="text-sm text-fg"><span className="mr-2 text-muted">{k}</span>{t(`rubric.${k as 'B'}`)}</dt>
-                    <dd className="text-2xl font-medium leading-none tracking-[-0.04em] tabular-nums text-fg md:text-3xl">
-                      {pts}<span className="ml-2 text-cap font-normal tracking-normal text-muted">{t('what.pts')}</span>
-                    </dd>
-                  </div>
-                ))}
-                <div className="col-span-2 flex items-baseline justify-between gap-4 border-t border-dashed border-border-strong py-4">
-                  <dt className="text-sm text-fg"><span className="mr-2 text-muted">D</span>{t('rubric.D')}</dt>
-                  <dd className="text-cap text-muted">{t('what.gate')} · {t('eval.passFail')}</dd>
-                </div>
-              </dl>
-            </article>
-          </div>
         </section>
 
         {/* Catalog: heading column on the left, accordion rows on the right. */}
@@ -351,9 +260,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                       </dt>
                       <dd className="order-first font-mono font-medium leading-none tracking-[-0.04em] tabular-nums" style={{ color: s.pts ? scoreInk(s.pts) : undefined }}>
                         {s.pts ? (
-                          <><span className="text-[2.75rem] sm:text-[3.25rem]">{s.pts}</span><span className="ml-1 text-cap font-normal tracking-normal text-muted">{t('what.pts')}</span></>
+                          <><span className="text-[2.75rem] sm:text-[3.25rem]">{s.pts}</span><span className="ml-1 text-cap font-normal tracking-normal text-muted">{t('eval.pts')}</span></>
                         ) : (
-                          <span className="text-xl text-muted sm:text-2xl">{t('what.gate')}</span>
+                          <span className="text-xl text-muted sm:text-2xl">{t('eval.gate')}</span>
                         )}
                       </dd>
                     </div>

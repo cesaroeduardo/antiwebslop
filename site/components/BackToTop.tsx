@@ -3,18 +3,18 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Back-to-top button. Shows once the top of the third section (#what) has entered the viewport and hides again
+ * Back-to-top button. Shows once the top of the third section (#catalog, since the bento section was removed) has entered the viewport and hides again
  * above it (IntersectionObserver, no scroll threshold). Scrolls with Lenis when it runs, else natively; instant
  * under prefers-reduced-motion. Keyboard use sends focus to the skip link, pointer use to the wordmark link.
  * Styled like the header GitHub button.
  */
-export function BackToTop({ label, targetId = 'what' }: { label: string; targetId?: string }) {
+export function BackToTop({ label, targetId = 'catalog' }: { label: string; targetId?: string }) {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
     const target = document.getElementById(targetId);
     if (!target) return;
-    // The root reaches far above the viewport, so #what "intersects" exactly while its top is above the viewport's
+    // The root reaches far above the viewport, so the target "intersects" exactly while its top is above the viewport's
     // bottom edge, and a jump straight past it (Home/End, a long fling) still flips the state.
     const io = new IntersectionObserver(([e]) => setShown(e.isIntersecting), { rootMargin: '1000000px 0px 0px 0px' });
     io.observe(target);

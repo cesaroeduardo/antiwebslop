@@ -69,22 +69,6 @@
     "copyFailedShort": "Échec de la copie",
     "newTab": "(s’ouvre dans un nouvel onglet)"
   },
-  "what": {
-    "catalogTitle": "Ce qu’il ne faut pas publier",
-    "catalogBody": "{count} anti-patterns, chacun avec la façon de le repérer et quoi faire à la place. La plupart ont une règle de lint : l’agent les reçoit comme des constats <code>file:line</code>, pas comme une affaire de goût.",
-    "catalogAlt": "Un éditeur de code avec landing.html ouvert, trois lignes soulignées, à côté d’un panneau Problems listant les constats de slop-lint : une erreur purple-gradient, des avertissements emoji-bullet et three-equal-cards.",
-    "briefTitle": "Un brief par projet",
-    "briefBody": "Chaque projet reçoit un <code>DESIGN.md</code> : pour qui il est, le type de surface, les curseurs et un bloc de tokens. Les polices, couleurs et rayons hors de ce bloc reviennent en avertissements. Voici le bloc de ce site.",
-    "hookTitle": "Signalé à chaque écriture",
-    "hookBody": "Un hook Cursor optionnel passe le lint sur chaque fichier d’UI écrit par l’agent et lui renvoie les constats avant qu’il continue. Il ne bloque jamais une écriture.",
-    "hookAlt": "Un panneau de chat d’agent après l’écriture de src/landing.tsx : la réponse consultative de slop-lint liste label-above-headline, decorative-numbering et invented-metric, et l’agent répond qu’il corrige les trois constats.",
-    "proveTitle": "Des preuves, pas des goûts",
-    "proveBody": "Une grille notée de 0 à 2 sur 42 points et un protocole A/B à l’aveugle. Une modification de la skill n’est publiée que si elle bat la référence.",
-    "scorecardCaption": "Sections de la grille",
-    "gate": "barrière",
-    "sectionLabel": "Ce que contient la skill",
-    "pts": "pts"
-  },
   "rubric": {
     "A": "Absence de slop",
     "B": "Facture",
@@ -135,12 +119,13 @@
     "scaleCaption": "La grille, à l’échelle",
     "scaleTotal": "42 pts + barrière",
     "tableCaption": "Sections de la grille, d’après eval/rubric.md",
-    "pts": "{count} pts",
+    "pts": "pts",
     "passFail": "réussi / échoué",
     "setupShort": "Même agent, même modèle et même brief dans deux checkouts propres. La skill n’est installée que dans l’un.",
     "runShort": "Chaque run se termine seul : aucun guidage, une relance scriptée, lint et captures enregistrés.",
     "blindShort": "Quelqu’un d’autre masque qui est qui. Le relecteur en choisit un, puis note les deux sur la grille de 42 points.",
-    "decideShort": "On publie seulement à 1,3× la référence, avec zéro erreur de lint et une victoire ou égalité à l’aveugle sur 2 briefs sur 3."
+    "decideShort": "On publie seulement à 1,3× la référence, avec zéro erreur de lint et une victoire ou égalité à l’aveugle sur 2 briefs sur 3.",
+    "gate": "barrière"
   },
   "compare": {
     "priorArt": "Travaux antérieurs",
