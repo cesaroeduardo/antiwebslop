@@ -147,7 +147,7 @@ html.lenis, html.lenis body { height: auto; }
 .install-rules > li::after { bottom: 0; }
 .fade-rule-t { position: relative; }
 
-/* Gallery HTML cutouts: skill-scan outlines + tags — only on hover / focus-within. */
+/* Gallery HTML cutouts: skill-scan on row hover (desktop) or when the row is in view (mobile). */
 .slop-mark { isolation: isolate; }
 .slop-box {
   position: absolute;
@@ -191,26 +191,52 @@ html.lenis, html.lenis body { height: auto; }
 .slop-mark[data-slop-delay="4"] { --slop-i: 4; }
 .slop-mark[data-slop-delay="5"] { --slop-i: 5; }
 
-.slop-demo:hover .slop-box,
-.slop-demo:focus-within .slop-box {
-  opacity: 1;
-  transform: scale(1);
-  transition-delay: calc(var(--slop-i, 0) * 140ms);
+/* Desktop / fine pointer: hover or focus anywhere on the example row. */
+@media (hover: hover) and (pointer: fine) {
+  .slop-row:hover .slop-demo-shell,
+  .slop-row:focus-within .slop-demo-shell {
+    opacity: 1;
+  }
+  .slop-row:hover .slop-box,
+  .slop-row:focus-within .slop-box {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: calc(var(--slop-i, 0) * 140ms);
+  }
+  .slop-row:hover .slop-tag,
+  .slop-row:focus-within .slop-tag {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--slop-i, 0) * 140ms + 80ms);
+  }
 }
-.slop-demo:hover .slop-tag,
-.slop-demo:focus-within .slop-tag {
-  opacity: 1;
-  transform: none;
-  transition-delay: calc(var(--slop-i, 0) * 140ms + 80ms);
+
+/* Touch / coarse / narrow: fire when the row scrolls into view (.is-inview from SlopTellRow). */
+@media (hover: none), (pointer: coarse), (max-width: 767px) {
+  .slop-row.is-inview .slop-demo-shell {
+    opacity: 1;
+  }
+  .slop-row.is-inview .slop-box {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: calc(var(--slop-i, 0) * 140ms);
+  }
+  .slop-row.is-inview .slop-tag {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--slop-i, 0) * 140ms + 80ms);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .slop-box,
   .slop-tag { transition: none; }
-  .slop-demo:hover .slop-box,
-  .slop-demo:focus-within .slop-box,
-  .slop-demo:hover .slop-tag,
-  .slop-demo:focus-within .slop-tag { transition-delay: 0ms; }
+  .slop-row:hover .slop-box,
+  .slop-row:focus-within .slop-box,
+  .slop-row.is-inview .slop-box,
+  .slop-row:hover .slop-tag,
+  .slop-row:focus-within .slop-tag,
+  .slop-row.is-inview .slop-tag { transition-delay: 0ms; }
   .slop-pulse,
   .slop-bounce { animation: none !important; }
 }

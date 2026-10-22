@@ -13,7 +13,9 @@
   },
   "nav": {
     "references": "References",
-    "install": "Install"
+    "install": "Install",
+    "commands": "Commands",
+    "changelog": "Changelog"
   },
   "github": {
     "label": "GitHub",
@@ -23,10 +25,9 @@
   },
   "hero": {
     "title": "Stop shipping the page everyone has already seen",
-    "line": "A skill and a lint that keep your agent from shipping generic UI.",
+    "line": "A very honest skill that stops your agent from shipping that generic UI junk.",
     "installLabel": "Install command",
-    "readDocs": "Read the docs",
-    "aboutAuthor": "About the author"
+    "seeUseCases": "See use cases"
   },
   "copy": {
     "button": "Copy",
@@ -83,7 +84,9 @@
     "detect": "Detect",
     "instead": "Do instead",
     "noRule": "no rule, by eye",
-    "errorOrWarn": "error or warn"
+    "errorOrWarn": "error or warn",
+    "loadMore": "Show {count} more antipatterns",
+    "showLess": "Minimize antipatterns"
   },
   "gallery": {
     "title": "The newer tells",
@@ -92,19 +95,30 @@
     "loopsAlt": "Close-up of a cyber dashboard: a CYBER. wordmark tagged period-logo, an All systems online badge with a pulsing green dot tagged attention-loop, and a bouncing INITIALIZE_ button tagged bounce-easing.",
     "placeholdersAlt": "Close-up of a poorly composed hero: a centered slogan, cheap flat SVG blob illustrations at uneven angles tagged svg-placeholder, and soft purple blur orbs tagged blur-blob.",
     "rulesAria": "Lint rules",
-    "wordsTitle": "Words dressed up as design",
-    "wordsBody": "A tiny label over the heading, a dash on every line, a “Not X. A Y.” slogan. Fold the label into the heading, use full stops, and say what the product does in one plain sentence.",
-    "iconsTitle": "Icons and empty words",
-    "iconsBody": "Zap, sparkles, shield on every card, a colored stripe on each edge, Seamless / Unlock / Supercharge underneath, and View more stamped six times. Keep icons where they aid scanning, say what the product does with a concrete noun, and give the section one clear action. Reserve side stripes for real status.",
-    "loopsTitle": "Motion that never stops",
-    "loopsBody": "A status dot that pulses forever, a wordmark with a trailing period, buttons that bounce. Static things stay still; animate a real change with a short ease-out. Drop decorative periods from brand marks.",
-    "placeholdersTitle": "Illustrations that are just SVG blobs",
-    "placeholdersBody": "A slogan stuck dead-center, flat blob-people around it, and soft purple orbs behind the whole thing. Commission real art, use a product shot, or leave the space empty. Skip the decorative blur."
+    "wordsTitle": "Copy pretending to be design",
+    "wordsBody": "Tiny label on top of every fucking headline. Em dash every which way. Copy that goes “Not X. A Y.” and tells the user nothing. Trash all of it and write copy that actually looks good.",
+    "iconsTitle": "Slop cards nobody can stand anymore",
+    "iconsBody": "Lightning, rocket, sparkle icons on every damn card, and those side strips nobody can stand anymore — someone had to say it. Oh, and those 10 identical CTAs on the same screen? Your user is exhausted just looking at it.",
+    "loopsTitle": "Motion that never shuts up",
+    "loopsBody": "A button that never gets tired of bouncing. A status dot blinking for no reason. Congrats, you’re the world’s best motion designer — except you’re not. Let’s clean up this mess by doing the basics well.",
+    "placeholdersTitle": "Ugly SVGs you somehow think look good",
+    "placeholdersBody": "Enough of those hideous flat SVG illustrations on your site. That isn’t illustration, it’s an abomination. Grab some references and prompt your generative AI for real images — not this SVG trash."
   },
   "install": {
     "title": "Pick your agent, install it in one line",
     "anyAgent": "Any agent",
     "rowLabel": "{agent} install command"
+  },
+  "commands": {
+    "title": "Let's fix this dumpster fire of a site",
+    "exReview": "/antiwebslop review this page and tell me everything that’s slop.",
+    "exBuild": "/antiwebslop build a new hero section for me, no slop.",
+    "exGeneric": "/antiwebslop this looks like every generic SaaS landing out there. Make it look like real design.",
+    "exRestyle": "/antiwebslop restyle this hero for me.",
+    "exPlaywright": "/antiwebslop open this page and run visual QA at the main breakpoints with Playwright, then tell me what broke.",
+    "exGuidelines": "/antiwebslop audit my UI against Vercel’s web-interface-guidelines. Report findings as file:line.",
+    "exImageToCode": "/antiwebslop use image-to-code to help me make something close to this reference image I sent you.",
+    "exReference": "/antiwebslop I pasted a reference. Use it to guide the design of this page."
   },
   "eval": {
     "title": "How the skill is measured",
@@ -145,6 +159,18 @@
     "antiPatterns": "Anti-patterns",
     "evalKit": "Eval kit",
     "designMd": "This site’s DESIGN.md",
+    "versionAria": "Version {version}, open changelog",
     "rights": "© 2026 <author>Eduardo de Cesaro</author> · <license>MIT License</license>"
+  },
+  "changelog": {
+    "metaTitle": "Changelog · antiwebslop",
+    "metaDescription": "What changed in the antiwebslop skill, lint, and site. Searchable, filterable by month.",
+    "ogAlt": "antiwebslop wordmark on a dark field",
+    "title": "Changelog",
+    "updateLabel": "Update skill command",
+    "searchLabel": "Search the changelog",
+    "searchPlaceholder": "Search titles and notes…",
+    "monthLabel": "Filter by month",
+    "empty": "No entries match that search."
   }
 }

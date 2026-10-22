@@ -14,5 +14,18 @@ export const routing = defineRouting({
 
 export type Locale = (typeof routing.locales)[number];
 
-/** Path of the home page for a locale: "/" for English, "/pt" etc. for the rest. */
-export const localePath = (locale: string) => (locale === routing.defaultLocale ? '/' : `/${locale}`);
+/**
+ * Locale-aware path. Home is "/" for English and "/pt" (etc.) for the rest.
+ * Pass a site path like "/changelog" for subpages → "/changelog" or "/pt/changelog".
+ */
+export const localePath = (locale: string, path = '') => {
+  const suffix = !path || path === '/' ? '' : path.startsWith('/') ? path : `/${path}`;
+  if (locale === routing.defaultLocale) return suffix || '/';
+  return `/${locale}${suffix}`;
+};
+
+/** Home hash link that stays on the right locale: "#install" or "/pt#install" (no slash before # — Lenis/path match). */
+export const localeHash = (locale: string, id: string) => {
+  const home = localePath(locale);
+  return `${home === '/' ? '' : home}#${id}`;
+};

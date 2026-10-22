@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "antiwebslop",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Keeps AI-built web design from looking like AI slop: one skill with an anti-pattern catalog, craft rules, a per-project DESIGN.md, a zero-dependency lint, and an A/B eval kit.",
   "author": {
     "name": "Eduardo de Cesaro",

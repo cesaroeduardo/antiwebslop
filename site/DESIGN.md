@@ -56,7 +56,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 ## 6. Spacing and layout
 - Scale: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 192 (Tailwind steps 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48).
 - Grid: 12 columns, max-width 1280px (`--container-wide`, `max-w-wide`; a 1120px page and a 524px content column were tried on 2026-10-21 and undone), gutter 24px, page margin 24px (16px under 640px).
-- Section order: hero → references canvas → catalog → gallery → install → how we measure it → prior art → footer.
+- Section order: hero → references canvas → gallery → commands → catalog → install → prior art → footer.
 - Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; references canvas 128 (192 md) with no intro text, then full-bleed; catalog, newer tells, install and eval 128 (160 md), eval also at the bottom; newer-tells rows 80 apart (120 md); prior art 128/160 bottom; footer 64.
 
 ## 7. Components
@@ -145,7 +145,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 
 ### 2026-10-21 — Four languages with next-intl
 - **Context:** Eduardo asked for pt, fr and es next to English.
-- **Decision:** next-intl 4 (Next 16 compatible) with `app/[locale]`, `localePrefix: 'as-needed'` (English at `/`, others at `/pt`, `/fr`, `/es`), first-visit guess in `proxy.ts` on unprefixed paths only: country from `x-vercel-ip-country` (BR → pt; ES and Spanish-speaking Latin America → es; FR → fr; anything else or no header → en; no Accept-Language), remembered in `NEXT_LOCALE` for a year; a saved cookie (from that guess or the language select) wins; `/pt`, `/fr`, `/es` and crawlers are never redirected. All UI strings, aria labels, alt texts and metadata live in `messages/{en,pt,fr,es}.json`; pages are statically generated per locale. `hreflang` alternates plus `x-default`, per-locale canonical and a sitemap with alternates. Language select in the header at every width (PT, EN, ES, FR; a listbox styled like the GitHub button); a pick writes `NEXT_LOCALE` for a year. Header nav: References (from 640px), Install (from 440px), language, GitHub (new tab).
+- **Decision:** next-intl 4 (Next 16 compatible) with `app/[locale]`, `localePrefix: 'as-needed'` (English at `/`, others at `/pt`, `/fr`, `/es`), first-visit guess in `proxy.ts` on unprefixed paths only: country from `x-vercel-ip-country` (BR → pt; ES and Spanish-speaking Latin America → es; FR → fr; anything else or no header → en; no Accept-Language), remembered in `NEXT_LOCALE` for a year; a saved cookie (from that guess or the language select) wins; `/pt`, `/fr`, `/es` and crawlers are never redirected. All UI strings, aria labels, alt texts and metadata live in `messages/{en,pt,fr,es}.json`; pages are statically generated per locale. `hreflang` alternates plus `x-default`, per-locale canonical and a sitemap with alternates. Language select in the header at every width (PT, EN, ES, FR; a listbox styled like the GitHub button); a pick writes `NEXT_LOCALE` for a year. Header nav: Commands and Install (from 440px), Changelog (`/changelog`), language, GitHub (new tab). Footer Project column and the `v{version}` stamp also link to Changelog.
 - **Why:** one source per language; commands, file names and rule ids stay literal in every language.
 - **Do not:** translate commands, rule ids, file paths or the A/B follow-up prompt; machine-translate the catalog at build time.
 - **Surfaces:** marketing
@@ -166,6 +166,13 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 ### 2026-10-21 — Back to one 1280px width
 - **Context:** the 524px content column (the newer-tells image width) stacked the newer-tells rows, catalog, install and eval; Eduardo did not like it.
 - **Decision:** every section is back on the 1280px container with its earlier multi-column layout: newer-tells image and text side by side, catalog header beside the accordion, install name beside the command, eval timeline beside the scorecard. One width token, `--container-wide`.
+
+### 2026-10-22 — Commands section (update, lint, hook, prompts)
+- **Context:** Eduardo wanted a section like install for commands and use cases, including how to update the skill.
+- **Decision:** `#commands` above the catalog accordion (after gallery), same hairline grid; prompts only (no use-case labels). Rows are `/antiwebslop …` usage examples (review, build, generic, restyle hero, Playwright visual QA, Vercel web-interface-guidelines, image-to-code, pasted reference). No shell commands in this section.
+- **Do not:** pack lint/hook/playwright-cli/`npx skills update` into this section; those live in Install or the README. Keep install rows on `#install`.
+- **Surfaces:** marketing
+- **Refs:** skill invoke patterns; `references/visual-qa-playwright.md`; `references/web-interface-guidelines.md`; `references/image-to-code.md`
 
 ## 12. References
 - Layout patterns (borrowed, not copied): useplanes.com (edgeless draggable card canvas, unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), america.gov (stacked rounded media rows with the topic beside them), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).

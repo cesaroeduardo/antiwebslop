@@ -23,20 +23,21 @@ type Props = {
 
 /**
  * Cropped HTML fragment of a generic AI landing page — not a full mini-site.
- * Hover / focus runs the skill-scan outlines + rule tags.
+ * Skill-scan outlines run when the parent `.slop-row` is hovered / focused,
+ * or when that row is in view on touch / narrow viewports (see globals.css).
  */
 export function SlopDemo({ kind, label }: Props) {
   // Opacity lives on an inner shell: the reveal animation (GSAP on [data-reveal] children)
-  // writes inline opacity:1 on this root, which would otherwise kill hover fade.
+  // writes inline opacity:1 on this root, which would otherwise kill the fade.
   return (
     <div
-      className="slop-demo group relative aspect-[4/3] w-full cursor-default outline-none"
+      className="slop-demo relative aspect-[4/3] w-full cursor-default outline-none"
       role="img"
       aria-label={label}
       tabIndex={0}
     >
       <div
-        className="absolute inset-0 overflow-hidden rounded-2xl border border-border opacity-50 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100"
+        className="slop-demo-shell absolute inset-0 overflow-hidden rounded-2xl border border-border opacity-50 transition-opacity duration-300"
         style={{ backgroundColor: DEMO_BG }}
       >
         <div aria-hidden className="pointer-events-none absolute inset-0 select-none">

@@ -1,28 +1,23 @@
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import content from '@/content/generated.json';
 import { Catalog, type CatalogGroup } from '@/components/Catalog';
 import { CopyCommand } from '@/components/CopyCommand';
-import { GitHubStars } from '@/components/GitHubStars';
 import { SiteCanvas } from '@/components/SiteCanvas';
 import { SlopDemo } from '@/components/SlopDemo';
+import { SlopTellRow } from '@/components/SlopTellRow';
 import { Inline } from '@/components/Inline';
 import { Motion } from '@/components/Motion';
 import { BackToTop } from '@/components/BackToTop';
-import { FooterMark } from '@/components/FooterMark';
-import { Wordmark } from '@/components/Wordmark';
-import { LanguageSelect, type LanguageOption } from '@/components/LanguageSelect';
+import { SiteHeader } from '@/components/SiteHeader';
+import { SiteFooter } from '@/components/SiteFooter';
 import { localePath } from '@/i18n/routing';
-import { AUTHOR_URL, REPO, blob, tree } from '@/lib/site';
 import { canvasSites } from '@/lib/canvas-sites';
 
 const INSTALL_ANY = 'npx skills add cesaroeduardo/antiwebslop';
 
 type T = Awaited<ReturnType<typeof getTranslations>>;
-const rich = {
-  code: (c: React.ReactNode) => <code>{c}</code>,
-};
 
 /** One row per agent: logo (public/logos/, see SOURCES.md), name, command. No side notes. */
 const installRows = (t: T): { agent: string; logo?: string; logoSize?: string; command: string }[] => [
@@ -34,24 +29,24 @@ const installRows = (t: T): { agent: string; logo?: string; logoSize?: string; c
   { agent: t('install.anyAgent'), command: INSTALL_ANY },
 ];
 
+/** Usage prompts with `/antiwebslop`. */
+const commandRows = (t: T): string[] => [
+  t('commands.exReview'),
+  t('commands.exBuild'),
+  t('commands.exGeneric'),
+  t('commands.exRestyle'),
+  t('commands.exPlaywright'),
+  t('commands.exGuidelines'),
+  t('commands.exImageToCode'),
+  t('commands.exReference'),
+];
+
 /** The newer tells: HTML cutouts (not photos). Each row shows a focused slop mock that the skill tags on scroll. */
 const tellRows: { key: 'words' | 'icons' | 'loops' | 'placeholders'; rules: string[] }[] = [
-  { key: 'words', rules: ['eyebrow-kicker', 'em-dash-overuse', 'not-x-a-y'] },
   { key: 'loops', rules: ['attention-loop', 'bounce-easing', 'period-logo'] },
   { key: 'placeholders', rules: ['svg-placeholder', 'blur-blob'] },
+  { key: 'words', rules: ['eyebrow-kicker', 'em-dash-overuse', 'not-x-a-y'] },
   { key: 'icons', rules: ['icon-soup', 'generic-cta', 'side-tab-border'] },
-];
-
-const nav: [string, 'install'][] = [
-  ['#install', 'install'],
-];
-
-/** Language select order, as Eduardo asked: PT, EN, ES, FR. Names in their own language. */
-const languages: LanguageOption[] = [
-  { locale: 'pt', code: 'PT', name: 'Português', hrefLang: 'pt-BR', href: localePath('pt') },
-  { locale: 'en', code: 'EN', name: 'English', hrefLang: 'en', href: localePath('en') },
-  { locale: 'es', code: 'ES', name: 'Español', hrefLang: 'es', href: localePath('es') },
-  { locale: 'fr', code: 'FR', name: 'Français', hrefLang: 'fr', href: localePath('fr') },
 ];
 
 function Section({ id, children, className = '', 'aria-label': ariaLabel }: { id?: string; children: React.ReactNode; className?: string; 'aria-label'?: string }) {
@@ -70,6 +65,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations();
   const { catalog, priorArt, version } = content;
   const install = installRows(t);
+  const commands = commandRows(t);
 
   return (
     <>
@@ -98,20 +94,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </div>
       <div aria-hidden className="site-noise pointer-events-none fixed inset-0 z-40 opacity-10 mix-blend-overlay motion-reduce:hidden" />
 
-      <header className="relative mx-auto flex w-full max-w-wide items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
-        <a href="#top" aria-label={t('common.backToTop')} className="shrink-0"><Wordmark /></a>
-        <nav aria-label={t('common.sections')} className="flex min-w-0 items-center gap-0 font-mono text-sm sm:gap-1">
-          <ul className="flex items-center">
-            {nav.map(([href, key]) => (
-              <li key={href} className="hidden min-[440px]:block"><a href={href} className="inline-block rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg sm:px-3">{t(`nav.${key}`)}</a></li>
-            ))}
-          </ul>
-          <div className="flex items-center gap-1.5 sm:ml-2 sm:gap-2">
-            <LanguageSelect current={locale} options={languages} label={t('common.language')} />
-            <GitHubStars />
-          </div>
-        </nav>
-      </header>
+      <SiteHeader locale={locale} t={t} />
 
       <main id="main" className="relative overflow-x-clip">
         {/* Hero: fills the first screen; on its bottom edge the headline (one sentence) takes the left 7 columns (2-4 lines) and the
@@ -126,24 +109,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <CopyCommand command={INSTALL_ANY} label={t('hero.installLabel')} />
               <div className="flex flex-wrap items-center gap-3">
                 <a
-                  href={REPO}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#commands"
                   className="inline-flex h-11 items-center justify-center gap-2 rounded-control bg-accent px-4 font-mono text-sm font-medium text-accent-fg transition-opacity duration-150 hover:opacity-90 active:opacity-80"
                 >
-                  {t('hero.readDocs')}
-                  <ArrowRight aria-hidden size={14} strokeWidth={2} className="shrink-0" />
-                  <span className="sr-only"> {t('github.newTab')}</span>
+                  {t('hero.seeUseCases')}
+                  <ArrowDown aria-hidden size={14} strokeWidth={2} className="shrink-0" />
                 </a>
                 <a
-                  href={AUTHOR_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-11 items-center justify-center gap-1.5 rounded-control border border-border px-4 font-mono text-sm text-fg transition-[color,border-color,background-color] duration-150 hover:border-border-strong hover:bg-surface-2"
+                  href={localePath(locale, '/changelog')}
+                  className="inline-flex h-11 items-center justify-center rounded-control border border-border px-4 font-mono text-sm text-fg transition-[color,border-color,background-color] duration-150 hover:border-border-strong hover:bg-surface-2"
                 >
-                  {t('hero.aboutAuthor')}
-                  <ArrowRight aria-hidden size={14} strokeWidth={2} className="shrink-0" />
-                  <span className="sr-only"> {t('github.newTab')}</span>
+                  {t('nav.changelog')}
                 </a>
               </div>
             </div>
@@ -156,11 +132,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <SiteCanvas sites={canvasSites} />
         </section>
 
-        {/* Newer tells: HTML cutouts + topic. Hover/focus runs the skill-scan outlines + rule tags. */}
+        {/* Newer tells: HTML cutouts + topic. Row hover (desktop) or in-view (mobile) runs the skill-scan. */}
         <section id="gallery" aria-label={t('gallery.title')} className="mx-auto w-full max-w-[1100px] scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
           <ul className="flex flex-col gap-20 md:gap-[120px]">
             {tellRows.map((row) => (
-              <li key={row.key} className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-x-12" data-reveal>
+              <SlopTellRow key={row.key} className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-x-12" data-reveal>
                 <SlopDemo kind={row.key} label={t(`gallery.${row.key}Alt`)} />
                 <div className="mx-4 flex flex-col gap-8 md:mx-6">
                   <div className="flex flex-col gap-4">
@@ -173,13 +149,35 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     ))}
                   </ul>
                 </div>
-              </li>
+              </SlopTellRow>
             ))}
           </ul>
         </section>
 
+        {/* Commands: prompts only, above the catalog accordion. */}
+        <Section id="commands" className="max-w-[1100px] pt-32 md:pt-40">
+          <h2 className="mx-auto mb-8 max-w-[40rem] text-center text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('commands.title')}</h2>
+          <ul
+            className="install-rules relative grid grid-cols-1 md:grid-cols-[1fr_minmax(0,40rem)_1fr]"
+            data-reveal
+          >
+            {commands.map((command) => (
+              <li
+                key={command}
+                className="group relative grid grid-cols-1 px-5 py-6 sm:px-6 md:col-span-3 md:grid-cols-subgrid md:items-center md:px-8 md:py-7"
+              >
+                <span className="hidden md:block" aria-hidden />
+                <div className="min-w-0">
+                  <CopyCommand command={command} label={command} />
+                </div>
+                <span className="hidden md:block" aria-hidden />
+              </li>
+            ))}
+          </ul>
+        </Section>
+
         {/* Catalog: accordion rows only (section title stays in aria-label). */}
-        <Section id="catalog" className="max-w-[1000px] pt-32 md:pt-40" aria-label={t('catalog.title')}>
+        <Section id="catalog" className="max-w-[740px] pt-32 md:pt-40" aria-label={t('catalog.title')}>
           <Catalog groups={catalog as CatalogGroup[]} />
         </Section>
 
@@ -229,59 +227,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </Section>
       </main>
       <BackToTop label={t('common.toTop')} />
-
-      <footer className="relative overflow-hidden border-t border-border">
-        <div className="mx-auto grid w-full max-w-wide grid-cols-2 gap-8 px-4 pb-10 pt-16 sm:px-6 md:grid-cols-12">
-          <div className="col-span-2 md:col-span-5">
-            <Wordmark className="text-lg" />
-            <p className="mt-4 max-w-[36ch] text-sm text-muted">{t('footer.tagline')}</p>
-          </div>
-          {[
-            [t('footer.project'), [[t('footer.github'), REPO], [t('footer.issues'), `${REPO}/issues`]]],
-            [t('footer.read'), [['SKILL.md', blob('skills/antiwebslop/SKILL.md')], [t('footer.antiPatterns'), blob('skills/antiwebslop/references/anti-patterns.md')], [t('footer.evalKit'), tree('eval')], [t('footer.designMd'), blob('site/DESIGN.md')]]],
-            [t('footer.install'), [['npx skills', '#install'], ['Cursor', '#install'], ['Claude Code', '#install'], ['Codex', '#install']]],
-          ].map(([title, links]) => (
-            <nav key={title as string} aria-label={title as string} className="md:col-span-2 md:last:col-span-3">
-              <h2 className="mb-3 font-mono text-cap text-muted">{title as string}</h2>
-              <ul className="flex flex-col gap-2 text-sm">
-                {(links as [string, string][]).map(([label, href]) => (
-                  <li key={label}><a className="text-fg transition-colors duration-150 hover:text-accent" href={href}>{label}</a></li>
-                ))}
-              </ul>
-            </nav>
-          ))}
-        </div>
-        <div className="fade-rule-t mx-auto flex w-full max-w-wide flex-wrap justify-between gap-2 px-4 py-6 font-mono text-cap text-muted sm:px-6">
-          <span>
-            {t.rich('footer.rights', {
-              author: (chunks) => (
-                <a
-                  href={AUTHOR_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors duration-150 hover:text-fg"
-                >
-                  {chunks}
-                  <span className="sr-only"> {t('github.newTab')}</span>
-                </a>
-              ),
-              license: (chunks) => (
-                <a
-                  href={blob('LICENSE')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors duration-150 hover:text-fg"
-                >
-                  {chunks}
-                  <span className="sr-only"> {t('github.newTab')}</span>
-                </a>
-              ),
-            })}
-          </span>
-          <span>v{version}</span>
-        </div>
-        <FooterMark />
-      </footer>
+      <SiteFooter locale={locale} t={t} version={version} />
     </>
   );
 }

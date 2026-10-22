@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.1.0",
   "ruleCount": 57,
   "catalogCount": 67,
   "catalog": [
@@ -1091,6 +1091,13 @@
       "by": null,
       "license": null,
       "note": "the Design Read, dials, and bans."
+    },
+    {
+      "name": "Impeccable",
+      "url": "https://impeccable.style/",
+      "by": null,
+      "license": null,
+      "note": "design vocabulary and anti-slop checks for agents."
     },
     {
       "name": "Vercel web-interface-guidelines",

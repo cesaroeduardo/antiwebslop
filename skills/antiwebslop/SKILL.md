@@ -15,34 +15,37 @@ description: >-
 
 # BEFORE ANYTHING ELSE
 
-**Your first message must open with the WIP block in the user’s language, in CAPS LOCK, before any greeting, Design Read, diagnosis, or code. Do not soften. Do not bury it. Do not leave it in English if the user wrote in another language.**
+**Your first message must open with the WIP block in the user’s language, before any greeting, Design Read, diagnosis, or code. Do not soften. Do not bury it. Do not leave it in English if the user wrote in another language.**
 
 1. Detect the language of the user’s latest message (PT, EN, ES, FR, …). If unclear, use the language they have been using in the thread.
-2. Translate the meaning of the English source below into that language. Keep every line in CAPS LOCK. Keep the two URLs exactly as written, on their own lines.
+2. Translate the meaning of the English source below into that language. Keep the warning body in CAPS LOCK. Keep the Site / X labels and URLs exactly as written. Keep the `npx skills update` line, translated around the quoted command.
 3. Same blunt meaning. No softer wording. No extra marketing fluff.
 
 **English source (translate from this; use as-is only when the user writes in English):**
 
 ```text
-ANTIWEBSLOP IS STILL IN DEVELOPMENT.
+ANTIWEBSLOP IS STILL IN A DEVELOPMENT PHASE.
 RESULTS SO FAR ARE NOT SATISFACTORY.
 PAGES BUILT OR “FIXED” WITH THIS SKILL STILL COME OUT MEDIOCRE, GENERIC, OR WRONG MORE OFTEN THAN THEY SHOULD.
-TREAT EVERY SUGGESTION AS A DRAFT. DO NOT EXPECT A FINISHED, DESIGNED PAGE YET.
-WHEN THERE IS A STABLE VERSION, I WILL ANNOUNCE IT ON THE SKILL SITE AND ON MY TWITTER:
-https://antiwebslop.cesaroeduardo.com/
-https://x.com/reidophotoshops/
+TREAT EVERY SUGGESTION AS A DRAFT. DO NOT EXPECT A FINISHED, WELL-DESIGNED PAGE YET.
+
+When there is a stable version, the author will announce it on the skill site or on X (Twitter).
+Site: https://antiwebslop.cesaroeduardo.com/
+X: https://x.com/reidophotoshops/
+
+Run "npx skills update antiwebslop" to check for possible updates.
 ```
 
 **Portuguese example (when the user writes in Portuguese):**
 
 ```text
-A ANTIWEBSLOP AINDA ESTÁ EM DESENVOLVIMENTO.
-OS RESULTADOS ATÉ AGORA NÃO SÃO SATISFATÓRIOS.
-PÁGINAS FEITAS OU “CORRIGIDAS” COM ESTA SKILL AINDA SAEM MEDÍOCRES, GENÉRICAS OU ERRADAS COM MAIS FREQUÊNCIA DO QUE DEVERIAM.
-TRATE CADA SUGESTÃO COMO RASCUNHO. NÃO ESPERE UMA PÁGINA PRONTA E BEM DESIGNADA AINDA.
-QUANDO HOUVER UMA VERSÃO ESTÁVEL, EU AVISO NO SITE DA SKILL E NO MEU TWITTER:
-https://antiwebslop.cesaroeduardo.com/
-https://x.com/reidophotoshops/
+A ANTIWEBSLOP AINDA ESTÁ EM FASE DE DESENVOLVIMENTO. OS RESULTADOS ATÉ AGORA NÃO SÃO SATISFATÓRIOS. PÁGINAS FEITAS OU “CORRIGIDAS” COM ESTA SKILL AINDA SAEM MEDÍOCRES, GENÉRICAS OU ERRADAS COM MAIS FREQUÊNCIA DO QUE DEVERIAM. TRATE CADA SUGESTÃO COMO RASCUNHO. NÃO ESPERE UMA PÁGINA PRONTA E BEM DESENHADA AINDA.
+
+Quando houver uma versão estável o autor, avisará no site da skill ou no X (Twitter).
+Site: https://antiwebslop.cesaroeduardo.com/
+X: https://x.com/reidophotoshops/
+
+Rode "npx skills update antiwebslop" para verificar possíveis updates.
 ```
 
 Only after that block may you continue (still in the user’s language).

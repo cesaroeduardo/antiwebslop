@@ -26,7 +26,9 @@ export function BackToTop({ label, targetId = 'gallery' }: { label: string; targ
     if (window.__lenis) window.__lenis.scrollTo(0, { immediate: reduce });
     else window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     const keyboard = e.detail === 0;
-    const focusTarget = document.querySelector<HTMLElement>(keyboard ? 'a[href="#main"]' : 'header a[href="#top"]');
+    const focusTarget = document.querySelector<HTMLElement>(
+      keyboard ? 'a[href="#main"]' : 'header a[href="#top"], #top a, header a',
+    );
     focusTarget?.focus({ preventScroll: true });
   };
 

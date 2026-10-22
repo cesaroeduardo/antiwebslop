@@ -176,6 +176,7 @@ Earlier names: `webdesign-knowledge`, then `webdesign-aislopkiller`. The GitHub 
 ## Prior art
 
 - [Taste Skill](https://www.tasteskill.dev/): the Design Read, dials, and bans.
+- [Impeccable](https://impeccable.style/): design vocabulary and anti-slop checks for agents.
 - [Vercel web-interface-guidelines](https://github.com/vercel-labs/web-interface-guidelines): accessibility and UX audit rules.
 - [getdesign.md](https://getdesign.md/): `DESIGN.md` as a reusable brief.
 - [image-to-code-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/image-to-code-skill): reference → extract → implement.

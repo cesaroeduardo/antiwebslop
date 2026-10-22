@@ -13,7 +13,9 @@
   },
   "nav": {
     "references": "Referencias",
-    "install": "Instalar"
+    "install": "Instalar",
+    "commands": "Comandos",
+    "changelog": "Changelog"
   },
   "github": {
     "label": "GitHub",
@@ -23,10 +25,9 @@
   },
   "hero": {
     "title": "Deja de publicar la página que todos ya vimos",
-    "line": "Una skill y un lint que evitan que tu agente entregue UI genérica.",
+    "line": "Una skill, muy sincera, que evita que tu agente haga esa basura de UI genérica.",
     "installLabel": "Comando de instalación",
-    "readDocs": "Leer la documentación",
-    "aboutAuthor": "Sobre el autor"
+    "seeUseCases": "Ver use cases"
   },
   "copy": {
     "button": "Copiar",
@@ -83,7 +84,9 @@
     "detect": "Detectar",
     "instead": "En su lugar",
     "noRule": "sin regla, a ojo",
-    "errorOrWarn": "error o aviso"
+    "errorOrWarn": "error o aviso",
+    "loadMore": "Mostrar {count} antipatrones más",
+    "showLess": "Minimizar antipatrones"
   },
   "gallery": {
     "title": "Las señales más nuevas",
@@ -92,19 +95,30 @@
     "loopsAlt": "Detalle de un panel cyber: wordmark CYBER. etiquetado period-logo, insignia All systems online con punto verde pulsante etiquetada attention-loop, y botón INITIALIZE_ que rebota etiquetado bounce-easing.",
     "placeholdersAlt": "Detalle de un hero mal compuesto: eslogan centrado, ilustraciones SVG flat baratas en ángulos torcidos etiquetadas svg-placeholder, y orbes morados con blur etiquetados blur-blob.",
     "rulesAria": "Reglas del lint",
-    "wordsTitle": "Palabras disfrazadas de diseño",
-    "wordsBody": "Una etiqueta diminuta sobre el titular, una raya en cada línea, un eslogan «No es X. Es Y.». Lleva la etiqueta al titular, usa punto y seguido y di qué hace el producto en una frase simple.",
-    "iconsTitle": "Iconos y palabras vacías",
-    "iconsBody": "Zap, sparkles, shield en cada tarjeta, franja de color en el borde, Seamless / Unlock / Supercharge debajo, y View more seis veces. Guarda los iconos donde ayudan a escanear, di qué hace el producto con un sustantivo concreto, y dale a la sección una acción clara. Reserva las franjas para estados reales.",
-    "loopsTitle": "Movimiento que nunca para",
-    "loopsBody": "Un punto de estado que late sin fin, un wordmark con punto final, botones que rebotan. Lo estático se queda quieto; anima un cambio real con un ease-out corto. Quita el punto decorativo de la marca.",
-    "placeholdersTitle": "Ilustraciones que solo son blobs SVG",
-    "placeholdersBody": "Un eslogan justo en el centro, muñecos flat alrededor y orbes morados con blur detrás. Encarga arte real, usa una captura del producto, o deja el espacio vacío. Sin blur decorativo."
+    "wordsTitle": "Copy haciéndose pasar por diseño",
+    "wordsBody": "Label minúsculo encima de cada puta headline. Em dash por todos lados. Copy del tipo «No es X. Es Y.» que no le dice nada al usuario. A la basura con todo eso y escribe una copy que atraiga la mirada.",
+    "iconsTitle": "Cards slop que ya nadie aguanta",
+    "iconsBody": "Icono de rayo, cohete, brillo en cada card que hay, y esas side strips en los cards ya nadie las aguanta, alguien tenía que decírtelo. Ah, ¿y esos 10 CTAs iguales en la misma pantalla? Tu usuario se cansa solo de mirarlos.",
+    "loopsTitle": "Motion que no se calla",
+    "loopsBody": "Botón que no se cansa nunca de saltar. Punto de status parpadeando sin sentido. Felicidades, eres el mejor motion designer del mundo, solo que no. Vamos a arreglar este desastre haciendo bien lo básico.",
+    "placeholdersTitle": "Unos SVG feos que te parecen lindos",
+    "placeholdersBody": "Basta de esas ilustraciones svg flat horribles en tu sitio. Eso no es ilustración, es una abominación. Junta unas referencias y promptea a tu IA generativa para imágenes de verdad, no esta basura en forma de svg."
   },
   "install": {
     "title": "Elige tu agente e instálala en una línea",
     "anyAgent": "Cualquier agente",
     "rowLabel": "Comando de instalación para {agent}"
+  },
+  "commands": {
+    "title": "Vamos a arreglar esta bomba de sitio",
+    "exReview": "/antiwebslop revisa esta página y dime todo lo que tenga de slop.",
+    "exBuild": "/antiwebslop monta una sección de hero nueva para mí, sin slop.",
+    "exGeneric": "/antiwebslop esto parece la landing de cualquier SaaS genérico que hay por ahí. Que parezca diseño de verdad.",
+    "exRestyle": "/antiwebslop reestiliza este hero para mí.",
+    "exPlaywright": "/antiwebslop abre esta página y corre QA visual en los breakpoints principales con Playwright y dime qué se rompió.",
+    "exGuidelines": "/antiwebslop audita mi UI siguiendo las web-interface-guidelines de Vercel. Reporta hallazgos en file:line.",
+    "exImageToCode": "/antiwebslop usa image-to-code para ayudarme a hacer algo parecido a esta imagen de referencia que te envié.",
+    "exReference": "/antiwebslop pegué una referencia. Úsala para orientar el diseño de esta página."
   },
   "eval": {
     "title": "Cómo se mide la skill",
@@ -145,6 +159,18 @@
     "antiPatterns": "Antipatrones",
     "evalKit": "Kit de evaluación",
     "designMd": "El DESIGN.md de este sitio",
+    "versionAria": "Versión {version}, abrir changelog",
     "rights": "© 2026 <author>Eduardo de Cesaro</author> · <license>Licencia MIT</license>"
+  },
+  "changelog": {
+    "metaTitle": "Changelog · antiwebslop",
+    "metaDescription": "Qué cambió en la skill antiwebslop, el lint y el sitio. Con búsqueda y filtro por mes.",
+    "ogAlt": "wordmark antiwebslop sobre fondo oscuro",
+    "title": "Changelog",
+    "updateLabel": "Comando para actualizar la skill",
+    "searchLabel": "Buscar en el changelog",
+    "searchPlaceholder": "Buscar títulos y notas…",
+    "monthLabel": "Filtrar por mes",
+    "empty": "Ninguna entrada coincide con esa búsqueda."
   }
 }

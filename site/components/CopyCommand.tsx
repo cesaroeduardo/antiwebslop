@@ -8,6 +8,8 @@ type Props = {
   command: string;
   /** What the command does, for the button's accessible name. */
   label: string;
+  /** Width hugs the command instead of stretching to 640px. Same padding and type size. */
+  compact?: boolean;
 };
 
 async function writeClipboard(text: string) {
@@ -28,7 +30,7 @@ async function writeClipboard(text: string) {
   }
 }
 
-export function CopyCommand({ command, label }: Props) {
+export function CopyCommand({ command, label, compact = false }: Props) {
   const t = useTranslations('copy');
   const [copied, setCopied] = useState(false);
   const timer = useRef<number | undefined>(undefined);
@@ -44,11 +46,19 @@ export function CopyCommand({ command, label }: Props) {
 
   const Icon = copied ? Check : Copy;
   const tip = copied ? t('copied') : t('button');
+  // Slash skill invokes are chat prompts, not shell. Keep `$` for real CLI lines only.
+  const shellPrompt = !command.trimStart().startsWith('/');
 
   return (
-    <div className="flex w-full max-w-[640px] items-stretch gap-2 rounded-card border border-border bg-surface py-2 pl-4 pr-2">
+    <div
+      className={
+        compact
+          ? 'inline-flex min-w-[22rem] max-w-full items-stretch gap-2 rounded-card border border-border bg-surface py-2 pl-5 pr-2'
+          : 'flex w-full max-w-[640px] items-stretch gap-2 rounded-card border border-border bg-surface py-2 pl-4 pr-2'
+      }
+    >
       <code className="min-w-0 flex-1 self-center whitespace-pre-wrap py-1 font-mono text-cap text-fg [overflow-wrap:anywhere] sm:text-sm">
-        <span aria-hidden className="select-none text-muted">$ </span>
+        {shellPrompt ? <span aria-hidden className="select-none text-muted">$ </span> : null}
         {command}
       </code>
       <button
