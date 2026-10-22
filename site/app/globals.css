@@ -50,6 +50,10 @@
 
 @layer base {
   :root { color-scheme: dark; }
+  /* Everything clickable shows the hand. The references canvas keeps grab on its empty surface (utility class) and
+     shows grabbing on everything, cards included, while a drag is in progress. */
+  a[href], button:not(:disabled), [role='button'], [role='option'], summary, label[for], select { cursor: pointer; }
+  .canvas-viewport[data-dragging], .canvas-viewport[data-dragging] * { cursor: grabbing; }
   html { background: var(--color-bg); -webkit-text-size-adjust: 100%; }
   body {
     background: var(--color-bg);

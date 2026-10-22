@@ -31,7 +31,7 @@ async function pngBlob(src: string): Promise<Blob> {
 }
 
 const CW = 360; // card width, canvas px
-const CH = 286; // card height incl. caption and the use line
+const CH = 268; // card height incl. caption
 const COL = 392; // column pitch
 const ROW = 320; // row pitch
 const COLS = 7;
@@ -317,11 +317,10 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
                   className="pointer-events-none object-cover object-top"
                 />
               </span>
-              <span className="flex items-baseline justify-between gap-3 px-1 pt-3 font-mono text-cap">
+              <span className="flex items-baseline justify-between gap-3 px-1 pb-1 pt-3 font-mono text-cap">
                 <span className="truncate text-fg">{s.site.name}</span>
                 <span className="shrink-0 text-muted">{s.site.gallery}</span>
               </span>
-              <span className="block truncate px-1 pb-1 pt-1 text-cap text-muted">{use(s.site)}</span>
             </button>
           ))}
         </div>
@@ -345,7 +344,6 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
                   <span className="sr-only">{t('newTab')}</span>
                 </a>
                 <span className="text-muted"> · {t('foundOn')} <a className="link" href={open.galleryUrl}>{open.gallery}</a></span>
-                <span className="block text-cap text-muted">{use(open)}</span>
               </figcaption>
               <div className="flex shrink-0 flex-wrap items-center gap-1 md:justify-end">
                 {(['image', 'prompt'] as const).map((kind) => {
