@@ -1,17 +1,19 @@
 import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import content from '@/content/generated.json';
 import { Catalog, type CatalogGroup } from '@/components/Catalog';
 import { CopyCommand } from '@/components/CopyCommand';
 import { GitHubStars } from '@/components/GitHubStars';
 import { SiteCanvas } from '@/components/SiteCanvas';
+import { SlopDemo } from '@/components/SlopDemo';
 import { Inline } from '@/components/Inline';
 import { Motion } from '@/components/Motion';
 import { BackToTop } from '@/components/BackToTop';
 import { Wordmark } from '@/components/Wordmark';
 import { LanguageSelect, type LanguageOption } from '@/components/LanguageSelect';
 import { localePath } from '@/i18n/routing';
-import { REPO, blob, tree } from '@/lib/site';
+import { AUTHOR_URL, REPO, blob, tree } from '@/lib/site';
 import { canvasSites } from '@/lib/canvas-sites';
 
 const INSTALL_ANY = 'npx skills add cesaroeduardo/antiwebslop';
@@ -42,13 +44,12 @@ const scoreInk = (pts?: number) => `color-mix(in oklab, var(--color-accent) ${Ma
 
 const scorecard: { key: 'A' | 'B' | 'C' | 'D'; pts?: number }[] = [{ key: 'A', pts: 20 }, { key: 'B', pts: 12 }, { key: 'C', pts: 10 }, { key: 'D' }];
 
-/** The newer tells, stacked image-beside-topic rows after america.gov. Each row zooms into one
-    region of the annotated newer-tells capture; `zoom` and `origin` frame the tagged elements. */
-const tellRows: { key: 'words' | 'metrics' | 'numbering' | 'loops'; rules: string[]; zoom?: number; origin?: string }[] = [
+/** The newer tells: HTML cutouts (not photos). Each row shows a focused slop mock that the skill tags on scroll. */
+const tellRows: { key: 'words' | 'metrics' | 'numbering' | 'loops'; rules: string[] }[] = [
   { key: 'words', rules: ['eyebrow-kicker', 'em-dash-overuse', 'not-x-a-y'] },
-  { key: 'metrics', rules: ['hero-metric'], zoom: 1.35, origin: '50% 72%' },
-  { key: 'numbering', rules: ['section-number', 'side-tab-border'], zoom: 2.1, origin: '0% 100%' },
-  { key: 'loops', rules: ['attention-loop', 'bounce-easing'], zoom: 2.4, origin: '100% 0%' },
+  { key: 'metrics', rules: ['hero-metric'] },
+  { key: 'numbering', rules: ['section-number', 'side-tab-border'] },
+  { key: 'loops', rules: ['attention-loop', 'bounce-easing'] },
 ];
 
 const nav: [string, 'references' | 'install'][] = [
@@ -64,9 +65,11 @@ const languages: LanguageOption[] = [
   { locale: 'fr', code: 'FR', name: 'Français', hrefLang: 'fr', href: localePath('fr') },
 ];
 
-function Section({ id, children, className = '' }: { id?: string; children: React.ReactNode; className?: string }) {
+function Section({ id, children, className = '', 'aria-label': ariaLabel }: { id?: string; children: React.ReactNode; className?: string; 'aria-label'?: string }) {
+  // Callers may pass max-w-[…] to override the default page width.
+  const maxW = /\bmax-w-/.test(className) ? '' : 'max-w-wide';
   return (
-    <section id={id} className={`mx-auto w-full max-w-wide scroll-mt-6 px-4 sm:px-6 ${className}`}>
+    <section id={id} aria-label={ariaLabel} className={`mx-auto w-full ${maxW} scroll-mt-6 px-4 sm:px-6 ${className}`.replace(/\s+/g, ' ').trim()}>
       {children}
     </section>
   );
@@ -126,9 +129,30 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <h1 className="text-[clamp(2rem,0.2rem+8.5vw,2.375rem)] font-medium leading-[1.02] tracking-[-0.04em] [text-wrap:balance] md:col-span-7 md:text-[2.5rem] lg:text-[clamp(3rem,0.5rem+3.9vw,4rem)]">
               {t('hero.title')}
             </h1>
-            <div className="flex flex-col gap-6 md:col-span-5 md:pt-[0.4rem] lg:pt-[0.55rem]">
+            <div className="flex flex-col gap-4 md:col-span-5 md:pt-[0.4rem] lg:pt-[0.55rem]">
               <p className="max-w-[44ch] font-mono text-sm text-muted md:text-base">{t('hero.line')}</p>
-              <CopyCommand variant="primary" command={INSTALL_ANY} label={t('hero.installLabel')} />
+              <CopyCommand command={INSTALL_ANY} label={t('hero.installLabel')} />
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href={REPO}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-11 items-center justify-center rounded-control bg-accent px-4 font-mono text-sm font-medium text-accent-fg transition-opacity duration-150 hover:opacity-90 active:opacity-80"
+                >
+                  {t('hero.readDocs')}
+                  <span className="sr-only"> {t('github.newTab')}</span>
+                </a>
+                <a
+                  href={AUTHOR_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-11 items-center justify-center gap-1.5 rounded-control border border-border px-4 font-mono text-sm text-fg transition-[color,border-color,background-color] duration-150 hover:border-border-strong hover:bg-surface-2"
+                >
+                  {t('hero.aboutAuthor')}
+                  <ArrowRight aria-hidden size={14} strokeWidth={2} className="shrink-0" />
+                  <span className="sr-only"> {t('github.newTab')}</span>
+                </a>
+              </div>
             </div>
           </div>
         </Section>
@@ -139,40 +163,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <SiteCanvas sites={canvasSites} />
         </section>
 
-        {/* Catalog: heading column on the left, accordion rows on the right. */}
-        <Section id="catalog" className="pt-32 md:pt-40">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-6">
-            <div className="md:col-span-4">
-              <div className="md:sticky md:top-8">
-                <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('catalog.title')}</h2>
-                <p className="max-w-[40ch] text-base text-muted">{t('catalog.body')}</p>
-              </div>
-            </div>
-            <div className="md:col-span-8">
-              <Catalog groups={catalog as CatalogGroup[]} />
-            </div>
-          </div>
-        </Section>
-
-        {/* Newer tells: america.gov's stacked media rows, no section title (aria-label only). 12 columns: image at columns 2-7
-            (bigger than america.gov's 4, same proportions), one empty column, topic title, copy and rule chips at 9-12, vertically centered.
-            Rows 120px apart (80 under md); image radius 57px (38px under md); 40px image-to-chips on phones. */}
-        <section id="gallery" aria-label={t('gallery.title')} className="mx-auto w-full max-w-wide scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
+        {/* Newer tells: HTML cutouts + topic. On scroll-in, dashed outlines and rule tags snap on (skill scan). */}
+        <section id="gallery" aria-label={t('gallery.title')} className="mx-auto w-full max-w-[1100px] scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
           <ul className="flex flex-col gap-20 md:gap-[120px]">
             {tellRows.map((row) => (
-              <li key={row.key} className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-x-6" data-reveal>
-                <figure className="relative aspect-[4/3] w-full overflow-hidden rounded-media bg-surface md:col-span-6 md:col-start-2">
-                  <Image
-                    src="/slots/newer-tells.webp"
-                    alt={t(`gallery.${row.key}Alt`)}
-                    fill
-                    sizes={row.zoom ? '(min-width: 768px) 1600px, 200vw' : '(min-width: 1280px) 604px, (min-width: 768px) 50vw, 100vw'}
-                    priority={false}
-                    className="object-cover"
-                    style={row.zoom ? { transform: `scale(${row.zoom})`, transformOrigin: row.origin } : undefined}
-                  />
-                </figure>
-                <div className="flex flex-col gap-8 md:col-span-4 md:col-start-9">
+              <li key={row.key} className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-x-12" data-reveal>
+                <SlopDemo kind={row.key} label={t(`gallery.${row.key}Alt`)} />
+                <div className="mx-4 flex flex-col gap-8 md:mx-6">
                   <div className="flex flex-col gap-4">
                     <h2 className="text-xl font-medium tracking-[-0.02em] md:text-2xl">{t(`gallery.${row.key}Title`)}</h2>
                     <p className="max-w-[34ch] text-body text-muted">{t(`gallery.${row.key}Body`)}</p>
@@ -188,9 +185,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </ul>
         </section>
 
+        {/* Catalog: accordion rows only (section title stays in aria-label). */}
+        <Section id="catalog" className="max-w-[1100px] pt-32 md:pt-40" aria-label={t('catalog.title')}>
+          <Catalog groups={catalog as CatalogGroup[]} />
+        </Section>
+
         {/* Install: dense rows, one per agent: logo and name, then the command with its copy button top-aligned. One left edge:
             heading, the first logo (or the name of a row without one, Any agent) and every command field start on it. */}
-        <Section id="install" className="pt-32 md:pt-40">
+        <Section id="install" className="max-w-[1100px] pt-32 md:pt-40">
           <h2 className="mb-8 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('install.title')}</h2>
           <ul className="border-t border-border" data-reveal>
             {install.map((row) => (
@@ -206,8 +208,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   ) : null}
                   {row.agent}
                 </span>
-                <div className="flex min-w-0 items-start gap-2 md:col-span-9">
-                  <code className="min-w-0 flex-1 whitespace-pre-wrap rounded-control bg-surface px-3 py-2 font-mono text-cap leading-relaxed text-fg [overflow-wrap:anywhere] sm:text-sm">{row.command}</code>
+                <div className="min-w-0 md:col-span-9">
                   <CopyCommand command={row.command} label={t('install.rowLabel', { agent: row.agent })} />
                 </div>
               </li>
@@ -216,11 +217,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </Section>
 
         {/* Eval: the A/B protocol as a short four-phase timeline on the left; the 42-point scorecard drawn to scale on the right. */}
-        <Section id="eval" className="pb-32 pt-32 md:pb-40 md:pt-40">
-          {/* Title plus what the test scores and what the gate fails, from eval/rubric.md (no runs logged, no results shown). */}
+        <Section id="eval" className="max-w-[1100px] pb-32 pt-32 md:pb-40 md:pt-40">
           <div className="border-b border-border pb-10">
-            <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('eval.title')}</h2>
-            <p className="text-base text-muted">{t('eval.intro')}</p>
+            <h2 className="text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('eval.title')}</h2>
           </div>
 
           <div className="grid grid-cols-1 gap-16 pt-12 md:grid-cols-12 md:gap-6 md:pt-16">

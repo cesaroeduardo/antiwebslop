@@ -8,10 +8,6 @@ type Props = {
   command: string;
   /** What the command does, for the button's accessible name. */
   label: string;
-  /** "primary" = the page's one accent button; "row" = compact icon button in a table row. */
-  variant?: 'primary' | 'row';
-  /** primary only: "inline" puts the command and the button on one line from sm up. */
-  layout?: 'stack' | 'inline';
 };
 
 async function writeClipboard(text: string) {
@@ -32,7 +28,7 @@ async function writeClipboard(text: string) {
   }
 }
 
-export function CopyCommand({ command, label, variant = 'row', layout = 'stack' }: Props) {
+export function CopyCommand({ command, label }: Props) {
   const t = useTranslations('copy');
   const [copied, setCopied] = useState(false);
   const timer = useRef<number | undefined>(undefined);
@@ -48,35 +44,22 @@ export function CopyCommand({ command, label, variant = 'row', layout = 'stack' 
 
   const Icon = copied ? Check : Copy;
 
-  if (variant === 'primary') {
-    return (
-      <div className={layout === 'inline' ? 'flex flex-col gap-3 sm:flex-row sm:items-center' : 'flex flex-col gap-3'}>
-        <code className="block whitespace-pre-wrap rounded-card border border-border bg-surface px-4 py-3 text-cap text-fg [overflow-wrap:anywhere] sm:text-sm">
-          <span aria-hidden className="select-none text-muted">$ </span>
-          {command}
-        </code>
-        <button
-          type="button"
-          onClick={onCopy}
-          className={`inline-flex h-11 shrink-0 items-center justify-center gap-2 self-start rounded-control bg-accent px-4 font-mono text-sm font-medium text-accent-fg transition-[background-color,opacity] duration-150 hover:opacity-90 active:opacity-80 ${layout === 'inline' ? 'sm:self-center' : ''}`}
-        >
-          <Icon aria-hidden size={16} strokeWidth={2} />
-          {copied ? t('copied') : t('button')}
-        </button>
-        <span className="sr-only" role="status" aria-live="polite">{copied ? t('status', { label }) : ''}</span>
-      </div>
-    );
-  }
-
   return (
-    <button
-      type="button"
-      onClick={onCopy}
-      aria-label={copied ? t('ariaCopied', { label }) : t('aria', { label })}
-      className="inline-flex size-9 shrink-0 items-center justify-center rounded-control border border-border text-muted transition-[color,border-color,background-color] duration-150 hover:border-border-strong hover:bg-surface-2 hover:text-fg data-[copied=true]:text-accent"
-      data-copied={copied}
-    >
-      <Icon aria-hidden size={16} strokeWidth={2} />
-    </button>
+    <div className="flex w-full max-w-[640px] items-stretch gap-2 rounded-card border border-border bg-surface py-2 pl-4 pr-2">
+      <code className="min-w-0 flex-1 self-center whitespace-pre-wrap py-1 font-mono text-cap text-fg [overflow-wrap:anywhere] sm:text-sm">
+        <span aria-hidden className="select-none text-muted">$ </span>
+        {command}
+      </code>
+      <button
+        type="button"
+        onClick={onCopy}
+        aria-label={copied ? t('ariaCopied', { label }) : t('aria', { label })}
+        className="inline-flex h-9 shrink-0 items-center justify-center gap-1.5 self-center rounded-control border border-border bg-surface-2 px-3 font-mono text-sm text-fg transition-[background-color,border-color,opacity] duration-150 hover:border-border-strong hover:opacity-90 active:opacity-80"
+      >
+        <Icon aria-hidden size={16} strokeWidth={2} />
+        <span>{copied ? t('copied') : t('button')}</span>
+      </button>
+      <span className="sr-only" role="status" aria-live="polite">{copied ? t('status', { label }) : ''}</span>
+    </div>
   );
 }

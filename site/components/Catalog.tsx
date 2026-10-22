@@ -36,9 +36,6 @@ export function Catalog({ groups }: { groups: CatalogGroup[] }) {
                     <Accordion.Trigger className="group flex w-full items-center gap-4 rounded-card px-4 data-[state=open]:rounded-b-none py-3 text-left transition-colors duration-150 hover:bg-surface-2 sm:px-5">
                       <span className="w-7 shrink-0 font-mono text-cap text-muted tabular-nums">{it.n}</span>
                       <span lang="en" className="min-w-0 flex-1 text-body leading-snug text-fg">{it.title}</span>
-                      <span className="hidden shrink-0 font-mono text-cap text-muted md:inline">
-                        {it.lints.length ? it.lints.map((l) => l.id).join(' · ') : it.review ?? t('noRule')}
-                      </span>
                       <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border text-muted transition-[color,border-color,rotate] duration-300 ease-out group-hover:text-fg group-data-[state=open]:rotate-45 group-data-[state=open]:border-accent group-data-[state=open]:text-accent motion-reduce:transition-none">
                         <Plus aria-hidden size={14} strokeWidth={2} />
                       </span>

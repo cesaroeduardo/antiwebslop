@@ -24,11 +24,13 @@
   "hero": {
     "title": "Stop shipping the page everyone has already seen",
     "line": "A skill and a lint that keep your agent from shipping generic UI.",
-    "installLabel": "Install command"
+    "installLabel": "Install command",
+    "readDocs": "Read the docs",
+    "aboutAuthor": "About the author"
   },
   "copy": {
-    "button": "Copy the install command",
-    "copied": "Copied to clipboard",
+    "button": "Copy",
+    "copied": "Copied",
     "status": "{label} copied",
     "aria": "Copy: {label}",
     "ariaCopied": "{label} copied"

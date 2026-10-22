@@ -343,7 +343,7 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
                   <ArrowUpRight aria-hidden size={14} className="opacity-0 transition-opacity duration-150 group-hover/site:opacity-100 group-focus-visible/site:opacity-100" />
                   <span className="sr-only">{t('newTab')}</span>
                 </a>
-                <span className="text-muted"> · {t('foundOn')} <a className="link" href={open.galleryUrl}>{open.gallery}</a></span>
+                <span className="text-muted"> {t('foundOn')} <a className="link" href={open.galleryUrl}>{open.gallery}</a></span>
               </figcaption>
               <div className="flex shrink-0 flex-wrap items-center gap-1 md:justify-end">
                 {(['image', 'prompt'] as const).map((kind) => {

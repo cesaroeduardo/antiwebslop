@@ -24,10 +24,12 @@
   "hero": {
     "title": "Arrêtez de publier la page que tout le monde a déjà vue",
     "line": "Une skill et un lint qui empêchent votre agent de livrer une UI générique.",
-    "installLabel": "Commande d’installation"
+    "installLabel": "Commande d’installation",
+    "readDocs": "Lire la documentation",
+    "aboutAuthor": "À propos de l’auteur"
   },
   "copy": {
-    "button": "Copier la commande d’installation",
+    "button": "Copier",
     "copied": "Copié",
     "status": "{label} copiée",
     "aria": "Copier : {label}",

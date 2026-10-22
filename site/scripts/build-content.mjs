@@ -27,7 +27,8 @@ export async function buildContent() {
   const md = read('skills/antiwebslop/references/anti-patterns.md');
   const groups = [];
   let g = null, item = null;
-  for (const line of md.split('\n')) {
+  // Normalize CRLF so `$`-anchored heading regexes match on Windows checkouts.
+  for (const line of md.split(/\r?\n/)) {
     let m;
     if ((m = line.match(/^## (.+)$/))) { g = { title: m[1].trim(), items: [] }; groups.push(g); item = null; continue; }
     if ((m = line.match(/^### (\d+)\. (.+?)\s*(?:\((.+)\))?\s*$/)) && g) {

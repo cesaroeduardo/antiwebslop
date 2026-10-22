@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Back-to-top button. Shows once the top of the third section (#catalog, since the bento section was removed) has entered the viewport and hides again
+ * Back-to-top button. Shows once the top of the third section (#gallery) has entered the viewport and hides again
  * above it (IntersectionObserver, no scroll threshold). Scrolls with Lenis when it runs, else natively; instant
  * under prefers-reduced-motion. Keyboard use sends focus to the skip link, pointer use to the wordmark link.
  * Styled like the header GitHub button.
  */
-export function BackToTop({ label, targetId = 'catalog' }: { label: string; targetId?: string }) {
+export function BackToTop({ label, targetId = 'gallery' }: { label: string; targetId?: string }) {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
