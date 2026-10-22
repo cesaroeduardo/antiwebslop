@@ -75,7 +75,7 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 - [ ] Hero headline ≤ ~6rem and ≤ 3 lines at 1440px; primary action visible without scrolling
 - [ ] Icons only where they aid scanning; one icon set, one size scale
 - [ ] Radius and shadow vary by role (not one `rounded-2xl shadow-lg` on everything); no hairline+wide-shadow pairing
-- [ ] Display type is a deliberate choice paired with the body face; a type scale is used; no default italic-serif hero
+- [ ] Display type is a deliberate choice paired with the body face; a type scale is used; no default italic-serif hero; titles use `text-balance`, descriptions use `text-pretty`
 - [ ] Spacing comes from one scale; one accent color with a defined job; no off-token values
 - [ ] The first viewport has one job, also at 390px
 - [ ] Focus is visible; motion respects `prefers-reduced-motion`; contrast is AA

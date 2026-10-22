@@ -36,7 +36,8 @@ test('v3 rules fire on the v3 slop fixture', () => {
   for (const id of ['hero-text-strip', 'locale-weather', 'scroll-cue', 'version-footer', 'hero-version',
     'italic-serif-display', 'italic-serif-word', 'blink-cursor', 'grid-bg', 'faded-dot-grid', 'soft-spotlight',
     'hairline-wide-shadow', 'extreme-radius', 'row-double-border', 'stripe-fill', 'all-caps-body', 'jagged-mask',
-    'justified-body', 'icon-tile', 'kit-monoculture'])
+    'justified-body', 'icon-tile', 'kit-monoculture', 'crushed-tracking', 'wide-body-tracking', 'weightless-display',
+    'mono-body', 'missing-wrap'])
     assert.ok(r.summary.byRule[id] > 0, `rule ${id} should fire (got ${JSON.stringify(r.summary.byRule)})`);
 });
 
@@ -58,7 +59,7 @@ test('clean fixtures stay clean with their own DESIGN.md tokens', () => {
 test('--list-rules prints every rule', () => {
   const r = run('--list-rules');
   assert.equal(r.code, 0);
-  assert.match(r.out, /^52 rules$/m);
+  assert.match(r.out, /^57 rules$/m);
 });
 
 test('clean fixtures produce no errors or warnings', () => {

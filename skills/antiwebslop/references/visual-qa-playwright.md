@@ -34,6 +34,7 @@ playwright-cli snapshot          # accessibility tree, for focus/labels review
 
 - **Layout:** clipping, horizontal overflow, sticky elements covering content or focus, broken grid at tablet.
 - **Hierarchy:** no clear first read (blur test), competing primary buttons, headline and CTA below the fold on mobile.
+- **Type:** widow (lone last-line word) on titles or lead copy at 1440 and 390; missing `text-balance` / `text-pretty`.
 - **Slop:** anything from the [anti-pattern catalog](anti-patterns.md) that the lint cannot see: centered-everything, identical section rhythm, icon soup, stock imagery, uniform card look.
 - **A11y:** low contrast, invisible focus, motion without reduced-motion support.
 - **Dials:** does the screenshot match the stated V/M/D? (see [dials](dials.md))

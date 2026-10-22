@@ -13,6 +13,7 @@ Defaults for when the project's tokens and `DESIGN.md` are silent. Project value
 - **Scale:** a ratio scale. 1.2 for dense UI, 1.25–1.333 for marketing. Example at 16px base, 1.25: 12.8 · 16 · 20 · 25 · 31 · 39 · 49 · 61. Use `clamp()` for the top 2 steps.
 - **Hero headline:** at least 2.5× body on desktop (1.75× on mobile) and at most about 6rem (96px). It should fit in 3 lines at 1440px and 5 lines at 390px with the primary action still above the fold; if not, shorten the copy before shrinking the type. `line-height` 1.0–1.15; slight negative tracking (−0.01 to −0.03em) on large sizes only, never tighter than −0.04em.
 - **Body:** 16–18px, `line-height` 1.5–1.7, measure 60–75 characters (`max-width: 65ch`).
+- **Wrap:** titles and headlines use `text-wrap: balance` (`text-balance`); body and lead descriptions use `text-wrap: pretty` (`text-pretty`) so a lone last-line word (widow) does not sit alone.
 - **Numbers:** `font-variant-numeric: tabular-nums` in tables, prices, and stats.
 
 ## Spacing and rhythm

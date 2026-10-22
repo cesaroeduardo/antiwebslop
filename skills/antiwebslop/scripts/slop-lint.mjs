@@ -175,13 +175,74 @@ const LINE_RULES = [
     test: (l) => (/\b(?:size|h|w)-(?:10|12|14|16|20)\b/.test(l) && /\brounded-(?:xl|2xl|3xl|\[)/.test(l)
         && (/\b(?:bg-|from-)/.test(l) || /\bshadow\b/.test(l)))
       || (/\b(?:icon[-_]?tile|feature[-_]?icon|icon[-_]?box)\b/i.test(l)) },
+  { id: 'crushed-tracking', severity: 'warn', msg: 'display tracking tighter than −0.04em; ease up so glyphs do not collide',
+    test: (l) => {
+      if (/\btracking-tighter\b/.test(l)) return true;
+      const em = (n, u) => {
+        const v = +n;
+        if (u === 'em' || u === 'rem' || !u) return v;
+        if (u === 'px') return v / 16;
+        return null;
+      };
+      for (const m of l.matchAll(/\btracking-\[(-?\d+(?:\.\d+)?)(em|rem|px)?\]/g)) {
+        const v = em(m[1], m[2]);
+        if (v != null && v <= -0.05) return true;
+      }
+      for (const m of l.matchAll(/letter-spacing:\s*(-?\d+(?:\.\d+)?)(em|rem|px)\b/gi)) {
+        const v = em(m[1], m[2].toLowerCase());
+        if (v != null && v <= -0.05) return true;
+      }
+      return false;
+    } },
+  { id: 'wide-body-tracking', severity: 'warn', msg: 'wide tracking on body copy; keep letter-spacing for short labels',
+    test: (l) => {
+      const wide = /\btracking-(?:wide|wider|widest)\b/.test(l)
+        || /letter-spacing:\s*(\d+(?:\.\d+)?)(em|rem|px)\b/i.test(l) && (() => {
+          const m = l.match(/letter-spacing:\s*(\d+(?:\.\d+)?)(em|rem|px)\b/i);
+          if (!m) return false;
+          const n = +m[1]; const u = m[2].toLowerCase();
+          const em = u === 'px' ? n / 16 : n;
+          return em >= 0.05;
+        })()
+        || /\btracking-\[(\d+(?:\.\d+)?)(em|rem|px)?\]/.test(l) && (() => {
+          const m = l.match(/\btracking-\[(\d+(?:\.\d+)?)(em|rem|px)?\]/);
+          if (!m) return false;
+          const n = +m[1]; const u = m[2] || 'em';
+          const em = u === 'px' ? n / 16 : n;
+          return em >= 0.05;
+        })();
+      if (!wide) return false;
+      if (/\b(?:text-(?:\[?\d{1,2}px\]?|xs|cap)|uppercase)\b/.test(l) && !/<(?:p|P)\b/.test(l)) return false;
+      return /\b(?:text-(?:base|lg|xl)|leading-(?:relaxed|7|8)|max-w-prose|prose)\b/.test(l)
+        || /<(?:p|P)\b/.test(l);
+    } },
+  { id: 'weightless-display', severity: 'warn', msg: 'ultralight weight at display size; use medium/semibold for headlines',
+    test: (l) => {
+      const light = /\bfont-(?:thin|extralight|light)\b/.test(l) || /font-weight:\s*(?:100|200|300)\b/.test(l);
+      if (!light) return false;
+      return /\btext-(?:4xl|5xl|6xl|7xl|8xl|9xl)\b/.test(l)
+        || /font-size:\s*(?:clamp\([^)]*(?:[3-9]|[1-9]\d)\s*rem|[3-9](?:\.\d+)?rem|[4-9]\dpx|[1-9]\d{2,}px)/i.test(l);
+    } },
+  { id: 'mono-body', severity: 'warn', msg: 'monospace used as body copy; keep mono for data, labels, and code',
+    test: (l) => {
+      if (!(/\bfont-mono\b/.test(l) || /font-family:\s*[^;}]*\bmonospace\b/i.test(l))) return false;
+      if (/<(?:code|pre|kbd|samp)\b/i.test(l)) return false;
+      if (/\btext-(?:\[?\d{1,2}px\]?|xs|cap)\b/.test(l)) return false;
+      return /\b(?:text-(?:base|lg|xl)|leading-(?:relaxed|7|8)|max-w-prose|prose)\b/.test(l)
+        || /<(?:p|P)\b/.test(l);
+    } },
 ];
 
 const FILE_RULES = [
   ['uniform-radius-shadow', 'warn'], ['icon-soup', 'warn'], ['motion-no-reduce', 'warn'], ['centered-everything', 'info'],
   ['eyebrow-kicker', 'warn'], ['hero-metric', 'warn'], ['em-dash-overuse', 'warn'], ['kit-monoculture', 'warn'],
+  ['missing-wrap', 'info'],
   ['token-font', 'warn'], ['token-color', 'warn'], ['token-radius', 'warn'],
 ];
+
+const WRAP_UTIL = /\btext-(?:balance|pretty)\b|text-wrap:\s*(?:balance|pretty)\b|\[text-wrap:(?:balance|pretty)\]/;
+const GLOBAL_HEADING_WRAP = /(?:^|[,{}\s])h[1-6](?:\s*,\s*h[1-6])*\s*\{[^}]*text-wrap\s*:|(?:@apply)[^;]*\btext-(?:balance|pretty)\b/i;
+const GLOBAL_P_WRAP = /(?:^|[,{}\s])p\s*\{[^}]*text-wrap\s*:/i;
 export const RULES = [...LINE_RULES.map((r) => [r.id, r.severity || 'error|warn']), ...FILE_RULES];
 
 const ICON_IMPORT = /import\s*\{([^}]*)\}\s*from\s*["'](?:lucide-react|lucide-vue-next|lucide-svelte|@heroicons\/react[^"']*|react-icons[^"']*|@tabler\/icons-react|@phosphor-icons\/react)["']/gs;
@@ -226,6 +287,31 @@ function fileRules(text, lines) {
   const dashLines = lines.filter((l) => /\S\s?—\s?\S/.test(l) && !/^\s*(?:\/\/|\/\*|\*|<!--)/.test(l)).length;
   if (dashLines >= 4) out.push({ rule: 'em-dash-overuse', severity: 'warn', line: firstLine(/\S\s?—\s?\S/),
     msg: `em dashes on ${dashLines} lines; split into sentences or use other punctuation` });
+  // Widow prevention: require wrap utilities on display titles / lead copy unless the file sets text-wrap globally.
+  const globalH = GLOBAL_HEADING_WRAP.test(text);
+  const globalP = GLOBAL_P_WRAP.test(text);
+  if (!globalH || !globalP) {
+    lines.forEach((l, i) => {
+      if (WRAP_UTIL.test(l)) return;
+      if (/\b(?:nav|button|label|Badge|Button)\b/.test(l) && !/<h[1-3]\b/i.test(l)) return;
+      const words = l.replace(/<[^>]+>/g, ' ').replace(/\{[^}]*\}/g, ' ').split(/\s+/).filter((w) => /[A-Za-zÀ-ÖØ-öø-ÿ]{2,}/.test(w));
+      if (words.length <= 1) return;
+      const display = /\btext-(?:4xl|5xl|6xl|7xl|8xl|9xl)\b/.test(l);
+      const isH1 = /<h1\b/i.test(l);
+      const isLead = /<p\b/i.test(l) && /\btext-(?:lg|xl|2xl)\b/.test(l);
+      if (isH1 && !globalH) {
+        out.push({ rule: 'missing-wrap', severity: 'info', line: i + 1, msg: 'display title without text-balance / text-wrap: balance; avoid a lone last-line word' });
+        return;
+      }
+      if (display && /<(?:h[1-3]|p|div|span)\b/i.test(l) && !globalH) {
+        out.push({ rule: 'missing-wrap', severity: 'info', line: i + 1, msg: 'display type without text-balance / text-wrap: balance; avoid a lone last-line word' });
+        return;
+      }
+      if (isLead && !globalP) {
+        out.push({ rule: 'missing-wrap', severity: 'info', line: i + 1, msg: 'lead/description without text-pretty / text-wrap: pretty; avoid a lone last-line word' });
+      }
+    });
+  }
   return out;
 }
 

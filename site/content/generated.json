@@ -1,7 +1,7 @@
 {
   "version": "0.2.0",
-  "ruleCount": 52,
-  "catalogCount": 61,
+  "ruleCount": 57,
+  "catalogCount": 67,
   "catalog": [
     {
       "title": "Color and surface",
@@ -165,8 +165,81 @@
           "title": "No type scale",
           "lints": [],
           "review": null,
-          "detect": "arbitrary sizes (`text-[37px]`, 15 different sizes), headings that barely differ from body.",
+          "detect": "arbitrary sizes (`text-[37px]`, 15 different sizes), headings that barely differ from body in size or optical weight (same weight, near-same size).",
           "instead": "A ratio-based scale with 6–8 steps; headline at least 2.5× body on desktop."
+        },
+        {
+          "n": 62,
+          "title": "Crushed display tracking",
+          "lints": [
+            {
+              "id": "crushed-tracking",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`tracking-tighter`, `tracking-[-0.05em]` (or tighter), or `letter-spacing` ≤ −0.05em on display type — glyphs colliding because “modern” means crushed.",
+          "instead": "Slight negative tracking on large sizes only (−0.01 to −0.03em); never tighter than −0.04em (see [craft § typography](craft.md#typography))."
+        },
+        {
+          "n": 63,
+          "title": "Wide tracking on body",
+          "lints": [
+            {
+              "id": "wide-body-tracking",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`tracking-wide` / `wider` / `widest` or `letter-spacing` ≥ ~0.05em on body-sized paragraphs.",
+          "instead": "Default tracking for body. Reserve wide tracking for short labels and eyebrows."
+        },
+        {
+          "n": 64,
+          "title": "Weightless display headline",
+          "lints": [
+            {
+              "id": "weightless-display",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`font-thin` / `extralight` / `light` or `font-weight: 100–300` at display size (`text-4xl` and up).",
+          "instead": "Medium or semibold for display. A real light cut is fine when the brand loads that face on purpose — not as the default “airy” hero."
+        },
+        {
+          "n": 65,
+          "title": "Mono as body copy",
+          "lints": [
+            {
+              "id": "mono-body",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`font-mono` / `font-family: …monospace` on paragraphs or body-sized prose (not `code` / `pre` / tiny labels).",
+          "instead": "Mono for data, labels, and code. Body copy stays in the text face (see [craft § typography](craft.md#typography))."
+        },
+        {
+          "n": 66,
+          "title": "Body measure too wide",
+          "lints": [],
+          "review": "design review",
+          "detect": "continuous body copy past ~75 characters per line with no `max-w-prose` / `max-width: …ch`.",
+          "instead": "Cap measure at 60–75 characters (`max-width: 65ch`)."
+        },
+        {
+          "n": 67,
+          "title": "Widow lines",
+          "lints": [
+            {
+              "id": "missing-wrap",
+              "severity": "info"
+            }
+          ],
+          "review": null,
+          "detect": "a multi-line title or description with a single word alone on the last line; or a display `h1`–`h3` / lead paragraph without wrap utilities when the file has no global `text-wrap` rule.",
+          "instead": "Titles: `text-balance` / `text-wrap: balance`. Descriptions: `text-pretty` / `text-wrap: pretty`. Confirm at 1440 and 390 in visual QA."
         }
       ]
     },
@@ -775,7 +848,7 @@
       "file": "landing.html",
       "errors": 9,
       "warnings": 8,
-      "info": 3,
+      "info": 4,
       "lines": [
         {
           "loc": "landing.html:6",
@@ -885,7 +958,7 @@
       "file": "v2-landing.html",
       "errors": 0,
       "warnings": 14,
-      "info": 0,
+      "info": 1,
       "lines": [
         {
           "loc": "v2-landing.html:5",
@@ -996,7 +1069,7 @@
     ],
     [
       "Detection",
-      "52 source rules + DESIGN.md token drift"
+      "57 source rules + DESIGN.md token drift"
     ],
     [
       "Agents",

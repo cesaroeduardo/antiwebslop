@@ -66,8 +66,32 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 - **Do instead:** Choose a display face with character that fits the Design Read and pair it with a readable text face (see [craft § typography](craft.md#typography)). Inter is fine for body and UI text.
 
 ### 14. No type scale
-- **Detect:** arbitrary sizes (`text-[37px]`, 15 different sizes), headings that barely differ from body.
+- **Detect:** arbitrary sizes (`text-[37px]`, 15 different sizes), headings that barely differ from body in size or optical weight (same weight, near-same size).
 - **Do instead:** A ratio-based scale with 6–8 steps; headline at least 2.5× body on desktop.
+
+### 62. Crushed display tracking (`lint: crushed-tracking`, warn)
+- **Detect:** `tracking-tighter`, `tracking-[-0.05em]` (or tighter), or `letter-spacing` ≤ −0.05em on display type — glyphs colliding because “modern” means crushed.
+- **Do instead:** Slight negative tracking on large sizes only (−0.01 to −0.03em); never tighter than −0.04em (see [craft § typography](craft.md#typography)).
+
+### 63. Wide tracking on body (`lint: wide-body-tracking`, warn)
+- **Detect:** `tracking-wide` / `wider` / `widest` or `letter-spacing` ≥ ~0.05em on body-sized paragraphs.
+- **Do instead:** Default tracking for body. Reserve wide tracking for short labels and eyebrows.
+
+### 64. Weightless display headline (`lint: weightless-display`, warn)
+- **Detect:** `font-thin` / `extralight` / `light` or `font-weight: 100–300` at display size (`text-4xl` and up).
+- **Do instead:** Medium or semibold for display. A real light cut is fine when the brand loads that face on purpose — not as the default “airy” hero.
+
+### 65. Mono as body copy (`lint: mono-body`, warn)
+- **Detect:** `font-mono` / `font-family: …monospace` on paragraphs or body-sized prose (not `code` / `pre` / tiny labels).
+- **Do instead:** Mono for data, labels, and code. Body copy stays in the text face (see [craft § typography](craft.md#typography)).
+
+### 66. Body measure too wide (design review)
+- **Detect:** continuous body copy past ~75 characters per line with no `max-w-prose` / `max-width: …ch`.
+- **Do instead:** Cap measure at 60–75 characters (`max-width: 65ch`).
+
+### 67. Widow lines (`lint: missing-wrap`, info)
+- **Detect:** a multi-line title or description with a single word alone on the last line; or a display `h1`–`h3` / lead paragraph without wrap utilities when the file has no global `text-wrap` rule.
+- **Do instead:** Titles: `text-balance` / `text-wrap: balance`. Descriptions: `text-pretty` / `text-wrap: pretty`. Confirm at 1440 and 390 in visual QA.
 
 ## Components and decoration
 

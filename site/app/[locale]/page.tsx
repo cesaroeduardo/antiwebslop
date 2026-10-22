@@ -237,7 +237,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <p className="mt-4 max-w-[36ch] text-sm text-muted">{t('footer.tagline')}</p>
           </div>
           {[
-            [t('footer.project'), [[t('footer.github'), REPO], [t('footer.issues'), `${REPO}/issues`], [t('footer.license'), blob('LICENSE')]]],
+            [t('footer.project'), [[t('footer.github'), REPO], [t('footer.issues'), `${REPO}/issues`]]],
             [t('footer.read'), [['SKILL.md', blob('skills/antiwebslop/SKILL.md')], [t('footer.antiPatterns'), blob('skills/antiwebslop/references/anti-patterns.md')], [t('footer.evalKit'), tree('eval')], [t('footer.designMd'), blob('site/DESIGN.md')]]],
             [t('footer.install'), [['npx skills', '#install'], ['Cursor', '#install'], ['Claude Code', '#install'], ['Codex', '#install']]],
           ].map(([title, links]) => (
@@ -257,6 +257,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               author: (chunks) => (
                 <a
                   href={AUTHOR_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-150 hover:text-fg"
+                >
+                  {chunks}
+                  <span className="sr-only"> {t('github.newTab')}</span>
+                </a>
+              ),
+              license: (chunks) => (
+                <a
+                  href={blob('LICENSE')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-colors duration-150 hover:text-fg"
