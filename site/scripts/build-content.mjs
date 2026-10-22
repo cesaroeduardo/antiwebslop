@@ -84,7 +84,7 @@ export async function buildContent() {
 }
 
 const ASSETS = [
-  ['assets/og.png', 'public/og.png'],
+  ['assets/og.png', 'public/og-new.png'],
   ['assets/cover.png', 'public/cover.png'],
   ['assets/icon.png', 'app/icon.png'],
 ];

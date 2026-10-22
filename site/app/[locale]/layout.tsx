@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const canonical = localePath(locale);
   const pageUrl = `${SITE_URL}${canonical === '/' ? '' : canonical}`;
   const ogImage = {
-    url: '/og.png',
+    url: '/og-new.png',
     width: 1200,
     height: 630,
     alt: t('ogAlt'),

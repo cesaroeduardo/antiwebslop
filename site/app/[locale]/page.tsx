@@ -252,7 +252,21 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           ))}
         </div>
         <div className="fade-rule-t mx-auto flex w-full max-w-wide flex-wrap justify-between gap-2 px-4 py-6 font-mono text-cap text-muted sm:px-6">
-          <span>{t('footer.rights')}</span>
+          <span>
+            {t.rich('footer.rights', {
+              author: (chunks) => (
+                <a
+                  href={AUTHOR_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-150 hover:text-fg"
+                >
+                  {chunks}
+                  <span className="sr-only"> {t('github.newTab')}</span>
+                </a>
+              ),
+            })}
+          </span>
           <span>v{version}</span>
         </div>
         <FooterMark />
