@@ -22,7 +22,7 @@
     "newTab": "(s’ouvre dans un nouvel onglet)"
   },
   "hero": {
-    "title": "Arrêtez de publier la page que tout le monde a déjà vue.",
+    "title": "Arrêtez de publier la page que tout le monde a déjà vue",
     "line": "Une skill et un lint qui empêchent votre agent de livrer une UI générique.",
     "installLabel": "Commande d’installation"
   },
@@ -76,7 +76,7 @@
     "D": "Respect du périmètre"
   },
   "catalog": {
-    "title": "Chaque signe a sa correction.",
+    "title": "Chaque signe a sa correction",
     "body": "Lu directement dans la skill. Un signe n’est permis que si votre DESIGN.md en fait la marque.",
     "detect": "Repérer",
     "instead": "À la place",

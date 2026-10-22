@@ -22,7 +22,7 @@
     "newTab": "(se abre en una pestaña nueva)"
   },
   "hero": {
-    "title": "Deja de publicar la página que todos ya vimos.",
+    "title": "Deja de publicar la página que todos ya vimos",
     "line": "Una skill y un lint que evitan que tu agente entregue UI genérica.",
     "installLabel": "Comando de instalación"
   },
@@ -76,7 +76,7 @@
     "D": "Respeto del alcance"
   },
   "catalog": {
-    "title": "Cada señal trae su corrección.",
+    "title": "Cada señal trae su corrección",
     "body": "Leído directamente de la skill. Una señal solo se permite si tu DESIGN.md la convierte en la marca.",
     "detect": "Detectar",
     "instead": "En su lugar",

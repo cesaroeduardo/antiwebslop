@@ -22,7 +22,7 @@
     "newTab": "(abre em nova aba)"
   },
   "hero": {
-    "title": "Pare de publicar a página que todo mundo já viu.",
+    "title": "Pare de publicar a página que todo mundo já viu",
     "line": "Uma skill e um lint que impedem seu agente de entregar UI genérica.",
     "installLabel": "Comando de instalação"
   },
@@ -76,7 +76,7 @@
     "D": "Segurança de escopo"
   },
   "catalog": {
-    "title": "Todo tell vem com a sua correção.",
+    "title": "Todo tell vem com a sua correção",
     "body": "Lido direto da skill. Um tell só é liberado quando o seu DESIGN.md faz dele a marca.",
     "detect": "Como identificar",
     "instead": "Faça no lugar",
