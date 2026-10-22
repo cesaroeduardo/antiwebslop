@@ -38,8 +38,6 @@
     "region": "Canvas de sites reais. Arraste ou use as setas para explorar; abra um card para ver grande.",
     "card": "{name}, encontrado em {gallery}. Abrir maior.",
     "foundOn": "encontrado em",
-    "openSite": "Abrir site",
-    "open": "Abrir",
     "close": "Fechar",
     "dialog": "{name}, captura de tela",
     "dialogEmpty": "Captura de tela",
@@ -66,7 +64,10 @@
       "twks": "Imagem-pôster em tela cheia",
       "union-boulangerie": "Foto sangrada, tipo minúsculo",
       "vercel": "Hero dividido com fileira de logos"
-    }
+    },
+    "copied": "Copiado",
+    "copyFailedShort": "Falha ao copiar",
+    "newTab": "(abre em nova aba)"
   },
   "what": {
     "catalogTitle": "O que não publicar",

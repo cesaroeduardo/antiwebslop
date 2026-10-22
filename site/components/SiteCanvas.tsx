@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Copy, X } from 'lucide-react';
+import { ArrowUpRight, Check, Copy, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { CanvasSite } from '@/lib/canvas-sites';
 
@@ -75,7 +75,20 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
   const opener = useRef<HTMLButtonElement | null>(null);
   const moved = useRef(0);
   const [open, setOpen] = useState<CanvasSite | null>(null);
-  const [copied, setCopied] = useState<CopyState>(null);
+  // copied: the short label swap inside the button (~1.5s); imageFailed keeps the Open the image fallback until close.
+  const [copied, setCopiedState] = useState<CopyState>(null);
+  const [announce, setAnnounce] = useState('');
+  const [imageFailed, setImageFailed] = useState(false);
+  const flashTimer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(flashTimer.current), []);
+  const setCopied = (state: CopyState) => {
+    setCopiedState(state);
+    window.clearTimeout(flashTimer.current);
+    if (!state) return;
+    setAnnounce(state.ok ? (state.kind === 'image' ? t('copiedImage') : t('copiedPrompt')) : t('copyFailed'));
+    if (state.kind === 'image' && !state.ok) setImageFailed(true);
+    flashTimer.current = window.setTimeout(() => setCopiedState(null), 1500);
+  };
 
   const paint = useCallback(() => {
     const { x, y } = pos.current;
@@ -266,6 +279,8 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
     document.documentElement.style.overflow = '';
     setOpen(null);
     setCopied(null);
+    setAnnounce('');
+    setImageFailed(false);
     opener.current?.focus({ preventScroll: true });
   };
 
@@ -324,34 +339,33 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
           <figure className="relative rounded-card border border-border bg-surface p-2 sm:p-3">
             <div className="flex flex-col gap-3 px-1 pb-3 pt-1 md:flex-row md:items-center md:justify-between md:gap-4">
               <figcaption className="min-w-0 pr-10 font-mono text-sm md:pr-0">
-                <span className="text-fg">{open.name}</span>
+                <a href={open.url} target="_blank" rel="noopener noreferrer" className="group/site inline-flex items-center gap-1 text-fg underline decoration-transparent underline-offset-[0.2em] transition-colors duration-150 hover:text-accent hover:decoration-accent focus-visible:text-accent focus-visible:decoration-accent">
+                  {open.name}
+                  <ArrowUpRight aria-hidden size={14} className="opacity-0 transition-opacity duration-150 group-hover/site:opacity-100 group-focus-visible/site:opacity-100" />
+                  <span className="sr-only">{t('newTab')}</span>
+                </a>
                 <span className="text-muted"> · {t('foundOn')} <a className="link" href={open.galleryUrl}>{open.gallery}</a></span>
                 <span className="block text-cap text-muted">{use(open)}</span>
               </figcaption>
               <div className="flex shrink-0 flex-wrap items-center gap-1 md:justify-end">
-                <button type="button" onClick={() => copyImage(open)} className="inline-flex items-center gap-1.5 rounded-control border border-border px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface-2">
-                  <Copy aria-hidden size={14} /> {t('copyImage')}
-                </button>
-                <button type="button" onClick={() => copyPrompt(open)} className="inline-flex items-center gap-1.5 rounded-control border border-border px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface-2">
-                  <Copy aria-hidden size={14} /> {t('copyPrompt')}
-                </button>
-                <a href={open.url} className="inline-flex items-center gap-1 rounded-control px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:bg-surface-2">
-                  <span className="hidden sm:inline">{t('openSite')}</span><span className="sm:hidden">{t('open')}</span> <ArrowUpRight aria-hidden size={14} />
-                </a>
-                <button type="button" data-close onClick={close} aria-label={t('close')} className="absolute right-2 top-2 inline-flex size-9 md:static items-center justify-center rounded-control text-fg transition-colors duration-150 hover:bg-surface-2">
+                {(['image', 'prompt'] as const).map((kind) => {
+                  const state = copied?.kind === kind ? copied : null;
+                  const Icon = state?.ok ? Check : Copy;
+                  return (
+                    <button key={kind} type="button" onClick={() => (kind === 'image' ? copyImage(open) : copyPrompt(open))} className="inline-flex items-center gap-1.5 rounded-control border border-border px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface-2">
+                      <Icon aria-hidden size={14} /> {state ? (state.ok ? t('copied') : t('copyFailedShort')) : kind === 'image' ? t('copyImage') : t('copyPrompt')}
+                    </button>
+                  );
+                })}
+                {imageFailed ? (
+                  <a className="link px-1 font-mono text-cap text-muted" href={`/canvas/${open.slug}.webp`} target="_blank" rel="noopener noreferrer">{t('openImage')}</a>
+                ) : null}
+                <button type="button" data-close onClick={close} aria-label={t('close')} className="absolute right-2 top-2 inline-flex size-9 items-center justify-center rounded-control text-fg transition-colors duration-150 hover:bg-surface-2 md:static">
                   <X aria-hidden size={18} />
                 </button>
               </div>
             </div>
-            <p role="status" aria-live="polite" className="min-h-[1.25rem] px-1 pb-2 font-mono text-cap text-muted">
-              {copied?.ok ? (copied.kind === 'image' ? t('copiedImage') : t('copiedPrompt')) : null}
-              {copied && !copied.ok ? (
-                <>
-                  {t('copyFailed')}{' '}
-                  {copied.kind === 'image' ? <a className="link text-fg" href={`/canvas/${open.slug}.webp`} target="_blank" rel="noopener noreferrer">{t('openImage')}</a> : null}
-                </>
-              ) : null}
-            </p>
+            <p role="status" aria-live="polite" className="sr-only">{announce}</p>
             <div className="relative overflow-hidden bg-bg" style={{ aspectRatio: '16 / 10' }}>
               <Image
                 src={`/canvas/${open.slug}.webp`}

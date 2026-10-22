@@ -38,8 +38,6 @@
     "region": "Lienzo de sitios reales. Arrastra o usa las flechas para explorar; abre una tarjeta para verla en grande.",
     "card": "{name}, encontrado en {gallery}. Abrir en grande.",
     "foundOn": "encontrado en",
-    "openSite": "Abrir sitio",
-    "open": "Abrir",
     "close": "Cerrar",
     "dialog": "{name}, captura de pantalla",
     "dialogEmpty": "Captura de pantalla",
@@ -66,7 +64,10 @@
       "twks": "Imagen póster a pantalla completa",
       "union-boulangerie": "Foto a sangre, tipo diminuto",
       "vercel": "Hero dividido con fila de logos"
-    }
+    },
+    "copied": "Copiado",
+    "copyFailedShort": "No se pudo copiar",
+    "newTab": "(se abre en una pestaña nueva)"
   },
   "what": {
     "catalogTitle": "Lo que no hay que publicar",

@@ -38,8 +38,6 @@
     "region": "Canvas of real sites. Drag or use the arrow keys to look around; open a card to see it large.",
     "card": "{name}, found on {gallery}. Open larger.",
     "foundOn": "found on",
-    "openSite": "Open site",
-    "open": "Open",
     "close": "Close",
     "dialog": "{name}, screenshot",
     "dialogEmpty": "Screenshot",
@@ -66,7 +64,10 @@
       "twks": "Full-screen poster image",
       "union-boulangerie": "Full-bleed photo, tiny type",
       "vercel": "Split hero with a logo row"
-    }
+    },
+    "copied": "Copied",
+    "copyFailedShort": "Copy failed",
+    "newTab": "(opens in new tab)"
   },
   "what": {
     "catalogTitle": "What not to ship",

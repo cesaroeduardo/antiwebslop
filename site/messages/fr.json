@@ -38,8 +38,6 @@
     "region": "Canevas de vrais sites. Faites glisser ou utilisez les flèches pour explorer ; ouvrez une carte pour la voir en grand.",
     "card": "{name}, trouvé sur {gallery}. Agrandir.",
     "foundOn": "trouvé sur",
-    "openSite": "Ouvrir le site",
-    "open": "Ouvrir",
     "close": "Fermer",
     "dialog": "{name}, capture d’écran",
     "dialogEmpty": "Capture d’écran",
@@ -66,7 +64,10 @@
       "twks": "Image affiche plein écran",
       "union-boulangerie": "Photo pleine page, typo minuscule",
       "vercel": "Hero scindé avec rangée de logos"
-    }
+    },
+    "copied": "Copié",
+    "copyFailedShort": "Échec de la copie",
+    "newTab": "(s’ouvre dans un nouvel onglet)"
   },
   "what": {
     "catalogTitle": "Ce qu’il ne faut pas publier",
