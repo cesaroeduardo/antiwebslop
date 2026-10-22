@@ -33,11 +33,9 @@
   --text-3xl: 3.157rem;
   --text-3xl--line-height: 1.05;
 
-  /* Two widths. Wide: hero, header and footer (1280px, the original page width). Content: every other section
-     (catalog, newer tells, install, eval, prior art), centered; it is the newer-tells image of the "words" row, which
-     was 524px (columns 2-7 of the 1120 page) when Eduardo picked it. Hero photo and references canvas stay full bleed. */
+  /* Page container: 1280px for every section, header and footer (narrowed to 1120, then split into 1280 + a 524px
+     content column, both undone on 2026-10-21 at Eduardo's call). Hero photo and references canvas stay full bleed. */
   --container-wide: 1280px;
-  --container-content: 524px;
 
   --radius-control: 6px;
   --radius-card: 10px;

@@ -64,13 +64,10 @@ const languages: LanguageOption[] = [
   { locale: 'fr', code: 'FR', name: 'Français', hrefLang: 'fr', href: localePath('fr') },
 ];
 
-/** Page section. Text sections sit in one centered content column, `max-w-content` (--container-content, the width of
-    the first newer-tells image); `wide` keeps the wide container (--container-wide, 1280px) the hero shares with the
-    header and the footer. */
-function Section({ id, children, className = '', wide = false }: { id?: string; children: React.ReactNode; className?: string; wide?: boolean }) {
+function Section({ id, children, className = '' }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
     <section id={id} className={`mx-auto w-full max-w-wide scroll-mt-6 px-4 sm:px-6 ${className}`}>
-      {wide ? children : <div className="mx-auto w-full max-w-content">{children}</div>}
+      {children}
     </section>
   );
 }
@@ -124,7 +121,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <main id="main" className="relative overflow-x-clip">
         {/* Hero: fills the first screen; on its bottom edge the headline (one sentence) takes the left 7 columns (2-4 lines) and the
             line plus the install command sit to its right, top-aligned with the headline's first line (after noone.is). */}
-        <Section id="top" wide className="flex min-h-[calc(100svh-76px)] flex-col justify-end pb-16 pt-12 md:pt-28">
+        <Section id="top" className="flex min-h-[calc(100svh-76px)] flex-col justify-end pb-16 pt-12 md:pt-28">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-start md:gap-6">
             <h1 className="text-[clamp(2rem,0.2rem+8.5vw,2.375rem)] font-medium leading-[1.02] tracking-[-0.04em] [text-wrap:balance] md:col-span-7 md:text-[2.5rem] lg:text-[clamp(3rem,0.5rem+3.9vw,4rem)]">
               {t('hero.title')}
@@ -144,38 +141,38 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
         {/* Catalog: heading column on the left, accordion rows on the right. */}
         <Section id="catalog" className="pt-32 md:pt-40">
-          <div className="flex flex-col gap-10">
-            <div>
-              <div>
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-6">
+            <div className="md:col-span-4">
+              <div className="md:sticky md:top-8">
                 <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('catalog.title')}</h2>
                 <p className="max-w-[40ch] text-base text-muted">{t('catalog.body')}</p>
               </div>
             </div>
-            <div>
+            <div className="md:col-span-8">
               <Catalog groups={catalog as CatalogGroup[]} />
             </div>
           </div>
         </Section>
 
-        {/* Newer tells: stacked media rows in the content column, no section title (aria-label only). Each row is the
-            image (the full column, 4:3, radius 57px, 38px under md), then its title, copy and rule chips.
-            Rows 120px apart (80 under md), 32px image-to-text. The first image is the width that defines --container-content. */}
+        {/* Newer tells: america.gov's stacked media rows, no section title (aria-label only). 12 columns: image at columns 2-7
+            (bigger than america.gov's 4, same proportions), one empty column, topic title, copy and rule chips at 9-12, vertically centered.
+            Rows 120px apart (80 under md); image radius 57px (38px under md); 40px image-to-chips on phones. */}
         <section id="gallery" aria-label={t('gallery.title')} className="mx-auto w-full max-w-wide scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
-          <ul className="mx-auto flex w-full max-w-content flex-col gap-20 md:gap-[120px]">
+          <ul className="flex flex-col gap-20 md:gap-[120px]">
             {tellRows.map((row) => (
-              <li key={row.key} className="flex flex-col gap-8" data-reveal>
-                <figure className="relative aspect-[4/3] w-full overflow-hidden rounded-media bg-surface">
+              <li key={row.key} className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-x-6" data-reveal>
+                <figure className="relative aspect-[4/3] w-full overflow-hidden rounded-media bg-surface md:col-span-6 md:col-start-2">
                   <Image
                     src="/slots/newer-tells.webp"
                     alt={t(`gallery.${row.key}Alt`)}
                     fill
-                    sizes={row.zoom ? '(min-width: 600px) 1280px, 240vw' : '(min-width: 600px) 524px, 100vw'}
+                    sizes={row.zoom ? '(min-width: 768px) 1600px, 200vw' : '(min-width: 1280px) 604px, (min-width: 768px) 50vw, 100vw'}
                     priority={false}
                     className="object-cover"
                     style={row.zoom ? { transform: `scale(${row.zoom})`, transformOrigin: row.origin } : undefined}
                   />
                 </figure>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-8 md:col-span-4 md:col-start-9">
                   <div className="flex flex-col gap-4">
                     <h2 className="text-xl font-medium tracking-[-0.02em] md:text-2xl">{t(`gallery.${row.key}Title`)}</h2>
                     <p className="max-w-[34ch] text-body text-muted">{t(`gallery.${row.key}Body`)}</p>
@@ -197,8 +194,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <h2 className="mb-8 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('install.title')}</h2>
           <ul className="border-t border-border" data-reveal>
             {install.map((row) => (
-              <li key={row.agent} className="group grid grid-cols-1 gap-3 border-b border-border py-4">
-                <span className="flex items-center gap-3 font-mono text-sm text-fg">
+              <li key={row.agent} className="group grid grid-cols-1 gap-3 border-b border-border py-4 md:grid-cols-12 md:items-start md:gap-6">
+                <span className="flex items-center gap-3 font-mono text-sm text-fg md:col-span-3 md:pt-2">
                   {/* Monochrome mark as a CSS mask, so it takes the page ink and the accent on row hover. Decorative: the name is the label. */}
                   {row.logo ? (
                     <span
@@ -209,7 +206,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   ) : null}
                   {row.agent}
                 </span>
-                <div className="flex min-w-0 items-start gap-2">
+                <div className="flex min-w-0 items-start gap-2 md:col-span-9">
                   <code className="min-w-0 flex-1 whitespace-pre-wrap rounded-control bg-surface px-3 py-2 font-mono text-cap leading-relaxed text-fg [overflow-wrap:anywhere] sm:text-sm">{row.command}</code>
                   <CopyCommand command={row.command} label={t('install.rowLabel', { agent: row.agent })} />
                 </div>
@@ -226,8 +223,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <p className="text-base text-muted">{t('eval.intro')}</p>
           </div>
 
-          <div className="flex flex-col gap-16 pt-12 md:pt-16">
-            <ol className="relative" data-reveal aria-label={t('eval.protocolAria')}>
+          <div className="grid grid-cols-1 gap-16 pt-12 md:grid-cols-12 md:gap-6 md:pt-16">
+            <ol className="relative md:col-span-7 md:pr-12" data-reveal aria-label={t('eval.protocolAria')}>
               {protocolSteps.map((step) => (
                 <li key={step.key} className="relative grid grid-cols-1 gap-3 border-l border-border-strong pb-12 pl-6 last:border-l-transparent last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-6 sm:pl-8">
                   <span aria-hidden className="absolute -left-[5px] top-[0.4rem] size-[9px] bg-fg" />
@@ -243,8 +240,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               ))}
             </ol>
 
-            <aside aria-label={t('eval.asideAria')}>
-              <figure className="rounded-card border border-border bg-surface p-5 sm:p-6">
+            <aside className="md:col-span-5" aria-label={t('eval.asideAria')}>
+              <figure className="rounded-card border border-border bg-surface p-5 sm:p-6 md:sticky md:top-8">
                 <figcaption className="mb-5 flex items-baseline justify-between gap-4 font-mono text-cap text-muted">
                   <span>{t('eval.scaleCaption')}</span>
                   <span className="tabular-nums text-fg">{t('eval.scaleTotal')}</span>
@@ -282,7 +279,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         {/* Prior art: credits for the work this builds on. */}
         <Section id="prior-art" className="pb-32 md:pb-40">
           <h2 className="mb-6 text-lg font-medium">{t('compare.priorArt')}</h2>
-          <ul lang="en" className="flex flex-col gap-4">
+          <ul lang="en" className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
             {priorArt.map((p) => (
               <li key={p.name} className="prose-inline text-sm text-muted">
                 <a className="link text-fg" href={p.url}>{p.name}</a>

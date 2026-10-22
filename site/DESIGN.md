@@ -55,7 +55,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 
 ## 6. Spacing and layout
 - Scale: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 192 (Tailwind steps 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48).
-- Widths, two tokens: **wide 1280px** (`--container-wide`, `max-w-wide`) for the hero, the header and the footer, 12 columns, gutter 24px, page margin 24px (16px under 640px); **content 524px** (`--container-content`, `max-w-content`) for every other section (catalog, newer tells, install, eval, prior art), centered, text left-aligned on its edge. The content width is the newer-tells "words" image. The hero photo and the references canvas stay full bleed.
+- Grid: 12 columns, max-width 1280px (`--container-wide`, `max-w-wide`; a 1120px page and a 524px content column were tried on 2026-10-21 and undone), gutter 24px, page margin 24px (16px under 640px).
 - Section order: hero → references canvas → catalog → gallery → install → how we measure it → prior art → footer.
 - Section padding varies by job: hero fills the first screen, content on its bottom edge, 64 bottom; references canvas 128 (192 md) with no intro text, then full-bleed; catalog, newer tells, install and eval 128 (160 md), eval also at the bottom; newer-tells rows 80 apart (120 md); prior art 128/160 bottom; footer 64.
 
@@ -163,9 +163,9 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Context:** Eduardo found the "what it does" bento (Proof, not taste / What not to ship / One brief per project / Flagged on every write) redundant with the sections below it.
 - **Decision:** removed. The page goes hero → references canvas → catalog → newer tells → install → eval → prior art. The back-to-top button keys on the catalog, now the third section.
 
-### 2026-10-21 — Two widths: wide and content
-- **Context:** Eduardo found the page too wide (1280 → 1120 earlier the same day), then asked for one shared width set by the newer-tells image of the "words dressed up as design" row (524px at the time), with the hero, header and footer back at the original width.
-- **Decision:** two tokens. `--container-wide: 1280px` for hero, header and footer; `--container-content: 524px` for catalog, newer tells, install, eval and prior art, centered. The 1120 page token is gone. Catalog header stacks above the accordion; newer-tells rows stack image over title, copy and chips; install rows stack name over command; eval's timeline stacks above the scorecard. If the newer-tells media frame changes size, change the content token, nothing else.
+### 2026-10-21 — Back to one 1280px width
+- **Context:** the 524px content column (the newer-tells image width) stacked the newer-tells rows, catalog, install and eval; Eduardo did not like it.
+- **Decision:** every section is back on the 1280px container with its earlier multi-column layout: newer-tells image and text side by side, catalog header beside the accordion, install name beside the command, eval timeline beside the scorecard. One width token, `--container-wide`.
 
 ## 12. References
 - Layout patterns (borrowed, not copied): useplanes.com (edgeless draggable card canvas, unequal feature cards, two-column FAQ with stacked accordion rows, link-column footer with a cropped wordmark), america.gov (stacked rounded media rows with the topic beside them), noone.is (headline bottom-left with copy and actions to its right, big tightly cropped imagery bleeding off the edge, image labels set inside the image).
