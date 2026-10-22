@@ -98,8 +98,8 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 - **Do instead:** Say what the product does, for whom, with a concrete noun and number: *"Track every Pokémon Unite match you play, with per-hero win rates."*
 
 ### 21. Generic CTAs (`lint: generic-cta`, warn)
-- **Detect:** "Get Started", "Learn More", "Sign Up Now", "Try it free" as the only CTA text.
-- **Do instead:** Name the action and object: "Open the build wheel", "Import my matches".
+- **Detect:** "Get Started", "Learn More", "View more", "Sign Up Now", "Try it free" as the only CTA text; the same link or button label under every card in a grid (six "View more" links weigh the whole block).
+- **Do instead:** Name the action and object: "Open the build wheel", "Import my matches". In lists, use one section-level action, an icon-only control with a tooltip, or reveal the control on row hover — do not repeat the same CTA label on every card.
 
 ### 22. Fake social proof and metrics (`lint: fake-proof`, warn; `lint: placeholder-name`, warn)
 - **Detect:** "Trusted by 10,000+ teams", "10x faster", "99.9% uptime", testimonials from "Jane Doe, CEO at Acme", logo walls of companies that are not customers.
@@ -158,3 +158,7 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 ### 35. Off-system values (`lint: token-font`, `token-color`, `token-radius`, warn)
 - **Detect:** fonts, hex colors, or radii in code that are not in the project's DESIGN.md `design-tokens` block.
 - **Do instead:** Use a documented token. If the new value is intentional, add it to DESIGN.md first (and log why), then use it.
+
+### 36. Trailing-period wordmark (`lint: period-logo`, warn)
+- **Detect:** a brand or logo lockup that ends with a decorative period ("Acme.", "Linear.", "`<CYBER./>`"). Common in Claude/ChatGPT-invented marks.
+- **Do instead:** Drop the trailing dot. Periods belong in sentences, not in the name of the product.

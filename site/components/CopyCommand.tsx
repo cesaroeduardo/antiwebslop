@@ -43,6 +43,7 @@ export function CopyCommand({ command, label }: Props) {
   };
 
   const Icon = copied ? Check : Copy;
+  const tip = copied ? t('copied') : t('button');
 
   return (
     <div className="flex w-full max-w-[640px] items-stretch gap-2 rounded-card border border-border bg-surface py-2 pl-4 pr-2">
@@ -54,10 +55,15 @@ export function CopyCommand({ command, label }: Props) {
         type="button"
         onClick={onCopy}
         aria-label={copied ? t('ariaCopied', { label }) : t('aria', { label })}
-        className="inline-flex h-9 shrink-0 items-center justify-center gap-1.5 self-center rounded-control border border-border bg-surface-2 px-3 font-mono text-sm text-fg transition-[background-color,border-color,opacity] duration-150 hover:border-border-strong hover:opacity-90 active:opacity-80"
+        className="group/copy relative inline-flex size-9 shrink-0 items-center justify-center self-center rounded-control border border-border bg-surface-2 text-fg transition-[background-color,border-color,opacity] duration-150 hover:border-border-strong hover:opacity-90 active:opacity-80"
       >
         <Icon aria-hidden size={16} strokeWidth={2} />
-        <span>{copied ? t('copied') : t('button')}</span>
+        <span
+          role="tooltip"
+          className="pointer-events-none absolute bottom-[calc(100%+6px)] left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-control border border-border bg-surface-2 px-2 py-1 font-mono text-cap text-fg opacity-0 shadow-none transition-opacity duration-150 group-hover/copy:opacity-100 group-focus-visible/copy:opacity-100"
+        >
+          {tip}
+        </span>
       </button>
       <span className="sr-only" role="status" aria-live="polite">{copied ? t('status', { label }) : ''}</span>
     </div>

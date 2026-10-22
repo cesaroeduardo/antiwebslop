@@ -1,7 +1,7 @@
 {
   "version": "0.2.0",
-  "ruleCount": 31,
-  "catalogCount": 35,
+  "ruleCount": 32,
+  "catalogCount": 36,
   "catalog": [
     {
       "title": "Color and surface",
@@ -270,8 +270,8 @@
             }
           ],
           "review": null,
-          "detect": "\"Get Started\", \"Learn More\", \"Sign Up Now\", \"Try it free\" as the only CTA text.",
-          "instead": "Name the action and object: \"Open the build wheel\", \"Import my matches\"."
+          "detect": "\"Get Started\", \"Learn More\", \"View more\", \"Sign Up Now\", \"Try it free\" as the only CTA text; the same link or button label under every card in a grid (six \"View more\" links weigh the whole block).",
+          "instead": "Name the action and object: \"Open the build wheel\", \"Import my matches\". In lists, use one section-level action, an icon-only control with a tooltip, or reveal the control on row hover — do not repeat the same CTA label on every card."
         },
         {
           "n": 22,
@@ -453,6 +453,19 @@
           "review": null,
           "detect": "fonts, hex colors, or radii in code that are not in the project's DESIGN.md `design-tokens` block.",
           "instead": "Use a documented token. If the new value is intentional, add it to DESIGN.md first (and log why), then use it."
+        },
+        {
+          "n": 36,
+          "title": "Trailing-period wordmark",
+          "lints": [
+            {
+              "id": "period-logo",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a brand or logo lockup that ends with a decorative period (\"Acme.\", \"Linear.\", \"`<CYBER./>`\"). Common in Claude/ChatGPT-invented marks.",
+          "instead": "Drop the trailing dot. Periods belong in sentences, not in the name of the product."
         }
       ]
     }
@@ -540,7 +553,7 @@
           "loc": "landing.html:23",
           "severity": "warn",
           "rule": "generic-cta",
-          "msg": "generic CTA text; name the action and object"
+          "msg": "generic CTA text; name the action and object (or drop repeated View more / Learn more on every card)"
         },
         {
           "loc": "landing.html:24",
@@ -667,7 +680,7 @@
       "info": 0
     }
   },
-  "hookReply": "slop-lint (design check) on the file you just wrote: 9 error, 8 warn.\nsrc\\landing.html:6 error cream-terracotta: stock \"AI editorial\" cream/terracotta palette\nsrc\\landing.html:7 error purple-gradient: purple/indigo/violet gradient or glow; derive color from the brand\nsrc\\landing.html:8 error gradient-text: gradient-text headline; use solid ink and weight/size for emphasis\nsrc\\landing.html:9 warn glassmorphism: backdrop blur; use opaque surfaces unless content really scrolls underneath\nsrc\\landing.html:10 warn blur-blob: decorative blur blob/orb; use real imagery or space\nsrc\\landing.html:11 error transition-all: transition all; list properties (opacity, transform)\nsrc\\landing.html:12 warn outline-none: focus outline removed; add a focus-visible replacement\nsrc\\landing.html:13 warn cream-terracotta: stock \"AI editorial\" cream/terracotta palette\nsrc\\landing.html:14 warn motion-no-reduce: animation without prefers-reduced-motion / motion-safe guard\nsrc\\landing.html:20 error emoji-decoration: emoji used as bullet/icon/badge; use real markers, an icon set, or nothing\nsrc\\landing.html:21 error slop-copy: generic AI marketing copy; say what the product does, concretely\nsrc\\landing.html:22 error slop-copy: generic AI marketing copy; say what the product does, concretely\nsrc\\landing.html:23 warn generic-cta: generic CTA text; name the action and object\nsrc\\landing.html:24 warn fake-proof: unverified social proof or metric; use real, sourced data or remove\nsrc\\landing.html:27 error emoji-decoration: emoji used as bullet/icon/badge; use real markers, an icon set, or nothing\nsrc\\landing.html:29 warn placeholder-name: placeholder person/company; fake testimonials must not ship\nsrc\\landing.html:30 error slop-copy: generic AI marketing copy; say what the product does, concretely\nFix every error. For each warn, fix it or keep it with a one-line reason in a `slop-lint-disable-line` comment.",
+  "hookReply": "slop-lint (design check) on the file you just wrote: 9 error, 8 warn.\nsrc\\landing.html:6 error cream-terracotta: stock \"AI editorial\" cream/terracotta palette\nsrc\\landing.html:7 error purple-gradient: purple/indigo/violet gradient or glow; derive color from the brand\nsrc\\landing.html:8 error gradient-text: gradient-text headline; use solid ink and weight/size for emphasis\nsrc\\landing.html:9 warn glassmorphism: backdrop blur; use opaque surfaces unless content really scrolls underneath\nsrc\\landing.html:10 warn blur-blob: decorative blur blob/orb; use real imagery or space\nsrc\\landing.html:11 error transition-all: transition all; list properties (opacity, transform)\nsrc\\landing.html:12 warn outline-none: focus outline removed; add a focus-visible replacement\nsrc\\landing.html:13 warn cream-terracotta: stock \"AI editorial\" cream/terracotta palette\nsrc\\landing.html:14 warn motion-no-reduce: animation without prefers-reduced-motion / motion-safe guard\nsrc\\landing.html:20 error emoji-decoration: emoji used as bullet/icon/badge; use real markers, an icon set, or nothing\nsrc\\landing.html:21 error slop-copy: generic AI marketing copy; say what the product does, concretely\nsrc\\landing.html:22 error slop-copy: generic AI marketing copy; say what the product does, concretely\nsrc\\landing.html:23 warn generic-cta: generic CTA text; name the action and object (or drop repeated View more / Learn more on every card)\nsrc\\landing.html:24 warn fake-proof: unverified social proof or metric; use real, sourced data or remove\nsrc\\landing.html:27 error emoji-decoration: emoji used as bullet/icon/badge; use real markers, an icon set, or nothing\nsrc\\landing.html:29 warn placeholder-name: placeholder person/company; fake testimonials must not ship\nsrc\\landing.html:30 error slop-copy: generic AI marketing copy; say what the product does, concretely\nFix every error. For each warn, fix it or keep it with a one-line reason in a `slop-lint-disable-line` comment.",
   "comparison": [
     [
       "Size",

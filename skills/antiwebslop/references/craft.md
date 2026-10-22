@@ -43,6 +43,7 @@ Defaults for when the project's tokens and `DESIGN.md` are silent. Project value
 - One primary thing per viewport. Make the most important element clearly bigger or heavier; demote everything else.
 - Use at most 3 levels of emphasis per section (primary, secondary, muted).
 - One primary button per view; secondary actions are ghost or text links.
+- In repeating rows or cards, do not stamp the same labeled CTA on every item ("Copy", "Open", "Edit", "View more", "Learn more"). Prefer an icon-only control with a tooltip, a control that appears on row hover, or one section-level action — so the screen stays light. Keep a clear `aria-label` (and live status when needed) when the visible label is hidden.
 - Test: blur the screenshot (or squint). You should still see what to read first and where to click.
 
 ## Copy and real content
@@ -50,6 +51,7 @@ Defaults for when the project's tokens and `DESIGN.md` are silent. Project value
 - Headline = what it is + who it is for + why it is different, in ≤ 12 words. Concrete nouns, numbers, and names over adjectives.
 - Subhead adds the proof or the mechanism; it does not repeat the headline.
 - CTA = verb + object ("Spin a build", "Import matches").
+- Do not invent a wordmark that ends with a period ("Acme.", "Brand."). That trailing-dot lockup is a common LLM branding tic; drop the period.
 - Use real data, screenshots, and product names from the repo. If content is missing, write `TODO(content): …` and say so in the reply; never invent testimonials, logos, or metrics.
 
 ## Imagery

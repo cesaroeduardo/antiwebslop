@@ -10,6 +10,7 @@ import { SlopDemo } from '@/components/SlopDemo';
 import { Inline } from '@/components/Inline';
 import { Motion } from '@/components/Motion';
 import { BackToTop } from '@/components/BackToTop';
+import { FooterMark } from '@/components/FooterMark';
 import { Wordmark } from '@/components/Wordmark';
 import { LanguageSelect, type LanguageOption } from '@/components/LanguageSelect';
 import { localePath } from '@/i18n/routing';
@@ -24,37 +25,24 @@ const rich = {
 };
 
 /** One row per agent: logo (public/logos/, see SOURCES.md), name, command. No side notes. */
-const installRows = (t: T): { agent: string; logo?: string; command: string }[] => [
-  { agent: t('install.anyAgent'), command: INSTALL_ANY },
+const installRows = (t: T): { agent: string; logo?: string; logoSize?: string; command: string }[] => [
   { agent: 'Cursor', logo: 'cursor', command: 'npx skills add cesaroeduardo/antiwebslop -a cursor' },
   { agent: 'Codex', logo: 'openai', command: 'codex plugin marketplace add cesaroeduardo/antiwebslop && codex plugin add antiwebslop@antiwebslop' },
-  { agent: 'Claude Code', logo: 'claude', command: 'claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop' },
-  { agent: 'Grok Bot', logo: 'grok', command: 'Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)' },
+  { agent: 'Code', logo: 'claude', command: 'claude plugin marketplace add cesaroeduardo/antiwebslop && claude plugin install antiwebslop@antiwebslop' },
+  // Grok’s line mark reads smaller than solid marks at the same box — bump optical size.
+  { agent: 'Grok', logo: 'grok', logoSize: 'size-6', command: 'Save the antiwebslop skill from https://github.com/cesaroeduardo/antiwebslop (folder skills/antiwebslop)' },
+  { agent: t('install.anyAgent'), command: INSTALL_ANY },
 ];
-
-const protocolSteps: { key: 'setup' | 'run' | 'blind' | 'decide'; source: string }[] = [
-  { key: 'setup', source: 'ab-protocol.md' },
-  { key: 'run', source: 'ab-protocol.md' },
-  { key: 'blind', source: 'ab-protocol.md' },
-  { key: 'decide', source: 'rubric.md' },
-];
-
-/** Score ink: the accent mixed toward the cream ink by (pts/20)², so weight reads clearly: A 20 = 100%, B 12 = 36%, C 10 = 25%. */
-const scoreInk = (pts?: number) => `color-mix(in oklab, var(--color-accent) ${Math.round(((pts ?? 0) / 20) ** 2 * 100)}%, var(--color-fg))`;
-
-const scorecard: { key: 'A' | 'B' | 'C' | 'D'; pts?: number }[] = [{ key: 'A', pts: 20 }, { key: 'B', pts: 12 }, { key: 'C', pts: 10 }, { key: 'D' }];
 
 /** The newer tells: HTML cutouts (not photos). Each row shows a focused slop mock that the skill tags on scroll. */
-const tellRows: { key: 'words' | 'icons' | 'numbering' | 'loops' | 'placeholders'; rules: string[] }[] = [
+const tellRows: { key: 'words' | 'icons' | 'loops' | 'placeholders'; rules: string[] }[] = [
   { key: 'words', rules: ['eyebrow-kicker', 'em-dash-overuse', 'not-x-a-y'] },
-  { key: 'loops', rules: ['attention-loop', 'bounce-easing'] },
-  { key: 'placeholders', rules: ['svg-placeholder'] },
-  { key: 'icons', rules: ['icon-soup', 'slop-copy'] },
-  { key: 'numbering', rules: ['section-number', 'side-tab-border'] },
+  { key: 'loops', rules: ['attention-loop', 'bounce-easing', 'period-logo'] },
+  { key: 'placeholders', rules: ['svg-placeholder', 'blur-blob'] },
+  { key: 'icons', rules: ['icon-soup', 'generic-cta', 'side-tab-border'] },
 ];
 
-const nav: [string, 'references' | 'install'][] = [
-  ['#references', 'references'],
+const nav: [string, 'install'][] = [
   ['#install', 'install'],
 ];
 
@@ -98,8 +86,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           alt=""
           fill
           priority
+          quality={85}
           sizes="100vw"
-          className="object-cover object-[47%_22%] md:object-[50%_28%]"
+          placeholder="blur"
+          blurDataURL="data:image/webp;base64,UklGRtoAAABXRUJQVlA4IM4AAAAQBgCdASoYABgAPu1sq1EppaOiqAqpMB2JQBOmYxDdq1Ac2BufaZKsvobR8TNRaibHOIAdiFwKHwAAyjRhup25dUrnD71y2a/11ORFW9bLvTwviRyc6uczR5eEWLCdsI8updqP7hzCPojWY3/t8T+/aytfKI2mOLwxtGPwdVhbRoOiKJI/hkjvFkgAQ+8HG29WO244la88esWGtBG3J7evrDEFsrWL58rZDh2XqtV+IHYAV1klWWy8ue0uYiz2XpT+SXYjQc8xgTei9ZgAAA=="
+          className="object-cover object-[28%_38%] md:object-[32%_42%]"
         />
         <div className="absolute inset-0 bg-linear-to-t from-bg from-12% via-bg/85 via-40% to-transparent to-80%" />
         <div className="absolute inset-0 bg-linear-to-r from-bg/70 to-transparent to-55%" />
@@ -108,11 +99,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <div aria-hidden className="site-noise pointer-events-none fixed inset-0 z-40 opacity-10 mix-blend-overlay motion-reduce:hidden" />
 
       <header className="relative mx-auto flex w-full max-w-wide items-center justify-between gap-3 px-4 py-5 sm:gap-6 sm:px-6">
-        <a href="#top" aria-label={t('common.backToTop')} className="shrink-0 text-base sm:text-lg"><Wordmark /></a>
+        <a href="#top" aria-label={t('common.backToTop')} className="shrink-0"><Wordmark /></a>
         <nav aria-label={t('common.sections')} className="flex min-w-0 items-center gap-0 font-mono text-sm sm:gap-1">
           <ul className="flex items-center">
             {nav.map(([href, key]) => (
-              <li key={href} className={key === 'references' ? 'hidden sm:block' : 'hidden min-[440px]:block'}><a href={href} className="inline-block rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg sm:px-3">{t(`nav.${key}`)}</a></li>
+              <li key={href} className="hidden min-[440px]:block"><a href={href} className="inline-block rounded-control px-2 py-2 text-muted transition-colors duration-150 hover:text-fg sm:px-3">{t(`nav.${key}`)}</a></li>
             ))}
           </ul>
           <div className="flex items-center gap-1.5 sm:ml-2 sm:gap-2">
@@ -138,9 +129,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   href={REPO}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-11 items-center justify-center rounded-control bg-accent px-4 font-mono text-sm font-medium text-accent-fg transition-opacity duration-150 hover:opacity-90 active:opacity-80"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-control bg-accent px-4 font-mono text-sm font-medium text-accent-fg transition-opacity duration-150 hover:opacity-90 active:opacity-80"
                 >
                   {t('hero.readDocs')}
+                  <svg aria-hidden viewBox="0 0 16 16" width="15" height="15" fill="currentColor" className="shrink-0">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+                  </svg>
                   <span className="sr-only"> {t('github.newTab')}</span>
                 </a>
                 <a
@@ -187,97 +181,44 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </section>
 
         {/* Catalog: accordion rows only (section title stays in aria-label). */}
-        <Section id="catalog" className="max-w-[1100px] pt-32 md:pt-40" aria-label={t('catalog.title')}>
+        <Section id="catalog" className="max-w-[1000px] pt-32 md:pt-40" aria-label={t('catalog.title')}>
           <Catalog groups={catalog as CatalogGroup[]} />
         </Section>
 
-        {/* Install: dense rows, one per agent: logo and name, then the command with its copy button top-aligned. One left edge:
-            heading, the first logo (or the name of a row without one, Any agent) and every command field start on it. */}
+        {/* Install: full-width hairlines; equal 1fr side tracks center the logo + 640px prompt columns. */}
         <Section id="install" className="max-w-[1100px] pt-32 md:pt-40">
-          <h2 className="mb-8 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('install.title')}</h2>
-          <ul className="border-t border-border" data-reveal>
+          <h2 className="mb-8 text-center text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('install.title')}</h2>
+          <ul
+            className="install-rules relative grid grid-cols-1 md:grid-cols-[1fr_max-content_minmax(0,40rem)_1fr]"
+            data-reveal
+          >
             {install.map((row) => (
-              <li key={row.agent} className="group grid grid-cols-1 gap-3 border-b border-border py-4 md:grid-cols-12 md:items-start md:gap-6">
-                <span className="flex items-center gap-3 font-mono text-sm text-fg md:col-span-3 md:pt-2">
-                  {/* Monochrome mark as a CSS mask, so it takes the page ink and the accent on row hover. Decorative: the name is the label. */}
+              <li
+                key={row.agent}
+                className="group relative grid grid-cols-1 gap-3 px-5 py-4 sm:px-6 md:col-span-4 md:grid-cols-subgrid md:items-center md:gap-x-8 md:px-8"
+              >
+                <span className="hidden md:block" aria-hidden />
+                <span className="flex items-center gap-3 font-mono text-sm text-fg">
                   {row.logo ? (
                     <span
                       aria-hidden
-                      className="size-[18px] shrink-0 bg-fg transition-colors duration-150 group-hover:bg-accent group-focus-within:bg-accent"
+                      className={`${row.logoSize ?? 'size-[18px]'} shrink-0 bg-fg transition-colors duration-150 group-hover:bg-accent group-focus-within:bg-accent`}
                       style={{ mask: `url(/logos/${row.logo}.svg) center / contain no-repeat`, WebkitMask: `url(/logos/${row.logo}.svg) center / contain no-repeat` }}
                     />
                   ) : null}
                   {row.agent}
                 </span>
-                <div className="min-w-0 md:col-span-9">
+                <div className="min-w-0">
                   <CopyCommand command={row.command} label={t('install.rowLabel', { agent: row.agent })} />
                 </div>
+                <span className="hidden md:block" aria-hidden />
               </li>
             ))}
           </ul>
         </Section>
 
-        {/* Eval: the A/B protocol as a short four-phase timeline on the left; the 42-point scorecard drawn to scale on the right. */}
-        <Section id="eval" className="max-w-[1100px] pb-32 pt-32 md:pb-40 md:pt-40">
-          <div className="border-b border-border pb-10">
-            <h2 className="text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('eval.title')}</h2>
-          </div>
-
-          <div className="grid grid-cols-1 gap-16 pt-12 md:grid-cols-12 md:gap-6 md:pt-16">
-            <ol className="relative md:col-span-7 md:pr-12" data-reveal aria-label={t('eval.protocolAria')}>
-              {protocolSteps.map((step) => (
-                <li key={step.key} className="relative grid grid-cols-1 gap-3 border-l border-border-strong pb-12 pl-6 last:border-l-transparent last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-6 sm:pl-8">
-                  <span aria-hidden className="absolute -left-[5px] top-[0.4rem] size-[9px] bg-fg" />
-                  <p className="font-mono text-cap text-muted">
-                    <span className="block text-sm text-fg">{t(`eval.${step.key}Phase`)}</span>
-                    <a className="link block" href={blob(`eval/${step.source}`)}>{step.source}</a>
-                  </p>
-                  <div>
-                    <h3 className="mb-2 text-lg font-medium">{t(`eval.${step.key}Title`)}</h3>
-                    <p className="max-w-[48ch] text-base text-muted">{t(`eval.${step.key}Short`)}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-
-            <aside className="md:col-span-5" aria-label={t('eval.asideAria')}>
-              <figure className="rounded-card border border-border bg-surface p-5 sm:p-6 md:sticky md:top-8">
-                <figcaption className="mb-5 flex items-baseline justify-between gap-4 font-mono text-cap text-muted">
-                  <span>{t('eval.scaleCaption')}</span>
-                  <span className="tabular-nums text-fg">{t('eval.scaleTotal')}</span>
-                </figcaption>
-                {/* Max points from eval/rubric.md (no runs logged, so no achieved scores). Ink strength follows weight:
-                    A 20 is the full accent, B 12 and C 10 mix the accent with the cream ink by (pts/20)²; D is a neutral dashed gate. */}
-                <div className="flex h-16 gap-1 font-mono text-cap" aria-hidden>
-                  {scorecard.filter((s) => s.pts).map((s) => (
-                    <span key={s.key} className="flex items-end p-2 text-accent-fg" style={{ flexGrow: s.pts ?? 0, flexBasis: 0, background: scoreInk(s.pts) }}>{s.key}</span>
-                  ))}
-                  <span className="flex w-12 shrink-0 items-end border border-dashed border-border-strong p-2 text-muted">D</span>
-                </div>
-                <dl className="mt-6 grid grid-cols-[max-content_1fr] gap-x-6">
-                  {scorecard.map((s) => (
-                    <div key={s.key} className={`col-span-2 grid grid-cols-subgrid items-baseline py-4 ${s.pts ? 'border-t border-border' : 'border-t border-dashed border-border-strong'}`}>
-                      <dt className="text-sm text-fg">
-                        <span className="mr-2 font-mono text-cap text-muted">{s.key}</span>{t(`rubric.${s.key}`)}
-                        {s.pts ? null : <span className="block font-mono text-cap text-muted">{t('eval.passFail')}</span>}
-                      </dt>
-                      <dd className="order-first font-mono font-medium leading-none tracking-[-0.04em] tabular-nums" style={{ color: s.pts ? scoreInk(s.pts) : undefined }}>
-                        {s.pts ? (
-                          <><span className="text-[2.75rem] sm:text-[3.25rem]">{s.pts}</span><span className="ml-1 text-cap font-normal tracking-normal text-muted">{t('eval.pts')}</span></>
-                        ) : (
-                          <span className="text-xl text-muted sm:text-2xl">{t('eval.gate')}</span>
-                        )}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </figure>
-            </aside>
-          </div>
-        </Section>
-
         {/* Prior art: the references the skill draws on, credited. */}
-        <Section id="prior-art" className="pb-32 md:pb-40">
+        <Section id="prior-art" className="max-w-[1100px] pb-32 pt-32 md:pb-40 md:pt-40">
           <h2 className="mb-6 text-lg font-medium">{t('compare.priorArt')}</h2>
           <ul lang="en" className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
             {priorArt.map((p) => (
@@ -312,13 +253,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </nav>
           ))}
         </div>
-        <div className="mx-auto flex w-full max-w-wide flex-wrap justify-between gap-2 border-t border-border px-4 py-6 font-mono text-cap text-muted sm:px-6">
+        <div className="fade-rule-t mx-auto flex w-full max-w-wide flex-wrap justify-between gap-2 px-4 py-6 font-mono text-cap text-muted sm:px-6">
           <span>{t('footer.rights')}</span>
           <span>v{version}</span>
         </div>
-        <p aria-hidden className="pointer-events-none -mb-[0.32em] select-none whitespace-nowrap px-2 text-center font-mono text-[clamp(3rem,15vw,16rem)] font-medium leading-none tracking-[-0.04em] text-surface-2">
-          antiwebslop
-        </p>
+        <FooterMark />
       </footer>
     </>
   );

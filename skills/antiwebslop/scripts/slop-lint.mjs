@@ -50,9 +50,9 @@ const LINE_RULES = [
          /\bcutting[- ]edge\b/i, /\bharness(?:ing)? the power\b/i, /\bempower(?:s|ing)? (?:you|your|teams|developers|businesses)\b/i,
          /\beffortless(?:ly)?\b/i, /\bin today'?s fast[- ]paced\b/i, /\bbuilt for the future\b/i, /\bunleash\b/i,
          /\b(?:best|world)[- ]class\b/i, /\btransform the way\b/i, /\blorem ipsum\b/i] },
-  { id: 'generic-cta', severity: 'warn', msg: 'generic CTA text; name the action and object',
-    re: [/>\s*(?:Get Started(?: Free| Now| Today)?|Learn More|Sign Up Now|Start Now|Try (?:it )?(?:for )?free)\s*(?:<|\{|$)/i,
-         /(?:label|text|title|cta)\s*[:=]\s*["'`](?:Get Started|Learn More|Sign Up Now)["'`]/i] },
+  { id: 'generic-cta', severity: 'warn', msg: 'generic CTA text; name the action and object (or drop repeated View more / Learn more on every card)',
+    re: [/>\s*(?:Get Started(?: Free| Now| Today)?|Learn More|View [Mm]ore|Sign Up Now|Start Now|Try (?:it )?(?:for )?free)\s*(?:<|\{|$)/i,
+         /(?:label|text|title|cta)\s*[:=]\s*["'`](?:Get Started|Learn More|View [Mm]ore|Sign Up Now)["'`]/i] },
   { id: 'fake-proof', severity: 'warn', msg: 'unverified social proof or metric; use real, sourced data or remove',
     re: [/\b(?:trusted|loved|used|relied on) by\s+(?:over\s+|more than\s+)?[\d.,]+\s*[kKmM]?\+?/i,
          /\bjoin\s+(?:over\s+|more than\s+)?[\d.,]+\s*[kKmM]?\+?\s+(?:teams|users|developers|companies|customers|creators|players|people)\b/i,
@@ -86,6 +86,10 @@ const LINE_RULES = [
          /import\s*\{[^}]*\b(?:Inter|Roboto)\b[^}]*\}\s*from\s*["']next\/font\/google["']/, /fonts\.googleapis\.com\/css2?\?family=(?:Inter|Roboto)\b/] },
   { id: 'three-col-grid', severity: 'info', msg: '3-column grid: make sure it is not three equal feature cards',
     re: [/(?:^|[\s"'`])(?:sm:|md:|lg:|xl:)?grid-cols-3\b/, /grid-template-columns:\s*repeat\(\s*3\s*,\s*(?:1fr|minmax)/i] },
+  { id: 'period-logo', severity: 'warn', msg: 'wordmark ends with a decorative period; drop the trailing dot',
+    re: [/>\s*(?:&lt;|<)?[A-Za-z][A-Za-z0-9]{1,18}\.(?:\/?&gt;|\/?>)\s*</,
+         />\s*[A-Z][A-Za-z0-9]{1,18}\.\s*</,
+         /(?:aria-label|alt)\s*=\s*["'`][A-Z][A-Za-z0-9]{1,18}\.["'`]/] },
 ];
 
 const FILE_RULES = [

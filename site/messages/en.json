@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "antiwebslop: a design skill that keeps agent-built pages from looking AI-made",
-    "description": "An agent skill for Cursor, Codex, Claude Code and Grok: {entries} named anti-patterns with fixes, a {rules}-rule zero-dependency lint, a per-project DESIGN.md, and a blind A/B eval. MIT, no telemetry.",
-    "ogAlt": "antiwebslop"
+    "title": "antiwebslop — keep agent pages from looking AI-made",
+    "description": "Agent skill for Cursor, Codex, Claude Code and Grok: {entries} anti-patterns, a {rules}-rule lint, DESIGN.md, and a blind A/B eval. MIT, no telemetry.",
+    "ogAlt": "antiwebslop wordmark on a dark field"
   },
   "common": {
     "skip": "Skip to content",
@@ -88,21 +88,18 @@
   "gallery": {
     "title": "The newer tells",
     "wordsAlt": "A generic SaaS landing page with each newer tell outlined and tagged: label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering and side-stripe.",
-    "iconsAlt": "Close-up of a six-card feature grid, each card with a purple icon tile and generic marketing lines, tagged icon-soup and slop-copy. The right column is clipped.",
-    "numberingAlt": "Close-up of six feature cards labeled 01–06, each with a colored stripe down its left edge, tagged section-number and side-tab-border. The right column is clipped.",
-    "loopsAlt": "Close-up of a dashboard header with an All systems online badge and a green dot, tagged pulsing-dot.",
-    "placeholdersAlt": "Close-up of a three-card blog row where each photo is an inline SVG landscape, tagged svg-placeholder. The right card is clipped.",
+    "iconsAlt": "Close-up of a six-card feature grid, each card with a purple icon tile, side stripe, generic marketing lines, and a View more link, tagged icon-soup, generic-cta, and side-tab-border. The right column is clipped.",
+    "loopsAlt": "Close-up of a cyber dashboard: a CYBER. wordmark tagged period-logo, an All systems online badge with a pulsing green dot tagged attention-loop, and a bouncing INITIALIZE_ button tagged bounce-easing.",
+    "placeholdersAlt": "Close-up of a poorly composed hero: a centered slogan, cheap flat SVG blob illustrations at uneven angles tagged svg-placeholder, and soft purple blur orbs tagged blur-blob.",
     "rulesAria": "Lint rules",
     "wordsTitle": "Words dressed up as design",
     "wordsBody": "A tiny label over the heading, a dash on every line, a “Not X. A Y.” slogan. Fold the label into the heading, use full stops, and say what the product does in one plain sentence.",
     "iconsTitle": "Icons and empty words",
-    "iconsBody": "Zap, sparkles, shield on every card, plus Seamless, Unlock, Supercharge underneath. Keep icons where they aid scanning, and say what the product does with a concrete noun.",
-    "numberingTitle": "Steps that are not steps",
-    "numberingBody": "01, 02, 03 on sections that have no order, and colored stripes down the side of ordinary cards. Number only real sequences; keep side stripes for real status.",
+    "iconsBody": "Zap, sparkles, shield on every card, a colored stripe on each edge, Seamless / Unlock / Supercharge underneath, and View more stamped six times. Keep icons where they aid scanning, say what the product does with a concrete noun, and give the section one clear action. Reserve side stripes for real status.",
     "loopsTitle": "Motion that never stops",
-    "loopsBody": "A status dot that pulses forever, logos that scroll on a loop, buttons that bounce. Static things stay still; animate a real change with a short ease-out.",
-    "placeholdersTitle": "Photos that are just SVGs",
-    "placeholdersBody": "Gray hills and a circle sun, drawn in markup and sold as imagery. Use a real photograph, a product shot, or leave the space empty — not a vector pretending to be a photo."
+    "loopsBody": "A status dot that pulses forever, a wordmark with a trailing period, buttons that bounce. Static things stay still; animate a real change with a short ease-out. Drop decorative periods from brand marks.",
+    "placeholdersTitle": "Illustrations that are just SVG blobs",
+    "placeholdersBody": "A slogan stuck dead-center, flat blob-people around it, and soft purple orbs behind the whole thing. Commission real art, use a product shot, or leave the space empty. Skip the decorative blur."
   },
   "install": {
     "title": "Pick your agent, install it in one line",

@@ -128,6 +128,25 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
 
+/* Hairlines that fade out at both ends (install rows, footer meta bar). */
+.install-rules::before,
+.install-rules > li::after,
+.fade-rule-t::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+  background: var(--color-border);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.install-rules::before,
+.fade-rule-t::before { top: 0; }
+.install-rules > li::after { bottom: 0; }
+.fade-rule-t { position: relative; }
+
 /* Gallery HTML cutouts: skill-scan outlines + tags — only on hover / focus-within. */
 .slop-mark { isolation: isolate; }
 .slop-box {

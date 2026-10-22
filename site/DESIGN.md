@@ -67,7 +67,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 
 ## 8. Motion
 - M5: blur reveal per item (opacity 0→1, y 28px→0, blur 14px→0, 700ms, expo.out, stagger 0.06s, ported from falcaobatidos) via GSAP ScrollTrigger.batch; Lenis smooth scroll on desktop pointers.
-- Accordion content height 200ms ease-out; copy button label swap, no movement.
+- Accordion content height 200ms ease-out; copy control is icon-only (tooltip Copy/Copied on hover), icon swap only, no movement.
 - `prefers-reduced-motion: reduce`: no GSAP entrances (content visible from the start), no Lenis, no accordion height animation.
 
 ## 9. Imagery and content
@@ -136,8 +136,8 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Refs:** https://useplanes.com/ (second section), `/workspace/site-shots/v5-canvas-*.png`, `/workspace/site-shots/v5-lightbox-*.png`
 
 ### 2026-10-21 — Hero photo, full bleed
-- **Context:** Eduardo supplied `public/hero/portrait.webp` (his own portrait, frowning, half behind reeded glass with lilac light) for a noone.is-style hero. The earlier image (a worried woman behind lilac frosted glass) is kept as `public/hero/portrait-woman.webp` to switch back.
-- **Decision:** the photo fills the first screen edge to edge, behind the header (`next/image` fill, priority, `sizes=100vw`; 64svh on phones so both eyes stay in frame above the text). It replaces the top light there. Three scrims in the bg color (bottom to top, left to right, a short one under the header) keep the headline, line and install command AA readable. Decorative: `alt=""`, `aria-hidden`.
+- **Context:** Eduardo supplied `public/hero/portrait-man.png` (close-up portrait, half behind purple reeded glass). Optimized to `public/hero/portrait.webp` (~122KB). Previous hero kept as `portrait-prev.webp`.
+- **Decision:** the photo fills the first screen edge to edge, behind the header (`next/image` fill, priority, `sizes=100vw`; 64svh on phones so both eyes stay in frame above the text). Object position biases left (~28–32%) to keep the clear half of the face in frame when the landscape crop covers a tall viewport. Three scrims in the bg color keep the headline, line and install command AA readable. Decorative: `alt=""`, `aria-hidden`.
 - **Why:** one strong, specific image says "generated sameness is a problem" better than more copy; the lilac in the glass is the brand accent, not an added glow.
 - **Exception:** the scrims are the only gradients on the site, bg-color to transparent only, never a color gradient.
 - **Surfaces:** marketing

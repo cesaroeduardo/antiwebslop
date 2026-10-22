@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "antiwebslop: una skill de diseño para que las páginas hechas por agentes no parezcan hechas por IA",
-    "description": "Una skill para Cursor, Codex, Claude Code y Grok: {entries} antipatrones con nombre y su corrección, un lint de {rules} reglas sin dependencias, un DESIGN.md por proyecto y una evaluación A/B a ciegas. MIT, sin telemetría.",
-    "ogAlt": "antiwebslop"
+    "title": "antiwebslop — páginas de agentes sin cara de IA",
+    "description": "Skill para Cursor, Codex, Claude Code y Grok: {entries} antipatrones, lint de {rules} reglas, DESIGN.md y eval A/B a ciegas. MIT, sin telemetría.",
+    "ogAlt": "wordmark antiwebslop sobre fondo oscuro"
   },
   "common": {
     "skip": "Saltar al contenido",
@@ -88,21 +88,18 @@
   "gallery": {
     "title": "Las señales más nuevas",
     "wordsAlt": "Una landing page SaaS genérica con cada señal nueva contorneada y etiquetada: label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering y side-stripe.",
-    "iconsAlt": "Detalle de una cuadrícula de seis tarjetas, cada una con icono violeta y frases de marketing genéricas, etiquetadas icon-soup y slop-copy. La columna derecha queda recortada.",
-    "numberingAlt": "Detalle de seis tarjetas marcadas 01–06, cada una con una franja de color en el borde izquierdo, etiquetadas section-number y side-tab-border. La columna derecha queda recortada.",
-    "loopsAlt": "Detalle de la cabecera de un panel con una insignia All systems online y un punto verde, etiquetada pulsing-dot.",
-    "placeholdersAlt": "Detalle de una fila de tres tarjetas de blog donde cada foto es un paisaje SVG inline, etiquetada svg-placeholder. La tarjeta derecha queda recortada.",
+    "iconsAlt": "Detalle de una cuadrícula de seis tarjetas, cada una con icono violeta, franja lateral, frases de marketing genéricas y enlace View more, etiquetadas icon-soup, generic-cta y side-tab-border. La columna derecha queda recortada.",
+    "loopsAlt": "Detalle de un panel cyber: wordmark CYBER. etiquetado period-logo, insignia All systems online con punto verde pulsante etiquetada attention-loop, y botón INITIALIZE_ que rebota etiquetado bounce-easing.",
+    "placeholdersAlt": "Detalle de un hero mal compuesto: eslogan centrado, ilustraciones SVG flat baratas en ángulos torcidos etiquetadas svg-placeholder, y orbes morados con blur etiquetados blur-blob.",
     "rulesAria": "Reglas del lint",
     "wordsTitle": "Palabras disfrazadas de diseño",
     "wordsBody": "Una etiqueta diminuta sobre el titular, una raya en cada línea, un eslogan «No es X. Es Y.». Lleva la etiqueta al titular, usa punto y seguido y di qué hace el producto en una frase simple.",
     "iconsTitle": "Iconos y palabras vacías",
-    "iconsBody": "Zap, sparkles, shield en cada tarjeta, más Seamless, Unlock, Supercharge debajo. Guarda los iconos donde ayudan a escanear, y di qué hace el producto con un sustantivo concreto.",
-    "numberingTitle": "Pasos que no son pasos",
-    "numberingBody": "01, 02, 03 en secciones sin orden, y franjas de color en el lateral de tarjetas comunes. Numera solo secuencias reales; deja las franjas para estados reales.",
+    "iconsBody": "Zap, sparkles, shield en cada tarjeta, franja de color en el borde, Seamless / Unlock / Supercharge debajo, y View more seis veces. Guarda los iconos donde ayudan a escanear, di qué hace el producto con un sustantivo concreto, y dale a la sección una acción clara. Reserva las franjas para estados reales.",
     "loopsTitle": "Movimiento que nunca para",
-    "loopsBody": "Un punto de estado que late sin fin, logos que se desplazan en bucle, botones que rebotan. Lo estático se queda quieto; anima un cambio real con un ease-out corto.",
-    "placeholdersTitle": "Fotos que solo son SVG",
-    "placeholdersBody": "Colinas grises y un sol redondo, dibujados en el markup y vendidos como imagen. Usa una foto real, una captura del producto, o deja el espacio vacío — no un vector fingiendo ser foto."
+    "loopsBody": "Un punto de estado que late sin fin, un wordmark con punto final, botones que rebotan. Lo estático se queda quieto; anima un cambio real con un ease-out corto. Quita el punto decorativo de la marca.",
+    "placeholdersTitle": "Ilustraciones que solo son blobs SVG",
+    "placeholdersBody": "Un eslogan justo en el centro, muñecos flat alrededor y orbes morados con blur detrás. Encarga arte real, usa una captura del producto, o deja el espacio vacío. Sin blur decorativo."
   },
   "install": {
     "title": "Elige tu agente e instálala en una línea",
