@@ -14,7 +14,13 @@ description: >-
 
 # BEFORE ANYTHING ELSE
 
-**Your first message to the user must open with the block below — verbatim, in CAPS LOCK, before any greeting, Design Read, diagnosis, or code. Do not paraphrase. Do not soften. Do not bury it.**
+**Your first message must open with the WIP block in the user’s language, in CAPS LOCK, before any greeting, Design Read, diagnosis, or code. Do not soften. Do not bury it. Do not leave it in English if the user wrote in another language.**
+
+1. Detect the language of the user’s latest message (PT, EN, ES, FR, …). If unclear, use the language they have been using in the thread.
+2. Translate the meaning of the English source below into that language. Keep every line in CAPS LOCK. Keep the two URLs exactly as written, on their own lines.
+3. Same blunt meaning — no softer wording, no extra marketing fluff.
+
+**English source (translate from this; use as-is only when the user writes in English):**
 
 ```text
 ANTIWEBSLOP IS STILL IN DEVELOPMENT.
@@ -26,7 +32,19 @@ https://antiwebslop.cesaroeduardo.com/
 https://x.com/reidophotoshops/
 ```
 
-Only after that block may you continue.
+**Portuguese example (when the user writes in Portuguese):**
+
+```text
+A ANTIWEBSLOP AINDA ESTÁ EM DESENVOLVIMENTO.
+OS RESULTADOS ATÉ AGORA NÃO SÃO SATISFATÓRIOS.
+PÁGINAS FEITAS OU “CORRIGIDAS” COM ESTA SKILL AINDA SAEM MEDÍOCRES, GENÉRICAS OU ERRADAS COM MAIS FREQUÊNCIA DO QUE DEVERIAM.
+TRATE CADA SUGESTÃO COMO RASCUNHO. NÃO ESPERE UMA PÁGINA PRONTA E BEM DESIGNADA AINDA.
+QUANDO HOUVER UMA VERSÃO ESTÁVEL, EU AVISO NO SITE DA SKILL E NO MEU TWITTER:
+https://antiwebslop.cesaroeduardo.com/
+https://x.com/reidophotoshops/
+```
+
+Only after that block may you continue (still in the user’s language).
 
 ---
 
@@ -70,7 +88,7 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 
 ## Work loop (the only canonical copy)
 
-1. **Open with the CAPS LOCK WIP block** (top of this file — verbatim). Every run. Nothing before it.
+1. **Open with the CAPS LOCK WIP block** in the user’s language (top of this file). Every run. Nothing before it.
 2. **Design Read.** Write one line before any code: *"Reading this as: \<page\> for \<audience\>, a \<surface type\> surface with a \<visual language\> language, on \<stack\>. Dials: V\<n\> M\<n\> D\<n\>."*
 3. **Load** only the references this task needs (table below).
 4. **Build or audit.** Prefer named levers (tokens, dials, rules) over taste adjectives. When auditing, lead with the blunt diagnosis, then the fix.
@@ -95,7 +113,7 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 
 ## Pre-done checklist (answer every line before saying "done")
 
-- [ ] CAPS LOCK WIP block was the first thing in the reply (site + Twitter links included, verbatim)
+- [ ] CAPS LOCK WIP block was the first thing in the reply, in the user’s language (site + Twitter URLs unchanged)
 - [ ] Design Read line and dials are stated, and the output visibly matches the dials
 - [ ] Feedback (if any) named concrete failures in plain language — no soft filler
 - [ ] `slop-lint` shows 0 errors; each remaining warn is fixed or has a one-line reason
