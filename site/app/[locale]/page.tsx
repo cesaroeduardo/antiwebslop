@@ -191,7 +191,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </ul>
         </section>
 
-        {/* Install: dense rows, one per agent: logo and name, then the command with its copy button top-aligned. */}
+        {/* Install: dense rows, one per agent: logo and name, then the command with its copy button top-aligned. One left edge:
+            heading, the first logo (or the name of a row without one, Any agent) and every command field start on it. */}
         <Section id="install" className="pt-32 md:pt-40">
           <h2 className="mb-8 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('install.title')}</h2>
           <ul className="border-t border-border" data-reveal>
@@ -205,9 +206,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                       className="size-[18px] shrink-0 bg-fg transition-colors duration-150 group-hover:bg-accent group-focus-within:bg-accent"
                       style={{ mask: `url(/logos/${row.logo}.svg) center / contain no-repeat`, WebkitMask: `url(/logos/${row.logo}.svg) center / contain no-repeat` }}
                     />
-                  ) : (
-                    <span aria-hidden className="size-[18px] shrink-0" />
-                  )}
+                  ) : null}
                   {row.agent}
                 </span>
                 <div className="flex min-w-0 items-start gap-2">
