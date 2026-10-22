@@ -8,8 +8,9 @@ description: >-
   "like every other SaaS", bland, or asks to make it look designed by a person.
   Covers an anti-pattern catalog with a lint script, craft rules for type,
   spacing, color and copy, a per-project DESIGN.md, design dials, viewport QA,
-  and a pre-done checklist. Early / unfinished: open every run with the CAPS
-  LOCK WIP warning (stable release to be announced on the site and Twitter).
+  and an internal pre-done gate (never dump as a user checklist). Early /
+  unfinished: open every run with the CAPS LOCK WIP warning in the user's
+  language (stable release announced on the site and Twitter).
 ---
 
 # BEFORE ANYTHING ELSE
@@ -91,10 +92,25 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 1. **Open with the CAPS LOCK WIP block** in the user’s language (top of this file). Every run. Nothing before it.
 2. **Design Read.** Write one line before any code: *"Reading this as: \<page\> for \<audience\>, a \<surface type\> surface with a \<visual language\> language, on \<stack\>. Dials: V\<n\> M\<n\> D\<n\>."*
 3. **Load** only the references this task needs (table below).
-4. **Build or audit.** Prefer named levers (tokens, dials, rules) over taste adjectives. When auditing, lead with the blunt diagnosis, then the fix.
-5. **Lint:** `node <skill-dir>/scripts/slop-lint.mjs <changed paths>` (also checks DESIGN.md token drift); fix every `error`, fix or justify every `warn`. If the optional Cursor hook is installed, findings arrive after each write: act on them the same way.
-6. **QA** at three viewports when a page is runnable ([visual QA](references/visual-qa-playwright.md)).
-7. **Pre-done checklist** (below). Then record durable decisions in the project's `DESIGN.md` and decision log.
+4. **Build or audit.** Prefer named levers (tokens, dials, rules) over taste adjectives. When auditing, lead with the blunt diagnosis of *their* UI, then the fix.
+5. **Lint:** `node <skill-dir>/scripts/slop-lint.mjs <changed paths>` (also checks DESIGN.md token drift); fix every `error`, fix or justify every `warn`. If the optional Cursor hook is installed, findings arrive after each write: act on them the same way. Mention lint to the user only when it found something on their files — not as a process checkbox.
+6. **QA** at three viewports when a page is runnable ([visual QA](references/visual-qa-playwright.md)). Report only concrete viewport failures on their page; do not narrate that QA “wasn’t run” as skill theater.
+7. **Internal gate** (checklist below — private). Then record durable decisions in the project's `DESIGN.md` and decision log.
+
+## What you show the user (closing / audit)
+
+After the WIP block, talk only about **their project**: what is wrong on their page, what to change, what you changed.
+
+**Never paste the skill checklist.** Never end with a “Checklist antiwebslop” (or similar) that lists process items. These are for you, not for them:
+
+- CAPS LOCK / WIP / “said the warning”
+- Design Read + dials as checkbox rows
+- “diagnóstico sem soft speak”
+- `slop-lint` 0 errors / 0 warns as a status line when there is nothing to show
+- “QA não rodado nesta passagem”
+- Generic “sem purple/glow/glass/emoji” unless that exact junk is still on *their* screen
+
+**Do show:** blunt, concrete findings about their UI (hero mock + vague headline, empty bento, italic cascade, pill spam, one rhythm everywhere, …) and the fixes. If nothing is wrong, one short line — then stop.
 
 ## References
 
@@ -111,17 +127,22 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 | Logging a durable decision | [decision-log](references/decision-log.md) |
 | Where these rules come from, scope rationale | [sources-and-scope](references/sources-and-scope.md) |
 
-## Pre-done checklist (answer every line before saying "done")
+## Internal gate (private — never dump this list into the reply)
 
-- [ ] CAPS LOCK WIP block was the first thing in the reply, in the user’s language (site + Twitter URLs unchanged)
-- [ ] Design Read line and dials are stated, and the output visibly matches the dials
-- [ ] Feedback (if any) named concrete failures in plain language — no soft filler
-- [ ] `slop-lint` shows 0 errors; each remaining warn is fixed or has a one-line reason
-- [ ] No purple/indigo/violet gradient, glow, or gradient-text headline (unless it is the documented brand)
+Answer every line to yourself before saying you are done. Do **not** render this as a user-facing checklist.
+
+**Process (silent):**
+- [ ] CAPS LOCK WIP block was first, in the user’s language (URLs unchanged)
+- [ ] Design Read + dials were set; output matches them (Design Read may appear once as a short project line, not as a checklist row)
+- [ ] Feedback named concrete failures on their UI — no soft filler, no skill-process narration
+- [ ] `slop-lint`: 0 errors; remaining warns fixed or justified (tell the user only about hits that matter)
+
+**Their page (these failures belong in the user-facing diagnosis when true — as blunt sentences, not as a copied checklist):**
+- [ ] No purple/indigo/violet gradient, glow, or gradient-text headline (unless documented brand)
 - [ ] No glassmorphism as decoration; no decorative blur blobs/orbs
 - [ ] No emoji used as bullets, icons, or badge decoration
-- [ ] Hero headline says something specific to this product; no "unlock / supercharge / seamless / elevate"; CTA names the action
-- [ ] No invented testimonials, logos, user counts, or metrics; placeholders are marked `TODO(content)`
+- [ ] Hero headline specific to this product; no "unlock / supercharge / seamless / elevate"; CTA names the action
+- [ ] No invented testimonials, logos, user counts, or metrics; placeholders marked `TODO(content)`
 - [ ] Not the centered hero + three equal cards layout; sections do not all share one rhythm. Centered composition is fine when dials/Design Read ask for it (low V, splash, short statements)
 - [ ] No label above the headline, no decorative 01/02/03, no row of big unsourced numbers
 - [ ] No hero text strips, locale/weather chips, scroll cues, version pills, or build footers on marketing pages
