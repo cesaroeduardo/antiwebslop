@@ -26,9 +26,10 @@ Defaults for when the project's tokens and `DESIGN.md` are silent. Project value
 ## Grid and layout
 
 - 12-column grid at desktop, 4–6 at mobile; content max-width 1120–1280px, text max-width 65ch.
+- **Alignment follows VARIANCE.** Low V (1–3) may be fully centered or a strict single column — that is a valid composition, not slop. Mid/high V should lean left-aligned with asymmetric splits; do not force asymmetry onto a page that asked for calm symmetry.
 - **Asymmetry on purpose:** 7/5 or 8/4 splits, a headline that spans more columns than its body, an image bleeding off one edge. Asymmetry is the main VARIANCE lever (see [dials](dials.md)).
 - Align to a few strong vertical lines. Every element should share an edge with something.
-- Full-bleed is for imagery or color fields, not for text.
+- Full-bleed is for imagery or color fields, not for text. Center short statements and CTAs freely; keep long reading measure left-aligned unless the Design Read chose a centered column.
 
 ## Color with intent
 

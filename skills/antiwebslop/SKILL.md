@@ -68,7 +68,7 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 - [ ] No emoji used as bullets, icons, or badge decoration
 - [ ] Hero headline says something specific to this product; no "unlock / supercharge / seamless / elevate"; CTA names the action
 - [ ] No invented testimonials, logos, user counts, or metrics; placeholders are marked `TODO(content)`
-- [ ] Not the centered hero + three equal cards layout; sections do not all share one rhythm
+- [ ] Not the centered hero + three equal cards layout; sections do not all share one rhythm. Centered composition is fine when dials/Design Read ask for it (low V, splash, short statements)
 - [ ] No label above the headline, no decorative 01/02/03, no row of big unsourced numbers
 - [ ] No hero text strips, locale/weather chips, scroll cues, version pills, or build footers on marketing pages
 - [ ] No fake product UI from styled divs; no icon-tile-above-heading feature cards; no blinking caret on static copy

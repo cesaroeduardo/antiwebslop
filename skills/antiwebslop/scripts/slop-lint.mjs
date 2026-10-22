@@ -269,7 +269,7 @@ function fileRules(text, lines) {
     out.push({ rule: 'motion-no-reduce', severity: 'warn', line: firstLine(motion), msg: 'animation without prefers-reduced-motion / motion-safe guard' });
   const centered = lines.filter((l) => /\btext-center\b|text-align:\s*center/.test(l)).length;
   if (centered >= 6) out.push({ rule: 'centered-everything', severity: 'info', line: firstLine(/\btext-center\b|text-align:\s*center/),
-    msg: `${centered} centered blocks; left-align body copy and most sections` });
+    msg: `${centered} centered blocks — OK if intentional (low V, splash, short statements); avoid as a default for long body copy` });
   const eyebrowRe = /\b(?:eyebrow|kicker|overline)\b|(?=.*\buppercase\b)(?=.*\btracking-(?:wide|wider|widest|\[))|(?=.*\brounded-full\b)(?=.*\btext-xs\b)(?=.*\b(?:px-[2-3]|border)\b)/;
   const headingRe = /<(?:h[1-3]|H1|Heading)\b/;
   lines.forEach((l, i) => {

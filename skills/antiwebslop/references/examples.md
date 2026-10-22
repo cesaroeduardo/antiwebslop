@@ -40,7 +40,7 @@ Short, real-shaped examples. "Before" is what agents produce by default; "after"
 </section>
 ```
 
-What changed: a specific headline and CTA (no label above it; the product name lives in the headline), a 7/5 asymmetric split instead of centered,
+What changed: a specific headline and CTA (no label above it; the product name lives in the headline), a 7/5 asymmetric split matching V7 (a low-V centered hero would also be fine when dials ask for it),
 a real product screenshot instead of a gradient, a single accent, no unverifiable proof,
 and named transitions.
 

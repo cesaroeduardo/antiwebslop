@@ -11,7 +11,7 @@ be very simple: one huge headline set off-axis is V9 with very few elements.
 
 | Level | Observable in the output |
 |---|---|
-| Low (1–3) | Symmetric, centered or a strict single column; conventional section order; uniform section widths |
+| Low (1–3) | Symmetric, centered or a strict single column; conventional section order; uniform section widths. Centered here is intentional craft, not the “centered everything” anti-pattern |
 | Mid (4–6) | Left-aligned grid with 1–2 asymmetric splits (7/5, 8/4); one section that breaks the column (bleed image or wide quote); type scale ratio ~1.25 |
 | High (7–10) | Asymmetry in most sections; display type 3–4× body but still inside the hero cap (≤ ~6rem, ≤ 3 lines at 1440px, see [craft](craft.md#typography)); overlapping or bleeding elements; an unconventional section order or navigation; scale ratio ≥ 1.333. High variance comes from composition, not from ever-bigger type |
 

@@ -40,8 +40,8 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 - **Do instead:** Pick a composition from the content: left-aligned headline with product visual, split layout, a single strong statement with proof underneath, a feature list with unequal emphasis (one lead feature, smaller secondary ones).
 
 ### 8. Centered everything (`lint: centered-everything`, info)
-- **Detect:** `text-center` on most sections; long paragraphs centered.
-- **Do instead:** Left-align body copy and most sections. Center only short, isolated statements.
+- **Detect:** `text-center` (or equivalent) applied as a default across most sections, especially long body paragraphs, with no Design Read or dial reason — the lazy “everything centered” template.
+- **Do instead:** Treat alignment as a composition choice, not a habit. Left-align body copy when the page is reading-heavy or VARIANCE is mid/high. **Centered layouts are fine** when they are intentional: low VARIANCE (V1–3: symmetric / single column — see [dials](dials.md)), short statements and CTAs, quotes, splash / invite / manifesto pages, or when `DESIGN.md` / the Design Read calls for a centered composition. Flag the default, not every centered page.
 
 ### 9. Same rhythm for every section
 - **Detect:** every section = small label + H2 + gray subtitle + grid. Same padding, same width.

@@ -107,8 +107,8 @@
             }
           ],
           "review": null,
-          "detect": "`text-center` on most sections; long paragraphs centered.",
-          "instead": "Left-align body copy and most sections. Center only short, isolated statements."
+          "detect": "`text-center` (or equivalent) applied as a default across most sections, especially long body paragraphs, with no Design Read or dial reason — the lazy “everything centered” template.",
+          "instead": "Treat alignment as a composition choice, not a habit. Left-align body copy when the page is reading-heavy or VARIANCE is mid/high. **Centered layouts are fine** when they are intentional: low VARIANCE (V1–3: symmetric / single column — see [dials](dials.md)), short statements and CTAs, quotes, splash / invite / manifesto pages, or when `DESIGN.md` / the Design Read calls for a centered composition. Flag the default, not every centered page."
         },
         {
           "n": 9,
