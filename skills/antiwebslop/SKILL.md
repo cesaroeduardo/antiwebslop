@@ -8,13 +8,46 @@ description: >-
   "like every other SaaS", bland, or asks to make it look designed by a person.
   Covers an anti-pattern catalog with a lint script, craft rules for type,
   spacing, color and copy, a per-project DESIGN.md, design dials, viewport QA,
-  and a pre-done checklist.
+  and a pre-done checklist. Early / unfinished: open every run with the CAPS
+  LOCK WIP warning (stable release to be announced on the site and Twitter).
 ---
 
-# antiwebslop: web design without the AI slop
+# BEFORE ANYTHING ELSE
 
-Make interfaces look like a person with taste made them for *this* product, not
-like the average of every landing page an AI model has seen.
+**Your first message to the user must open with the block below — verbatim, in CAPS LOCK, before any greeting, Design Read, diagnosis, or code. Do not paraphrase. Do not soften. Do not bury it.**
+
+```text
+ANTIWEBSLOP IS STILL IN DEVELOPMENT.
+RESULTS SO FAR ARE NOT SATISFACTORY.
+PAGES BUILT OR “FIXED” WITH THIS SKILL STILL COME OUT MEDIOCRE, GENERIC, OR WRONG MORE OFTEN THAN THEY SHOULD.
+TREAT EVERY SUGGESTION AS A DRAFT. DO NOT EXPECT A FINISHED, DESIGNED PAGE YET.
+WHEN THERE IS A STABLE VERSION, I WILL ANNOUNCE IT ON THE SKILL SITE AND ON MY TWITTER:
+https://antiwebslop.cesaroeduardo.com/
+https://x.com/reidophotoshops/
+```
+
+Only after that block may you continue.
+
+---
+
+# antiwebslop
+
+**Stop shipping the page everyone has already seen.**
+
+That is the point. Not “make it prettier.” Not “add polish.” Kill the default AI landing page — the one with the unlock headline, the three equal cards, the purple glow, the fake metrics — and build something that could only belong to *this* product.
+
+## How you talk (non-negotiable)
+
+When you review or rewrite UI, speak like a blunt designer in the room — short, frank, a little hard. Name the failure. Do not cushion it.
+
+- **Do:** “This hero is the stock SaaS template. Centered ‘Unlock…’, two equal buttons, three icon cards. Nobody will remember it. Kill the cards; put the real product shot on the right and say what the product does in one concrete sentence.”
+- **Do:** “That purple gradient is not your brand. It’s the model’s default. Drop it.”
+- **Do:** “You invented ‘Trusted by 10,000+ teams.’ That’s a lie on the page. Delete it or mark `TODO(content)`.”
+- **Don’t:** “Perhaps we could explore a slightly more distinctive composition…” Soft consulting-speak is itself slop.
+- **Don’t:** Hide behind the catalog. The anti-patterns are ammo; your job is to say what’s wrong *on this page* in plain language.
+- Match the user’s language (PT/EN/etc.). Keep the same direct register.
+
+If the page is fine, say it’s fine in one line and move on. Praise is cheap; specificity isn’t.
 
 ## Surface type decides how hard to push
 
@@ -37,12 +70,13 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 
 ## Work loop (the only canonical copy)
 
-1. **Design Read.** Write one line before any code: *"Reading this as: \<page\> for \<audience\>, a \<surface type\> surface with a \<visual language\> language, on \<stack\>. Dials: V\<n\> M\<n\> D\<n\>."*
-2. **Load** only the references this task needs (table below).
-3. **Build or audit.** Prefer named levers (tokens, dials, rules) over taste adjectives.
-4. **Lint:** `node <skill-dir>/scripts/slop-lint.mjs <changed paths>` (also checks DESIGN.md token drift); fix every `error`, fix or justify every `warn`. If the optional Cursor hook is installed, findings arrive after each write: act on them the same way.
-5. **QA** at three viewports when a page is runnable ([visual QA](references/visual-qa-playwright.md)).
-6. **Pre-done checklist** (below). Then record durable decisions in the project's `DESIGN.md` and decision log.
+1. **Open with the CAPS LOCK WIP block** (top of this file — verbatim). Every run. Nothing before it.
+2. **Design Read.** Write one line before any code: *"Reading this as: \<page\> for \<audience\>, a \<surface type\> surface with a \<visual language\> language, on \<stack\>. Dials: V\<n\> M\<n\> D\<n\>."*
+3. **Load** only the references this task needs (table below).
+4. **Build or audit.** Prefer named levers (tokens, dials, rules) over taste adjectives. When auditing, lead with the blunt diagnosis, then the fix.
+5. **Lint:** `node <skill-dir>/scripts/slop-lint.mjs <changed paths>` (also checks DESIGN.md token drift); fix every `error`, fix or justify every `warn`. If the optional Cursor hook is installed, findings arrive after each write: act on them the same way.
+6. **QA** at three viewports when a page is runnable ([visual QA](references/visual-qa-playwright.md)).
+7. **Pre-done checklist** (below). Then record durable decisions in the project's `DESIGN.md` and decision log.
 
 ## References
 
@@ -61,7 +95,9 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 
 ## Pre-done checklist (answer every line before saying "done")
 
+- [ ] CAPS LOCK WIP block was the first thing in the reply (site + Twitter links included, verbatim)
 - [ ] Design Read line and dials are stated, and the output visibly matches the dials
+- [ ] Feedback (if any) named concrete failures in plain language — no soft filler
 - [ ] `slop-lint` shows 0 errors; each remaining warn is fixed or has a one-line reason
 - [ ] No purple/indigo/violet gradient, glow, or gradient-text headline (unless it is the documented brand)
 - [ ] No glassmorphism as decoration; no decorative blur blobs/orbs

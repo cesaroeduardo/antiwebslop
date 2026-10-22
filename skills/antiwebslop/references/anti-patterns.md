@@ -4,6 +4,10 @@ Each entry: **Detect** (how to spot it in code or a screenshot), **Do instead**.
 `lint:` gives the matching `slop-lint` rule id, if one exists. `error` = ship-blocker,
 `warn` = fix or justify in one line, `info` = look at it.
 
+When you tell the user about a hit, do not recite the catalog title. Say what’s wrong on
+*their* page in plain language — same blunt register as the skill (“Stop shipping the page
+everyone has already seen”). The rows below are evidence, not a script.
+
 An anti-pattern is allowed only when the project's tokens or `DESIGN.md` document
 it as the brand (e.g. a real purple brand color). Write that reason down; never assume it.
 

@@ -41,11 +41,13 @@ playwright-cli snapshot          # accessibility tree, for focus/labels review
 
 ## Report
 
+Write findings the way you’d say them out loud — blunt, specific, no “perhaps we could…”. Name the failure, then the fix.
+
 ```text
 ## Desktop 1440×900
-- [high] Hero CTA and secondary link have equal weight → make the link text-only
+- [high] Primary and secondary look the same weight. The secondary is winning the fight. Make it a text link.
 ## Mobile 390×844
-- [critical] Headline wraps to 7 lines; primary CTA below the fold → step headline down one scale size
+- [critical] Headline is 7 lines and the CTA is below the fold. Shorten the copy first; only then drop a type step.
 ```
 
 Severity: `critical` (broken or unusable) · `high` (slop or hierarchy failure) · `medium` · `nit`.
