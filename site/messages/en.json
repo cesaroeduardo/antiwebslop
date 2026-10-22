@@ -105,7 +105,8 @@
     "rowLabel": "{agent} install command"
   },
   "eval": {
-    "title": "How we measure it",
+    "title": "How the skill is measured",
+    "intro": "Each run is scored out of 42 for slop absence, craft and process. Scope safety is a gate: if the run changes product UI the brief didn't ask for, it fails, whatever its score.",
     "protocolAria": "A/B protocol",
     "setupPhase": "Setup",
     "setupTitle": "Fix everything but the skill",

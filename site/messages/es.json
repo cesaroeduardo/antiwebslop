@@ -105,7 +105,8 @@
     "rowLabel": "Comando de instalación para {agent}"
   },
   "eval": {
-    "title": "Cómo lo medimos",
+    "title": "Cómo se mide la skill",
+    "intro": "Cada ejecución se puntúa sobre 42: ausencia de slop, oficio y proceso. El respeto del alcance es un filtro: si la ejecución cambia UI del producto que el brief no pidió, falla, sea cual sea su puntuación.",
     "protocolAria": "Protocolo A/B",
     "setupPhase": "Preparación",
     "setupTitle": "Fijar todo menos la skill",

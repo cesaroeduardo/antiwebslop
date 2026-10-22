@@ -220,7 +220,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
         {/* Eval: the A/B protocol as a short four-phase timeline on the left; the 42-point scorecard drawn to scale on the right. */}
         <Section id="eval" className="pb-32 pt-32 md:pb-40 md:pt-40">
-          <h2 className="border-b border-border pb-10 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('eval.title')}</h2>
+          {/* Title plus what the test scores and what the gate fails, from eval/rubric.md (no runs logged, no results shown). */}
+          <div className="border-b border-border pb-10">
+            <h2 className="mb-4 text-2xl font-medium tracking-[-0.02em] md:text-3xl">{t('eval.title')}</h2>
+            <p className="text-base text-muted">{t('eval.intro')}</p>
+          </div>
 
           <div className="flex flex-col gap-16 pt-12 md:pt-16">
             <ol className="relative" data-reveal aria-label={t('eval.protocolAria')}>

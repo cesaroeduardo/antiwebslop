@@ -105,7 +105,8 @@
     "rowLabel": "Commande d’installation pour {agent}"
   },
   "eval": {
-    "title": "Comment on la mesure",
+    "title": "Comment la skill est mesurée",
+    "intro": "Chaque exécution est notée sur 42 : absence de slop, facture et processus. Le respect du périmètre est une barrière : si l’exécution modifie une UI produit que le brief ne demandait pas, elle échoue, quel que soit son score.",
     "protocolAria": "Protocole A/B",
     "setupPhase": "Préparation",
     "setupTitle": "Tout fixer, sauf la skill",

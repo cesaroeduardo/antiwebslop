@@ -105,7 +105,8 @@
     "rowLabel": "Comando de instalação para {agent}"
   },
   "eval": {
-    "title": "Como medimos",
+    "title": "Como a skill é medida",
+    "intro": "Cada execução vale até 42 pontos em ausência de slop, acabamento e processo. Segurança de escopo é um portão: se a execução mexe em UI do produto que o brief não pediu, ela reprova, seja qual for a nota.",
     "protocolAria": "Protocolo A/B",
     "setupPhase": "Preparação",
     "setupTitle": "Fixe tudo, menos a skill",
