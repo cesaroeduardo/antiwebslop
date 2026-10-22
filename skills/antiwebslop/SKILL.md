@@ -70,10 +70,12 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 - [ ] No invented testimonials, logos, user counts, or metrics; placeholders are marked `TODO(content)`
 - [ ] Not the centered hero + three equal cards layout; sections do not all share one rhythm
 - [ ] No label above the headline, no decorative 01/02/03, no row of big unsourced numbers
+- [ ] No hero text strips, locale/weather chips, scroll cues, version pills, or build footers on marketing pages
+- [ ] No fake product UI from styled divs; no icon-tile-above-heading feature cards; no blinking caret on static copy
 - [ ] Hero headline ≤ ~6rem and ≤ 3 lines at 1440px; primary action visible without scrolling
 - [ ] Icons only where they aid scanning; one icon set, one size scale
-- [ ] Radius and shadow vary by role (not one `rounded-2xl shadow-lg` on everything)
-- [ ] Display type is a deliberate choice paired with the body face; a type scale is used
+- [ ] Radius and shadow vary by role (not one `rounded-2xl shadow-lg` on everything); no hairline+wide-shadow pairing
+- [ ] Display type is a deliberate choice paired with the body face; a type scale is used; no default italic-serif hero
 - [ ] Spacing comes from one scale; one accent color with a defined job; no off-token values
 - [ ] The first viewport has one job, also at 390px
 - [ ] Focus is visible; motion respects `prefers-reduced-motion`; contrast is AA

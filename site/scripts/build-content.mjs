@@ -41,8 +41,6 @@ export async function buildContent() {
     if (item && (m = line.match(/^- \*\*Detect:\*\*\s*(.+)$/))) item.detect = m[1].trim();
     if (item && (m = line.match(/^- \*\*Do instead:\*\*\s*(.+)$/))) item.instead = m[1].trim();
   }
-  for (const grp of groups) grp.title = grp.title.replace(/^Added in v2 \((.+)\)$/, 'Newer tells, added $1');
-
   // Real lint output on the two slop fixtures (no source snippets, the way --quiet prints them).
   const fmt = (file, hits) => hits.filter((h) => h.severity !== 'info')
     .map((h) => ({ loc: `${file}:${h.line}`, severity: h.severity, rule: h.rule, msg: h.msg }));

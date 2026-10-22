@@ -1,7 +1,7 @@
 {
   "version": "0.2.0",
-  "ruleCount": 32,
-  "catalogCount": 36,
+  "ruleCount": 52,
+  "catalogCount": 61,
   "catalog": [
     {
       "title": "Color and surface",
@@ -301,7 +301,7 @@
       ]
     },
     {
-      "title": "Newer tells, added 2026-10",
+      "title": "Newer tells",
       "items": [
         {
           "n": 24,
@@ -466,6 +466,306 @@
           "review": null,
           "detect": "a brand or logo lockup that ends with a decorative period (\"Acme.\", \"Linear.\", \"`<CYBER./>`\"). Common in Claude/ChatGPT-invented marks.",
           "instead": "Drop the trailing dot. Periods belong in sentences, not in the name of the product."
+        },
+        {
+          "n": 37,
+          "title": "Hero decoration text strips",
+          "lints": [
+            {
+              "id": "hero-text-strip",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "mono or all-caps strips along the hero edge naming abstract nouns joined by dots or slashes (\"BRAND. MOTION. SPATIAL.\", \"TYPE / FORM / MOTION\").",
+          "instead": "Leave the hero edge empty, or put one concrete product fact there. Atmosphere words are not a composition."
+        },
+        {
+          "n": 38,
+          "title": "Locale / time / weather strips",
+          "lints": [
+            {
+              "id": "locale-weather",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "atmospheric chips like \"Lisbon 14:23 · 18°C\", \"NYC · Clear · 72°F\", or a live clock + city that is not the product.",
+          "instead": "Drop it. Local time and weather belong only when the product is about place, travel, or weather."
+        },
+        {
+          "n": 39,
+          "title": "Scroll cues",
+          "lints": [
+            {
+              "id": "scroll-cue",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "\"Scroll\", \"Scroll to explore\", \"Scroll down\", bouncing chevrons or mouse icons that tell the visitor to scroll.",
+          "instead": "Delete them. The page already scrolls; the next section should make that obvious by content, not by a prompt."
+        },
+        {
+          "n": 40,
+          "title": "Marketing version footers",
+          "lints": [
+            {
+              "id": "version-footer",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`v1.4.2`, `Build 0048`, `last sync 4s ago`, or similar build/devtool fixtures on a landing or portfolio page.",
+          "instead": "Keep version strings in changelogs, docs, or the product UI. Marketing pages do not need a build stamp."
+        },
+        {
+          "n": 41,
+          "title": "Hero version labels",
+          "lints": [
+            {
+              "id": "hero-version",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`BETA`, `V0.6`, `INVITE-ONLY`, `EARLY ACCESS` pills in the hero when the brief is not a launch announcement.",
+          "instead": "Put release status in the nav or a changelog link. The hero sells the product, not the build channel."
+        },
+        {
+          "n": 42,
+          "title": "Fake product UI mockups",
+          "lints": [],
+          "review": "design review",
+          "detect": "terminals, task lists, dashboards, or chat panes built from styled `div`s that do not show the real product.",
+          "instead": "Use a real screenshot, a cropped product UI, or leave the slot empty. Invented chrome reads as placeholder."
+        },
+        {
+          "n": 43,
+          "title": "Icon tile above a heading",
+          "lints": [
+            {
+              "id": "icon-tile",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a large icon in a rounded square stacked above a feature heading (the standard \"icon box + title + blurb\" card).",
+          "instead": "Put a small icon beside the heading, use a number, or drop the icon and lead with the title. The tile should not outrank the words."
+        },
+        {
+          "n": 44,
+          "title": "Italic serif display headline",
+          "lints": [
+            {
+              "id": "italic-serif-display",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "an oversized italic serif (or `font-serif italic` at display size) used as the default \"editorial\" hero look.",
+          "instead": "Pick a display face that fits this product. Italics for emphasis inside a sentence, not as the whole brand voice by default."
+        },
+        {
+          "n": 45,
+          "title": "Decorative blinking cursor",
+          "lints": [
+            {
+              "id": "blink-cursor",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a blinking caret or block cursor on static copy, fake terminals, or headlines that are not editable.",
+          "instead": "Keep a caret only where the user can type. Static text does not need to look like a prompt."
+        },
+        {
+          "n": 46,
+          "title": "Decorative grid-line background",
+          "lints": [
+            {
+              "id": "grid-bg",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a full-bleed line grid or graph paper behind a marketing section that is not a canvas, map, or editor.",
+          "instead": "Plain surface, real imagery, or space. Grids belong to tools that measure or align."
+        },
+        {
+          "n": 47,
+          "title": "Soft spotlight behind content",
+          "lints": [
+            {
+              "id": "soft-spotlight",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a faint radial glow or soft spotlight behind a card or section used only to \"add depth\".",
+          "instead": "Hierarchy from size, weight, and spacing. Glow when light is part of the brand language, not as default emphasis."
+        },
+        {
+          "n": 48,
+          "title": "Hairline border with wide shadow",
+          "lints": [
+            {
+              "id": "hairline-wide-shadow",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a 1px border and a large soft shadow defining the same card at once.",
+          "instead": "Pick one edge treatment: a hairline *or* elevation. Two outlines make the surface muddy."
+        },
+        {
+          "n": 49,
+          "title": "Extreme border-radius on cards",
+          "lints": [
+            {
+              "id": "extreme-radius",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "small cards with huge radii (`rounded-3xl`, `rounded-[2rem+]`) that squeeze the content into a soft blob.",
+          "instead": "Match radius to size: controls small, cards medium. Large radii are for pills and media, not every tile."
+        },
+        {
+          "n": 50,
+          "title": "Redundant copy in one container",
+          "lints": [],
+          "review": "design review",
+          "detect": "the same idea repeated as label, placeholder, helper, and button text inside one field or card.",
+          "instead": "Say it once, in the strongest slot. Extra lines that restate the same thing slow reading without helping."
+        },
+        {
+          "n": 51,
+          "title": "Double borders on every list row",
+          "lints": [
+            {
+              "id": "row-double-border",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`border-t` plus `border-b` (or top and bottom hairlines) on every row of a long list or spec table.",
+          "instead": "One divider between rows, or a different component (cards, tabs, a compact table). Stacked double rules add noise."
+        },
+        {
+          "n": 52,
+          "title": "Photo-credit captions as decoration",
+          "lints": [],
+          "review": null,
+          "detect": "invented studio captions under stock images (\"Field study no. 12 · Ines Caetano\") used as atmosphere.",
+          "instead": "Credit only real photographers and real shoots. If there is no credit, leave the caption out."
+        },
+        {
+          "n": 53,
+          "title": "Mid-page theme flip",
+          "lints": [],
+          "review": "design review",
+          "detect": "a light page that drops into a full dark band (or the reverse) mid-scroll with no brand reason.",
+          "instead": "Pick light, dark, or system once for the page. A single contrasting band is fine for a real CTA or media break, not as a default section skin."
+        },
+        {
+          "n": 54,
+          "title": "Repeating-gradient stripes",
+          "lints": [
+            {
+              "id": "stripe-fill",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`repeating-linear-gradient` stripes filling empty space as decoration.",
+          "instead": "A plain fill, or a texture that belongs to the brand. Stripes as wallpaper are visual noise."
+        },
+        {
+          "n": 55,
+          "title": "All-caps body text",
+          "lints": [
+            {
+              "id": "all-caps-body",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "paragraphs or long blocks set in `uppercase` / `text-transform: uppercase`.",
+          "instead": "Sentence case for body copy. Reserve all-caps for short labels and headings."
+        },
+        {
+          "n": 56,
+          "title": "Jagged image masks",
+          "lints": [
+            {
+              "id": "jagged-mask",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "CSS `clip-path` polygons that fake a torn or organic photo edge.",
+          "instead": "A clean crop, or a prepared cut-out asset. Procedural jagged masks look unfinished."
+        },
+        {
+          "n": 57,
+          "title": "Images buried under overlays",
+          "lints": [],
+          "review": "design review",
+          "detect": "a near-opaque gradient or scrim that hides the image underneath until it might as well be a flat color.",
+          "instead": "Lighten or remove the overlay until the image contributes, or drop the image and use a solid surface."
+        },
+        {
+          "n": 58,
+          "title": "Justified body text",
+          "lints": [
+            {
+              "id": "justified-body",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "`text-align: justify` / `text-justify` on body paragraphs.",
+          "instead": "Start-aligned text. Justification on the web leaves uneven word gaps, especially on narrow screens."
+        },
+        {
+          "n": 59,
+          "title": "One-word italic serif",
+          "lints": [
+            {
+              "id": "italic-serif-word",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "one word (or a short phrase) inside a sans-serif headline set in italic serif — e.g. `Build <span class=\"font-serif italic\">better</span> products` — as a stock “editorial accent”.",
+          "instead": "Keep the headline in one family. Emphasize with weight, color, or size. A mixed serif accent is earned only when the brand already pairs those faces on purpose."
+        },
+        {
+          "n": 60,
+          "title": "Decorative dotted or faded grid",
+          "lints": [
+            {
+              "id": "faded-dot-grid",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "a dotted or checkered background (often `radial-gradient` dots or a fine square grid) that fades out at the edges via `mask-image` / a soft radial wash — atmosphere behind a hero or section that is not a real canvas.",
+          "instead": "Plain surface, real imagery, or space. If a grid is needed for a tool UI, keep it sharp and full-bleed in the workspace, without a vignette fade."
+        },
+        {
+          "n": 61,
+          "title": "Component-library monoculture",
+          "lints": [
+            {
+              "id": "kit-monoculture",
+              "severity": "warn"
+            }
+          ],
+          "review": null,
+          "detect": "the same kit combo stamped everywhere — `Card` + `Badge` + `Button` + `Separator` + `Dialog` (or their shadcn/Radix cousins) — even when plain text, a list, or a single action would do.",
+          "instead": "Reach for the lightest structure that fits the job. Cards and dialogs earn their keep when the content is a separate, interactive object; otherwise use spacing, typography, and a link."
         }
       ]
     }
@@ -696,7 +996,7 @@
     ],
     [
       "Detection",
-      "31 source rules + DESIGN.md token drift"
+      "52 source rules + DESIGN.md token drift"
     ],
     [
       "Agents",

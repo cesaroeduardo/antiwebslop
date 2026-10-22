@@ -109,7 +109,7 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 - **Detect:** placeholder paragraphs that could describe any product; stock photos of people pointing at laptops; three-word feature titles ("Fast. Secure. Reliable.").
 - **Do instead:** Use the project's real content: actual screenshots, data, names, prices, changelog items. Ask for content when it is missing rather than inventing it.
 
-## Added in v2 (2026-10)
+## Newer tells
 
 ### 24. Eyebrow / kicker above a heading (`lint: eyebrow-kicker`, warn)
 - **Detect:** a tiny uppercase, letter-spaced or pill-shaped label ("INTRODUCING", "Features", "New") on the line right before an H1–H3.
@@ -162,3 +162,103 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 ### 36. Trailing-period wordmark (`lint: period-logo`, warn)
 - **Detect:** a brand or logo lockup that ends with a decorative period ("Acme.", "Linear.", "`<CYBER./>`"). Common in Claude/ChatGPT-invented marks.
 - **Do instead:** Drop the trailing dot. Periods belong in sentences, not in the name of the product.
+
+### 37. Hero decoration text strips (`lint: hero-text-strip`, warn)
+- **Detect:** mono or all-caps strips along the hero edge naming abstract nouns joined by dots or slashes ("BRAND. MOTION. SPATIAL.", "TYPE / FORM / MOTION").
+- **Do instead:** Leave the hero edge empty, or put one concrete product fact there. Atmosphere words are not a composition.
+
+### 38. Locale / time / weather strips (`lint: locale-weather`, warn)
+- **Detect:** atmospheric chips like "Lisbon 14:23 · 18°C", "NYC · Clear · 72°F", or a live clock + city that is not the product.
+- **Do instead:** Drop it. Local time and weather belong only when the product is about place, travel, or weather.
+
+### 39. Scroll cues (`lint: scroll-cue`, warn)
+- **Detect:** "Scroll", "Scroll to explore", "Scroll down", bouncing chevrons or mouse icons that tell the visitor to scroll.
+- **Do instead:** Delete them. The page already scrolls; the next section should make that obvious by content, not by a prompt.
+
+### 40. Marketing version footers (`lint: version-footer`, warn)
+- **Detect:** `v1.4.2`, `Build 0048`, `last sync 4s ago`, or similar build/devtool fixtures on a landing or portfolio page.
+- **Do instead:** Keep version strings in changelogs, docs, or the product UI. Marketing pages do not need a build stamp.
+
+### 41. Hero version labels (`lint: hero-version`, warn)
+- **Detect:** `BETA`, `V0.6`, `INVITE-ONLY`, `EARLY ACCESS` pills in the hero when the brief is not a launch announcement.
+- **Do instead:** Put release status in the nav or a changelog link. The hero sells the product, not the build channel.
+
+### 42. Fake product UI mockups (design review)
+- **Detect:** terminals, task lists, dashboards, or chat panes built from styled `div`s that do not show the real product.
+- **Do instead:** Use a real screenshot, a cropped product UI, or leave the slot empty. Invented chrome reads as placeholder.
+
+### 43. Icon tile above a heading (`lint: icon-tile`, warn)
+- **Detect:** a large icon in a rounded square stacked above a feature heading (the standard "icon box + title + blurb" card).
+- **Do instead:** Put a small icon beside the heading, use a number, or drop the icon and lead with the title. The tile should not outrank the words.
+
+### 44. Italic serif display headline (`lint: italic-serif-display`, warn)
+- **Detect:** an oversized italic serif (or `font-serif italic` at display size) used as the default "editorial" hero look.
+- **Do instead:** Pick a display face that fits this product. Italics for emphasis inside a sentence, not as the whole brand voice by default.
+
+### 45. Decorative blinking cursor (`lint: blink-cursor`, warn)
+- **Detect:** a blinking caret or block cursor on static copy, fake terminals, or headlines that are not editable.
+- **Do instead:** Keep a caret only where the user can type. Static text does not need to look like a prompt.
+
+### 46. Decorative grid-line background (`lint: grid-bg`, warn)
+- **Detect:** a full-bleed line grid or graph paper behind a marketing section that is not a canvas, map, or editor.
+- **Do instead:** Plain surface, real imagery, or space. Grids belong to tools that measure or align.
+
+### 47. Soft spotlight behind content (`lint: soft-spotlight`, warn)
+- **Detect:** a faint radial glow or soft spotlight behind a card or section used only to "add depth".
+- **Do instead:** Hierarchy from size, weight, and spacing. Glow when light is part of the brand language, not as default emphasis.
+
+### 48. Hairline border with wide shadow (`lint: hairline-wide-shadow`, warn)
+- **Detect:** a 1px border and a large soft shadow defining the same card at once.
+- **Do instead:** Pick one edge treatment: a hairline *or* elevation. Two outlines make the surface muddy.
+
+### 49. Extreme border-radius on cards (`lint: extreme-radius`, warn)
+- **Detect:** small cards with huge radii (`rounded-3xl`, `rounded-[2rem+]`) that squeeze the content into a soft blob.
+- **Do instead:** Match radius to size: controls small, cards medium. Large radii are for pills and media, not every tile.
+
+### 50. Redundant copy in one container (design review)
+- **Detect:** the same idea repeated as label, placeholder, helper, and button text inside one field or card.
+- **Do instead:** Say it once, in the strongest slot. Extra lines that restate the same thing slow reading without helping.
+
+### 51. Double borders on every list row (`lint: row-double-border`, warn)
+- **Detect:** `border-t` plus `border-b` (or top and bottom hairlines) on every row of a long list or spec table.
+- **Do instead:** One divider between rows, or a different component (cards, tabs, a compact table). Stacked double rules add noise.
+
+### 52. Photo-credit captions as decoration
+- **Detect:** invented studio captions under stock images ("Field study no. 12 · Ines Caetano") used as atmosphere.
+- **Do instead:** Credit only real photographers and real shoots. If there is no credit, leave the caption out.
+
+### 53. Mid-page theme flip (design review)
+- **Detect:** a light page that drops into a full dark band (or the reverse) mid-scroll with no brand reason.
+- **Do instead:** Pick light, dark, or system once for the page. A single contrasting band is fine for a real CTA or media break, not as a default section skin.
+
+### 54. Repeating-gradient stripes (`lint: stripe-fill`, warn)
+- **Detect:** `repeating-linear-gradient` stripes filling empty space as decoration.
+- **Do instead:** A plain fill, or a texture that belongs to the brand. Stripes as wallpaper are visual noise.
+
+### 55. All-caps body text (`lint: all-caps-body`, warn)
+- **Detect:** paragraphs or long blocks set in `uppercase` / `text-transform: uppercase`.
+- **Do instead:** Sentence case for body copy. Reserve all-caps for short labels and headings.
+
+### 56. Jagged image masks (`lint: jagged-mask`, warn)
+- **Detect:** CSS `clip-path` polygons that fake a torn or organic photo edge.
+- **Do instead:** A clean crop, or a prepared cut-out asset. Procedural jagged masks look unfinished.
+
+### 57. Images buried under overlays (design review)
+- **Detect:** a near-opaque gradient or scrim that hides the image underneath until it might as well be a flat color.
+- **Do instead:** Lighten or remove the overlay until the image contributes, or drop the image and use a solid surface.
+
+### 58. Justified body text (`lint: justified-body`, warn)
+- **Detect:** `text-align: justify` / `text-justify` on body paragraphs.
+- **Do instead:** Start-aligned text. Justification on the web leaves uneven word gaps, especially on narrow screens.
+
+### 59. One-word italic serif (`lint: italic-serif-word`, warn)
+- **Detect:** one word (or a short phrase) inside a sans-serif headline set in italic serif — e.g. `Build <span class="font-serif italic">better</span> products` — as a stock “editorial accent”.
+- **Do instead:** Keep the headline in one family. Emphasize with weight, color, or size. A mixed serif accent is earned only when the brand already pairs those faces on purpose.
+
+### 60. Decorative dotted or faded grid (`lint: faded-dot-grid`, warn)
+- **Detect:** a dotted or checkered background (often `radial-gradient` dots or a fine square grid) that fades out at the edges via `mask-image` / a soft radial wash — atmosphere behind a hero or section that is not a real canvas.
+- **Do instead:** Plain surface, real imagery, or space. If a grid is needed for a tool UI, keep it sharp and full-bleed in the workspace, without a vignette fade.
+
+### 61. Component-library monoculture (`lint: kit-monoculture`, warn)
+- **Detect:** the same kit combo stamped everywhere — `Card` + `Badge` + `Button` + `Separator` + `Dialog` (or their shadcn/Radix cousins) — even when plain text, a list, or a single action would do.
+- **Do instead:** Reach for the lightest structure that fits the job. Cards and dialogs earn their keep when the content is a separate, interactive object; otherwise use spacing, typography, and a link.

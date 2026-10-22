@@ -90,16 +90,109 @@ const LINE_RULES = [
     re: [/>\s*(?:&lt;|<)?[A-Za-z][A-Za-z0-9]{1,18}\.(?:\/?&gt;|\/?>)\s*</,
          />\s*[A-Z][A-Za-z0-9]{1,18}\.\s*</,
          /(?:aria-label|alt)\s*=\s*["'`][A-Z][A-Za-z0-9]{1,18}\.["'`]/] },
+  { id: 'hero-text-strip', severity: 'warn', msg: 'decorative all-caps noun strip in the hero; put a concrete product fact or nothing',
+    re: [/\b(?:BRAND|TYPE|FORM|MOTION|SPATIAL|DESIGN|CRAFT|SYSTEM|SIGNAL|VISION)\s*[./·|]\s*(?:BRAND|TYPE|FORM|MOTION|SPATIAL|DESIGN|CRAFT|SYSTEM|SIGNAL|VISION)/,
+         />\s*[A-Z]{3,}(?:\s*[./·|]\s*[A-Z]{3,}){2,}\s*</] },
+  { id: 'locale-weather', severity: 'warn', msg: 'locale/time/weather atmosphere strip; drop unless the product is about place or weather',
+    re: [/\b(?:Lisbon|London|Paris|Berlin|Tokyo|NYC|New York|São Paulo|Sao Paulo|SF|LA)\b[^<\n]{0,40}(?:\d{1,2}:\d{2}|\d{1,2}\s?°\s?[CF]|Clear|Cloudy|Sunny)/i,
+         /\b\d{1,2}:\d{2}\b[^<\n]{0,24}\d{1,2}\s?°\s?[CF]\b/,
+         /\b\d{1,2}\s?°\s?[CF]\b[^<\n]{0,24}\d{1,2}:\d{2}\b/] },
+  { id: 'scroll-cue', severity: 'warn', msg: 'scroll prompt or bouncing chevron; the next section should invite scrolling by content',
+    re: [/>\s*Scroll(?:\s+to\s+(?:explore|discover|learn\s+more)|\s+down)?\s*</i,
+         /\b(?:scroll[-_]?cue|scroll[-_]?indicator|scroll[-_]?hint)\b/i,
+         /(?:aria-label|alt|title)\s*=\s*["'`][^"'`]*\bscroll\b[^"'`]*["'`]/i] },
+  { id: 'version-footer', severity: 'warn', msg: 'build/version stamp on a marketing surface; keep versions in changelog or product UI',
+    re: [/\bv\d+\.\d+\.\d+\b/, /\bBuild\s+#?\d{2,}\b/i, /\blast sync\b/i, /\bcommit\s+[0-9a-f]{7,}\b/i] },
+  { id: 'hero-version', severity: 'warn', msg: 'BETA / version / invite pill in the hero; put release status in the nav or changelog',
+    re: [/>\s*(?:BETA|ALPHA|EARLY\s+ACCESS|INVITE[- ]?ONLY|PRIVATE\s+BETA)\s*</i,
+         /(?:class|className)=["'`][^"'`]*(?:badge|pill|chip)[^"'`]*["'`][^>]*>\s*(?:BETA|ALPHA|V?\d+\.\d+)/i] },
+  { id: 'italic-serif-display', severity: 'warn', msg: 'italic serif at display size; pick a display face that fits this product',
+    test: (l) => (/\bfont-serif\b/.test(l) && /\bitalic\b/.test(l) && /\btext-(?:4xl|5xl|6xl|7xl|8xl|9xl)\b/.test(l))
+      || (/\bfont-(?:family):\s*[^;]*serif/i.test(l) && /font-style:\s*italic/i.test(l)) },
+  { id: 'italic-serif-word', severity: 'warn', msg: 'one-word italic serif inside a sans headline; keep the title in one family',
+    test: (l) => {
+      if (!/\bfont-serif\b/.test(l) || !/\bitalic\b/.test(l)) return false;
+      // Full-headline italic serif is covered by italic-serif-display.
+      if (/\btext-(?:4xl|5xl|6xl|7xl|8xl|9xl)\b/.test(l)) return false;
+      return /<(?:span|em|i)\b/i.test(l) || /\b(?:class|className)=["'`][^"'`]*(?:font-serif[^"'`]*italic|italic[^"'`]*font-serif)/.test(l);
+    } },
+  { id: 'blink-cursor', severity: 'warn', msg: 'blinking caret on static copy; keep cursors only where the user can type',
+    re: [/\bcursor[-_]?(?:blink|caret)\b/i, /\banimate-(?:pulse|ping)\b[^"'`>]*[│|▌]/,
+         />\s*[│|▌]\s*</, /@keyframes\s+\w*(?:blink|caret|cursor)/i] },
+  { id: 'grid-bg', severity: 'warn', msg: 'decorative line-grid background; keep grids for canvases, maps, or editors',
+    re: [/\b(?:bg|background)[-_]?(?:grid|graph[-_]?paper)\b/i,
+         /(?:background(?:-image)?):\s*[^;]*(?:repeating-linear-gradient|linear-gradient)[^;]*(?:1px|hairline)[^;]*(?:1px|hairline)/i,
+         /(?:background(?:-image)?):\s*[^;]*linear-gradient\([^)]*(?:#(?:e5e5e5|e5e7eb|d4d4d4|d1d5db)|rgba?\([^)]*0\.\d+\))[^)]*\)\s*,\s*linear-gradient/i] },
+  { id: 'faded-dot-grid', severity: 'warn', msg: 'dotted/checkered grid with edge fade; keep grids for real canvases, without a vignette',
+    re: [/\b(?:dot(?:ted)?[-_]?grid|bg-dot(?:s)?|dot[-_]?pattern|checkered[-_]?bg|grid[-_]?fade)\b/i,
+         /radial-gradient\(\s*(?:circle(?:\s+\d+px)?\s+at\s+\d|circle\s*,)[^)]*(?:transparent|1px)/i,
+         /(?:-webkit-)?mask(?:-image)?:\s*[^;]*radial-gradient/i,
+         /mask-image:\s*[^;]*linear-gradient[^;]*transparent/i,
+         /(?:background(?:-image)?):\s*[^;]*radial-gradient\([^)]*circle[^)]*(?:1px|2px)[^)]*transparent[^)]*\)[^;]*(?:repeating|,\s*radial)/i] },
+  { id: 'soft-spotlight', severity: 'warn', msg: 'soft radial spotlight behind content; use size/weight/space for emphasis',
+    re: [/\bradial-gradient\([^)]*(?:ellipse\s+)?(?:at\s+(?:center|top|50%))[^)]*(?:rgba?\([^)]*,\s*0\.\d+\)|transparent)/i,
+         /\b(?:soft[-_]?glow|ambient[-_]?glow|spotlight[-_]?(?:bg|glow|wash))\b/i] },
+  { id: 'hairline-wide-shadow', severity: 'warn', msg: 'hairline border and wide shadow on the same card; pick one edge treatment',
+    test: (l) => (/\bborder\b/.test(l) || /border(?:-width)?:\s*1px\b/i.test(l))
+      && (/\bshadow-(?:xl|2xl)\b/.test(l) || /box-shadow:\s*[^;]*(?:\d{2,}px\s+){2,}\d{2,}px/i.test(l))
+      && !/\bborder-0\b|\bborder-none\b|border:\s*(?:none|0)\b/i.test(l)
+      && !/\bborder-[trblse]\b/.test(l) },
+  { id: 'extreme-radius', severity: 'warn', msg: 'huge radius on a card; match corner curve to the card size',
+    // Flag blob radii (~2rem–6rem / 32–96px / rounded-3xl). Skip full pills (9999px, 100%, full).
+    test: (l) => {
+      if (/\brounded-(?:full|none)\b/.test(l) || /border-radius:\s*(?:9999px|100%|999rem)\b/i.test(l)) return false;
+      if (/\brounded-3xl\b/.test(l)) return true;
+      const tw = l.match(/\brounded-(?:[trblse]{1,2}-)?\[(\d+(?:\.\d+)?)(px|rem)?\]/);
+      if (tw) {
+        const n = +tw[1]; const u = tw[2] || 'px';
+        return u === 'rem' ? n >= 1.5 && n <= 6 : n >= 32 && n <= 96;
+      }
+      const css = l.match(/border-radius:\s*(\d+(?:\.\d+)?)(px|rem)\b/i);
+      if (css) {
+        const n = +css[1]; const u = css[2].toLowerCase();
+        return u === 'rem' ? n >= 1.5 && n <= 6 : n >= 32 && n <= 96;
+      }
+      return false;
+    } },
+  { id: 'row-double-border', severity: 'warn', msg: 'top and bottom border on every list row; use one divider or another component',
+    test: (l) => (/\bborder-t\b/.test(l) && /\bborder-b\b/.test(l))
+      || /border-(?:top|bottom)(?:-width)?:\s*[^;]+;[^;]*border-(?:bottom|top)/i.test(l) },
+  { id: 'stripe-fill', severity: 'warn', msg: 'repeating-gradient stripes as fill; use a plain surface or a brand texture',
+    re: [/repeating-(?:linear|conic)-gradient\s*\(/i, /\b(?:stripe(?:d|s)?[-_]?(?:bg|fill|pattern)|bg-stripes)\b/i] },
+  { id: 'all-caps-body', severity: 'warn', msg: 'all-caps body block; use sentence case for paragraphs',
+    test: (l) => {
+      if (!(/\buppercase\b/.test(l) || /text-transform:\s*uppercase/i.test(l))) return false;
+      // Tiny tracked labels / eyebrows are fine; body-sized caps are not.
+      if (/\b(?:text-(?:\[?\d{1,2}px\]?|xs|cap)|tracking-(?:wide|wider|widest|\[))\b/.test(l)) return false;
+      return /\b(?:text-(?:base|lg|xl)|leading-(?:relaxed|7|8)|max-w-prose|prose)\b/.test(l)
+        || /<(?:p|P)\b/.test(l);
+    } },
+  { id: 'jagged-mask', severity: 'warn', msg: 'jagged clip-path mask on an image; use a clean crop or a prepared cut-out',
+    re: [/clip-path:\s*polygon\s*\(/i, /\bclip-path-\[polygon\(/i] },
+  { id: 'justified-body', severity: 'warn', msg: 'justified body text; start-align paragraphs on the web',
+    re: [/\btext-justify\b/, /text-align:\s*justify\b/i] },
+  { id: 'icon-tile', severity: 'warn', msg: 'large icon tile stacked above a feature heading; put the icon beside the title or drop it',
+    test: (l) => (/\b(?:size|h|w)-(?:10|12|14|16|20)\b/.test(l) && /\brounded-(?:xl|2xl|3xl|\[)/.test(l)
+        && (/\b(?:bg-|from-)/.test(l) || /\bshadow\b/.test(l)))
+      || (/\b(?:icon[-_]?tile|feature[-_]?icon|icon[-_]?box)\b/i.test(l)) },
 ];
 
 const FILE_RULES = [
   ['uniform-radius-shadow', 'warn'], ['icon-soup', 'warn'], ['motion-no-reduce', 'warn'], ['centered-everything', 'info'],
-  ['eyebrow-kicker', 'warn'], ['hero-metric', 'warn'], ['em-dash-overuse', 'warn'],
+  ['eyebrow-kicker', 'warn'], ['hero-metric', 'warn'], ['em-dash-overuse', 'warn'], ['kit-monoculture', 'warn'],
   ['token-font', 'warn'], ['token-color', 'warn'], ['token-radius', 'warn'],
 ];
 export const RULES = [...LINE_RULES.map((r) => [r.id, r.severity || 'error|warn']), ...FILE_RULES];
 
 const ICON_IMPORT = /import\s*\{([^}]*)\}\s*from\s*["'](?:lucide-react|lucide-vue-next|lucide-svelte|@heroicons\/react[^"']*|react-icons[^"']*|@tabler\/icons-react|@phosphor-icons\/react)["']/gs;
+// Stock kit families agents default to stacking even when plain structure would do.
+const KIT_FAMILIES = [
+  [/<(?:Card|CardHeader|CardTitle|CardDescription|CardContent|CardFooter)\b/, 'Card'],
+  [/<(?:Badge)\b/, 'Badge'],
+  [/<(?:Button)\b/, 'Button'],
+  [/<(?:Separator)\b/, 'Separator'],
+  [/<(?:Dialog|DialogContent|DialogHeader|DialogTitle|DialogTrigger|DialogFooter)\b/, 'Dialog'],
+];
 
 function fileRules(text, lines) {
   const out = [];
@@ -127,6 +220,9 @@ function fileRules(text, lines) {
   const metrics = lines.filter((l) => metricRe.test(l)).length;
   if (metrics >= 3) out.push({ rule: 'hero-metric', severity: 'warn', line: firstLine(metricRe),
     msg: `${metrics} big-number stats; the stat-row template says little unless each number has context and a source` });
+  const kitHit = KIT_FAMILIES.filter(([re]) => re.test(text)).map(([, name]) => name);
+  if (kitHit.length >= 4) out.push({ rule: 'kit-monoculture', severity: 'warn', line: firstLine(/<(?:Card|Badge|Button|Separator|Dialog)\b/),
+    msg: `stock kit combo (${kitHit.join(', ')}); prefer simpler structure when a card/dialog is not needed` });
   const dashLines = lines.filter((l) => /\S\s?—\s?\S/.test(l) && !/^\s*(?:\/\/|\/\*|\*|<!--)/.test(l)).length;
   if (dashLines >= 4) out.push({ rule: 'em-dash-overuse', severity: 'warn', line: firstLine(/\S\s?—\s?\S/),
     msg: `em dashes on ${dashLines} lines; split into sentences or use other punctuation` });
@@ -148,11 +244,11 @@ function normColor(c) {
 //   colors: #FBFBFA, #17181A, #5B5F66
 //   radii: 0, 6px, 10px, 9999px
 export function parseDesignTokens(md) {
-  const m = md.match(/```design-tokens\s*\n([\s\S]*?)```/);
+  const m = md.match(/```design-tokens\s*\r?\n([\s\S]*?)```/);
   if (!m) return null;
   const t = { fonts: new Set(), colors: new Set(), radii: new Set() };
-  for (const line of m[1].split('\n')) {
-    const kv = line.match(/^\s*(fonts|colors|radii)\s*:\s*(.+)$/i);
+  for (const line of m[1].split(/\r?\n/)) {
+    const kv = line.match(/^\s*(fonts|colors|radii)\s*:\s*(.+?)\s*$/i);
     if (!kv) continue;
     const key = kv[1].toLowerCase();
     for (const v of kv[2].split(',').map(norm).filter(Boolean)) t[key].add(key === 'colors' ? normColor(v) : v);

@@ -1,3 +1,4 @@
+// slop-lint-disable-file  (intentional AI-slop cutouts for the newer-tells demos)
 import type { CSSProperties, ReactNode } from 'react';
 import { Bot, Layers, Rocket, Shield, Sparkles, Zap } from 'lucide-react';
 

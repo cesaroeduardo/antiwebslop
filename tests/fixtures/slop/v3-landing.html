@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    .hero-strip { font-family: monospace; }
+    .spotlight { background: radial-gradient(ellipse at center, rgba(99,102,241,0.35), transparent 70%); }
+    .gridwall { background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px); }
+    .dotfade {
+      background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+      background-size: 16px 16px;
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+    }
+    .stripes { background: repeating-linear-gradient(45deg, #eee, #eee 8px, #fff 8px, #fff 16px); }
+    .card { border: 1px solid #e5e5e5; box-shadow: 0 24px 48px rgba(0,0,0,.18); border-radius: 48px; }
+    .row { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+    .torn { clip-path: polygon(0 8%, 4% 0, 100% 5%, 96% 100%, 0 92%); }
+    .body { text-align: justify; text-transform: uppercase; }
+    .caret { animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <span class="badge">BETA</span>
+    <h1 class="font-serif italic text-6xl">Designed for makers</h1>
+    <h2>Build <span class="font-serif italic">better</span> products</h2>
+    <p class="hero-strip">BRAND. MOTION. SPATIAL.</p>
+    <p>Lisbon 14:23 · 18°C</p>
+    <a class="scroll-cue" href="#next">Scroll to explore</a>
+    <span class="cursor-blink">|</span>
+  </header>
+  <div class="icon-tile size-12 rounded-2xl bg-zinc-100 shadow"></div>
+  <h2>Lightning workflows</h2>
+  <div class="spotlight gridwall stripes">Atmosphere</div>
+  <div class="dotfade">Faded dots</div>
+  <div class="card hairline-wide-shadow border shadow-xl rounded-3xl p-6">Soft blob card</div>
+  <ul>
+    <li class="row border-t border-b py-3">Spec one</li>
+    <li class="row border-t border-b py-3">Spec two</li>
+  </ul>
+  <img class="torn" src="photo.jpg" alt="" />
+  <p class="body text-base leading-relaxed uppercase">This whole paragraph is shouting in capitals and justified for no reason.</p>
+  <footer>v1.4.2 · Build 0048 · last sync 4s ago</footer>
+</body>
+</html>

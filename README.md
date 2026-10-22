@@ -25,7 +25,7 @@ Until runs exist, the [slop gallery](gallery/index.html) shows what the lint cat
 
 ## What it does
 
-- **Tells the agent what not to ship.** 35 anti-patterns, each with how to spot it and what to do
+- **Tells the agent what not to ship.** 61 anti-patterns, each with how to spot it and what to do
   instead: purple gradients, gradient text, glass, emoji bullets, "Unlock the power of", invented
   testimonials and metrics, labels above headlines, decorative 01/02/03, bouncy easing, and more.
 - **Tells it what to do instead.** Type pairing and scale, a spacing scale, grid, color with one
@@ -33,7 +33,7 @@ Until runs exist, the [slop gallery](gallery/index.html) shows what the lint cat
   hard to push.
 - **Keeps each project consistent.** A per-project `DESIGN.md` with product truth and a
   machine-readable `design-tokens` block. The lint flags fonts, colors, and radii outside it.
-- **Checks the result.** `slop-lint` (31 rules, `file:line` output, CI exit codes), optionally run
+- **Checks the result.** `slop-lint` (52 rules, `file:line` output, CI exit codes), optionally run
   after every agent write by a Cursor hook. Three-viewport visual QA and a pre-done checklist.
 - **Measures itself.** A 0–2 scorecard and a blind A/B protocol, so changes to the skill are kept
   only when they win.
@@ -131,7 +131,7 @@ those; expect overlapping findings if you do.
 | Size | One skill folder, ~5 KB entry file, plain Markdown + ~375 lines of JS |
 | Runtime | Node script, no downloads, no network |
 | Telemetry | None |
-| Detection | 31 source rules + DESIGN.md token drift |
+| Detection | 52 source rules + DESIGN.md token drift |
 | Agents | Plugin manifests for Claude Code, Codex, and Cursor; `npx skills` for the rest |
 | Proof | Built-in blind A/B protocol and scorecard |
 | Content honesty | Named rules against invented proof and placeholder people |

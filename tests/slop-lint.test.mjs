@@ -31,11 +31,20 @@ test('v2 rules fire on the v2 slop fixture', () => {
     assert.ok(r.summary.byRule[id] > 0, `rule ${id} should fire`);
 });
 
+test('v3 rules fire on the v3 slop fixture', () => {
+  const r = json('tests/fixtures/slop/v3-landing.html', 'tests/fixtures/slop/KitStack.tsx');
+  for (const id of ['hero-text-strip', 'locale-weather', 'scroll-cue', 'version-footer', 'hero-version',
+    'italic-serif-display', 'italic-serif-word', 'blink-cursor', 'grid-bg', 'faded-dot-grid', 'soft-spotlight',
+    'hairline-wide-shadow', 'extreme-radius', 'row-double-border', 'stripe-fill', 'all-caps-body', 'jagged-mask',
+    'justified-body', 'icon-tile', 'kit-monoculture'])
+    assert.ok(r.summary.byRule[id] > 0, `rule ${id} should fire (got ${JSON.stringify(r.summary.byRule)})`);
+});
+
 test('token drift: fonts, colors, radii outside DESIGN.md tokens', () => {
   const r = json('tests/fixtures/tokens', '--design', 'tests/fixtures/tokens/DESIGN.md');
   assert.deepEqual(r.summary.byRule, { 'token-font': 2, 'token-color': 3, 'token-radius': 2 });
-  assert.equal(r.summary.design, 'tests/fixtures/tokens/DESIGN.md');
-  const lines = r.results.map((h) => `${h.file.split('/').pop()}:${h.line}:${h.rule}`);
+  assert.equal(String(r.summary.design).replace(/\\/g, '/'), 'tests/fixtures/tokens/DESIGN.md');
+  const lines = r.results.map((h) => `${h.file.split(/[/\\]/).pop()}:${h.line}:${h.rule}`);
   assert.ok(!lines.some((l) => l.startsWith('drift.css:1:') || l.startsWith('drift.css:2:') || l.startsWith('drift.css:3:')), 'documented tokens pass');
   const off = json('tests/fixtures/tokens', '--no-design');
   assert.equal(off.summary.warnings, 0, '--no-design disables drift checks');
@@ -49,7 +58,7 @@ test('clean fixtures stay clean with their own DESIGN.md tokens', () => {
 test('--list-rules prints every rule', () => {
   const r = run('--list-rules');
   assert.equal(r.code, 0);
-  assert.match(r.out, /^31 rules$/m);
+  assert.match(r.out, /^52 rules$/m);
 });
 
 test('clean fixtures produce no errors or warnings', () => {
@@ -66,7 +75,7 @@ test('disable comments suppress hits', () => {
 
 test('text output has file:line hits and a summary line', () => {
   const r = run('tests/fixtures/slop/Features.tsx');
-  assert.match(r.out, /tests\/fixtures\/slop\/Features\.tsx:\d+ +error +purple-gradient/);
+  assert.match(r.out, /tests[/\\]fixtures[/\\]slop[/\\]Features\.tsx:\d+ +error +purple-gradient/);
   assert.match(r.out, /slop-lint: \d+ hits \(\d+ error, \d+ warn, \d+ info\) in 1 files/);
 });
 
