@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { ChevronDown } from 'lucide-react';
 
 export type LanguageOption = { locale: string; code: string; name: string; href: string; hrefLang: string };
@@ -12,7 +13,11 @@ const YEAR = 60 * 60 * 24 * 365;
 /**
  * Language select styled like the header GitHub button. Listbox pattern (WAI-ARIA APG, select-only):
  * the button opens a popup listbox; arrows, Home/End and type-ahead move, Enter/Space picks, Esc or a click
- * outside closes and returns focus. Picking writes NEXT_LOCALE for a year and goes to the same path in that locale.
+ * outside closes and returns focus. Picking writes NEXT_LOCALE for a year and switches to the same path in that
+ * locale on the client (Next router to the locale's real URL, `/` for English, in a transition; the other locales
+ * are prefetched on hover/focus/open), so only the RSC payload of the prerendered page is fetched, not a full reload.
+ * next-intl's router is not used on purpose: with localePrefix as-needed it routes English through /en and the
+ * client kept /en in the address bar.
  */
 export function LanguageSelect({ current, options, label }: { current: string; options: LanguageOption[]; label: string }) {
   const [open, setOpen] = useState(false);
@@ -22,6 +27,14 @@ export function LanguageSelect({ current, options, label }: { current: string; o
   const root = useRef<HTMLDivElement>(null);
   const id = useId();
   const selected = options.find((o) => o.locale === current) ?? options[0];
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const prefetched = useRef(false);
+  const prefetch = () => {
+    if (prefetched.current) return;
+    prefetched.current = true;
+    options.forEach((o) => { if (o.locale !== current) router.prefetch(o.href); });
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -36,6 +49,7 @@ export function LanguageSelect({ current, options, label }: { current: string; o
   const show = (index?: number) => {
     setActive(index ?? Math.max(0, options.findIndex((o) => o.locale === current)));
     setOpen(true);
+    prefetch();
   };
   const close = (focusButton = true) => {
     setOpen(false);
@@ -44,7 +58,9 @@ export function LanguageSelect({ current, options, label }: { current: string; o
   const pick = (o: LanguageOption) => {
     document.cookie = `${COOKIE}=${o.locale}; path=/; max-age=${YEAR}; samesite=lax`;
     if (o.locale === current) return close();
-    window.location.assign(o.href + window.location.hash);
+    setOpen(false);
+    button.current?.focus();
+    startTransition(() => router.replace(o.href, { scroll: false }));
   };
 
   const onButtonKey = (e: React.KeyboardEvent) => {
@@ -81,6 +97,9 @@ export function LanguageSelect({ current, options, label }: { current: string; o
         aria-controls={`${id}-list`}
         aria-label={`${label}: ${selected.name}`}
         onClick={() => (open ? close() : show())}
+        onPointerEnter={prefetch}
+        onFocus={prefetch}
+        aria-busy={pending || undefined}
         onKeyDown={onButtonKey}
         className="inline-flex items-center gap-1.5 rounded-control border border-border px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface aria-expanded:border-border-strong aria-expanded:bg-surface sm:px-3"
       >
