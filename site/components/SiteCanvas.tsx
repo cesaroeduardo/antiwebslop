@@ -307,7 +307,7 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
               className="group absolute left-0 top-0 block rounded-card border border-border bg-surface p-2 text-left transition-colors duration-150 will-change-transform hover:border-border-strong"
               style={{ width: CW, transform: place(s, X0, Y0) }}
             >
-              <span className="relative block overflow-hidden bg-bg" style={{ aspectRatio: '16 / 10' }}>
+              <span className="relative block overflow-hidden rounded-in-card bg-bg" style={{ aspectRatio: '16 / 10' }}>
                 <Image
                   src={`/canvas/${s.site.slug}-thumb.webp`}
                   alt=""
@@ -364,7 +364,7 @@ export function SiteCanvas({ sites }: { sites: CanvasSite[] }) {
               </div>
             </div>
             <p role="status" aria-live="polite" className="sr-only">{announce}</p>
-            <div className="relative overflow-hidden bg-bg" style={{ aspectRatio: '16 / 10' }}>
+            <div className="relative overflow-hidden rounded-in-card-lg bg-bg" style={{ aspectRatio: '16 / 10' }}>
               <Image
                 src={`/canvas/${open.slug}.webp`}
                 alt={t('alt', { name: open.name, host: open.url.replace('https://', '') })}

@@ -88,18 +88,21 @@
   "gallery": {
     "title": "The newer tells",
     "wordsAlt": "A generic SaaS landing page with each newer tell outlined and tagged: label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering and side-stripe.",
-    "metricsAlt": "Close-up of a row of three big numbers, 10x, 99% and 24/7, with short captions, outlined and tagged big-number-row.",
-    "numberingAlt": "Close-up of feature cards labeled 01, 02 and 03, each with a colored stripe down its left edge, tagged section-numbering and side-stripe.",
+    "iconsAlt": "Close-up of a six-card feature grid, each card with a purple icon tile and generic marketing lines, tagged icon-soup and slop-copy. The right column is clipped.",
+    "numberingAlt": "Close-up of six feature cards labeled 01–06, each with a colored stripe down its left edge, tagged section-number and side-tab-border. The right column is clipped.",
     "loopsAlt": "Close-up of a dashboard header with an All systems online badge and a green dot, tagged pulsing-dot.",
+    "placeholdersAlt": "Close-up of a three-card blog row where each photo is an inline SVG landscape, tagged svg-placeholder. The right card is clipped.",
     "rulesAria": "Lint rules",
     "wordsTitle": "Words dressed up as design",
     "wordsBody": "A tiny label over the heading, a dash on every line, a “Not X. A Y.” slogan. Fold the label into the heading, use full stops, and say what the product does in one plain sentence.",
-    "metricsTitle": "Numbers without a source",
-    "metricsBody": "Three huge numbers with tiny captions under the hero. Keep a number only when it is real and sourced, and give it a sentence of context.",
+    "iconsTitle": "Icons and empty words",
+    "iconsBody": "Zap, sparkles, shield on every card, plus Seamless, Unlock, Supercharge underneath. Keep icons where they aid scanning, and say what the product does with a concrete noun.",
     "numberingTitle": "Steps that are not steps",
     "numberingBody": "01, 02, 03 on sections that have no order, and colored stripes down the side of ordinary cards. Number only real sequences; keep side stripes for real status.",
     "loopsTitle": "Motion that never stops",
-    "loopsBody": "A status dot that pulses forever, logos that scroll on a loop, buttons that bounce. Static things stay still; animate a real change with a short ease-out."
+    "loopsBody": "A status dot that pulses forever, logos that scroll on a loop, buttons that bounce. Static things stay still; animate a real change with a short ease-out.",
+    "placeholdersTitle": "Photos that are just SVGs",
+    "placeholdersBody": "Gray hills and a circle sun, drawn in markup and sold as imagery. Use a real photograph, a product shot, or leave the space empty — not a vector pretending to be a photo."
   },
   "install": {
     "title": "Pick your agent, install it in one line",

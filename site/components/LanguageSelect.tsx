@@ -101,7 +101,7 @@ export function LanguageSelect({ current, options, label }: { current: string; o
         onFocus={prefetch}
         aria-busy={pending || undefined}
         onKeyDown={onButtonKey}
-        className="inline-flex items-center gap-1.5 rounded-control border border-border px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface aria-expanded:border-border-strong aria-expanded:bg-surface sm:px-3"
+        className="inline-flex items-center gap-1.5 rounded-control border border-border bg-surface/50 px-2 py-1.5 font-mono text-sm text-fg transition-colors duration-150 hover:border-border-strong hover:bg-surface aria-expanded:border-border-strong aria-expanded:bg-surface sm:px-3"
       >
         {selected.code}
         <ChevronDown aria-hidden size={14} className={`text-muted transition-transform duration-150 ${open ? 'rotate-180' : ''}`} />

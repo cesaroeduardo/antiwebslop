@@ -92,6 +92,18 @@
     transition: text-decoration-color 150ms ease-out, color 150ms ease-out;
   }
   .link:hover { text-decoration-color: var(--color-accent); }
+  /* Nested radius: R_inner = R_outer − padding, so media follows the card curve. */
+  .rounded-in-card {
+    border-radius: max(0px, calc(var(--radius-card) - 0.5rem)); /* card / lightbox p-2 */
+  }
+  .rounded-in-card-lg {
+    border-radius: max(0px, calc(var(--radius-card) - 0.5rem));
+  }
+  @media (min-width: 40rem) {
+    .rounded-in-card-lg {
+      border-radius: max(0px, calc(var(--radius-card) - 0.75rem)); /* lightbox sm:p-3 */
+    }
+  }
 }
 
 /* Accordion height (Radix exposes the measured height). Motion only when allowed. */
@@ -116,29 +128,31 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
 
-/* Gallery HTML cutouts: skill-scan outlines + tags. Fast stagger on [data-scanned=true]. */
+/* Gallery HTML cutouts: skill-scan outlines + tags — only on hover / focus-within. */
 .slop-mark { isolation: isolate; }
 .slop-box {
   position: absolute;
   inset: -4px;
-  border: 1.5px dashed var(--color-accent);
+  border: 2px dashed var(--color-accent); /* site lavender #D1A8FF */
   border-radius: 6px;
   pointer-events: none;
   opacity: 0;
   transform: scale(0.94);
-  z-index: 2;
+  z-index: 30;
+  transition: opacity 320ms var(--ease-out-quart), transform 420ms var(--ease-out-quart);
+  transition-delay: 0ms;
 }
 .slop-tag {
   position: absolute;
   left: -2px;
   top: -2px;
-  z-index: 3;
+  z-index: 31;
   translate: 0 -100%;
   margin-top: -4px;
   padding: 2px 7px;
   border-radius: 3px;
-  background: #0a0a0a;
-  color: #f7eddb;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 500;
@@ -148,31 +162,36 @@ html.lenis, html.lenis body { height: auto; }
   pointer-events: none;
   opacity: 0;
   transform: translateY(6px);
-}
-.slop-demo[data-scanned="true"] .slop-box {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 160ms var(--ease-out-quart), transform 220ms var(--ease-out-quart);
-  transition-delay: calc(var(--slop-i, 0) * 70ms);
-}
-.slop-demo[data-scanned="true"] .slop-tag {
-  opacity: 1;
-  transform: none;
-  transition: opacity 140ms var(--ease-out-quart), transform 200ms var(--ease-out-quart);
-  transition-delay: calc(var(--slop-i, 0) * 70ms + 40ms);
+  transition: opacity 280ms var(--ease-out-quart), transform 380ms var(--ease-out-quart);
+  transition-delay: 0ms;
 }
 .slop-mark[data-slop-delay="0"] { --slop-i: 0; }
 .slop-mark[data-slop-delay="1"] { --slop-i: 1; }
 .slop-mark[data-slop-delay="2"] { --slop-i: 2; }
 .slop-mark[data-slop-delay="3"] { --slop-i: 3; }
+.slop-mark[data-slop-delay="4"] { --slop-i: 4; }
+.slop-mark[data-slop-delay="5"] { --slop-i: 5; }
+
+.slop-demo:hover .slop-box,
+.slop-demo:focus-within .slop-box {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: calc(var(--slop-i, 0) * 140ms);
+}
+.slop-demo:hover .slop-tag,
+.slop-demo:focus-within .slop-tag {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--slop-i, 0) * 140ms + 80ms);
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .slop-demo .slop-box,
-  .slop-demo .slop-tag {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  .slop-box,
+  .slop-tag { transition: none; }
+  .slop-demo:hover .slop-box,
+  .slop-demo:focus-within .slop-box,
+  .slop-demo:hover .slop-tag,
+  .slop-demo:focus-within .slop-tag { transition-delay: 0ms; }
   .slop-pulse,
   .slop-bounce { animation: none !important; }
 }

@@ -45,11 +45,12 @@ const scoreInk = (pts?: number) => `color-mix(in oklab, var(--color-accent) ${Ma
 const scorecard: { key: 'A' | 'B' | 'C' | 'D'; pts?: number }[] = [{ key: 'A', pts: 20 }, { key: 'B', pts: 12 }, { key: 'C', pts: 10 }, { key: 'D' }];
 
 /** The newer tells: HTML cutouts (not photos). Each row shows a focused slop mock that the skill tags on scroll. */
-const tellRows: { key: 'words' | 'metrics' | 'numbering' | 'loops'; rules: string[] }[] = [
+const tellRows: { key: 'words' | 'icons' | 'numbering' | 'loops' | 'placeholders'; rules: string[] }[] = [
   { key: 'words', rules: ['eyebrow-kicker', 'em-dash-overuse', 'not-x-a-y'] },
-  { key: 'metrics', rules: ['hero-metric'] },
-  { key: 'numbering', rules: ['section-number', 'side-tab-border'] },
   { key: 'loops', rules: ['attention-loop', 'bounce-easing'] },
+  { key: 'placeholders', rules: ['svg-placeholder'] },
+  { key: 'icons', rules: ['icon-soup', 'slop-copy'] },
+  { key: 'numbering', rules: ['section-number', 'side-tab-border'] },
 ];
 
 const nav: [string, 'references' | 'install'][] = [
@@ -163,7 +164,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <SiteCanvas sites={canvasSites} />
         </section>
 
-        {/* Newer tells: HTML cutouts + topic. On scroll-in, dashed outlines and rule tags snap on (skill scan). */}
+        {/* Newer tells: HTML cutouts + topic. Hover/focus runs the skill-scan outlines + rule tags. */}
         <section id="gallery" aria-label={t('gallery.title')} className="mx-auto w-full max-w-[1100px] scroll-mt-6 px-4 pt-32 sm:px-6 md:pt-40">
           <ul className="flex flex-col gap-20 md:gap-[120px]">
             {tellRows.map((row) => (

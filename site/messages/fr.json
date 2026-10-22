@@ -88,18 +88,21 @@
   "gallery": {
     "title": "Les signes plus récents",
     "wordsAlt": "Une landing page SaaS générique où chaque signe récent est entouré et étiqueté : label-above-headline, em-dash-density, pulsing-dot, big-number-row, section-numbering et side-stripe.",
-    "metricsAlt": "Gros plan sur une rangée de trois grands chiffres, 10x, 99 % et 24/7, avec de courtes légendes, entourée et étiquetée big-number-row.",
-    "numberingAlt": "Gros plan sur des cartes numérotées 01, 02 et 03, chacune avec une bande de couleur sur le bord gauche, étiquetées section-numbering et side-stripe.",
+    "iconsAlt": "Gros plan d’une grille de six cartes, chacune avec une icône violette et des phrases marketing génériques, étiquetées icon-soup et slop-copy. La colonne de droite est coupée.",
+    "numberingAlt": "Gros plan sur six cartes numérotées 01–06, chacune avec une bande de couleur sur le bord gauche, étiquetées section-number et side-tab-border. La colonne de droite est coupée.",
     "loopsAlt": "Gros plan sur l’en-tête d’un tableau de bord avec un badge All systems online et un point vert, étiqueté pulsing-dot.",
+    "placeholdersAlt": "Gros plan d’une rangée de trois cartes de blog où chaque photo est un paysage SVG inline, étiquetée svg-placeholder. La carte de droite est coupée.",
     "rulesAria": "Règles du lint",
     "wordsTitle": "Des mots déguisés en design",
     "wordsBody": "Une minuscule étiquette au-dessus du titre, un tiret à chaque ligne, un slogan « Pas X. Un Y. ». Intégrez l’étiquette au titre, mettez des points et dites ce que fait le produit en une phrase simple.",
-    "metricsTitle": "Des chiffres sans source",
-    "metricsBody": "Trois chiffres énormes avec de minuscules légendes sous le hero. Gardez un chiffre seulement s’il est réel et sourcé, et donnez-lui une phrase de contexte.",
+    "iconsTitle": "Des icônes et des mots vides",
+    "iconsBody": "Zap, sparkles, shield sur chaque carte, plus Seamless, Unlock, Supercharge en dessous. Gardez les icônes où elles aident à scanner, et dites ce que fait le produit avec un nom concret.",
     "numberingTitle": "Des étapes qui n’en sont pas",
     "numberingBody": "01, 02, 03 sur des sections sans ordre, et des bandes de couleur sur le côté de cartes ordinaires. Numérotez seulement les vraies séquences ; gardez les bandes pour un vrai statut.",
     "loopsTitle": "Du mouvement qui ne s’arrête jamais",
-    "loopsBody": "Un point de statut qui pulse sans fin, des logos qui défilent en boucle, des boutons qui rebondissent. Ce qui est statique reste immobile ; animez un vrai changement avec un ease-out court."
+    "loopsBody": "Un point de statut qui pulse sans fin, des logos qui défilent en boucle, des boutons qui rebondissent. Ce qui est statique reste immobile ; animez un vrai changement avec un ease-out court.",
+    "placeholdersTitle": "Des photos qui ne sont que des SVG",
+    "placeholdersBody": "Des collines grises et un soleil rond, dessinés dans le markup et vendus comme image. Utilisez une vraie photo, une capture produit, ou laissez l’espace vide — pas un vecteur qui joue la photo."
   },
   "install": {
     "title": "Choisissez votre agent, installez-la en une ligne",
