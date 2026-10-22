@@ -60,11 +60,14 @@ export function JsonLd({ locale, title, description }: Props) {
     ],
   };
 
+  // Escape < so a future string containing </script> cannot break out of the tag.
+  const json = JSON.stringify(data).replace(/</g, '\\u003c');
+
   return (
     <script
       type="application/ld+json"
       // JSON-LD is a data blob for crawlers; dangerouslySetInnerHTML is the documented pattern.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: json }}
     />
   );
 }

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "antiwebslop — keep agent pages from looking AI-made",
-    "description": "Agent skill for Cursor, Codex, Claude Code and Grok: {entries} anti-patterns, a {rules}-rule lint, DESIGN.md, and a blind A/B eval. MIT, no telemetry.",
+    "title": "anti webslop skill | stop making ugly websites",
+    "description": "Stops web UI from looking AI-generated. Catches the slop tells, fixes the craft, and keeps pages looking designed by a person. For Cursor, Codex, Claude Code, and Grok.",
     "ogAlt": "antiwebslop wordmark on a dark field"
   },
   "common": {

@@ -4,7 +4,6 @@ import { DM_Mono, DM_Sans } from 'next/font/google';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { JsonLd } from '@/components/JsonLd';
-import content from '@/content/generated.json';
 import { routing, localePath } from '@/i18n/routing';
 import { AUTHOR_URL, SITE_URL } from '@/lib/site';
 import '../globals.css';
@@ -22,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   const title = t('title');
-  const description = t('description', { entries: content.catalogCount, rules: content.ruleCount });
+  const description = t('description');
   const canonical = localePath(locale);
   const pageUrl = `${SITE_URL}${canonical === '/' ? '' : canonical}`;
   const ogImage = {
@@ -87,7 +86,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'meta' });
-  const description = t('description', { entries: content.catalogCount, rules: content.ruleCount });
+  const description = t('description');
   return (
     <html lang={locale === 'pt' ? 'pt-BR' : locale} className={`${mono.variable} ${sans.variable}`}>
       <body className="min-h-dvh">

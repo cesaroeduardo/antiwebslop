@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "antiwebslop — páginas de agentes sin cara de IA",
-    "description": "Skill para Cursor, Codex, Claude Code y Grok: {entries} antipatrones, lint de {rules} reglas, DESIGN.md y eval A/B a ciegas. MIT, sin telemetría.",
+    "title": "anti webslop skill | stop making ugly websites",
+    "description": "Evita que la UI web parezca generada por IA. Detecta las señales de slop, corrige el craft y mantiene páginas con pinta de hechas por una persona. Para Cursor, Codex, Claude Code y Grok.",
     "ogAlt": "wordmark antiwebslop sobre fondo oscuro"
   },
   "common": {

@@ -153,7 +153,6 @@ those; expect overlapping findings if you do.
 | [`eval/`](eval/README.md) | Scorecard, brief template, blind A/B protocol, validation log |
 | [`gallery/`](gallery/README.md) | Static before/after pages with findings marked (era 2026-10) |
 | `tests/` | Fixtures and `node:test` suites for the lint and the hook |
-| `archive/kstonebase-export-2026-10-21/` | The original export the skill grew from. Not authoritative |
 
 ## Develop
 

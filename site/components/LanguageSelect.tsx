@@ -56,7 +56,8 @@ export function LanguageSelect({ current, options, label }: { current: string; o
     if (focusButton) button.current?.focus();
   };
   const pick = (o: LanguageOption) => {
-    document.cookie = `${COOKIE}=${o.locale}; path=/; max-age=${YEAR}; samesite=lax`;
+    const secure = typeof location !== 'undefined' && location.protocol === 'https:' ? '; Secure' : '';
+    document.cookie = `${COOKIE}=${o.locale}; path=/; max-age=${YEAR}; samesite=lax${secure}`;
     if (o.locale === current) return close();
     setOpen(false);
     button.current?.focus();

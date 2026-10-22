@@ -109,7 +109,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Why:** a command you cannot see in full is one you will not paste; copy buttons stay for the exact text.
 - **Do not:** truncate a command or hide part of it behind horizontal scroll.
 - **Surfaces:** marketing
-- **Refs:** `/workspace/site-shots/iter1/` (before), `/workspace/site-shots/` (after)
+- **Refs:** local QA screenshots (not committed)
 
 ### 2026-10-21 — "Run the lint yourself" section removed
 - **Context:** Eduardo asked to drop the lint usage section; it repeated the install section and held an empty image slot.
@@ -125,7 +125,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Why:** the protocol is the evidence until runs exist; drawing the card to scale shows where the points are without inventing any score.
 - **Do not:** show a score, a run, or a sample result before `../eval/VALIDATION.md` logs one.
 - **Surfaces:** marketing
-- **Refs:** `../eval/ab-protocol.md`, `../eval/rubric.md`, `/workspace/site-shots/v5-measured-*.png`
+- **Refs:** `../eval/ab-protocol.md`, `../eval/rubric.md`, local QA screenshots (not committed)
 
 ### 2026-10-21 — References canvas as the second section
 - **Context:** Eduardo asked for a second section like useplanes.com's: an edgeless, draggable surface of cards.
@@ -133,7 +133,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Why:** shows the skill's step 2 (references before tokens) with real work instead of describing it; images are captures of live sites, not generated.
 - **Do not:** hijack vertical wheel inside the canvas; add a screenshot without its source gallery; cards stay 10px radius, images unframed.
 - **Surfaces:** marketing
-- **Refs:** https://useplanes.com/ (second section), `/workspace/site-shots/v5-canvas-*.png`, `/workspace/site-shots/v5-lightbox-*.png`
+- **Refs:** https://useplanes.com/ (second section), local QA screenshots (not committed)
 
 ### 2026-10-21 — Hero photo, full bleed
 - **Context:** Eduardo supplied `public/hero/portrait-man.png` (close-up portrait, half behind purple reeded glass). Optimized to `public/hero/portrait.webp` (~122KB). Previous hero kept as `portrait-prev.webp`.
@@ -141,7 +141,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Why:** one strong, specific image says "generated sameness is a problem" better than more copy; the lilac in the glass is the brand accent, not an added glow.
 - **Exception:** the scrims are the only gradients on the site, bg-color to transparent only, never a color gradient.
 - **Surfaces:** marketing
-- **Refs:** `/workspace/site-shots/v6-hero-photo-1440.png`, `/workspace/site-shots/v6-hero-photo-390.png`
+- **Refs:** local QA screenshots (not committed)
 
 ### 2026-10-21 — Four languages with next-intl
 - **Context:** Eduardo asked for pt, fr and es next to English.
@@ -157,7 +157,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Measured on america.gov (1430px):** 12 columns, 16px gaps; media 434×434 at columns 3–6, text 434 wide at 8–11 (copy 308 wide), centered vertically; 120px between rows (80px at 390); radius 57.3px desktop, 38.2px at 390 (13% of the media). Kept our 24px gutter and fonts; widened the media to 6 columns because the capture needs the size.
 - **Do not:** add placeholder images or invented stats to these rows; show a score before `../eval/VALIDATION.md` logs one.
 - **Surfaces:** marketing
-- **Refs:** https://www.america.gov (how-it-works rows), `/workspace/am/measure.json`, `/workspace/site-shots/v8-*.png`
+- **Refs:** https://www.america.gov (how-it-works rows), local QA screenshots (not committed)
 
 ### 2026-10-21 — Bento section removed
 - **Context:** Eduardo found the "what it does" bento (Proof, not taste / What not to ship / One brief per project / Flagged on every write) redundant with the sections below it.

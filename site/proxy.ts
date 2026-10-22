@@ -41,7 +41,14 @@ export default function proxy(req: NextRequest) {
       ? intl(req)
       : NextResponse.redirect(new URL(`/${locale}${pathname === '/' ? '' : pathname}${search}`, req.url), 307);
   if (locale !== routing.defaultLocale) res.headers.set('Cache-Control', 'private, no-store');
-  if (!isLocale(saved)) res.cookies.set(LOCALE_COOKIE, locale, { path: '/', maxAge: YEAR, sameSite: 'lax' });
+  if (!isLocale(saved)) {
+    res.cookies.set(LOCALE_COOKIE, locale, {
+      path: '/',
+      maxAge: YEAR,
+      sameSite: 'lax',
+      secure: req.nextUrl.protocol === 'https:',
+    });
+  }
   return res;
 }
 
