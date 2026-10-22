@@ -76,7 +76,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
-  const { catalog, priorArt, ruleCount, catalogCount, version } = content;
+  const { catalog, priorArt, version } = content;
   const install = installRows(t);
 
   return (
@@ -314,7 +314,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
         <div className="mx-auto flex w-full max-w-wide flex-wrap justify-between gap-2 border-t border-border px-4 py-6 font-mono text-cap text-muted sm:px-6">
           <span>{t('footer.rights')}</span>
-          <span>{t('footer.stats', { version, rules: ruleCount, entries: catalogCount })} · <a className="link text-fg" href={REPO}>{t('footer.readAll')}</a></span>
+          <span>v{version}</span>
         </div>
         <p aria-hidden className="pointer-events-none -mb-[0.32em] select-none whitespace-nowrap px-2 text-center font-mono text-[clamp(3rem,15vw,16rem)] font-medium leading-none tracking-[-0.04em] text-surface-2">
           antiwebslop

@@ -143,8 +143,6 @@
     "antiPatterns": "Anti-patterns",
     "evalKit": "Kit d’évaluation",
     "designMd": "Le DESIGN.md de ce site",
-    "rights": "© 2026 Eduardo de Cesaro · Licence MIT · sans télémétrie",
-    "stats": "v{version} · {rules} règles de lint · {entries} entrées au catalogue",
-    "readAll": "lisez chaque fichier sur GitHub"
+    "rights": "© 2026 Eduardo de Cesaro · Licence MIT"
   }
 }
