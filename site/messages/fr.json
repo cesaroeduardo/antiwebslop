@@ -129,7 +129,7 @@
     "gate": "barrière"
   },
   "compare": {
-    "priorArt": "Travaux antérieurs",
+    "priorArt": "Ce sur quoi la skill s’appuie",
     "by": "par {name}"
   },
   "footer": {

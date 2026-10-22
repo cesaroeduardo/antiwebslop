@@ -276,7 +276,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </Section>
 
-        {/* Prior art: credits for the work this builds on. */}
+        {/* Prior art: the references the skill draws on, credited. */}
         <Section id="prior-art" className="pb-32 md:pb-40">
           <h2 className="mb-6 text-lg font-medium">{t('compare.priorArt')}</h2>
           <ul lang="en" className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">

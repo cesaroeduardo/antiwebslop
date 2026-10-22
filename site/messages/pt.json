@@ -129,7 +129,7 @@
     "gate": "portão"
   },
   "compare": {
-    "priorArt": "Trabalhos anteriores",
+    "priorArt": "Referências que a skill usa",
     "by": "de {name}"
   },
   "footer": {

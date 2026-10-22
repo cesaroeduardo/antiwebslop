@@ -129,7 +129,7 @@
     "gate": "filtro"
   },
   "compare": {
-    "priorArt": "Trabajos previos",
+    "priorArt": "En qué se apoya la skill",
     "by": "de {name}"
   },
   "footer": {
