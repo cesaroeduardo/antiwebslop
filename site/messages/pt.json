@@ -25,7 +25,7 @@
   },
   "hero": {
     "title": "Pare de publicar a página que todo mundo já viu",
-    "line": "Uma skill, muito sincera, que impede seu agente de fazer aqueles lixos de UI genérico.",
+    "line": "Uma skill, muito sincera, que impede seu agente de fazer aqueles lixos de UI genérica que ninguém aguenta mais ver.",
     "installLabel": "Comando de instalação",
     "seeUseCases": "Ver use cases"
   },
@@ -85,8 +85,7 @@
     "instead": "Faça no lugar",
     "noRule": "sem regra, no olho",
     "errorOrWarn": "erro ou aviso",
-    "loadMore": "Mostrar mais {count} antipatterns",
-    "showLess": "Minimizar antipatterns"
+    "loadMore": "Mostrar todos os {count} anti-padrões"
   },
   "gallery": {
     "title": "Os sinais mais recentes",

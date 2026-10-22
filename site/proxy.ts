@@ -27,12 +27,23 @@ const isLocale = (v: string | undefined): v is Locale => !!v && (routing.locales
 const prefixed = (pathname: string) =>
   routing.locales.some((l) => l !== routing.defaultLocale && (pathname === `/${l}` || pathname.startsWith(`/${l}/`)));
 
+/** App Router prefetch/RSC warmups — must not follow the geo/cookie redirect. */
+const isPrefetch = (req: NextRequest) =>
+  req.headers.get('Next-Router-Prefetch') === '1' ||
+  req.headers.get('Purpose') === 'prefetch' ||
+  req.headers.get('Sec-Purpose') === 'prefetch';
+
 export default function proxy(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
   const ua = req.headers.get('user-agent') ?? '';
   if (prefixed(pathname) || BOT.test(ua) || (req.method !== 'GET' && req.method !== 'HEAD')) return intl(req);
 
-  // Unprefixed path (English). A saved choice wins; with none, guess once from the country and remember it.
+  // Unprefixed path is English. Prefetch must resolve to that locale — redirecting to the cookie
+  // locale (e.g. / → /pt) poisons the App Router cache for `/`, so the language select can't
+  // soft-navigate back to English after writing NEXT_LOCALE=en.
+  if (isPrefetch(req)) return intl(req);
+
+  // A saved choice wins; with none, guess once from the country and remember it.
   const saved = req.cookies.get(LOCALE_COOKIE)?.value;
   const locale = isLocale(saved) ? saved : localeForCountry(req.headers.get('x-vercel-ip-country'));
 

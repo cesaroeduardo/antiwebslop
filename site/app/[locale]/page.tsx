@@ -105,7 +105,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {t('hero.title')}
             </h1>
             <div className="flex flex-col gap-4 md:col-span-5 md:pt-[0.4rem] lg:pt-[0.55rem]">
-              <p className="max-w-[44ch] font-mono text-sm text-muted md:text-base">{t('hero.line')}</p>
+              <p className="max-w-[70ch] font-sans text-sm text-muted md:text-base">{t('hero.line')}</p>
               <CopyCommand command={INSTALL_ANY} label={t('hero.installLabel')} />
               <div className="flex flex-wrap items-center gap-3">
                 <a

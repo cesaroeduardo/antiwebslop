@@ -18,6 +18,10 @@ const YEAR = 60 * 60 * 24 * 365;
  * are prefetched on hover/focus/open), so only the RSC payload of the prerendered page is fetched, not a full reload.
  * next-intl's router is not used on purpose: with localePrefix as-needed it routes English through /en and the
  * client kept /en in the address bar.
+ *
+ * English (unprefixed `/`) is not prefetched while on another locale, and switching to it uses a full load:
+ * proxy.ts redirects unprefixed paths when NEXT_LOCALE is still pt/fr/es, which used to poison the router
+ * cache for `/` so soft-nav back to English bounced to the previous locale.
  */
 export function LanguageSelect({ current, options, label }: { current: string; options: LanguageOption[]; label: string }) {
   const [open, setOpen] = useState(false);
@@ -33,7 +37,11 @@ export function LanguageSelect({ current, options, label }: { current: string; o
   const prefetch = () => {
     if (prefetched.current) return;
     prefetched.current = true;
-    options.forEach((o) => { if (o.locale !== current) router.prefetch(o.href); });
+    // Skip unprefixed English while cookie is still another locale — that prefetch 307s to /pt|/fr|/es.
+    options.forEach((o) => {
+      if (o.locale === current || o.locale === 'en') return;
+      router.prefetch(o.href);
+    });
   };
 
   useEffect(() => {
@@ -61,6 +69,11 @@ export function LanguageSelect({ current, options, label }: { current: string; o
     if (o.locale === current) return close();
     setOpen(false);
     button.current?.focus();
+    // Full load for English so a prior poisoned `/` cache entry can't win over the new cookie.
+    if (o.locale === 'en') {
+      window.location.assign(o.href);
+      return;
+    }
     startTransition(() => router.replace(o.href, { scroll: false }));
   };
 
@@ -107,33 +120,34 @@ export function LanguageSelect({ current, options, label }: { current: string; o
         {selected.code}
         <ChevronDown aria-hidden size={14} className={`text-muted transition-transform duration-150 ${open ? 'rotate-180' : ''}`} />
       </button>
-      <ul
-        ref={list}
-        id={`${id}-list`}
-        role="listbox"
-        tabIndex={-1}
-        hidden={!open}
-        aria-label={label}
-        aria-activedescendant={open ? `${id}-${options[active].locale}` : undefined}
-        onKeyDown={onListKey}
-        className="absolute right-0 top-full z-50 mt-1 min-w-[11rem] rounded-control border border-border-strong bg-bg py-1 font-mono text-sm text-fg"
-      >
-        {options.map((o, i) => (
-          <li
-            key={o.locale}
-            id={`${id}-${o.locale}`}
-            role="option"
-            aria-selected={o.locale === current}
-            lang={o.hrefLang}
-            onPointerEnter={() => setActive(i)}
-            onClick={() => pick(o)}
-            className={`flex cursor-pointer items-baseline justify-between gap-4 px-3 py-1.5 ${i === active ? 'bg-surface-2' : ''}`}
-          >
-            <span className={o.locale === current ? 'text-accent' : 'text-fg'}>{o.code}</span>
-            <span className="text-cap text-muted">{o.name}</span>
-          </li>
-        ))}
-      </ul>
+      {open ? (
+        <ul
+          ref={list}
+          id={`${id}-list`}
+          role="listbox"
+          tabIndex={-1}
+          aria-label={label}
+          aria-activedescendant={`${id}-${options[active].locale}`}
+          onKeyDown={onListKey}
+          className="lang-select-list absolute right-0 top-full z-50 mt-1 min-w-[11rem] overflow-hidden rounded-control border border-border-strong bg-bg font-mono text-sm text-fg"
+        >
+          {options.map((o, i) => (
+            <li
+              key={o.locale}
+              id={`${id}-${o.locale}`}
+              role="option"
+              aria-selected={o.locale === current}
+              lang={o.hrefLang}
+              onPointerEnter={() => setActive(i)}
+              onClick={() => pick(o)}
+              className={`flex cursor-pointer items-baseline justify-between gap-4 px-3 py-1.5 ${i === active ? 'bg-surface-2' : ''}`}
+            >
+              <span className={o.locale === current ? 'text-accent' : 'text-fg'}>{o.code}</span>
+              <span className="text-cap text-muted">{o.name}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }

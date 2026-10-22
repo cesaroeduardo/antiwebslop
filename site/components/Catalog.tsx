@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
-import { ArrowDown, ArrowUp, Plus } from 'lucide-react';
+import { ArrowDown, Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Inline } from './Inline';
 
@@ -19,7 +19,7 @@ export type CatalogGroup = { title: string; items: CatalogItem[] };
 const INITIAL = 14;
 
 const btnClass =
-  'inline-flex h-11 items-center justify-center gap-2 rounded-control border border-border px-5 font-mono text-sm text-fg transition-[color,border-color,background-color] duration-150 hover:border-border-strong hover:bg-surface-2 disabled:pointer-events-none disabled:opacity-60';
+  'inline-flex h-11 items-center justify-center gap-2 rounded-control border border-border px-5 font-mono text-sm text-fg transition-[color,border-color,background-color] duration-150 hover:border-border-strong hover:bg-surface-2';
 
 /** Same blur reveal as Motion.tsx / DESIGN.md §8 (M5). */
 const REVEAL_TO = {
@@ -45,34 +45,20 @@ function takeGroups(groups: CatalogGroup[], limit: number): CatalogGroup[] {
   return out;
 }
 
-/** Keep `el` at the same viewport Y by correcting scroll as the document shortens (Lenis-aware). */
-function pinScrollTo(el: HTMLElement, pinY: number) {
-  const delta = el.getBoundingClientRect().top - pinY;
-  if (Math.abs(delta) < 0.5) return;
-  if (window.__lenis) window.__lenis.scrollTo(window.scrollY + delta, { immediate: true });
-  else window.scrollBy(0, delta);
-}
-
 export function Catalog({ groups }: { groups: CatalogGroup[] }) {
   const t = useTranslations('catalog');
   const [expanded, setExpanded] = useState(false);
-  const [collapsing, setCollapsing] = useState(false);
   // Only the expand that just happened should get data-catalog-fresh (avoids re-tagging on every render).
   const [revealTick, setRevealTick] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-  const toggleWrapRef = useRef<HTMLDivElement>(null);
-  /** Sits below the list / above the toggle — pinned in the viewport while extras collapse. */
-  const stickRef = useRef<HTMLDivElement>(null);
   const total = useMemo(() => groups.reduce((n, g) => n + g.items.length, 0), [groups]);
   const initial = useMemo(() => takeGroups(groups, INITIAL), [groups]);
   const initialNs = useMemo(() => new Set(initial.flatMap((g) => g.items.map((it) => it.n))), [initial]);
   const initialTitles = useMemo(() => new Set(initial.map((g) => g.title)), [initial]);
   const visible = expanded || total <= INITIAL ? groups : initial;
-  const canToggle = total > INITIAL;
   const sevLabel = (s: string) => (s === 'error|warn' ? t('errorOrWarn') : s);
 
-  // After "load more", blur-reveal each new group title and accordion row (M5), before paint to avoid a flash.
+  // After "show more", blur-reveal each new group title and accordion row (M5), before paint to avoid a flash.
   useLayoutEffect(() => {
     if (!expanded || !revealTick) return;
     const root = listRef.current;
@@ -108,101 +94,12 @@ export function Catalog({ groups }: { groups: CatalogGroup[] }) {
     };
   }, [expanded, revealTick]);
 
-  const showMore = () => {
-    setRevealTick((n) => n + 1);
-    setExpanded(true);
-  };
-
-  const showLess = async () => {
-    if (collapsing) return;
-    const root = listRef.current;
-    const wrap = toggleWrapRef.current;
-    const stick = stickRef.current;
-    const extras = root
-      ? Array.from(root.querySelectorAll<HTMLElement>('[data-catalog-extra]'))
-      : [];
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const duration = 0.55;
-
-    if (reduce || !extras.length) {
-      setExpanded(false);
-      setCollapsing(false);
-      return;
-    }
-
-    setCollapsing(true);
-    const { gsap } = await import('gsap');
-
-    // Pin the stick in the viewport: as extras shrink above it, scroll rises with them.
-    const pinY = stick?.getBoundingClientRect().top ?? 0;
-    const follow = () => {
-      if (stick) pinScrollTo(stick, pinY);
-    };
-
-    const finish = () => {
-      follow();
-      if (wrap) gsap.set(wrap, { clearProps: 'all' });
-      setExpanded(false);
-      setCollapsing(false);
-      // One more pin after React drops the extras from the DOM.
-      requestAnimationFrame(() => follow());
-    };
-
-    // Minimize control vanishes right away (ease-in).
-    if (wrap) {
-      const h = wrap.getBoundingClientRect().height;
-      wrap.style.overflow = 'hidden';
-      wrap.style.height = `${h}px`;
-      gsap.to(wrap, {
-        opacity: 0,
-        height: 0,
-        marginTop: 0,
-        duration: 0.22,
-        ease: 'power2.in',
-        overwrite: 'auto',
-      });
-    }
-
-    // Lock pixel heights so layout collapses (opacity-only left the scroll stranded below).
-    extras.forEach((el) => {
-      el.style.overflow = 'hidden';
-      el.style.height = `${el.getBoundingClientRect().height}px`;
-      el.style.flexShrink = '0';
-    });
-
-    gsap.to(extras, {
-      height: 0,
-      opacity: 0,
-      marginTop: 0,
-      marginBottom: 0,
-      paddingTop: 0,
-      paddingBottom: 0,
-      borderTopWidth: 0,
-      borderBottomWidth: 0,
-      filter: 'blur(8px)',
-      duration,
-      stagger: { each: 0.015, from: 'end' },
-      ease: 'power2.inOut',
-      overwrite: 'auto',
-      onUpdate: follow,
-      onComplete: finish,
-    });
-  };
-
   return (
-    // Margins (not gap) so collapsing extras can zero their space in the flex layout.
-    <div ref={listRef} className="flex flex-col">
-      {visible.map((g, i) => {
+    <div ref={listRef} className="flex flex-col gap-12">
+      {visible.map((g) => {
         const groupFresh = Boolean(revealTick) && expanded && !initialTitles.has(g.title);
-        const groupExtra = expanded && !initialTitles.has(g.title);
-        const isLast = i === visible.length - 1;
         return (
-          <div
-            key={g.title}
-            className={isLast ? undefined : 'mb-12'}
-            data-reveal={groupFresh || groupExtra ? undefined : ''}
-            {...(groupExtra ? { 'data-catalog-extra': '' } : {})}
-          >
+          <div key={g.title} data-reveal={groupFresh ? undefined : ''}>
             <h3
               lang="en"
               className="mb-3 font-mono text-sm text-muted"
@@ -213,15 +110,12 @@ export function Catalog({ groups }: { groups: CatalogGroup[] }) {
             <Accordion.Root type="multiple" className="flex flex-col gap-2">
               {g.items.map((it) => {
                 const itemFresh = Boolean(revealTick) && expanded && !initialNs.has(it.n);
-                // Partial groups: only the newly revealed rows are extras (whole new groups mark the wrapper).
-                const itemExtra = expanded && !groupExtra && !initialNs.has(it.n);
                 return (
                   <Accordion.Item
                     key={it.n}
                     value={String(it.n)}
                     className="rounded-card border border-border bg-surface data-[state=open]:border-border-strong"
                     {...(itemFresh ? { 'data-catalog-fresh': '' } : {})}
-                    {...(itemExtra ? { 'data-catalog-extra': '' } : {})}
                   >
                     <Accordion.Header asChild>
                       <h4>
@@ -259,23 +153,18 @@ export function Catalog({ groups }: { groups: CatalogGroup[] }) {
         );
       })}
 
-      <div ref={stickRef} aria-hidden className="pointer-events-none h-0 w-full overflow-hidden" />
-
-      {canToggle ? (
-        <div ref={toggleWrapRef} className="mt-12 flex justify-center">
+      {!expanded && total > INITIAL ? (
+        <div className="flex justify-center">
           <button
-            ref={toggleRef}
             type="button"
-            disabled={collapsing}
-            onClick={expanded ? showLess : showMore}
-            className={btnClass}
+            onClick={() => {
+              setRevealTick((n) => n + 1);
+              setExpanded(true);
+            }}
+            className={`${btnClass} origin-center scale-75`}
           >
-            {expanded ? t('showLess') : t('loadMore', { count: total - INITIAL })}
-            {expanded ? (
-              <ArrowUp aria-hidden size={14} strokeWidth={2} className="shrink-0" />
-            ) : (
-              <ArrowDown aria-hidden size={14} strokeWidth={2} className="shrink-0" />
-            )}
+            {t('loadMore', { count: total - INITIAL })}
+            <ArrowDown aria-hidden size={14} strokeWidth={2} className="shrink-0" />
           </button>
         </div>
       ) : null}

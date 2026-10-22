@@ -123,6 +123,17 @@
   @keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
 }
 
+/* Language select popup: M5-style blur reveal on open. */
+@media (prefers-reduced-motion: no-preference) {
+  .lang-select-list {
+    animation: lang-select-in 220ms var(--ease-out-quart);
+  }
+  @keyframes lang-select-in {
+    from { opacity: 0; transform: translateY(-6px); filter: blur(10px); }
+    to { opacity: 1; transform: none; filter: blur(0); }
+  }
+}
+
 /* Lenis */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }

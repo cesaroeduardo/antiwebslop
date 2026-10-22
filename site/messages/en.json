@@ -25,7 +25,7 @@
   },
   "hero": {
     "title": "Stop shipping the page everyone has already seen",
-    "line": "A very honest skill that stops your agent from shipping that generic UI junk.",
+    "line": "A very honest skill that stops your agent from shipping that generic UI junk nobody can stand seeing anymore.",
     "installLabel": "Install command",
     "seeUseCases": "See use cases"
   },
@@ -85,8 +85,7 @@
     "instead": "Do instead",
     "noRule": "no rule, by eye",
     "errorOrWarn": "error or warn",
-    "loadMore": "Show {count} more antipatterns",
-    "showLess": "Minimize antipatterns"
+    "loadMore": "Show all {count} anti-patterns"
   },
   "gallery": {
     "title": "The newer tells",
@@ -98,11 +97,11 @@
     "wordsTitle": "Copy pretending to be design",
     "wordsBody": "Tiny label on top of every fucking headline. Em dash every which way. Copy that goes “Not X. A Y.” and tells the user nothing. Trash all of it and write copy that actually looks good.",
     "iconsTitle": "Slop cards nobody can stand anymore",
-    "iconsBody": "Lightning, rocket, sparkle icons on every damn card, and those side strips nobody can stand anymore — someone had to say it. Oh, and those 10 identical CTAs on the same screen? Your user is exhausted just looking at it.",
+    "iconsBody": "Lightning, rocket, sparkle icons on every damn card, and those side strips nobody can stand anymore. Someone had to say it. Oh, and those 10 identical CTAs on the same screen? Your user is exhausted just looking at it.",
     "loopsTitle": "Motion that never shuts up",
-    "loopsBody": "A button that never gets tired of bouncing. A status dot blinking for no reason. Congrats, you’re the world’s best motion designer — except you’re not. Let’s clean up this mess by doing the basics well.",
+    "loopsBody": "A button that never gets tired of bouncing. A status dot blinking for no reason. Congrats, you’re the world’s best motion designer. Except you’re not. Let’s clean up this mess by doing the basics well.",
     "placeholdersTitle": "Ugly SVGs you somehow think look good",
-    "placeholdersBody": "Enough of those hideous flat SVG illustrations on your site. That isn’t illustration, it’s an abomination. Grab some references and prompt your generative AI for real images — not this SVG trash."
+    "placeholdersBody": "Enough of those hideous flat SVG illustrations on your site. That isn’t illustration, it’s an abomination. Grab some references and prompt your generative AI for real images, not this SVG trash."
   },
   "install": {
     "title": "Pick your agent, install it in one line",

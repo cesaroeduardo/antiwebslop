@@ -25,7 +25,7 @@
   },
   "hero": {
     "title": "Arrêtez de publier la page que tout le monde a déjà vue",
-    "line": "Une skill, très franche, qui empêche ton agent de pondre ces navets d’UI générique.",
+    "line": "Une skill, très franche, qui empêche ton agent de pondre ces navets d’UI générique dont plus personne ne veut voir.",
     "installLabel": "Commande d’installation",
     "seeUseCases": "Voir les use cases"
   },
@@ -85,8 +85,7 @@
     "instead": "À la place",
     "noRule": "pas de règle, à l’œil",
     "errorOrWarn": "erreur ou avertissement",
-    "loadMore": "Afficher {count} anti-patterns de plus",
-    "showLess": "Réduire les anti-patterns"
+    "loadMore": "Afficher les {count} anti-patterns"
   },
   "gallery": {
     "title": "Les signes plus récents",
@@ -98,11 +97,11 @@
     "wordsTitle": "Du copy qui se fait passer pour du design",
     "wordsBody": "Petit label au-dessus de chaque putain de headline. Em dash dans tous les sens. Une copy du genre « Pas X. Un Y. » qui ne dit rien à l’utilisateur. On jette tout ça et on écrit une copy qui accroche vraiment le regard.",
     "iconsTitle": "Cards slop dont plus personne ne veut",
-    "iconsBody": "Icône éclair, fusée, petite étincelle sur chaque card qui traîne, et ces side strips sur les cards personne n’en peut plus — fallait te le dire. Ah, et ces 10 CTA identiques sur le même écran ? Ton utilisateur est déjà fatigué juste en les voyant.",
+    "iconsBody": "Icône éclair, fusée, petite étincelle sur chaque card qui traîne, et ces side strips sur les cards personne n’en peut plus. Fallait te le dire. Ah, et ces 10 CTA identiques sur le même écran ? Ton utilisateur est déjà fatigué juste en les voyant.",
     "loopsTitle": "Du motion qui ne ferme jamais sa gueule",
-    "loopsBody": "Bouton qui ne se lasse jamais de sauter. Point de status qui clignote pour rien. Bravo, tu es le meilleur motion designer du monde — sauf que non. On range ce bordel en faisant bien le minimum vital.",
+    "loopsBody": "Bouton qui ne se lasse jamais de sauter. Point de status qui clignote pour rien. Bravo, tu es le meilleur motion designer du monde. Sauf que non. On range ce bordel en faisant bien le minimum vital.",
     "placeholdersTitle": "Des SVG moches que tu trouves beaux",
-    "placeholdersBody": "Stop aux illustrations svg flat horribles sur ton site. Ce n’est pas de l’illustration, c’est une abomination. On sort des références et on prompt ton IA générative pour de vraies images — pas ces déchets en forme de svg."
+    "placeholdersBody": "Stop aux illustrations svg flat horribles sur ton site. Ce n’est pas de l’illustration, c’est une abomination. On sort des références et on prompt ton IA générative pour de vraies images, pas ces déchets en forme de svg."
   },
   "install": {
     "title": "Choisissez votre agent, installez-la en une ligne",
