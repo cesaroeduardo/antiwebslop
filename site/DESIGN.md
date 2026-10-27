@@ -8,7 +8,7 @@
 - **Purpose:** explain what the antiwebslop skill does, show the evidence (lint output, before/after fixtures), and get it installed in one command.
 - **Constraints:** brand assets in `../assets/` (cover, icon, og) stay as they are; brand font DM Mono; colors exactly `#121212`, `#F7EDDB`, `#D1A8FF`. Copy in English (default, at `/`), Brazilian Portuguese (`/pt`), French (`/fr`) and Spanish (`/es`); catalog entries, comparison rows and prior-art notes stay English (read from the skill). WCAG AA, keyboard reachable, `prefers-reduced-motion` honored. No analytics, no tracking (the project sells "no telemetry"). Static output.
 - **Success means:** a visitor copies an install command for their agent, or opens the repo. Secondary: they open the anti-pattern catalog and understand the rule set in under a minute.
-- **Real content available:** `../skills/antiwebslop/references/anti-patterns.md` (67 entries), `slop-lint` output on `../tests/fixtures/`, the gallery fixtures rendered in `public/gallery/`, `../eval/` (rubric, A/B protocol; no runs yet), `../README.md` (install lines, comparison, prior art). **No users, quotes, or scores exist yet; none are shown.**
+- **Real content available:** `../skills/antiwebslop/references/anti-patterns.md` (68 entries), `slop-lint` output on `../tests/fixtures/`, the gallery fixtures rendered in `public/gallery/`, `../eval/` (rubric, A/B protocol; no runs yet), `../README.md` (install lines, comparison, prior art). **No users, quotes, or scores exist yet; none are shown.**
 
 ## 2. Design Read and surface types
 Reading this as: the antiwebslop landing and docs page for developers who ship UI with AI coding agents, a persuade surface with a terminal-editorial language (DM Mono display, flat near-black, one lavender mark), on Next.js 16 + Tailwind CSS 4 + GSAP/Lenis. Dials: V7 M5 D4.
@@ -73,7 +73,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 ## 9. Imagery and content
 - Imagery: renders of `../gallery/pages/*.html` (the test fixtures with lint findings outlined) at 2x, webp, cropped. Labels overlaid bottom-left on a solid bg chip.
 - Image slots (`public/slots/`: `catalog-findings` 16:9, `hook-feedback` 4:3, `newer-tells` 4:3) hold illustrative generated mockups supplied by Eduardo, not screenshots of real lint runs. They show what the findings look like; the real output is the gallery fixture render and the lint itself. Exception to the "no AI imagery" ban, limited to these three slots; replace them with real captures when available. Since 2026-10-21 only `newer-tells` is on the page (the bento section that showed the other two was removed; the files stay in `public/slots/`).
-- Voice: plain, specific, second person, numbers only when counted from the repo (67 entries, 57 rules).
+- Voice: plain, specific, second person, numbers only when counted from the repo (68 entries, 57 rules).
 - Headings carry no terminal period: h1–h4, card and row titles, in every locale. Body copy keeps its periods.
 - Content sources: generated at build by `scripts/build-content.mjs` from the repo files, committed as `content/generated.json` so the site also builds without the rest of the repo.
 
@@ -96,7 +96,7 @@ Everything else is a tint of these three, mixed in CSS (`color-mix`), so no extr
 - **Refs:** `../assets/cover.png`, `../assets/og.png`
 
 ### 2026-10-21 — Catalog content read from the skill at build time
-- **Context:** the site lists all 67 anti-patterns; a hand copy would drift.
+- **Context:** the site lists all 68 anti-patterns; a hand copy would drift.
 - **Decision:** `scripts/build-content.mjs` parses `anti-patterns.md`, runs the real lint on the fixtures, and writes `content/generated.json`; a root test fails if the committed JSON is stale.
 - **Why:** one source of truth; the site never claims a rule the lint lacks.
 - **Do not:** edit `content/generated.json` by hand.

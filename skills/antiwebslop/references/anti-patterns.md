@@ -290,3 +290,7 @@ it as the brand (e.g. a real purple brand color). Write that reason down; never 
 ### 61. Component-library monoculture (`lint: kit-monoculture`, warn)
 - **Detect:** the same kit combo stamped everywhere — `Card` + `Badge` + `Button` + `Separator` + `Dialog` (or their shadcn/Radix cousins) — even when plain text, a list, or a single action would do.
 - **Do instead:** Reach for the lightest structure that fits the job. Cards and dialogs earn their keep when the content is a separate, interactive object; otherwise use spacing, typography, and a link.
+
+### 68. Generic AI hero assets (design review)
+- **Detect:** the hero's footage, render or cut-out is stock generative material that could front any brand: neon rings around classical statues, chrome surrealism, NFT-style or mascot characters, rotating mandalas, vaporwave AI landscapes, glowing translucent flowers, an isolated object floating in a glass or chrome void, a silhouette walking toward a glowing portal. The technique around it (video hero, parallax, cut-out, crossfade) can be fine; the footage is the tell. Lint can't tell this from real footage, so check the rendered hero.
+- **Do instead:** Show the real thing: the product, the people who make or use it, the place it happens. With none of those to hand, ship a type-only hero and ask for real media; don't fill the slot with atmosphere.
