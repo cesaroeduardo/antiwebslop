@@ -141,7 +141,7 @@ those; expect overlapping findings if you do.
 | Path | What it is |
 |---|---|
 | `skills/antiwebslop/SKILL.md` | The skill (the only copy): surface types, source-of-truth order, work loop, pre-done checklist |
-| `skills/antiwebslop/references/` | Loaded on demand: anti-patterns, craft, examples, dials, DESIGN.md contract, image-to-code, visual QA, a11y audit, decision log, sources |
+| `skills/antiwebslop/references/` | Loaded on demand: anti-patterns, craft, examples, dials, premium patterns, DESIGN.md contract, image-to-code, visual QA, a11y audit, decision log, sources |
 | `skills/antiwebslop/templates/DESIGN.template.md` | A project's `DESIGN.md` starting point, with product truth and `design-tokens` |
 | `skills/antiwebslop/scripts/` | `slop-lint.mjs`, `cursor-hook.mjs`, `install-cursor-hook.mjs` |
 | `.claude-plugin/` | Claude Code plugin and marketplace manifests (the repo root is the plugin) |
@@ -181,6 +181,7 @@ Earlier names: `webdesign-knowledge`, then `webdesign-aislopkiller`. The GitHub 
 - [getdesign.md](https://getdesign.md/): `DESIGN.md` as a reusable brief.
 - [image-to-code-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/image-to-code-skill): reference → extract → implement.
 - [Playwright CLI](https://playwright.dev/agent-cli/introduction): multi-viewport screenshots.
+- [MotionSites skill](https://github.com/Motionsites-AI/claude-skill) by Viktor Oddy (MIT): premium motion and composition patterns, mined into `premium-patterns.md`.
 
 ## License
 

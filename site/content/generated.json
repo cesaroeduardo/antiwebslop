@@ -1134,6 +1134,13 @@
       "by": null,
       "license": null,
       "note": "multi-viewport screenshots."
+    },
+    {
+      "name": "MotionSites skill",
+      "url": "https://github.com/Motionsites-AI/claude-skill",
+      "by": "Viktor Oddy",
+      "license": "MIT",
+      "note": "premium motion and composition patterns, mined into `premium-patterns.md`."
     }
   ]
 }

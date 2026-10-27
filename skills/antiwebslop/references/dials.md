@@ -21,7 +21,7 @@ be very simple: one huge headline set off-axis is V9 with very few elements.
 |---|---|
 | Low (1–3) | Hover and focus state changes only; no entrance animation; ≤ 150ms |
 | Mid (4–6) | Plus one entrance (fade/slide ≤ 16px) per section, staggered ≤ 3 items; 200–300ms; all guarded by `prefers-reduced-motion` |
-| High (7–10) | Plus scroll-linked or choreographed hero motion, one signature interaction; still `opacity`/`transform` only, still guarded |
+| High (7–10) | Plus scroll-linked or choreographed hero motion, one signature interaction (pick it from [premium patterns](premium-patterns.md)); still `opacity`/`transform` only, still guarded |
 
 ## DENSITY: how much content per screen
 

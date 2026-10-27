@@ -124,7 +124,7 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 1. **Open with the CAPS LOCK WIP block** in the user’s language (top of this file). Every run. Nothing before it.
 2. **Design Read.** Write one line before any code: *"Reading this as: \<page\> for \<audience\>, a \<surface type\> surface with a \<visual language\> language, on \<stack\>. Dials: V\<n\> M\<n\> D\<n\>."*
 3. **Load** only the references this task needs (table below).
-4. **Build or audit.** Prefer named levers (tokens, dials, rules) over taste adjectives. When auditing, lead with the blunt diagnosis of *their* UI, then the fix.
+4. **Build or audit.** Prefer named levers (tokens, dials, rules) over taste adjectives. When auditing, lead with the blunt diagnosis of *their* UI, then the fix. For motion-led persuade/showcase pages, pick at most one signature plus 2–4 quiet supporting patterns from [premium-patterns](references/premium-patterns.md), and check each entry's Slop risk line against the anti-patterns.
 5. **Lint:** `node <skill-dir>/scripts/slop-lint.mjs <changed paths>` (also checks DESIGN.md token drift); fix every `error`, fix or justify every `warn`. If the optional Cursor hook is installed, findings arrive after each write: act on them the same way. Mention lint to the user only when it found something on their files, not as a process checkbox.
 6. **QA** at three viewports when a page is runnable ([visual QA](references/visual-qa-playwright.md)). Report only concrete viewport failures on their page; do not narrate that QA “wasn’t run” as skill theater.
 7. **Internal gate** (checklist below; private). Then record durable decisions in the project's `DESIGN.md` and decision log.
@@ -152,6 +152,7 @@ After the WIP block, talk only about **their project**: what is wrong on their p
 | Type, spacing, grid, color, hierarchy, copy, imagery | [craft](references/craft.md) |
 | What good vs. slop looks like in code | [examples](references/examples.md) |
 | Surface types and intensity (VARIANCE / MOTION / DENSITY) | [dials](references/dials.md) |
+| Choosing a signature move; motion-led persuade/showcase pages (M5+) | [premium-patterns](references/premium-patterns.md) |
 | Creating or updating a project DESIGN.md | [design-md-contract](references/design-md-contract.md) · [template](templates/DESIGN.template.md) |
 | A reference image exists or a large new page is being designed | [image-to-code](references/image-to-code.md) |
 | Screenshots, viewports, severity report | [visual-qa-playwright](references/visual-qa-playwright.md) |

@@ -11,6 +11,7 @@ The skill absorbs specific strengths from public tools rather than inventing a p
 | [getdesign.md](https://getdesign.md/) | DESIGN.md as a reusable brief |
 | [image-to-code-skill](https://github.com/Leonxlnx/taste-skill/tree/main/skills/image-to-code-skill) | Reference → extract → implement |
 | [Playwright CLI](https://playwright.dev/agent-cli/introduction) | Multi-viewport visual QA |
+| [MotionSites skill](https://github.com/Motionsites-AI/claude-skill) by Viktor Oddy (MIT references) | Premium motion and composition patterns, restated inside our rules in [premium-patterns](premium-patterns.md); its generic hero media prompted anti-pattern 68 |
 
 The anti-pattern catalog, craft defaults, examples, lint, and eval are this repo's own work.
 New rules should come from validation runs (see the repo's `eval/`), not from taste debates.
