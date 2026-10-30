@@ -9,12 +9,62 @@ breaks a rule, it goes to "Considered and rejected" below.
 Pick **one signature pattern per page plus 2–4 quiet supporting ones**, and never let two compete
 for the same viewport. Check every entry's **Slop risk** line before shipping it.
 
+## Intake
+
+Eduardo sends references: a URL, a screenshot, or both, usually from a gallery such as
+[Awwwards](https://www.awwwards.com/), Curated Design, Recent Design, Inspora or Design Spells.
+A reference is one live site or page; a library, skill or course goes under "Sources (inbox)"
+instead. Every reference enters as `saved` and moves through the same states as a source (see
+Vetting below): read the live page (`analyzed`), pull out the pattern and check it against the
+rules (`mined`), then write a numbered candidate entry citing the reference id (`candidate`).
+
+Aim new references at the gaps in [pattern-map.md](pattern-map.md): a reference earns its place
+when it shows a correct alternative to an anti-pattern that has none yet.
+
+**Captured per reference:**
+
+- **id:** `R<n>-<slug>`, e.g. `R1-studio-name-work`; the slug is the site name and page, kebab-case.
+- **URL:** the live page, not the gallery listing (keep the gallery link in **source** if useful).
+- **Source gallery:** where it was found (Awwwards, Curated Design, Recent Design, Inspora, Design Spells, other).
+- **Date:** the day it was saved (`YYYY-MM-DD`).
+- **Surface type:** landing, product marketing, portfolio, editorial, e-commerce, docs, dashboard or app UI.
+- **What's good:** one plain sentence naming the move, not the vibe ("the case-study list is a
+  plain index; hovering a row swaps the image on the right").
+- **Replaces:** the anti-pattern numbers this reference shows a correct alternative to.
+- **Clash check:** every anti-pattern the page itself commits, with the result: `clear`,
+  `kept with caveat` (the move is good, the page also ships #N; the entry drops that part), or
+  `rejected` (the move itself is the anti-pattern; log it under "Considered and rejected").
+- **Status:** `saved` on arrival, then `analyzed`, `mined`, `candidate`, `vetted`.
+
+**Screenshots stay out of the repo.** Gallery screenshots and site imagery are third-party
+copyright. Keep them privately outside the repo (on the box: `/workspace/premium-refs/<id>/`,
+with a `notes.md`). The repo keeps only the URL and a written description in our own words; it
+never copies the site's code, copy or assets. Describe the pattern well enough that it can be
+built without the image.
+
+### Reference inbox
+
+| id | URL | Source gallery | Date | Surface | What's good | Replaces | Clash check | Status |
+|---|---|---|---|---|---|---|---|---|
+
+### Reference template
+
+```markdown
+| R<n>-<slug> | https://… | Awwwards | YYYY-MM-DD | landing | One plain sentence naming the move. | #7, #24 | #3 kept with caveat (frosted nav dropped) | saved |
+```
+
+When the reference is mined, its pattern becomes a numbered entry under "Candidates" (entry
+template below) whose **Source** line cites the reference id, e.g. `Reference R1-studio-name-work`.
+If a candidate for the same move already exists, add the id to that entry's **Source** line
+instead of writing a second entry.
+
 ## Vetting
 
 Patterns move through five states. Only an eval run (see the repo's `eval/`) promotes a candidate;
 taste debates do not.
 
-1. **saved:** a source is logged in the inbox below, with link, date, license and why it's here.
+1. **saved:** a source is logged in "Sources (inbox)", or a reference in the "Reference inbox"
+   above, with link, date, license (sources) or gallery (references) and why it's here.
 2. **analyzed:** the source has been read in full; its license and claims are checked.
 3. **mined:** its patterns were extracted, checked against anti-patterns and craft, and either
    written up as candidates or listed under "Considered and rejected".
@@ -36,6 +86,8 @@ taste debates do not.
 ```
 
 ## Sources (inbox)
+
+Libraries, skills and courses that hold many patterns. Single sites go in the Reference inbox above.
 
 ### MotionSites skill (Viktor Oddy): `mined`
 
