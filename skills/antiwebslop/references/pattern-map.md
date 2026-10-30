@@ -110,3 +110,21 @@ Motion and hero composition are well covered (MotionSites). Almost everything el
    release status outside the hero (#41), heroes whose next section shows at the fold (#39).
 7. **Plain backgrounds:** sections that hold up on a plain surface or a brand texture, with no
    grid, dots or stripes (#46, #54, #60).
+
+## References on file
+
+References in premium-patterns.md's "Reference inbox" that show a move for a gap but are not
+mined into candidates yet. They do not change the statuses above; a gap becomes partial or covered
+only once a candidate exists.
+
+| Gap | References | The move |
+|---|---|---|
+| #1, #5 | R1-beacon-home | Flat two-colour brand palette, one saturated accent, no glow |
+| #13, #14 | R1-beacon-home, R3-rulebase-home | Serif display over a text face; visible step from display to body |
+| #16, #43 | R2-quantinium-home | Feature cards drawn in one line-illustration style instead of icon tiles |
+| #21, #22 | R9-mindcloud-home | Prompt box as the primary action; a checkable, linked ranking as proof |
+| #23, #68 | R4-arantxa-barcia-home | A real portrait of the actual person as the hero image |
+| #39 | R4-arantxa-barcia-home | Hero subject cropped by the fold so the next section is implied |
+| #42 | R3-rulebase-home | A real product screen with believable content as the hero stage |
+| #42, #68 | R5-metricra-agent-crew, R7-frostbreak-home | A concept illustration or asset that makes the product idea literal |
+| #8 | R6-wegonorth-home | Headline split around a central visual |
