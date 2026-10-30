@@ -9,6 +9,10 @@ breaks a rule, it goes to "Considered and rejected" below.
 Pick **one signature pattern per page plus 2–4 quiet supporting ones**, and never let two compete
 for the same viewport. Check every entry's **Slop risk** line before shipping it.
 
+Proof and announcement elements (funding badges, avatar rows, logo strips, testimonials, stats,
+labels, product shots) are not banned; invented or careless ones are. When fixing a page, repair
+them instead of deleting them: see [repair-not-remove.md](repair-not-remove.md).
+
 ## Intake
 
 Eduardo sends references: a URL, a screenshot, or both, usually from a gallery such as

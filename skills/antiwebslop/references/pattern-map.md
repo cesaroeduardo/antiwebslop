@@ -7,6 +7,10 @@ choose what to look for next: a new reference earns its place by filling a **gap
 - **covered:** a candidate does the anti-pattern's "Do instead" as its main job.
 - **partial:** a candidate helps in one case or one surface only; the note says which.
 - **gap:** no candidate replaces it yet. The catalog's own "Do instead" still applies.
+- **Fix: repair:** the element carries content (badge, avatars, logos, quotes, numbers, labels,
+  product shots). Lint and review still flag it, but the fix makes it true and well made rather
+  than deleting it; remove only when no real data exists, and then say so and ask. See
+  [repair-not-remove.md](repair-not-remove.md).
 
 A pattern counts only when it fixes the problem, not when its "Slop risk" line merely warns
 against it. Candidate numbers refer to "Candidates" in premium-patterns.md; all are still
@@ -25,7 +29,7 @@ against it. Candidate numbers refer to "Candidates" in premium-patterns.md; all 
 | 9 | Same rhythm for every section | partial | 4 Scroll-paced statement reveal, 5 Pinned scroll story, 6 Sticky stacked cards give sections different jobs; no pattern for density and width per section |
 | 10 | Cards inside cards; card stacks for everything | gap | None. Needs grouping by space, alignment and dividers. |
 | 11 | Default bento grid | partial | 9 List-driven stage (real items of different kinds, one at a time); no bento-with-real-content pattern |
-| 12 | Hero overlays and stickers | covered | 11 Anchored hero composition (deliberate copy placement, one real secondary link, nothing above the headline) |
+| 12 | Hero overlays and stickers | covered | 11 Anchored hero composition (deliberate copy placement, one real secondary link, nothing above the headline) **Fix: repair** ([repair-not-remove](repair-not-remove.md)) |
 | 13 | Inter/Roboto/Arial as the only display face | gap | None. Needs display + text face pairings. |
 | 14 | No type scale | gap | None. Needs visible type scales. |
 | 62 | Crushed display tracking | gap | None. |
@@ -41,14 +45,14 @@ against it. Candidate numbers refer to "Candidates" in premium-patterns.md; all 
 | 19 | Removed focus outline | gap | None. 10 only keeps focus parity for its own hover. |
 | 20 | Generic hero and marketing copy | gap | None. Needs real copy examples. |
 | 21 | Generic CTAs | gap | None. 10 requires an action-naming label but doesn't supply one. |
-| 22 | Fake social proof and metrics | gap | None. Needs honest proof sections. |
+| 22 | Fake social proof and metrics | gap | None. Needs honest proof sections. **Fix: repair** ([repair-not-remove](repair-not-remove.md)) |
 | 23 | Stock filler content | gap | None. |
-| 24 | Eyebrow / kicker above a heading | covered | 14 Metadata label system (one label style for real metadata, never above a heading) |
+| 24 | Eyebrow / kicker above a heading | covered | 14 Metadata label system (one label style for real metadata, never above a heading) **Fix: repair** ([repair-not-remove](repair-not-remove.md)) |
 | 25 | Decorative section numbers | partial | 6 Sticky stacked cards (numbering earned by a real sequence) |
-| 26 | Hero-metric row | gap | None. Needs a single number with context. |
+| 26 | Hero-metric row | gap | None. Needs a single number with context. **Fix: repair** ([repair-not-remove](repair-not-remove.md)) |
 | 27 | Colored side-tab borders | gap | None. |
 | 28 | Bounce, elastic, or overshoot easing | covered | 1 Ordered hero entrance, 2 Once-only in-view reveal, 10 Rolling label button (ease-out with control points in 0–1) |
-| 29 | Endless attention loops | covered | 2 Once-only in-view reveal (motion runs once), 9 List-driven stage (user-driven, no auto-advance) |
+| 29 | Endless attention loops | covered | 2 Once-only in-view reveal (motion runs once), 9 List-driven stage (user-driven, no auto-advance) **Fix: repair** ([repair-not-remove](repair-not-remove.md)) |
 | 30 | Hard offset shadows | gap | None. |
 | 31 | Gray text on colored surfaces | gap | None. |
 | 32 | Em-dash overuse | gap | None. |
@@ -60,8 +64,8 @@ against it. Candidate numbers refer to "Candidates" in premium-patterns.md; all 
 | 38 | Locale / time / weather strips | partial | 14 Metadata label system (real metadata, e.g. the location of real work) |
 | 39 | Scroll cues | gap | None. Needs heroes whose next section shows at the fold. |
 | 40 | Marketing version footers | gap | None. Needs footers. |
-| 41 | Hero version labels | gap | None. |
-| 42 | Fake product UI mockups | gap | None. 12 frames a physical product cut-out, not UI. Needs real screenshot presentation. |
+| 41 | Hero version labels | gap | None. **Fix: repair** ([repair-not-remove](repair-not-remove.md)) |
+| 42 | Fake product UI mockups | gap | None. 12 frames a physical product cut-out, not UI. Needs real screenshot presentation. **Fix: repair** ([repair-not-remove](repair-not-remove.md)) |
 | 43 | Icon tile above a heading | gap | None. Needs feature lists led by type. |
 | 44 | Italic serif display headline | gap | None. |
 | 45 | Decorative blinking cursor | partial | 3 Masked line rise (the headline entrance that replaces the typewriter caret) |
