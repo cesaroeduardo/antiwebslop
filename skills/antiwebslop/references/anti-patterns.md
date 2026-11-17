@@ -8,8 +8,11 @@ When you tell the user about a hit, do not recite the catalog title. Say what’
 *their* page in plain language — same blunt register as the skill (“Stop shipping the page
 everyone has already seen”). The rows below are evidence, not a script.
 
-An anti-pattern is allowed only when the project's tokens or `DESIGN.md` document
-it as the brand (e.g. a real purple brand color). Write that reason down; never assume it.
+Visual catalog matches require the contextual evidence and scope check in
+[SKILL.md](../SKILL.md#source-of-truth-read-in-this-order-earlier-wins-on-conflict) before changing inherited tokens or shared patterns.
+Confirm intentional exceptions from brand assets, documented decisions, component usage, or user direction,
+and record the source and reason. Missing documentation is uncertainty, not proof of slop.
+Accessibility and content-honesty failures still require a fix; brand intent does not excuse them.
 
 ## Color and surface
 

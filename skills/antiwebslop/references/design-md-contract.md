@@ -19,6 +19,7 @@ Credit: [getdesign.md](https://getdesign.md/).
 - Every rule has a *why* in one line.
 - Keep the `design-tokens` block current: `fonts:`, `colors:` (hex), `radii:`, comma-separated. `slop-lint` uses it to flag off-system values (`token-font`, `token-color`, `token-radius`); the lint skips the check when the block is missing.
 - When code tokens and DESIGN.md disagree, code is the truth for what ships today: fix DESIGN.md or open a TODO; do not silently restyle.
+- A catalog match or missing brand documentation does not authorize replacing existing tokens. Follow the contextual evidence and scope check in [SKILL.md](../SKILL.md#source-of-truth-read-in-this-order-earlier-wins-on-conflict). Record confirmed intent with its source, the observed failure, and the scope of any authorized change; never invent a rationale to justify a token.
 
 ## Read order (earlier wins on conflict)
 

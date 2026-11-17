@@ -15,6 +15,17 @@ export type ChangelogEntry = {
 
 export const changelog: ChangelogEntry[] = [
   {
+    id: '2026-11-17-preserve-design-system',
+    date: '2026-11-17',
+    title: 'Context before replacing design-system decisions',
+    items: [
+      'Catalog matches and lint severity alone no longer authorize replacing inherited tokens or shared patterns on any surface',
+      'Require contextual evidence, a concrete failure, and authorized scope; prefer local fixes using existing tokens',
+      'Preserve uncertain brand decisions and document confirmed exceptions without excusing accessibility or content-honesty failures',
+      'Added paired review scenarios for intentional brand choices, starter defaults, and local accessibility fixes; no blind A/B results claimed',
+    ],
+  },
+  {
     id: '2026-10-22-site-changelog',
     date: '2026-10-22',
     title: 'Changelog page on the site',
