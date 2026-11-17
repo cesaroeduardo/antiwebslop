@@ -112,12 +112,20 @@ Operate surfaces keep the project's design system and kit unless a redesign was 
 2. The project's own **`DESIGN.md`** (repo root or `docs/`), one per project, with product truth and a `design-tokens` block; create it from [the template](templates/DESIGN.template.md) if missing and the task is more than a small fix
 3. **This skill's defaults** (references below)
 
-**Slop is not a source of truth.** Tokens and patterns that match the [anti-patterns](references/anti-patterns.md) (default purple/indigo gradients, Inter-everywhere, one radius and shadow on everything, generic SaaS sections) are not inherited, even when they sit in the theme file. Keep only what is genuinely the brand's own: logo, product UI, real photography, a documented palette.
+**A catalog match is a signal to investigate, not permission to replace the design system.** A purple accent, the font Inter, a repeated radius, or a familiar component can be an intentional brand or usability decision. This applies to every surface type, including persuade and showcase.
 
-**Fallback when nothing authored exists** (every token and pattern is slop):
+Before changing an inherited token or shared pattern:
+1. **Check context.** Read the theme, component usage, brand assets, `DESIGN.md`, and decision log. Cite the file, asset, user instruction, or observed behavior supporting the diagnosis. Missing documentation alone does not prove a default is accidental.
+2. **Name the failure.** Explain what this use breaks for this audience and surface: hierarchy, readability, task completion, accessibility, or a documented brand constraint. A catalog match, lint severity, popularity, or personal taste alone is not evidence of failure.
+3. **Keep the scope local.** Prefer fixing the failing application (copy, contrast, spacing, hierarchy) using existing tokens. Replace a shared token or pattern only when the requested scope authorizes it and the evidence supports that specific change. A request to fix slop is not blanket authorization to rebrand.
+4. **Preserve uncertainty.** If intent is unclear, keep the inherited value, state the uncertainty, and propose the smallest alternative. Ask only when the unresolved decision is necessary to complete the task. Document confirmed exceptions and authorized changes with their evidence in `DESIGN.md` and the decision log; do not invent brand rationale to silence lint.
+
+Lint remains a source check, not a judge of brand intent. For a confirmed intentional visual choice, use the existing lint suppression syntax with a specific reason and evidence. Do not suppress accessibility or content-honesty failures as brand exceptions.
+
+**Fallback when no usable authored direction is established** (a new project, or replacement of confirmed starter defaults within an authorized redesign):
 1. Ask the user for the logo, the product (what it does, for whom) and any brand material. Do not invent a brand.
 2. Get references: use the user's, find 2-3 real sites that fit the surface type, or generate section images ([image-to-code](references/image-to-code.md)). You can also point the user to galleries to explore on their own: [Awwwards](https://www.awwwards.com/), [Inspora](https://www.inspora.design/), [60fps](https://60fps.design/) (motion), [Design Spells](https://designspells.com/) (micro-interactions and details), [Minimal Gallery](https://minimal.gallery/) and [Recent Design](https://recent.design/websites); as secondary options, [Curated Design](https://curated.design/) and [Superhero](https://superhero.io/). Ask them to pick 2-3 sites and say why each one, so it does not become an endless list of links.
-3. Only then define new tokens in `DESIGN.md` from that material and state the Design Read. The old slop tokens are replaced, not mapped.
+3. Only then define new tokens in `DESIGN.md` from that material and state the Design Read. Replace only the confirmed starter defaults within the authorized scope; preserve unrelated brand and product decisions.
 
 ## Work loop (the only canonical copy)
 
@@ -187,4 +195,5 @@ Answer every line to yourself before saying you are done. Do **not** render this
 - [ ] Spacing comes from one scale; one accent color with a defined job; no off-token values
 - [ ] The first viewport has one job, also at 390px
 - [ ] Focus is visible; motion respects `prefers-reduced-motion`; contrast is AA
+- [ ] All surfaces: inherited tokens and shared patterns are preserved unless context supports a specific change within the authorized scope; catalog matches alone never authorize replacement
 - [ ] Operate surfaces: the existing kit and tokens are preserved unless a redesign was requested
